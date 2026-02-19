@@ -1,0 +1,119 @@
+estrutura_home:
+  navbar:
+    logo: muda quando for mobile
+    subnavs:
+      - Sobre nós
+      - Projetos
+        sub:
+          - Patrocinador
+      - Salas de aula
+      - Contato
+      - Calendário de eventos
+      - Auditório
+      - Aulas (cursos)
+      - Diretoria
+      - Palavra do presidente
+  
+  hero:
+    imagem: true
+    texto_acima_titulo: texto colorido
+    titulo: true
+    subtitulo: true
+    botoes:
+      - principal
+      - secundário
+  
+  sobre:
+    intro: texto de intro
+    titulo: true
+    descricao: true
+    imagem: true
+    cta: texto botão
+  
+  apoiadores:
+    intro: texto de intro
+    patrocinadores:
+      - nome
+      - imagem
+      - link: opcional
+    cta: texto botão
+  
+  impacto:
+    intro: texto de intro
+    titulo: true
+    subtitulo: true
+    array_impactos:
+      - titulo
+      - subtitulo
+      - imagem
+      - valor: número do impacto
+  
+  trabalhos:
+    intro: texto de intro
+    titulo: true
+    subtitulo: true
+    array_cursos:
+      - titulo
+      - categoria: evento, curso, etc
+      - imagem
+      - evento:
+          data: data do evento
+      - curso:
+          professor:
+            foto: true
+            nome: true
+    mensagem_final: true
+    cta: ver todos os trabalhos
+  
+  projetos:
+    intro: texto de intro
+    titulo: true
+    subtitulo: true
+    array_projetos:
+      - imagem
+      - titulo
+      - subtitulo
+      - categoria
+      - valor_arrecadado: número
+      - valor_meta: número
+    cta: quero ajudar este projeto
+  
+  ajude_nos:
+    intro: texto de intro
+    titulo: true
+    subtitulo: true
+    array_formas_ajuda:
+      - icone
+      - titulo
+      - subtitulo
+      - link
+      - imagem
+    mensagem_final: true
+    cta: ver todos os trabalhos
+  
+  faq:
+    intro: texto de intro
+    titulo: true
+    subtitulo: true
+    array_faq:
+      - pergunta
+      - resposta
+    mensagem_final: true
+    cta: ver todos os trabalhos
+  
+  rodape:
+    logo: true
+    slogan: true
+    seja_apoiador:
+      texto: true
+      subtexto: true
+      email: true
+    navegacao:
+      - links_principais
+      - outros_links
+      - redes_sociais
+      - contato
+    contatos:
+      - email
+      - telefone: link do whatsapp
+      - endereco: link do google maps
