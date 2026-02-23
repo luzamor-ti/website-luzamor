@@ -2,6 +2,9 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { client } from "@/sanity/lib/sanity/client";
+import { getNavbar } from "@/sanity/lib/services/navbarService";
+import { getConfiguracaoGlobal } from "@/sanity/lib/services/configuracaoService";
+import { NavBar } from "@/components/NavBar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -28,27 +31,9 @@ export const metadata = {
 };
 
 async function getLayoutData() {
-  const config = await client.fetch(`*[_type == "configuracaoGlobal"][0]`);
-  const navbar = await client.fetch(`
-    *[_type == "navbar"][0]{
-      itens[]{
-        tituloPersonalizado,
-        pagina->{
-          _type,
-          titulo,
-          "slug": slug.current
-        },
-        submenu[]{
-          tituloPersonalizado,
-          pagina->{
-            _type,
-            titulo,
-            "slug": slug.current
-          }
-        }
-      }
-    }
-  `);
+  const config = await getConfiguracaoGlobal();
+  console.log("🚀 ~ getLayoutData ~ config:", config);
+  const navbar = await getNavbar();
 
   const rodape = await client.fetch(`*[_type == "rodape"][0]`);
 
@@ -60,8 +45,9 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { config } = await getLayoutData();
+  const { config, navbar } = await getLayoutData();
   const tema = config?.tema || {};
+  console.log("🚀 ~ RootLayout ~ tema:", tema);
 
   return (
     <html lang="pt-BR">
@@ -76,6 +62,7 @@ export default async function RootLayout({
           } as React.CSSProperties
         }
       >
+        <NavBar logo={config?.logo} {...navbar}></NavBar>
         {children}
       </body>
     </html>

@@ -1,6 +1,5 @@
 "use client";
 
-// Exporta todos os componentes de seção
 export { HeroSection } from "./HeroSection";
 export { ProjetosSection } from "./ProjetosSection";
 export { MembrosSection } from "./MembrosSection";

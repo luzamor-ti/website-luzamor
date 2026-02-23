@@ -4,7 +4,20 @@ export const configuracaoGlobalQuery = `
     tituloHero,
     subtituloHero,
     logo,
-    corPrimaria,
-    corSecundaria
+    tema{
+      corPrimaria,
+      corSecundaria,
+      corDestaque,
+      corFundo,
+      corTexto
+    },
+    contato{
+      email,
+      telefone,
+      endereco,
+      facebook,
+      instagram,
+      linkedin
+    }
   }
 `;

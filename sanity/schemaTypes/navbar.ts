@@ -20,48 +20,24 @@ export const navbar = defineType({
               description:
                 "Se vazio, usa automaticamente o título da página vinculada",
             },
-            // {
-            //   name: "pagina",
-            //   title: "Página Vinculada",
-            //   type: "reference",
-            //   to: [
-            //     { type: "paginaSobre" },
-            //     { type: "paginaContato" },
-            //     { type: "paginaProjetos" },
-            //     { type: "paginaTrabalhos" },
-            //     { type: "paginaHome" },
-            //   ],
-            //   validation: (Rule) => Rule.required(),
-            // },
-            // {
-            //   name: "submenu",
-            //   title: "Submenu",
-            //   type: "array",
-            //   of: [
-            //     {
-            //       type: "object",
-            //       fields: [
-            //         {
-            //           name: "tituloPersonalizado",
-            //           title: "Título Personalizado",
-            //           type: "string",
-            //         },
-            //         {
-            //           name: "pagina",
-            //           title: "Página Vinculada",
-            //           type: "reference",
-            //           to: [
-            //             { type: "paginaSobre" },
-            //             { type: "paginaContato" },
-            //             { type: "paginaProjetos" },
-            //             { type: "paginaTrabalhos" },
-            //           ],
-            //         },
-            //       ],
-            //     },
-            //   ],
-            // },
+            {
+              name: "slug",
+              title: "Slug da Página",
+              type: "string",
+            },
           ],
+        },
+      ],
+    }),
+    defineField({
+      name: "botaoPrincipal",
+      title: "Botão Principal",
+      type: "object",
+      fields: [
+        {
+          name: "titulo",
+          title: "Título do Botão",
+          type: "string",
         },
       ],
     }),
