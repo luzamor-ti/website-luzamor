@@ -50,7 +50,7 @@ Todo o conteúdo é gerenciado pelo Sanity CMS e servido via SSR (Server-Side Re
 | **Next.js**           | 16.1.6  | Framework principal (App Router, SSR)           |
 | **React**             | 19.2.3  | Camada de UI                                    |
 | **TypeScript**        | 5       | Tipagem estática                                |
-| **Tailwind CSS**      | 4.1.18  | Estilização utility-first                       |
+| **Tailwind CSS**      | 4.2.0   | Estilização utility-first                       |
 | **Framer Motion**     | 12.34.2 | Animações declarativas                          |
 | **Sanity**            | 4.22.0  | Headless CMS (Content Lake)                     |
 | **next-sanity**       | 11.6.12 | Integração Next.js ↔ Sanity                     |
