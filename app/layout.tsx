@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { client } from "@/sanity/lib/sanity/client";
+import Navbar from "@/components/Navbar";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -33,19 +34,11 @@ async function getLayoutData() {
     *[_type == "navbar"][0]{
       itens[]{
         tituloPersonalizado,
-        pagina->{
-          _type,
-          titulo,
-          "slug": slug.current
-        },
-        submenu[]{
-          tituloPersonalizado,
-          pagina->{
-            _type,
-            titulo,
-            "slug": slug.current
-          }
-        }
+        slug
+      },
+      botaoPrincipal{
+        titulo,
+        slug
       }
     }
   `);
@@ -60,7 +53,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { config } = await getLayoutData();
+  const { config, navbar } = await getLayoutData();
   const tema = config?.tema || {};
 
   return (
@@ -76,6 +69,11 @@ export default async function RootLayout({
           } as React.CSSProperties
         }
       >
+        <Navbar
+          itens={navbar?.itens ?? []}
+          logo={config?.logo}
+          botaoPrincipal={navbar?.botaoPrincipal}
+        />
         {children}
       </body>
     </html>
