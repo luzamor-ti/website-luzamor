@@ -27,7 +27,6 @@ export const metadata = {
 
 async function getLayoutData() {
   const config = await getConfiguracaoGlobal();
-  console.log("🚀 ~ getLayoutData ~ config:", config);
   const navbar = await getNavbar();
 
   const rodape = await client.fetch(`*[_type == "rodape"][0]`);
@@ -42,7 +41,6 @@ export default async function RootLayout({
 }>) {
   const { config, navbar } = await getLayoutData();
   const tema = config?.tema || {};
-  console.log("🚀 ~ RootLayout ~ tema:", tema);
 
   return (
     <html lang="pt-BR">
