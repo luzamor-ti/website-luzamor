@@ -24,11 +24,11 @@ Componentes de seção (UI pura)
 
 /components/home
   HeroSection.tsx            # Seção hero
-  ProjetosSection.tsx        # Lista de projetos
-  MembrosSection.tsx         # Equipe
-  ApoiadoresSection.tsx      # Apoiadores
+  ProjectsSection.tsx        # Lista de projetos
+  MembersSection.tsx         # Equipe
+  SupportersSection.tsx      # Apoiadores
   FaqSection.tsx             # FAQ com accordion
-  ContatoSection.tsx         # Informações de contato
+  ContactSection.tsx         # Informações de contato
   index.ts                   # Exports centralizados
 
 /sanity/lib
@@ -97,11 +97,11 @@ Cada componente:
 Exemplo:
 
 ```typescript
-interface ProjetosSectionProps {
+interface ProjectsSectionProps {
   data: Projeto[]
 }
 
-export function ProjetosSection({ data }: ProjetosSectionProps) {
+export function ProjectsSection({ data }: ProjectsSectionProps) {
   return (
     <section className="py-20 px-4">
       {data.map(projeto => (
@@ -125,11 +125,11 @@ export default async function Home() {
   return (
     <main>
       <HeroSection data={configuracao} />
-      <ProjetosSection data={projetos} />
-      <MembrosSection data={membros} />
-      <ApoiadoresSection data={apoiadores} />
+      <ProjectsSection data={projetos} />
+      <MembersSection data={membros} />
+      <SupportersSection data={apoiadores} />
       <FaqSection data={faq} />
-      <ContatoSection data={contatos} />
+      <ContactSection data={contatos} />
     </main>
   )
 }
