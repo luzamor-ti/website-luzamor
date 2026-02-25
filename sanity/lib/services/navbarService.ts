@@ -1,7 +1,10 @@
-import { client } from "../sanity/client";
+import { sanityFetch } from "../live";
 import { NavBar } from "../types/navbar";
-import { navbarQuery } from "../queries/navbar";
+import { NAVBAR_QUERY } from "../queries/navbar";
 
 export async function getNavbar(): Promise<NavBar | null> {
-  return client.fetch(navbarQuery);
+  const { data } = await sanityFetch({
+    query: NAVBAR_QUERY,
+  });
+  return data;
 }

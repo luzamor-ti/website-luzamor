@@ -1,5 +1,19 @@
 import { defineType, defineField } from "sanity";
 
+const paginasDisponiveis = [
+  { title: "Home", value: "home" },
+  { title: "Projetos", value: "projetos" },
+  { title: "Sobre Nós", value: "sobre-nos" },
+  { title: "Salas de Aula", value: "salas-aula" },
+  { title: "Contato", value: "contato" },
+  { title: "Auditório", value: "auditorio" },
+  { title: "Diretoria", value: "diretoria" },
+  { title: "Palavra do Presidente", value: "palavra-presidente" },
+  { title: "Patrocinador", value: "patrocinador" },
+  { title: "Calendário de Eventos", value: "calendario-eventos" },
+  { title: "Cursos", value: "cursos" },
+];
+
 export const navbar = defineType({
   name: "navbar",
   title: "Navbar",
@@ -12,20 +26,82 @@ export const navbar = defineType({
       of: [
         {
           type: "object",
+          name: "menuItem",
           fields: [
             {
-              name: "tituloPersonalizado",
-              title: "Título Personalizado (opcional)",
+              name: "pagina",
+              title: "Página",
               type: "string",
-              description:
-                "Se vazio, usa automaticamente o título da página vinculada",
+              options: {
+                list: paginasDisponiveis,
+              },
+              validation: (Rule: any) => Rule.required(),
             },
             {
-              name: "slug",
-              title: "Slug da Página",
+              name: "titulo",
+              title: "Título do Item",
               type: "string",
+              validation: (Rule: any) => Rule.required(),
+              description: "Texto que aparecerá no menu",
+            },
+            {
+              name: "subItens",
+              title: "Sub-itens (Menu Dropdown)",
+              type: "array",
+              of: [
+                {
+                  type: "object",
+                  name: "subMenuItem",
+                  fields: [
+                    {
+                      name: "pagina",
+                      title: "Página",
+                      type: "string",
+                      options: {
+                        list: paginasDisponiveis,
+                      },
+                      validation: (Rule: any) => Rule.required(),
+                    },
+                    {
+                      name: "titulo",
+                      title: "Título do Sub-item",
+                      type: "string",
+                      validation: (Rule: any) => Rule.required(),
+                    },
+                  ],
+                  preview: {
+                    select: {
+                      titulo: "titulo",
+                      pagina: "pagina",
+                    },
+                    prepare({ titulo, pagina }) {
+                      return {
+                        title: titulo,
+                        subtitle: `→ ${pagina}`,
+                      };
+                    },
+                  },
+                },
+              ],
+              description: "Adicione sub-itens para criar um menu dropdown",
             },
           ],
+          preview: {
+            select: {
+              titulo: "titulo",
+              pagina: "pagina",
+              temSubItens: "subItens",
+            },
+            prepare({ titulo, pagina, temSubItens }) {
+              const hasDropdown = temSubItens && temSubItens.length > 0;
+              return {
+                title: titulo,
+                subtitle: hasDropdown
+                  ? `${pagina} (${temSubItens.length} sub-itens)`
+                  : pagina,
+              };
+            },
+          },
         },
       ],
     }),

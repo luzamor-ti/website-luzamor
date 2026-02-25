@@ -1,0 +1,10 @@
+export { ProjetosTemplate } from "./ProjetosTemplate";
+export { SobreNosTemplate } from "./SobreNosTemplate";
+export { ContatoTemplate } from "./ContatoTemplate";
+export { SalasAulaTemplate } from "./SalasAulaTemplate";
+export { AuditorioTemplate } from "./AuditorioTemplate";
+export { DiretoriaTemplate } from "./DiretoriaTemplate";
+export { PalabraPresidenteTemplate } from "./PalabraPresidenteTemplate";
+export { PatrocinadorTemplate } from "./PatrocinadorTemplate";
+export { CalendarioEventosTemplate } from "./CalendarioEventosTemplate";
+export { CursosTemplate } from "./CursosTemplate";

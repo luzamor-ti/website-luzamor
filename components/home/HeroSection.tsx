@@ -4,7 +4,6 @@ import { motion } from "framer-motion";
 import { Hero } from "@/sanity/lib/types/hero";
 import { slideUpVariants, staggerContainerVariants } from "@/lib/animations";
 import { Heading, Text, Button } from "@/components/ui";
-import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { ArrowRight } from "lucide-react";
 
 interface HeroSectionProps {
