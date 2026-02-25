@@ -1,18 +1,13 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
+import { Inter } from "next/font/google";
 import "./globals.css";
 import { client } from "@/sanity/lib/sanity/client";
 import { getNavbar } from "@/sanity/lib/services/navbarService";
 import { getConfiguracaoGlobal } from "@/sanity/lib/services/configuracaoService";
 import { NavBar } from "@/components/NavBar";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
-  subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
 });
 
@@ -52,13 +47,14 @@ export default async function RootLayout({
   return (
     <html lang="pt-BR">
       <body
+        className={inter.variable}
         style={
           {
-            "--color-primary": tema.corPrimaria,
-            "--color-secondary": tema.corSecundaria,
-            "--color-accent": tema.corDestaque,
-            "--color-bg": tema.corFundo,
-            "--color-text": tema.corTexto,
+            "--color-primary": tema.corPrimaria || "#6366f1",
+            "--color-secondary": tema.corSecundaria || "#8b5cf6",
+            "--color-accent": tema.corDestaque || "#10b981",
+            "--color-bg": tema.corFundo || "#ffffff",
+            "--color-text": tema.corTexto || "#1f2937",
           } as React.CSSProperties
         }
       >

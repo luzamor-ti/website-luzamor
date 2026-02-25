@@ -1,36 +1,34 @@
 import { getHomeData } from "@/sanity/lib/services/homeService";
+import { getHeroData } from "@/sanity/lib/services/heroService";
 import {
   HeroSection,
-  ProjetosSection,
-  MembrosSection,
-  ApoiadoresSection,
+  ProjectsSection,
+  MembersSection,
+  SupportersSection,
   FaqSection,
-  ContatoSection,
+  ContactSection,
+  IntroSection,
+  ImpactSection,
+  InitiativesSection,
+  HowToHelpSection,
 } from "@/components/home";
 
 export default async function Home() {
-  const { projetos, membros, apoiadores, faq, contatos, configuracao } =
-    await getHomeData();
+  const { projetos, membros, apoiadores, faq, contatos } = await getHomeData();
+  const hero = await getHeroData();
 
   return (
     <main>
-      {/* HERO */}
-      <HeroSection data={configuracao} />
-
-      {/* PROJETOS */}
-      <ProjetosSection data={projetos} />
-
-      {/* MEMBROS */}
-      <MembrosSection data={membros} />
-
-      {/* APOIADORES */}
-      <ApoiadoresSection data={apoiadores} />
-
-      {/* FAQ */}
+      <HeroSection data={hero} />
+      <IntroSection />
+      <SupportersSection data={apoiadores} />
+      <ImpactSection />
+      <InitiativesSection />
+      <ProjectsSection data={projetos} />
+      <HowToHelpSection />
       <FaqSection data={faq} />
-
-      {/* CONTATO */}
-      <ContatoSection data={contatos} />
+      <MembersSection data={membros} />
+      <ContactSection data={contatos} />
     </main>
   );
 }

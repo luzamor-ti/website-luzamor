@@ -1,29 +1,71 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
 
-:root {
-  --color-primary: #6366f1;
-  --color-secondary: #8b5cf6;
-  --color-bg: #ffffff;
-  --color-text: #1f2937;
+@layer utilities {
+  /* Cores primárias */
+  .bg-primary {
+    background-color: var(--color-primary);
+  }
+  .text-primary {
+    color: var(--color-primary);
+  }
+  .border-primary {
+    border-color: var(--color-primary);
+  }
+
+  /* Cores secundárias */
+  .bg-secondary {
+    background-color: var(--color-secondary);
+  }
+  .text-secondary {
+    color: var(--color-secondary);
+  }
+  .border-secondary {
+    border-color: var(--color-secondary);
+  }
+
+  /* Cores de destaque */
+  .bg-accent {
+    background-color: var(--color-accent);
+  }
+  .text-accent {
+    color: var(--color-accent);
+  }
+  .border-accent {
+    border-color: var(--color-accent);
+  }
+
+  /* Hover states */
+  .hover\:bg-primary:hover {
+    background-color: var(--color-primary);
+  }
+  .hover\:text-primary:hover {
+    color: var(--color-primary);
+  }
+  .hover\:border-primary:hover {
+    border-color: var(--color-primary);
+  }
 }
 
 body {
   background-color: var(--color-bg);
   color: var(--color-text);
-  font-family: var(--font-geist-sans);
+  font-family: var(--font-inter), sans-serif;
 }
 
-.btn-primary {
-  padding: 0.75rem 1.5rem;
-  border-radius: 0.5rem;
-  font-weight: 600;
-  transition: opacity 0.2s;
-  background-color: var(--color-primary);
-  color: white;
+/* Animação do Ticker */
+@keyframes ticker {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
-.btn-primary:hover {
-  opacity: 0.9;
+.animate-ticker {
+  animation: ticker linear infinite;
+}
+
+.animate-ticker:hover {
+  animation-play-state: var(--ticker-pause);
 }
