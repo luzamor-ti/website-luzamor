@@ -16,10 +16,15 @@ export function ContactSection({ data, section }: ContactSectionProps) {
   }
 
   const fallback = TEXT_FALLBACKS.contact;
-  const labels = section?.labels || fallback.labels;
+  const labels = section?.labels ||
+    fallback.labels || {
+      email: "E-mail",
+      phone: "Telefone",
+      address: "Endereço",
+    };
 
   return (
-    <Section className="bg-white">
+    <Section className="bg-gray-50">
       <div className="max-w-2xl mx-auto">
         <SectionHeader
           tag={section?.tag || fallback.tag}
@@ -28,7 +33,11 @@ export function ContactSection({ data, section }: ContactSectionProps) {
         />
         <div className="space-y-6">
           {data.map((contact) => (
-            <Card key={contact._id} padding="lg">
+            <Card
+              key={contact._id}
+              padding="lg"
+              className="border-2 border-primary/20 hover:border-accent/40 transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
               {contact.email && (
                 <div className="mb-4">
                   <Text variant="small" className="text-gray-600 mb-1">

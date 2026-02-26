@@ -4,7 +4,6 @@ import { getHomeSectionsByNames } from "@/sanity/lib/services/homeSectionService
 import {
   HeroSection,
   ProjectsSection,
-  MembersSection,
   SupportersSection,
   FaqSection,
   ContactSection,
@@ -12,23 +11,34 @@ import {
   ImpactSection,
   InitiativesSection,
   HowToHelpSection,
+  CoursesSection,
+  EventsSection,
 } from "@/components/home";
 
 export default async function Home() {
-  const { projects, members, supporters, faq, contacts } = await getHomeData();
+  const {
+    projects,
+    supporters,
+    faq,
+    contacts,
+    configuration,
+    courses,
+    events,
+  } = await getHomeData();
   const hero = await getHeroData();
 
   // Busca todas as seções do CMS
   const sections = await getHomeSectionsByNames([
     "intro",
     "projects",
-    "members",
     "supporters",
     "faq",
     "contact",
     "impact",
     "initiatives",
     "howToHelp",
+    "courses",
+    "events",
   ]);
 
   return (
@@ -39,9 +49,14 @@ export default async function Home() {
       <ImpactSection data={sections.impact} />
       <InitiativesSection data={sections.initiatives} />
       <ProjectsSection data={projects} section={sections.projects} />
+      <CoursesSection
+        data={courses}
+        section={sections.courses}
+        config={configuration}
+      />
       <HowToHelpSection data={sections.howToHelp} />
+      <EventsSection data={events} section={sections.events} />
       <FaqSection data={faq} section={sections.faq} />
-      <MembersSection data={members} section={sections.members} />
       <ContactSection data={contacts} section={sections.contact} />
     </main>
   );

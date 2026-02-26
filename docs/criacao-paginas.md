@@ -73,7 +73,7 @@ export default function MinhaPage() {
       </section>
 
       {/* Seção de Conteúdo 1 */}
-      <Section className="bg-white">
+      <Section>
         <SectionHeader tag="Categoria" title="Título da Seção" />
         {/* Conteúdo */}
       </Section>
@@ -132,7 +132,7 @@ import { ArrowRight } from "lucide-react";
 
 function IntroSection() {
   return (
-    <Section className="bg-white">
+    <Section>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <div>
           <SectionHeader tag="Sobre" title="Nossa História" />
@@ -212,7 +212,7 @@ function FaqSection() {
   ];
 
   return (
-    <Section className="bg-white">
+    <Section>
       <div className="max-w-3xl mx-auto">
         <SectionHeader
           tag="Dúvidas"
@@ -340,7 +340,7 @@ export function MinhaSection({ data }: MinhaSectionProps) {
   }
 
   return (
-    <Section className="bg-white">
+    <Section>
       <SectionHeader tag="Tag" title="Título" />
       <Grid cols={3} gap="lg">
         {data.map((item) => (
@@ -546,7 +546,7 @@ import { Heart, Handshake, Award } from "lucide-react";
    <div style={{ padding: "20px", margin: "10px", ... }}>
 
    // ✅ Prefira
-   <Section className="bg-white">
+   <Section >
    ```
 
 2. **Não duplique código**
@@ -612,7 +612,7 @@ export default function SobrePage() {
       </section>
 
       {/* Missão */}
-      <Section className="bg-white">
+      <Section>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
           <div>
             <SectionHeader tag="Missão" title="O que nos move" />
@@ -729,7 +729,7 @@ interface CursosSectionProps {
 export function CursosSection({ data }: CursosSectionProps) {
   if (!data || data.length === 0) {
     return (
-      <Section className="bg-white">
+      <Section>
         <Text className="text-center text-gray-500">
           Nenhum curso disponível no momento.
         </Text>
@@ -738,7 +738,7 @@ export function CursosSection({ data }: CursosSectionProps) {
   }
 
   return (
-    <Section className="bg-white">
+    <Section>
       <SectionHeader
         tag="Educação"
         title="Cursos Disponíveis"

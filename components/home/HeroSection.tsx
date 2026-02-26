@@ -17,6 +17,7 @@ export function HeroSection({ data }: HeroSectionProps) {
       initial="hidden"
       animate="visible"
       variants={staggerContainerVariants}
+      aria-label="Hero section"
       style={{
         backgroundImage: backgroundImage
           ? `url(${backgroundImage})`

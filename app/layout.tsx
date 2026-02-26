@@ -56,6 +56,38 @@ export default async function RootLayout({
           } as React.CSSProperties
         }
       >
+        <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
+          <div
+            className="absolute -left-48 top-1/4 w-[500px] h-[500px] rounded-full blur-[120px]"
+            style={{
+              backgroundColor: theme.primaryColor || "#00B749",
+              opacity: 0.3,
+            }}
+          />
+          <div
+            className="absolute -left-32 top-2/3 w-[400px] h-[400px] rounded-full blur-[100px]"
+            style={{
+              backgroundColor: theme.primaryColor || "#00B749",
+              opacity: 0.03,
+            }}
+          />
+
+          <div
+            className="absolute -right-48 top-1/3 w-[480px] h-[480px] rounded-full blur-[120px]"
+            style={{
+              backgroundColor: theme.primaryColor || "#00B749",
+              opacity: 0.2,
+            }}
+          />
+          <div
+            className="absolute -right-36 top-3/4 w-[420px] h-[420px] rounded-full blur-[110px]"
+            style={{
+              backgroundColor: theme.primaryColor || "#00B749",
+              opacity: 0.1,
+            }}
+          />
+        </div>
+
         <NavBar logo={config?.logo} {...navbar}></NavBar>
         {children}
         <Footer logo={config?.logo} {...footer}></Footer>

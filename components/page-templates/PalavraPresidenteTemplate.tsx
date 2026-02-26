@@ -1,17 +1,17 @@
 "use client";
-import { Pagina } from "@/sanity/lib/types/pagina";
 import { Section, Heading, Grid, SectionHeader, Text } from "@/components/ui";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
-import { getPalavraPresidente } from "@/sanity/lib/services/membroService";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { motion } from "framer-motion";
 import { staggerContainerVariants } from "@/lib/animations";
 import { use, useEffect, useState } from "react";
 import { Membro } from "@/sanity/lib";
+import { getWordsOfPresident } from "@/sanity/lib/services/memberService";
+import { Page } from "@/sanity/lib/types/page";
 
 interface PalabraPresidenteTemplateProps {
-  pagina: Pagina;
+  pagina: Page;
 }
 
 export function PalavraPresidenteTemplate({
@@ -20,7 +20,7 @@ export function PalavraPresidenteTemplate({
   const [presidentData, setPresidentData] = useState<Membro | null>();
 
   useEffect(() => {
-    getPalavraPresidente().then((data) => setPresidentData(data));
+    getWordsOfPresident().then((data) => setPresidentData(data));
   }, []);
 
   if (!presidentData) return <div>Carregando...</div>;
@@ -56,7 +56,7 @@ export function PalavraPresidenteTemplate({
             height={500}
           ></Image>
           <div className="text-white">
-            <SectionHeader variant="dark" title={pagina.titulo}></SectionHeader>
+            <SectionHeader variant="dark" title={pagina.title}></SectionHeader>
             {presidentData.palavra && (
               <PortableText value={presidentData.palavra} />
             )}

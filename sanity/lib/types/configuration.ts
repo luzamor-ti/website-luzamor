@@ -8,6 +8,16 @@ export interface ThemeColors {
   textColor?: string;
 }
 
+export interface ContactInfo {
+  email?: string;
+  phone?: string;
+  whatsapp?: string;
+  address?: string;
+  facebook?: string;
+  instagram?: string;
+  linkedin?: string;
+}
+
 export interface GlobalConfiguration {
   _id: string;
   _type: "configuracaoGlobal";
@@ -16,4 +26,5 @@ export interface GlobalConfiguration {
   logo?: SanityImage;
   favicon?: SanityImage;
   theme?: ThemeColors;
+  contact?: ContactInfo;
 }

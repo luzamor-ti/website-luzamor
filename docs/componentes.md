@@ -34,9 +34,7 @@ Container de seção com animações automáticas usando Framer Motion.
 ```tsx
 import { Section } from "@/components/ui";
 
-<Section className="bg-white" id="sobre">
-  {/* Conteúdo da seção */}
-</Section>;
+<Section id="sobre">{/* Conteúdo da seção */}</Section>;
 ```
 
 **Props:**
@@ -657,7 +655,7 @@ import { Section, SectionHeader, Text, Button } from "@/components/ui";
 
 function SobreSection() {
   return (
-    <Section className="bg-white">
+    <Section>
       <SectionHeader
         tag="Sobre nós"
         title="Uma fundação que transforma"

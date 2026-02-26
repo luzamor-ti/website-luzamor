@@ -38,6 +38,13 @@ export const configuracaoGlobal = defineType({
           type: "string",
         },
         {
+          name: "whatsapp",
+          title: "WhatsApp",
+          type: "string",
+          description: "Número padrão para inscrições. Formato: 5511999999999",
+          placeholder: "5511999999999",
+        },
+        {
           name: "endereco",
           type: "string",
         },
@@ -60,32 +67,84 @@ export const configuracaoGlobal = defineType({
       name: "tema",
       title: "Tema Visual",
       type: "object",
+      description:
+        "Configure as cores do site. Use códigos hexadecimais (ex: #00B749)",
       fields: [
         {
-          name: "corPrimaria",
+          name: "primaryColor",
           title: "Cor Primária",
           type: "string",
-          description: "Ex: #0D3B66",
+          description:
+            "Cor principal do site (ex: #00B749). Usada em botões, links e destaques.",
+          placeholder: "#00B749",
+          validation: (Rule: any) =>
+            Rule.custom((value: string) => {
+              if (!value) return true;
+              return (
+                /^#[0-9A-Fa-f]{6}$/.test(value) ||
+                "Use formato hexadecimal: #000000"
+              );
+            }),
         },
         {
-          name: "corSecundaria",
+          name: "secondaryColor",
           title: "Cor Secundária",
           type: "string",
+          description: "Cor secundária para elementos de apoio.",
+          placeholder: "#8b5cf6",
+          validation: (Rule: any) =>
+            Rule.custom((value: string) => {
+              if (!value) return true;
+              return (
+                /^#[0-9A-Fa-f]{6}$/.test(value) ||
+                "Use formato hexadecimal: #000000"
+              );
+            }),
         },
         {
-          name: "corDestaque",
+          name: "accentColor",
           title: "Cor de Destaque",
           type: "string",
+          description: "Cor para chamar atenção em elementos específicos.",
+          placeholder: "#10b981",
+          validation: (Rule: any) =>
+            Rule.custom((value: string) => {
+              if (!value) return true;
+              return (
+                /^#[0-9A-Fa-f]{6}$/.test(value) ||
+                "Use formato hexadecimal: #000000"
+              );
+            }),
         },
         {
-          name: "corFundo",
+          name: "backgroundColor",
           title: "Cor de Fundo",
           type: "string",
+          description: "Cor de fundo padrão do site.",
+          placeholder: "#ffffff",
+          validation: (Rule: any) =>
+            Rule.custom((value: string) => {
+              if (!value) return true;
+              return (
+                /^#[0-9A-Fa-f]{6}$/.test(value) ||
+                "Use formato hexadecimal: #000000"
+              );
+            }),
         },
         {
-          name: "corTexto",
+          name: "textColor",
           title: "Cor de Texto",
           type: "string",
+          description: "Cor padrão do texto.",
+          placeholder: "#1f2937",
+          validation: (Rule: any) =>
+            Rule.custom((value: string) => {
+              if (!value) return true;
+              return (
+                /^#[0-9A-Fa-f]{6}$/.test(value) ||
+                "Use formato hexadecimal: #000000"
+              );
+            }),
         },
       ],
     }),

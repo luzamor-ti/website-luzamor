@@ -22,6 +22,7 @@ interface FallbackCard {
   number?: string;
   linkText?: string;
   icon?: string;
+  image?: string;
 }
 
 interface SectionFallback {
@@ -31,6 +32,7 @@ interface SectionFallback {
   buttonText?: string;
   linkText?: string;
   number?: string;
+  description_footer?: string;
   cards?: FallbackCard[];
   labels?: FallbackLabels;
 }
@@ -81,11 +83,11 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
 
   projects: {
     tag: "Projetos",
-    title: "Nossos Projetos",
+    title: "Venha participar dos nossos projetos",
     description:
-      "Conheça as iniciativas que estão transformando nossa comunidade",
+      "Nosso esforço provê manter e melhorar a cultura de nossa cidade, impactando os cidadãos para um melhor bem-estar.",
     buttonText: "Ver Todos os Projetos",
-    linkText: "Saiba Mais",
+    linkText: "Ver todos os projetos",
   },
 
   members: {
@@ -98,10 +100,11 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
   },
 
   supporters: {
-    tag: "Apoiadores",
+    tag: "Nossos apoiadores em 2026",
     title: "Nossos Apoiadores",
     description: "Empresas e organizações que acreditam e apoiam nossa missão",
     buttonText: "Seja um Apoiador",
+    linkText: "Ver todos os apoiadores",
   },
 
   initiatives: {
@@ -130,9 +133,27 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
 
   faq: {
     tag: "FAQ",
-    title: "Perguntas Frequentes",
+    title: "Seja qual for sua dúvida, a gente respode",
     description:
-      "Encontre respostas para as dúvidas mais comuns sobre a Fundação Luzamor",
+      "Procure por questões comuns sobre doação, cursos e nossos trabalhos",
+  },
+
+  courses: {
+    tag: "Cursos",
+    title: "Aprenda com a gente",
+    description:
+      "Cursos gratuitos para a comunidade, ensinando habilidades práticas e transformando vidas",
+  },
+
+  events: {
+    tag: "Eventos",
+    title: "Próximos eventos",
+    description:
+      "Participe de nossos eventos e faça parte da transformação social",
+    buttonText: "Ver todos os eventos",
+    linkText: "Ver todos os eventos",
+    description_footer:
+      "Fique por dentro de todos os nossos eventos e atividades. Participe e faça parte da transformação!",
   },
 
   contact: {
@@ -158,45 +179,50 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
         title: "Projetos realizados",
         description:
           "Promovendo a cultura e fomentando a educação da população",
+        image: "",
         number: "1.000+",
       },
       {
         title: "Cursos e aulas",
         description: "Com profissionais extremamente competentes",
+        image: "",
         number: "20+",
       },
       {
         title: "Parcerias ativas",
         description: "Garantindo excelência e melhorias sempre",
+        image: "",
         number: "15+",
       },
     ],
   },
 
   howToHelp: {
-    tag: "Como Ajudar",
-    title: "Faça Parte da Mudança",
-    description: "Existem diversas formas de contribuir com nossa missão",
-    linkText: "Saiba Como Ajudar",
+    tag: "Como você pode nos ajudar",
+    title: "Unidos, nós transformamos",
+    description:
+      "Fomentando a cultura e melhorando a qualidade de vida da nossa cidade tão preciosa.",
+    linkText: "Junte-se à nossa missão",
+    buttonText: "Seu apoio pode transformar vidas e inspirar um futuro melhor.",
+    description_footer:
+      "Seu apoio pode transformar vidas e inspirar um futuro melhor para toda a comunidade.",
     cards: [
       {
-        title: "Seja Voluntário",
-        description: "Doe seu tempo e conhecimento para nossos projetos",
-        icon: "Handshake",
+        title: "Seja parceiro pessoa física",
+        description:
+          "Ajude também diretamente como pessoa física e ajude-nos a melhorar ainda mais",
+        icon: "Users",
       },
       {
-        title: "Doe",
-        description: "Contribua financeiramente com nossas iniciativas",
+        title: "Faça uma doação",
+        description:
+          "Seja um apoiador e ajude-nos a fazer cada vez mais e melhor.",
         icon: "DollarSign",
       },
       {
-        title: "Eduque",
-        description: "Compartilhe conhecimento em nossas oficinas",
-        icon: "GraduationCap",
-      },
-      {
-        title: "Divulgue",
-        description: "Ajude a espalhar nossa missão",
+        title: "Seja voluntário",
+        description:
+          "Doe seu tempo e talento para transformar vidas na nossa comunidade.",
         icon: "Heart",
       },
     ],

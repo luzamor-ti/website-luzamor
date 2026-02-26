@@ -1,6 +1,8 @@
 export { Section } from "./Section";
 export { SectionHeader } from "./SectionHeader";
+export { SectionFooter } from "./SectionFooter";
 export { Button } from "./Button";
+export { LinkButton } from "./LinkButton";
 export { Card } from "./Card";
 export { Grid } from "./Grid";
 export { Heading, Text, Link, Tag } from "./Typography";

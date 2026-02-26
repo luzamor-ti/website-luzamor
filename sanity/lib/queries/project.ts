@@ -3,15 +3,17 @@
 // =============================
 
 export const projetosHomeQuery = `
-  *[_type == "projeto" && ativo == true]
-  | order(_createdAt desc)[0...3]{
+  *[_type == "projeto" && ativo == true && destaque == true]
+  | order(_createdAt desc)[0...5]{
     _id,
     "title": titulo,
     "slug": slug.current,
     "coverImage": imagemCapa,
     "shortDescription": descricaoCurta,
     "goalAmount": valorMeta,
-    "raisedAmount": valorArrecadado
+    "raisedAmount": valorArrecadado,
+    "category": categoria,
+    "featured": destaque
   }
 `;
 

@@ -5,15 +5,16 @@ export const configuracaoGlobalQuery = `
     "heroSubtitle": subtituloHero,
     "logo": logo,
     "theme": tema{
-      "primaryColor": corPrimaria,
-      "secondaryColor": corSecundaria,
-      "accentColor": corDestaque,
-      "backgroundColor": corFundo,
-      "textColor": corTexto
+      "primaryColor": primaryColor,
+      "secondaryColor": secondaryColor,
+      "accentColor": accentColor,
+      "backgroundColor": backgroundColor,
+      "textColor": textColor
     },
     "contact": contato{
       "email": email,
       "phone": telefone,
+      "whatsapp": whatsapp,
       "address": endereco,
       "facebook": facebook,
       "instagram": instagram,

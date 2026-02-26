@@ -15,7 +15,7 @@ const IntroSection = ({ data }: IntroSectionProps) => {
   const fallback = TEXT_FALLBACKS.intro;
 
   return (
-    <Section className="bg-white">
+    <Section>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <motion.div variants={staggerItemVariants}>
           <SectionHeader
@@ -34,7 +34,11 @@ const IntroSection = ({ data }: IntroSectionProps) => {
           </Button>
         </motion.div>
         <motion.div variants={staggerItemVariants}>
-          <div className="bg-gradient-to-br from-gray-200 to-gray-300 h-96 rounded-2xl shadow-lg"></div>
+          <div className="relative h-96 rounded-2xl shadow-2xl overflow-hidden bg-gray-100">
+            {/* Padrão decorativo */}
+            <div className="absolute top-4 right-4 w-32 h-32 bg-primary/10 rounded-full blur-3xl" />
+            <div className="absolute bottom-4 left-4 w-40 h-40 bg-primary/10 rounded-full blur-3xl" />
+          </div>
         </motion.div>
       </div>
     </Section>

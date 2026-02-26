@@ -24,7 +24,10 @@ Componentes de seção (UI pura)
 
 /components/home
   HeroSection.tsx            # Seção hero
+  IntroSection.tsx           # Introdução
   ProjectsSection.tsx        # Lista de projetos
+  CoursesSection.tsx         # 🆕 Cursos oferecidos
+  EventsSection.tsx          # 🆕 Eventos futuros
   MembersSection.tsx         # Equipe
   SupportersSection.tsx      # Apoiadores
   FaqSection.tsx             # FAQ com accordion
@@ -35,6 +38,8 @@ Componentes de seção (UI pura)
   /queries
     configuracao.ts          # GROQ para configuração global
     projeto.ts
+    curso.ts                 # 🆕 GROQ para cursos
+    evento.ts                # 🆕 GROQ para eventos
     membro.ts
     apoiador.ts
     faq.ts
@@ -43,6 +48,8 @@ Componentes de seção (UI pura)
   /services
     configuracaoService.ts   # Busca configuração
     projetoService.ts
+    cursoService.ts          # 🆕 Busca cursos
+    eventoService.ts         # 🆕 Busca eventos
     membroService.ts
     apoiadorService.ts
     faqService.ts
@@ -52,31 +59,55 @@ Componentes de seção (UI pura)
   /types
     configuracao.ts
     projeto.ts
+    curso.ts                 # 🆕 Tipos para cursos
+    evento.ts                # 🆕 Tipos para eventos
     membro.ts
     apoiador.ts
     faq.ts
     contato.ts
 ```
 
-## 🧠 Como Funciona
+## 🧠 Com
 
-### 1. **homeService.ts** - O Orquestrador
+    projects,
+    courses,
+    events,
+    members,
+    supporters,
+    faq,
+    contacts,
+    configuration
 
-```typescript
-export async function getHomeData(): Promise<HomeData> {
-  const [projetos, membros, apoiadores, faq, contatos, configuracao] =
-    await Promise.all([
-      getProjetosHome(),
-      getMembrosHome(),
-      getApoiadoresDestaque(),
+] = await Promise.all([
+getProjectsHome(),
+getCourses(), // 🆕 Cursos
+getUpcomingEvents(), // 🆕 Eventos futuros
+getMembersHome(),
+getFeaturedSupporters(),
+getFaqSummary(),
+getContacts(),
+getGlobalConfiguration(),
+]);
+
+return {
+projects,
+courses,
+events,
+members,
+supporters,
+faq,
+contacts,
+configuration,
+
       getFaqResumo(),
       getContatos(),
       getConfiguracaoGlobal(),
     ]);
 
-  return { projetos, membros, apoiadores, faq, contatos, configuracao };
+return { projetos, membros, apoiadores, faq, contatos, configuracao };
 }
-```
+
+````
 
 **Por que Promise.all?**
 
@@ -101,19 +132,33 @@ interface ProjectsSectionProps {
   data: Projeto[]
 }
 
-export function ProjectsSection({ data }: ProjectsSectionProps) {
+    projects,
+    courses,
+    events,
+    members,
+    supporters,
+    faq,
+    contacts,
+    configuration
+  } = await getHomeData();
+
   return (
-    <section className="py-20 px-4">
-      {data.map(projeto => (
-        <div key={projeto._id}>
-          <h3>{projeto.titulo}</h3>
-          <p>{projeto.descricaoCurta}</p>
-        </div>
-      ))}
-    </section>
+    <main>
+      <HeroSection data={hero} />
+      <IntroSection />
+      <SupportersSection data={supporters} />
+      <ImpactSection />
+      <InitiativesSection />
+      <ProjectsSection data={projects} />
+      <CoursesSection data={courses} config={configuration} />  {/* 🆕 */}
+      <HowToHelpSection />
+      <EventsSection data={events} />                           {/* 🆕 */}
+      <FaqSection data={faq} />
+      <MembersSection data={members} />
+      <ContactSection data={contact
   )
 }
-```
+````
 
 ### 3. **Home Page** - Apenas Composição
 

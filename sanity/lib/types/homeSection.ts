@@ -43,4 +43,6 @@ export type SectionName =
   | "contact"
   | "impact"
   | "initiatives"
-  | "howToHelp";
+  | "howToHelp"
+  | "courses"
+  | "events";

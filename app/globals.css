@@ -50,6 +50,7 @@ body {
   background-color: var(--color-bg);
   color: var(--color-text);
   font-family: var(--font-inter), sans-serif;
+  overflow-x: hidden;
 }
 
 /* Animação do Ticker */
@@ -68,4 +69,38 @@ body {
 
 .animate-ticker:hover {
   animation-play-state: var(--ticker-pause);
+}
+
+/* Animação de FadeIn para imagens */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Esconder scrollbar no carrossel */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* Perspectiva 3D para cards */
+.perspective-1000 {
+  perspective: 1000px;
+}
+
+@layer utilities {
+  .line-clamp-3 {
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
 }
