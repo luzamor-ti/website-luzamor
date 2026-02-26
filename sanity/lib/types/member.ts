@@ -1,3 +1,4 @@
+import { PortableTextBlock } from "next-sanity";
 import { Image as SanityImage } from "sanity";
 
 export interface Member {
@@ -10,4 +11,3 @@ export interface Member {
   words?: PortableTextBlock[];
   order?: number;
 }
-import { PortableTextBlock } from "next-sanity";
