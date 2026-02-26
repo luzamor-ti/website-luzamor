@@ -1,9 +1,9 @@
-import { Pagina } from "@/sanity/lib/types/pagina";
+import { Page } from "@/sanity/lib/types/page";
 import { Section, Heading, Text } from "@/components/ui";
 import { PortableText } from "@portabletext/react";
 
 interface SalasAulaTemplateProps {
-  pagina: Pagina;
+  pagina: Page;
 }
 
 export function SalasAulaTemplate({ pagina }: SalasAulaTemplateProps) {
@@ -11,16 +11,16 @@ export function SalasAulaTemplate({ pagina }: SalasAulaTemplateProps) {
     <main className="min-h-screen pt-24">
       <Section>
         <Heading level={1} className="text-center">
-          {pagina.titulo}
+          {pagina.title}
         </Heading>
-        {pagina.descricao && (
+        {pagina.description && (
           <Text variant="large" className="text-center mt-4 max-w-3xl mx-auto">
-            {pagina.descricao}
+            {pagina.description}
           </Text>
         )}
-        {pagina.conteudo && (
+        {pagina.content && (
           <div className="mt-8 prose prose-lg max-w-4xl mx-auto">
-            <PortableText value={pagina.conteudo} />
+            <PortableText value={pagina.content} />
           </div>
         )}
       </Section>

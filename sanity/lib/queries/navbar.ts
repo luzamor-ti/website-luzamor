@@ -3,19 +3,19 @@ import { defineQuery } from "next-sanity";
 export const NAVBAR_QUERY = defineQuery(`
   *[_type == "navbar"][0]{
     _id,
-    itens[]{
+    "items": itens[]{
       _key,
-      pagina,
-      titulo,
-      subItens[]{
+      "page": pagina,
+      "title": titulo,
+      "subItems": subItens[]{
         _key,
-        pagina,
-        titulo
+        "page": pagina,
+        "title": titulo
       }
     },
-    botaoPrincipal{
-      titulo,
-      url
+    "primaryButton": botaoPrincipal{
+      "title": titulo,
+      "url": url
     }
   }
 `);

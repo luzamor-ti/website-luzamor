@@ -1,30 +1,32 @@
 "use client";
-import { Pagina } from "@/sanity/lib/types/pagina";
-import { Section, Heading, Grid, SectionHeader, Text } from "@/components/ui";
+import { Grid, SectionHeader } from "@/components/ui";
 import { PortableText } from "@portabletext/react";
 import Image from "next/image";
-import { getPalavraPresidente } from "@/sanity/lib/services/membroService";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { motion } from "framer-motion";
 import { staggerContainerVariants } from "@/lib/animations";
-import { use, useEffect, useState } from "react";
-import { Membro } from "@/sanity/lib";
+import { useEffect, useState } from "react";
+import { getWordsOfPresident } from "@/sanity/lib/services/memberService";
+import { Page } from "@/sanity/lib/types/page";
+import { Member } from "@/sanity/lib/types/member";
 
 interface PalabraPresidenteTemplateProps {
-  pagina: Pagina;
+  pagina: Page;
 }
 
 export function PalavraPresidenteTemplate({
   pagina,
 }: PalabraPresidenteTemplateProps) {
-  const [presidentData, setPresidentData] = useState<Membro | null>();
+  const [presidentData, setPresidentData] = useState<Member | null>();
 
   useEffect(() => {
-    getPalavraPresidente().then((data) => setPresidentData(data));
+    getWordsOfPresident().then((data) => setPresidentData(data));
   }, []);
 
   if (!presidentData) return <div>Carregando...</div>;
-  const imgPresident = buildSanityImageUrl(presidentData.foto.asset._ref);
+  const imgPresident = buildSanityImageUrl(
+    presidentData.photo?.asset?._ref || "",
+  );
   return (
     <main className="min-h-screen">
       <div
@@ -50,15 +52,15 @@ export function PalavraPresidenteTemplate({
       >
         <Grid cols={2} className="max-w-6xl mx-auto items-center">
           <Image
-            alt={presidentData.alt}
+            alt={presidentData.name || "Foto do presidente"}
             src={imgPresident}
             width={500}
             height={500}
           ></Image>
           <div className="text-white">
-            <SectionHeader variant="dark" title={pagina.titulo}></SectionHeader>
-            {presidentData.palavra && (
-              <PortableText value={presidentData.palavra} />
+            <SectionHeader variant="dark" title={pagina.title}></SectionHeader>
+            {presidentData.words && (
+              <PortableText value={presidentData.words} />
             )}
           </div>
         </Grid>

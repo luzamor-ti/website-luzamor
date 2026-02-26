@@ -1,43 +1,61 @@
-import { getProjetosHome } from "./projetoService";
-import { getMembrosHome } from "./membroService";
-import { getApoiadoresDestaque } from "./apoiadorService";
-import { getFaqResumo } from "./faqService";
-import { getContatos } from "./contatoService";
-import { getConfiguracaoGlobal } from "./configuracaoService";
+import { getProjectsHome } from "./projectService";
+import { getMembersHome } from "./memberService";
+import { getFeaturedSupporters } from "./supporterService";
+import { getFaqSummary } from "./faqService";
+import { getContacts } from "./contactService";
+import { getGlobalConfiguration } from "./configuracaoService";
+import { getCourses } from "./courseService";
+import { getUpcomingEvents } from "./eventService";
 
-import { Projeto } from "../types/projeto";
-import { Membro } from "../types/membro";
-import { Apoiador } from "../types/apoiador";
+import { Project } from "../types/project";
+import { Member } from "../types/member";
+import { Supporter } from "../types/supporter";
 import { Faq } from "../types/faq";
-import { Contato } from "../types/contato";
-import { ConfiguracaoGlobal } from "../types/configuracao";
+import { Contact } from "../types/contact";
+import { GlobalConfiguration } from "../types/configuration";
+import { Course } from "../types/course";
+import { Event } from "../types/event";
 
 export interface HomeData {
-  projetos: Projeto[];
-  membros: Membro[];
-  apoiadores: Apoiador[];
+  projects: Project[];
+  members: Member[];
+  supporters: Supporter[];
   faq: Faq[];
-  contatos: Contato[];
-  configuracao: ConfiguracaoGlobal | null;
+  contacts: Contact[];
+  configuration: GlobalConfiguration | null;
+  courses: Course[];
+  events: Event[];
 }
 
 export async function getHomeData(): Promise<HomeData> {
-  const [projetos, membros, apoiadores, faq, contatos, configuracao] =
-    await Promise.all([
-      getProjetosHome(),
-      getMembrosHome(),
-      getApoiadoresDestaque(),
-      getFaqResumo(),
-      getContatos(),
-      getConfiguracaoGlobal(),
-    ]);
+  const [
+    projects,
+    members,
+    supporters,
+    faq,
+    contacts,
+    configuration,
+    courses,
+    events,
+  ] = await Promise.all([
+    getProjectsHome(),
+    getMembersHome(),
+    getFeaturedSupporters(),
+    getFaqSummary(),
+    getContacts(),
+    getGlobalConfiguration(),
+    getCourses(),
+    getUpcomingEvents(),
+  ]);
 
   return {
-    projetos,
-    membros,
-    apoiadores,
+    projects,
+    members,
+    supporters,
     faq,
-    contatos,
-    configuracao,
+    contacts,
+    configuration,
+    courses,
+    events,
   };
 }

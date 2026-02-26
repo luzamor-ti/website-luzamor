@@ -1,6 +1,8 @@
+import { PortableTextBlock } from "next-sanity";
+
 export interface Faq {
   _id: string;
-  pergunta: string;
-  resposta: string;
-  ordem?: number;
+  question: string;
+  answer: PortableTextBlock[];
+  order?: number;
 }

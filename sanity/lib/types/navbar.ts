@@ -1,21 +1,21 @@
 export interface NavBarSubItem {
   _key: string;
-  pagina: string;
-  titulo: string;
+  page: string;
+  title: string;
 }
 
 export interface NavBarItem {
   _key: string;
-  pagina: string;
-  titulo: string;
-  subItens?: NavBarSubItem[];
+  page: string;
+  title: string;
+  subItems?: NavBarSubItem[];
 }
 
 export interface NavBar {
   _id: string;
-  itens: NavBarItem[];
-  botaoPrincipal?: {
-    titulo: string;
+  items: NavBarItem[];
+  primaryButton?: {
+    title: string;
     url?: string;
   };
 }

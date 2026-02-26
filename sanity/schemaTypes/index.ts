@@ -7,7 +7,10 @@ import { trabalho } from "./trabalho";
 import { membro } from "./membro";
 import { apoiador } from "./apoiador";
 import { faq } from "./faq";
+import { curso } from "./curso";
+import { evento } from "./evento";
 import hero from "./hero";
+import secaoHome from "./secaoHome";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -20,5 +23,8 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     membro,
     apoiador,
     faq,
+    curso,
+    evento,
+    secaoHome,
   ],
 };

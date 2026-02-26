@@ -65,16 +65,36 @@ function AccordionItem({ item, isOpen, onToggle }: AccordionItemProps) {
     >
       <button
         onClick={onToggle}
-        className="w-full p-4 text-left font-semibold hover:bg-gray-50 transition flex justify-between items-center gap-4"
+        className="w-full cursor-pointer p-4 md:p-5 text-left font-semibold hover:bg-gray-50 transition flex justify-between items-center gap-4"
       >
-        <span className="flex-1">{item.title}</span>
-        <motion.span
-          animate={{ rotate: isOpen ? 45 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="text-2xl text-gray-400 flex-shrink-0"
-        >
-          +
-        </motion.span>
+        <span className="flex-1 text-base md:text-lg">{item.title}</span>
+        <div className="relative w-6 h-6 md:w-7 md:h-7 flex-shrink-0">
+          <AnimatePresence mode="wait">
+            {isOpen ? (
+              <motion.span
+                key="minus"
+                initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, rotate: 90 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl text-gray-400 font-light"
+              >
+                −
+              </motion.span>
+            ) : (
+              <motion.span
+                key="plus"
+                initial={{ opacity: 0, scale: 0.8, rotate: -90 }}
+                animate={{ opacity: 1, scale: 1, rotate: 0 }}
+                exit={{ opacity: 0, scale: 0.8, rotate: 90 }}
+                transition={{ duration: 0.3, ease: "easeInOut" }}
+                className="absolute inset-0 flex items-center justify-center text-2xl md:text-3xl text-gray-400 font-light"
+              >
+                +
+              </motion.span>
+            )}
+          </AnimatePresence>
+        </div>
       </button>
       <AnimatePresence>
         {isOpen && (
@@ -89,7 +109,7 @@ function AccordionItem({ item, isOpen, onToggle }: AccordionItemProps) {
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.2 }}
-              className="p-4 bg-gray-50"
+              className="p-4 md:p-5 bg-white"
             >
               {item.content}
             </motion.div>

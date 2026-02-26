@@ -3,7 +3,7 @@ export const trabalhosQuery = `
   *[_type == "trabalho"]
   | order(_createdAt desc){
     _id,
-    titulo,
-    descricao
+    "title": titulo,
+    "description": descricao
   }
 `;

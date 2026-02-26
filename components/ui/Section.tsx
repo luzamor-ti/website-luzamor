@@ -18,7 +18,7 @@ export function Section({ children, className = "", id }: SectionProps) {
   return (
     <motion.section
       id={id}
-      className={`py-20 px-4 ${className}`}
+      className={`${className} py-20 px-4 `}
       initial="hidden"
       whileInView="visible"
       viewport={{ once: true, margin: "-100px" }}

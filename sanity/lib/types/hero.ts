@@ -1,15 +1,15 @@
 export interface HeroCTA {
-  texto: string;
+  text: string;
   url: string;
 }
 
 export interface Hero {
   _id: string;
   _type: "hero";
-  titulo: string;
+  title: string;
   tagline?: string;
-  subtitulo?: string;
-  imagem?: {
+  subtitle?: string;
+  image?: {
     asset: {
       _id: string;
       _ref: string;
@@ -17,7 +17,7 @@ export interface Hero {
     };
     alt?: string;
   };
-  ctaPrimario?: HeroCTA;
-  ctaSecundario?: HeroCTA;
-  ativo?: boolean;
+  primaryCta?: HeroCTA;
+  secondaryCta?: HeroCTA;
+  active?: boolean;
 }

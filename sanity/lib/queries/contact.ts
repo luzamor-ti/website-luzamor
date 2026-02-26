@@ -2,17 +2,17 @@
 export const contatoQuery = `
   *[_type == "contato"][0]{
     _id,
-    email,
-    telefone,
-    endereco
+    "email": email,
+    "phone": telefone,
+    "address": endereco
   }
 `;
 
 export const contatosQuery = `
   *[_type == "contato"]{
     _id,
-    email,
-    telefone,
-    endereco
+    "email": email,
+    "phone": telefone,
+    "address": endereco
   }
 `;

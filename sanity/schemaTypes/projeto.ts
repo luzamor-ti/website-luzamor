@@ -46,6 +46,22 @@ export const projeto = defineType({
     }),
 
     defineField({
+      name: "categoria",
+      type: "string",
+      title: "Categoria",
+      description:
+        "Categoria ou parceiro do projeto (ex: Captação direta, Prefeitura de Maringá)",
+    }),
+
+    defineField({
+      name: "destaque",
+      type: "boolean",
+      title: "Destaque na Home",
+      description: "Marque para exibir este projeto na página inicial",
+      initialValue: false,
+    }),
+
+    defineField({
       name: "ativo",
       type: "boolean",
       initialValue: true,
