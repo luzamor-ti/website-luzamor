@@ -9,22 +9,23 @@ interface SectionHeaderProps {
   title: string | ReactNode;
   description?: string;
   align?: "left" | "center";
+  variant?: "light" | "dark";
 }
 
-/**
- * Cabeçalho de seção com tag opcional, título e descrição
- * Usado no início das seções principais
- */
 export function SectionHeader({
   tag,
   title,
   description,
   align = "left",
+  variant = "light",
 }: SectionHeaderProps) {
   const alignClass =
     align === "center" ? "text-center items-center" : "items-start";
 
-  // Converte para Camel Case
+  const textColorClass = variant === "dark" ? "text-white" : "text-gray-900";
+  const descriptionColorClass =
+    variant === "dark" ? "text-gray-200" : "text-gray-600";
+
   const toCamelCase = (str: string) => {
     return str
       .toLowerCase()
@@ -48,7 +49,7 @@ export function SectionHeader({
             }}
           />
           <span
-            className="text-gray-900"
+            className={textColorClass}
             style={{
               width: "auto",
               height: "auto",
@@ -61,11 +62,13 @@ export function SectionHeader({
           </span>
         </div>
       )}
-      <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+      <h2 className={`text-4xl md:text-5xl font-bold ${textColorClass} mb-4`}>
         {title}
       </h2>
       {description && (
-        <p className="text-gray-600 text-lg max-w-3xl mx-auto">{description}</p>
+        <p className={`${descriptionColorClass} text-lg max-w-3xl mx-auto`}>
+          {description}
+        </p>
       )}
     </motion.div>
   );
