@@ -134,6 +134,26 @@ export default defineType({
       placeholder: "Descreva o conteúdo desta seção...",
     }),
 
+    defineField({
+      name: "imagem",
+      title: "Imagem Principal da Seção",
+      type: "image",
+      description:
+        "Imagem principal da seção (usada em algumas seções como Introdução)",
+      group: "conteudo",
+      options: {
+        hotspot: true,
+      },
+      fields: [
+        {
+          name: "alt",
+          type: "string",
+          title: "Texto Alternativo",
+          description: "Descreva a imagem para acessibilidade",
+        },
+      ],
+    }),
+
     // ========== GRUPO: AÇÕES (BOTÕES E LINKS) ==========
     defineField({
       name: "textoBotao",

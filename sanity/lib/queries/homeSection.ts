@@ -8,6 +8,13 @@ export const secaoHomeQuery = defineQuery(`
     "tag": tag,
     "title": titulo,
     "description": descricao,
+    "image": imagem {
+      asset -> {
+        _id,
+        url
+      },
+      alt
+    },
     "buttonText": textoBotao,
     "buttonUrl": urlBotao,
     "linkText": textoLink,
@@ -43,6 +50,13 @@ export const todasSecoesHomeQuery = defineQuery(`
     "tag": tag,
     "title": titulo,
     "description": descricao,
+    "image": imagem {
+      asset -> {
+        _id,
+        url
+      },
+      alt
+    },
     "buttonText": textoBotao,
     "buttonUrl": urlBotao,
     "linkText": textoLink,

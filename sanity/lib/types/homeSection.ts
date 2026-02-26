@@ -23,6 +23,13 @@ export interface HomeSection {
   tag?: string;
   title: string;
   description?: string;
+  image?: {
+    asset: {
+      _id: string;
+      url: string;
+    };
+    alt?: string;
+  };
   buttonText?: string;
   buttonUrl?: string;
   linkText?: string;
