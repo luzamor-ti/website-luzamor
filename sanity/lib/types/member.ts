@@ -7,4 +7,7 @@ export interface Member {
   photo?: SanityImage;
   shortBio?: string;
   fullBio?: string;
+  words?: PortableTextBlock[];
+  order?: number;
 }
+import { PortableTextBlock } from "next-sanity";
