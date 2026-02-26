@@ -1,23 +1,29 @@
 "use client";
 
-import { Contato } from "@/sanity/lib/types/contato";
+import { Contact } from "@/sanity/lib/types/contact";
+import { HomeSection } from "@/sanity/lib/types/homeSection";
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
 import { Section, SectionHeader, Card, Text, Link } from "@/components/ui";
 
 interface ContactSectionProps {
-  data: Contato[];
+  data: Contact[];
+  section: HomeSection | null;
 }
 
-export function ContactSection({ data }: ContactSectionProps) {
+export function ContactSection({ data, section }: ContactSectionProps) {
   if (!data || data.length === 0) {
     return null;
   }
+
+  const fallback = TEXT_FALLBACKS.contact;
+  const labels = section?.labels || fallback.labels;
 
   return (
     <Section className="bg-white">
       <div className="max-w-2xl mx-auto">
         <SectionHeader
-          tag="Entre em contato"
-          title="Fale conosco"
+          tag={section?.tag || fallback.tag}
+          title={section?.title || fallback.title}
           align="center"
         />
         <div className="space-y-6">
@@ -26,7 +32,7 @@ export function ContactSection({ data }: ContactSectionProps) {
               {contact.email && (
                 <div className="mb-4">
                   <Text variant="small" className="text-gray-600 mb-1">
-                    Email
+                    {labels.email}
                   </Text>
                   <Link
                     href={`mailto:${contact.email}`}
@@ -37,26 +43,26 @@ export function ContactSection({ data }: ContactSectionProps) {
                   </Link>
                 </div>
               )}
-              {contact.telefone && (
+              {contact.phone && (
                 <div className="mb-4">
                   <Text variant="small" className="text-gray-600 mb-1">
-                    Telefone
+                    {labels.phone}
                   </Text>
                   <Link
-                    href={`tel:${contact.telefone}`}
+                    href={`tel:${contact.phone}`}
                     variant="primary"
                     className="font-medium"
                   >
-                    {contact.telefone}
+                    {contact.phone}
                   </Link>
                 </div>
               )}
-              {contact.endereco && (
+              {contact.address && (
                 <div>
                   <Text variant="small" className="text-gray-600 mb-1">
-                    Endereço
+                    {labels.address}
                   </Text>
-                  <Text className="font-medium">{contact.endereco}</Text>
+                  <Text className="font-medium">{contact.address}</Text>
                 </div>
               )}
             </Card>

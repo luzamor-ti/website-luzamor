@@ -2,6 +2,8 @@
 
 import { motion } from "framer-motion";
 import { staggerItemVariants } from "@/lib/animations";
+import { HomeSection } from "@/sanity/lib/types/homeSection";
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
 import {
   Section,
   Card,
@@ -21,37 +23,29 @@ import {
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
 
-const HowToHelpSection = () => {
-  const cards: {
-    icon: LucideIcon;
-    title: string;
-    description: string;
-  }[] = [
-    {
-      icon: Handshake,
-      title: "Seja parceiro pessoa jurídica",
-      description:
-        "Seja um apoiador e ajude-nos a fazer cada vez mais e melhor.",
-    },
-    {
-      icon: DollarSign,
-      title: "Faça uma doação",
-      description:
-        "Contribua financeiramente e ajude a manter nossos projetos ativos.",
-    },
-    {
-      icon: GraduationCap,
-      title: "Venha fazer nossos cursos",
-      description:
-        "Desenvolva novas habilidades com profissionais extremamente competentes.",
-    },
-    {
-      icon: Heart,
-      title: "Seja parceiro pessoa física",
-      description:
-        "Ajude diretamente como pessoa física e contribua para melhorias.",
-    },
-  ];
+// Mapeamento de ícones disponíveis
+const iconMap: Record<string, LucideIcon> = {
+  Handshake,
+  DollarSign,
+  GraduationCap,
+  Heart,
+};
+
+interface HowToHelpSectionProps {
+  data: HomeSection | null;
+}
+
+const HowToHelpSection = ({ data }: HowToHelpSectionProps) => {
+  const section = data || null;
+  const fallback = TEXT_FALLBACKS.howToHelp;
+
+  // Merge cards do CMS com ícones do fallback
+  const cards = (section?.cards || fallback.cards).map((card, index) => ({
+    ...card,
+    icon: card.icon
+      ? iconMap[card.icon] || Heart
+      : iconMap[Object.keys(iconMap)[index] || "Heart"],
+  }));
 
   return (
     <Section className="bg-gray-50">
@@ -60,11 +54,11 @@ const HowToHelpSection = () => {
         variants={staggerItemVariants}
       >
         <div>
-          <Tag className="mb-4">Como você pode nos ajudar</Tag>
-          <Heading level={2}>Unidos, nós transformamos</Heading>
+          <Tag className="mb-4">{section?.tag || fallback.tag}</Tag>
+          <Heading level={2}>{section?.title || fallback.title}</Heading>
         </div>
         <Text className="text-gray-600 max-w-xs md:text-right">
-          Fomentando a cultura e melhorando a qualidade de vida da nossa cidade.
+          {section?.description || fallback.description}
         </Text>
       </motion.div>
       <Grid cols={4} gap="md">
@@ -82,11 +76,11 @@ const HowToHelpSection = () => {
       </Grid>
       <motion.div className="text-center mt-12" variants={staggerItemVariants}>
         <Link
-          href="#"
+          href={section?.linkUrl || "#"}
           variant="primary"
           className="inline-flex items-center gap-2"
         >
-          Junte-se à nossa missão
+          {section?.linkText || fallback.linkText}
           <ArrowRight size={20} />
         </Link>
       </motion.div>

@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { Image as SanityImage } from "sanity";
 import Image from "next/image";
+import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import type { NavBar as NavBarType } from "@/sanity/lib/types/navbar";
 import { Button } from "./ui";
@@ -13,7 +14,7 @@ interface NavBarProps extends Partial<NavBarType> {
   logo?: SanityImage;
 }
 
-export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
+export function NavBar({ logo, items, primaryButton }: NavBarProps) {
   const logoUrl = logo?.asset?._ref ? buildSanityImageUrl(logo.asset._ref) : "";
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
 
@@ -25,7 +26,10 @@ export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
       >
-        <div className="flex items-center space-x-3">
+        <Link
+          href="/"
+          className="flex items-center space-x-3 hover:opacity-80 transition-opacity duration-300"
+        >
           {logoUrl && (
             <Image
               src={logoUrl}
@@ -39,12 +43,12 @@ export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
             <span className="text-white font-semibold text-sm">Fundação</span>
             <span className="text-white font-semibold text-sm">Luzamor</span>
           </div>
-        </div>
+        </Link>
         <ul className="flex items-center space-x-6">
-          {itens?.map((item, index) => {
-            const hasSubItems = item.subItens && item.subItens.length > 0;
+          {items?.map((item, index) => {
+            const hasSubItems = item.subItems && item.subItems.length > 0;
             const itemKey = item._key || String(index);
-            const itemUrl = item.pagina === "home" ? "/" : `/${item.pagina}`;
+            const itemUrl = item.page === "home" ? "/" : `/${item.page}`;
 
             return (
               <li
@@ -60,7 +64,7 @@ export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
                       setOpenDropdown(openDropdown === itemKey ? null : itemKey)
                     }
                   >
-                    {item.titulo}
+                    {item.title}
                     <ChevronDown
                       size={16}
                       className={`transition-transform duration-200 ${
@@ -69,12 +73,12 @@ export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
                     />
                   </button>
                 ) : (
-                  <a
+                  <Link
                     href={itemUrl}
                     className="text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-300 text-sm font-medium rounded-full px-3 py-1"
                   >
-                    {item.titulo}
-                  </a>
+                    {item.title}
+                  </Link>
                 )}
 
                 {/* Dropdown Menu */}
@@ -84,19 +88,21 @@ export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0, y: -10 }}
                     transition={{ duration: 0.2 }}
-                    className="absolute top-full left-0 mt-2 py-2 bg-black/90 backdrop-blur-md border border-white/10 rounded-lg shadow-xl min-w-[200px]"
+                    className="absolute top-full left-0 mt-1 py-2 bg-black/90 backdrop-blur-md border border-white/10 rounded-lg shadow-xl min-w-[200px]"
+                    onMouseEnter={() => setOpenDropdown(itemKey)}
+                    onMouseLeave={() => setOpenDropdown(null)}
                   >
-                    {item.subItens?.map((subItem, subIndex) => {
+                    {item.subItems?.map((subItem, subIndex) => {
                       const subItemUrl =
-                        subItem.pagina === "home" ? "/" : `/${subItem.pagina}`;
+                        subItem.page === "home" ? "/" : `/${subItem.page}`;
                       return (
-                        <a
+                        <Link
                           key={subItem._key || String(subIndex)}
                           href={subItemUrl}
                           className="block px-4 py-2 text-white/90 hover:text-white hover:bg-white/10 transition-colors duration-200 text-sm"
                         >
-                          {subItem.titulo}
-                        </a>
+                          {subItem.title}
+                        </Link>
                       );
                     })}
                   </motion.div>
@@ -105,9 +111,9 @@ export function NavBar({ logo, itens, botaoPrincipal }: NavBarProps) {
             );
           })}
         </ul>
-        {botaoPrincipal?.titulo && (
-          <Button href={botaoPrincipal.url} variant="primary" size="sm">
-            {botaoPrincipal.titulo}
+        {primaryButton?.title && (
+          <Button href={primaryButton.url} variant="primary" size="sm">
+            {primaryButton.title}
           </Button>
         )}
       </motion.nav>

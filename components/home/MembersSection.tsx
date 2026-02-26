@@ -1,6 +1,8 @@
 "use client";
 
-import { Membro } from "@/sanity/lib/types/membro";
+import { Member } from "@/sanity/lib/types/member";
+import { HomeSection } from "@/sanity/lib/types/homeSection";
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
 import {
   Section,
   SectionHeader,
@@ -11,29 +13,35 @@ import {
 } from "@/components/ui";
 
 interface MembersSectionProps {
-  data: Membro[];
+  data: Member[];
+  section: HomeSection | null;
 }
 
-export function MembersSection({ data }: MembersSectionProps) {
+export function MembersSection({ data, section }: MembersSectionProps) {
   if (!data || data.length === 0) {
     return null;
   }
 
+  const fallback = TEXT_FALLBACKS.members;
+
   return (
     <Section className="bg-gray-50">
-      <SectionHeader tag="Nossa equipe" title="Pessoas que fazem a diferença" />
+      <SectionHeader
+        tag={section?.tag || fallback.tag}
+        title={section?.title || fallback.title}
+      />
       <Grid cols={4} gap="lg">
         {data.map((member) => (
           <Card key={member._id} padding="lg" className="text-center">
             <Heading level={5} className="mb-1">
-              {member.nome}
+              {member.name}
             </Heading>
             <Text variant="small" className="text-gray-600 mb-2">
-              {member.cargo}
+              {member.role}
             </Text>
-            {member.bioCurta && (
+            {member.shortBio && (
               <Text variant="small" className="text-gray-500">
-                {member.bioCurta}
+                {member.shortBio}
               </Text>
             )}
           </Card>

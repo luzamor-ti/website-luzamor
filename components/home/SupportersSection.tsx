@@ -1,24 +1,29 @@
 "use client";
 
 import Image from "next/image";
-import { Apoiador } from "@/sanity/lib/types/apoiador";
+import { Supporter } from "@/sanity/lib/types/supporter";
+import { HomeSection } from "@/sanity/lib/types/homeSection";
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
 import { Section, SectionHeader, Ticker } from "@/components/ui";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 
 interface SupportersSectionProps {
-  data: Apoiador[];
+  data: Supporter[];
+  section: HomeSection | null;
 }
 
-export function SupportersSection({ data }: SupportersSectionProps) {
+export function SupportersSection({ data, section }: SupportersSectionProps) {
   if (!data || data.length === 0) {
     return null;
   }
 
+  const fallback = TEXT_FALLBACKS.supporters;
+
   return (
     <Section className="bg-white">
       <SectionHeader
-        tag="Nossos parceiros"
-        title="Quem nos apoia"
+        tag={section?.tag || fallback.tag}
+        title={section?.title || fallback.title}
         align="center"
       />
       <Ticker speed="normal" pauseOnHover={true}>
@@ -34,14 +39,14 @@ export function SupportersSection({ data }: SupportersSectionProps) {
             >
               {logoUrl ? (
                 <a
-                  href={supporter.site || "#"}
-                  target={supporter.site ? "_blank" : undefined}
-                  rel={supporter.site ? "noopener noreferrer" : undefined}
+                  href={supporter.website || "#"}
+                  target={supporter.website ? "_blank" : undefined}
+                  rel={supporter.website ? "noopener noreferrer" : undefined}
                   className="flex items-center justify-center w-full h-full"
                 >
                   <Image
                     src={logoUrl}
-                    alt={supporter.nome}
+                    alt={supporter.name}
                     width={160}
                     height={80}
                     className="object-contain max-h-20"
@@ -50,7 +55,7 @@ export function SupportersSection({ data }: SupportersSectionProps) {
               ) : (
                 <div className="flex items-center justify-center w-full h-full">
                   <span className="font-semibold text-gray-700">
-                    {supporter.nome}
+                    {supporter.name}
                   </span>
                 </div>
               )}

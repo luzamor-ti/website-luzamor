@@ -1,7 +1,7 @@
 import { client } from "../sanity/client";
 import { configuracaoGlobalQuery } from "../queries/configuracao";
-import { ConfiguracaoGlobal } from "../types/configuracao";
+import { GlobalConfiguration } from "../types/configuration";
 
-export async function getConfiguracaoGlobal(): Promise<ConfiguracaoGlobal | null> {
+export async function getGlobalConfiguration(): Promise<GlobalConfiguration | null> {
   return client.fetch(configuracaoGlobalQuery);
 }

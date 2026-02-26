@@ -4,14 +4,13 @@ import { motion } from "framer-motion";
 import { Hero } from "@/sanity/lib/types/hero";
 import { slideUpVariants, staggerContainerVariants } from "@/lib/animations";
 import { Heading, Text, Button } from "@/components/ui";
-import { ArrowRight } from "lucide-react";
 
 interface HeroSectionProps {
   data: Hero | null;
 }
 
 export function HeroSection({ data }: HeroSectionProps) {
-  const backgroundImage = data?.imagem?.asset?.url;
+  const backgroundImage = data?.image?.asset?.url;
   return (
     <motion.section
       className="relative min-h-screen flex flex-col items-start justify-center p-10"
@@ -41,34 +40,33 @@ export function HeroSection({ data }: HeroSectionProps) {
 
         <motion.div variants={slideUpVariants}>
           <Heading level={1} className="text-start text-white">
-            {data?.titulo || "Transformando cultura em experiências reais"}
+            {data?.title || "Transformando cultura em experiências reais"}
           </Heading>
         </motion.div>
 
-        {data?.subtitulo && (
+        {data?.subtitle && (
           <motion.div className="mt-6 max-w-2xl" variants={slideUpVariants}>
             <Text variant="large" className="text-start text-white/90">
-              {data.subtitulo}
+              {data.subtitle}
             </Text>
           </motion.div>
         )}
 
         {/* CTAs */}
-        {(data?.ctaPrimario || data?.ctaSecundario) && (
+        {(data?.primaryCta || data?.secondaryCta) && (
           <motion.div
             className="mt-10 flex flex-wrap gap-4"
             variants={slideUpVariants}
           >
-            {data?.ctaPrimario && (
-              <Button href={data.ctaPrimario.url} size="lg">
-                {data.ctaPrimario.texto}
-                <ArrowRight size={20} />
+            {data?.primaryCta && (
+              <Button href={data.primaryCta.url} size="lg" showArrow>
+                {data.primaryCta.text}
               </Button>
             )}
 
-            {data?.ctaSecundario && (
-              <Button href={data.ctaSecundario.url} variant="outline" size="lg">
-                {data.ctaSecundario.texto}
+            {data?.secondaryCta && (
+              <Button href={data.secondaryCta.url} variant="outline" size="lg">
+                {data.secondaryCta.text}
               </Button>
             )}
           </motion.div>

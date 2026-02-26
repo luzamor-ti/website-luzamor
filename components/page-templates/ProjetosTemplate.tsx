@@ -1,9 +1,9 @@
-import { Pagina } from "@/sanity/lib/types/pagina";
+import { Page } from "@/sanity/lib/types/page";
 import { Section, Heading, Text } from "@/components/ui";
 import { PortableText } from "@portabletext/react";
 
 interface ProjetosTemplateProps {
-  pagina: Pagina;
+  pagina: Page;
 }
 
 export function ProjetosTemplate({ pagina }: ProjetosTemplateProps) {
@@ -11,38 +11,38 @@ export function ProjetosTemplate({ pagina }: ProjetosTemplateProps) {
     <main className="min-h-screen pt-24">
       <Section>
         <Heading level={1} className="text-center">
-          {pagina.titulo}
+          {pagina.title}
         </Heading>
 
-        {pagina.descricao && (
+        {pagina.description && (
           <Text variant="large" className="text-center mt-4 max-w-3xl mx-auto">
-            {pagina.descricao}
+            {pagina.description}
           </Text>
         )}
 
-        {pagina.conteudo && (
+        {pagina.content && (
           <div className="mt-8 prose prose-lg max-w-4xl mx-auto">
-            <PortableText value={pagina.conteudo} />
+            <PortableText value={pagina.content} />
           </div>
         )}
 
-        {pagina.secoes && pagina.secoes.length > 0 && (
+        {pagina.sections && pagina.sections.length > 0 && (
           <div className="mt-16">
-            {pagina.secoes.map((secao) => (
+            {pagina.sections.map((secao) => (
               <div key={secao._key} className="mb-16">
-                {secao.titulo && (
+                {secao.title && (
                   <Heading level={2} className="mb-4">
-                    {secao.titulo}
+                    {secao.title}
                   </Heading>
                 )}
-                {secao.subtitulo && (
+                {secao.subtitle && (
                   <Text variant="large" className="mb-6">
-                    {secao.subtitulo}
+                    {secao.subtitle}
                   </Text>
                 )}
-                {secao.conteudo && (
+                {secao.content && (
                   <div className="prose prose-lg max-w-none">
-                    <PortableText value={secao.conteudo} />
+                    <PortableText value={secao.content} />
                   </div>
                 )}
               </div>

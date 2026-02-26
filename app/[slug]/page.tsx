@@ -11,7 +11,10 @@ import {
   CalendarioEventosTemplate,
   CursosTemplate,
 } from "@/components/page-templates";
-import { Pagina, TipoPagina } from "@/sanity/lib/types/pagina";
+import {
+  type Page as PageType,
+  type PageType as PageTypeEnum,
+} from "@/sanity/lib/types/page";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -21,60 +24,60 @@ interface PageProps {
 const pageConfig: Record<
   string,
   {
-    component: React.ComponentType<{ pagina: Pagina }>;
-    tipoPagina: TipoPagina;
-    titulo: string;
+    component: React.ComponentType<{ pagina: PageType }>;
+    pageType: PageTypeEnum;
+    title: string;
   }
 > = {
   projetos: {
     component: ProjetosTemplate,
-    tipoPagina: "projetos",
-    titulo: "Projetos",
+    pageType: "projetos",
+    title: "Projetos",
   },
   "sobre-nos": {
     component: SobreNosTemplate,
-    tipoPagina: "sobre-nos",
-    titulo: "Sobre Nós",
+    pageType: "sobre-nos",
+    title: "Sobre Nós",
   },
   "salas-aula": {
     component: SalasAulaTemplate,
-    tipoPagina: "salas-aula",
-    titulo: "Salas de Aula",
+    pageType: "salas-aula",
+    title: "Salas de Aula",
   },
   contato: {
     component: ContatoTemplate,
-    tipoPagina: "contato",
-    titulo: "Contato",
+    pageType: "contato",
+    title: "Contato",
   },
   auditorio: {
     component: AuditorioTemplate,
-    tipoPagina: "auditorio",
-    titulo: "Auditório",
+    pageType: "auditorio",
+    title: "Auditório",
   },
   diretoria: {
     component: DiretoriaTemplate,
-    tipoPagina: "diretoria",
-    titulo: "Diretoria",
+    pageType: "diretoria",
+    title: "Diretoria",
   },
   "palavra-presidente": {
     component: PalabraPresidenteTemplate,
-    tipoPagina: "palavra-presidente",
-    titulo: "Palavra do Presidente",
+    pageType: "palavra-presidente",
+    title: "Palavra do Presidente",
   },
   patrocinador: {
     component: PatrocinadorTemplate,
-    tipoPagina: "patrocinador",
-    titulo: "Patrocinador",
+    pageType: "patrocinador",
+    title: "Patrocinador",
   },
   "calendario-eventos": {
     component: CalendarioEventosTemplate,
-    tipoPagina: "calendario-eventos",
-    titulo: "Calendário de Eventos",
+    pageType: "calendario-eventos",
+    title: "Calendário de Eventos",
   },
   cursos: {
     component: CursosTemplate,
-    tipoPagina: "cursos",
-    titulo: "Cursos",
+    pageType: "cursos",
+    title: "Cursos",
   },
 };
 
@@ -87,14 +90,14 @@ export default async function Page({ params }: PageProps) {
     notFound();
   }
 
-  // Cria um objeto Pagina básico com os dados fixos
-  const pagina: Pagina = {
+  // Cria um objeto Page básico com os dados fixos
+  const pagina: PageType = {
     _id: slug,
     _type: "pagina",
-    titulo: config.titulo,
+    title: config.title,
     slug: { current: slug },
-    tipoPagina: config.tipoPagina,
-    ativo: true,
+    pageType: config.pageType,
+    active: true,
   };
 
   const TemplateComponent = config.component;

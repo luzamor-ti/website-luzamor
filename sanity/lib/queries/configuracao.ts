@@ -1,23 +1,23 @@
 export const configuracaoGlobalQuery = `
   *[_type == "configuracaoGlobal"][0]{
     _id,
-    tituloHero,
-    subtituloHero,
-    logo,
-    tema{
-      corPrimaria,
-      corSecundaria,
-      corDestaque,
-      corFundo,
-      corTexto
+    "heroTitle": tituloHero,
+    "heroSubtitle": subtituloHero,
+    "logo": logo,
+    "theme": tema{
+      "primaryColor": corPrimaria,
+      "secondaryColor": corSecundaria,
+      "accentColor": corDestaque,
+      "backgroundColor": corFundo,
+      "textColor": corTexto
     },
-    contato{
-      email,
-      telefone,
-      endereco,
-      facebook,
-      instagram,
-      linkedin
+    "contact": contato{
+      "email": email,
+      "phone": telefone,
+      "address": endereco,
+      "facebook": facebook,
+      "instagram": instagram,
+      "linkedin": linkedin
     }
   }
 `;

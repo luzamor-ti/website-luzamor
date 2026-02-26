@@ -3,25 +3,34 @@
 import { motion } from "framer-motion";
 import { staggerItemVariants } from "@/lib/animations";
 import { Section, SectionHeader, Button, Text } from "@/components/ui";
-import { ArrowRight } from "lucide-react";
+import { HomeSection } from "@/sanity/lib/types/homeSection";
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
 
-const IntroSection = () => {
+interface IntroSectionProps {
+  data: HomeSection | null;
+}
+
+const IntroSection = ({ data }: IntroSectionProps) => {
+  const section = data || null;
+  const fallback = TEXT_FALLBACKS.intro;
+
   return (
     <Section className="bg-white">
       <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
         <motion.div variants={staggerItemVariants}>
           <SectionHeader
-            tag="Conheça a nossa fundação"
-            title="Uma fundação que pulsa Maringá"
+            tag={section?.tag || fallback.tag}
+            title={section?.title || fallback.title}
           />
           <Text variant="large" className="mb-8 leading-relaxed">
-            Somos uma instituição dedicada à preservação da memória, promoção da
-            cultura e fomento à educação. Conectamos pessoas com conhecimento e
-            experiências que transformam comunidades.
+            {section?.description || fallback.description}
           </Text>
-          <Button href="#" variant="outline">
-            Saiba mais sobre nós
-            <ArrowRight size={20} />
+          <Button
+            href={section?.buttonUrl || "/sobre-nos"}
+            variant="outline"
+            showArrow
+          >
+            {section?.buttonText || fallback.buttonText}
           </Button>
         </motion.div>
         <motion.div variants={staggerItemVariants}>

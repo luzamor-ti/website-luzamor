@@ -3,8 +3,8 @@ export const faqQuery = `
   *[_type == "faq"]
   | order(ordem asc){
     _id,
-    pergunta,
-    resposta
+    "question": pergunta,
+    "answer": resposta
   }
 `;
 
@@ -12,7 +12,7 @@ export const faqResumoQuery = `
   *[_type == "faq"]
   | order(ordem asc)[0...6]{
     _id,
-    pergunta,
-    resposta
+    "question": pergunta,
+    "answer": resposta
   }
 `;

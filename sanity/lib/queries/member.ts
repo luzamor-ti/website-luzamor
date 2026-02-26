@@ -2,10 +2,10 @@ export const membrosHomeQuery = `
   *[_type == "membro"]
   | order(ordem asc)[0...4]{
     _id,
-    nome,
-    cargo,
-    foto,
-    bioCurta
+    "name": nome,
+    "role": cargo,
+    "photo": foto,
+    "shortBio": bioCurta
   }
 `;
 
@@ -13,9 +13,9 @@ export const membrosPageQuery = `
   *[_type == "membro"]
   | order(ordem asc){
     _id,
-    nome,
-    cargo,
-    foto,
-    bioCompleta
+    "name": nome,
+    "role": cargo,
+    "photo": foto,
+    "fullBio": bioCompleta
   }
 `;

@@ -3,7 +3,7 @@ import { Inter } from "next/font/google";
 import "./globals.css";
 import { client } from "@/sanity/lib/sanity/client";
 import { getNavbar } from "@/sanity/lib/services/navbarService";
-import { getConfiguracaoGlobal } from "@/sanity/lib/services/configuracaoService";
+import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
 import { NavBar } from "@/components/NavBar";
 
 const inter = Inter({
@@ -26,7 +26,7 @@ export const metadata = {
 };
 
 async function getLayoutData() {
-  const config = await getConfiguracaoGlobal();
+  const config = await getGlobalConfiguration();
   const navbar = await getNavbar();
 
   const rodape = await client.fetch(`*[_type == "rodape"][0]`);
@@ -40,7 +40,7 @@ export default async function RootLayout({
   children: React.ReactNode;
 }>) {
   const { config, navbar } = await getLayoutData();
-  const tema = config?.tema || {};
+  const theme = config?.theme || {};
 
   return (
     <html lang="pt-BR">
@@ -48,11 +48,11 @@ export default async function RootLayout({
         className={inter.variable}
         style={
           {
-            "--color-primary": tema.corPrimaria || "#6366f1",
-            "--color-secondary": tema.corSecundaria || "#8b5cf6",
-            "--color-accent": tema.corDestaque || "#10b981",
-            "--color-bg": tema.corFundo || "#ffffff",
-            "--color-text": tema.corTexto || "#1f2937",
+            "--color-primary": theme.primaryColor || "#6366f1",
+            "--color-secondary": theme.secondaryColor || "#8b5cf6",
+            "--color-accent": theme.accentColor || "#10b981",
+            "--color-bg": theme.backgroundColor || "#ffffff",
+            "--color-text": theme.textColor || "#1f2937",
           } as React.CSSProperties
         }
       >
