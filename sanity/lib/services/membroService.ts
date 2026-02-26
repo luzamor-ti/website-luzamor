@@ -1,5 +1,9 @@
 import { client } from "../sanity/client";
-import { membrosHomeQuery, membrosPageQuery } from "../queries/membro";
+import {
+  membrosHomeQuery,
+  membrosPageQuery,
+  palavraPresidentePageQuery,
+} from "../queries/membro";
 import { Membro } from "../types/membro";
 
 export async function getMembrosHome(): Promise<Membro[]> {
@@ -8,4 +12,8 @@ export async function getMembrosHome(): Promise<Membro[]> {
 
 export async function getMembrosPage(): Promise<Membro[]> {
   return client.fetch(membrosPageQuery);
+}
+
+export async function getPalavraPresidente(): Promise<Membro> {
+  return client.fetch(palavraPresidentePageQuery);
 }
