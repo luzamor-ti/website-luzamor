@@ -149,7 +149,6 @@ export function CoursesSection({ data, section, config }: CoursesSectionProps) {
 
           <Grid cols={3} className="gap-6 md:gap-8">
             {data.slice(0, 3).map((course) => {
-              console.log("🚀 ~ CoursesSection ~ course:", course);
               const teacherPhoto =
                 course.teacherType === "membro"
                   ? course.teacherMember?.photo
