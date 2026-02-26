@@ -70,7 +70,7 @@ export function Link({
 }: LinkProps) {
   const variantClasses = {
     primary: "text-primary font-semibold hover:text-primary/80",
-    default: "text-gray-700 hover:text-gray-900 underline",
+    default: "text-gray-700 hover:text-gray-900",
   };
 
   return (
