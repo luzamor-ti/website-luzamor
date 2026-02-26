@@ -1,10 +1,11 @@
-import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import { client } from "@/sanity/lib/sanity/client";
 import { getNavbar } from "@/sanity/lib/services/navbarService";
 import { getConfiguracaoGlobal } from "@/sanity/lib/services/configuracaoService";
 import { NavBar } from "@/components/NavBar";
+import { Footer } from "@/components/Footer";
+import { getFooter } from "@/sanity/lib/services/footerService";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -28,8 +29,7 @@ export const metadata = {
 async function getLayoutData() {
   const config = await getConfiguracaoGlobal();
   const navbar = await getNavbar();
-
-  const rodape = await client.fetch(`*[_type == "rodape"][0]`);
+  const rodape = await getFooter();
 
   return { config, navbar, rodape };
 }
@@ -39,7 +39,7 @@ export default async function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const { config, navbar } = await getLayoutData();
+  const { config, navbar, rodape } = await getLayoutData();
   const tema = config?.tema || {};
 
   return (
@@ -58,6 +58,7 @@ export default async function RootLayout({
       >
         <NavBar logo={config?.logo} {...navbar}></NavBar>
         {children}
+        <Footer logo={config?.logo} {...rodape}></Footer>
       </body>
     </html>
   );

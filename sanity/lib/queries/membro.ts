@@ -5,6 +5,7 @@ export const membrosHomeQuery = `
     nome,
     cargo,
     foto,
+    alt,
     bioCurta
   }
 `;
@@ -16,6 +17,20 @@ export const membrosPageQuery = `
     nome,
     cargo,
     foto,
+    alt,
     bioCompleta
+  }
+`;
+
+export const palavraPresidentePageQuery = `
+  *[_type == "membro" && cargo == "Presidente"] [0]
+  {
+    _id,
+    nome,
+    cargo,
+    foto,
+    alt,
+    bioCompleta,
+    palavra
   }
 `;

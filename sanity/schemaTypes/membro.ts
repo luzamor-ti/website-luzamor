@@ -20,11 +20,21 @@ export const membro = defineType({
       options: { hotspot: true },
     },
     {
+      name: "alt",
+      type: "string",
+      title: "texto alternativo",
+    },
+    {
       name: "bioCurta",
       type: "text",
     },
     {
       name: "bioCompleta",
+      type: "array",
+      of: [{ type: "block" }],
+    },
+    {
+      name: "palavra",
       type: "array",
       of: [{ type: "block" }],
     },
