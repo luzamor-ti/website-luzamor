@@ -10,6 +10,12 @@ const nextConfig: NextConfig = {
       },
     ],
   },
+  transpilePackages: ["next-sanity", "@sanity/vision"],
+  logging: {
+    fetches: {
+      fullUrl: true,
+    },
+  },
 };
 
 export default nextConfig;

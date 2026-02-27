@@ -1,0 +1,143 @@
+---
+title: Welcome
+---
+
+# Website Luzamor - Storybook
+
+Bem-vindo à documentação interativa dos componentes do Website da Fundação Luzamor!
+
+## 📚 Sobre este Storybook
+
+Este Storybook contém todos os componentes UI do projeto, com exemplos interativos, documentação e validação de props usando Zod.
+
+### O que você encontrará aqui:
+
+- **Componentes UI**: Building blocks reutilizáveis (Button, Card, Typography, etc)
+- **Validação com Zod**: Schemas de validação para garantir type-safety
+- **Exemplos Interativos**: Teste diferentes variantes e props em tempo real
+- **Documentação**: Descrições detalhadas de cada componente
+
+## 🎨 Sistema de Design
+
+### Cores
+
+O projeto usa um sistema de cores baseado em Tailwind CSS customizado:
+
+- **Primary** (`#FF6B35`): Laranja vibrante - ações principais
+- **Secondary** (`#004E89`): Azul profundo - elementos secundários
+- **Accent** (`#FFD23F`): Amarelo - destaques e CTAs
+
+### Tipografia
+
+- **Headings**: Roboto Bold (níveis 1-6)
+- **Body**: Roboto Regular/Medium
+- **Small**: Texto secundário e legendas
+
+### Espaçamento
+
+- **sm**: 4px - 16px
+- **md**: 24px - 32px
+- **lg**: 48px - 64px
+
+## 🧩 Componentes Principais
+
+### UI Base
+
+- **Button**: Botões com múltiplas variantes e tamanhos
+- **Card**: Cards com bordas, sombras e animações
+- **Typography**: Heading e Text com estilos predefinidos
+- **Grid**: Layouts em grade responsivos
+- **Section**: Seções de página com animações
+
+### Animações
+
+Todos os componentes usam Framer Motion para animações suaves:
+
+- Fade in/out
+- Slide up
+- Stagger (animação sequencial)
+- Scale
+
+## 🔧 Como Usar
+
+### Navegação
+
+Use o menu lateral para navegar entre componentes. Cada componente tem:
+
+- **Canvas**: Visualização interativa
+- **Docs**: Documentação detalhada
+- **Controls**: Painel para modificar props em tempo real
+
+### Controles
+
+No painel **Controls**, você pode:
+
+- Alterar props do componente
+- Ver o resultado em tempo real
+- Copiar código do componente
+
+### Actions
+
+O painel **Actions** mostra eventos disparados (onClick, onChange, etc).
+
+### Acessibilidade
+
+O addon **a11y** verifica automaticamente problemas de acessibilidade.
+
+## 📖 Documentação Completa
+
+Para guias detalhados sobre Zod + Storybook, consulte:
+
+- `docs/zod-storybook.md` - Guia completo de Zod + Storybook
+- `docs/componentes.md` - Guia de componentes do projeto
+- `docs/animations-guide.md` - Guia de animações
+
+## 🚀 Comandos
+
+```bash
+# Iniciar Storybook
+npm run storybook
+
+# Build estático
+npm run build-storybook
+```
+
+## 🛠️ Stack Técnica
+
+- **Next.js 16** (App Router)
+- **React 19**
+- **TypeScript**
+- **Tailwind CSS 4**
+- **Framer Motion** (Animações)
+- **Zod** (Validação)
+- **Storybook 10** (Documentação)
+
+## 📝 Convenções
+
+### Nomenclatura
+
+- Componentes em **PascalCase**: `Button.tsx`
+- Stories: `Button.stories.tsx`
+- Schemas: `buttonPropsSchema`
+
+### Organização
+
+```
+components/ui/
+  Button.tsx           # Componente
+  Button.stories.tsx   # Stories
+
+lib/schemas/
+  ui.ts               # Schemas Zod
+```
+
+## 💡 Próximos Passos
+
+1. Explore os componentes no menu lateral
+2. Teste diferentes variantes e props
+3. Consulte a documentação de cada componente
+4. Use os componentes nos seus projetos
+
+---
+
+**Desenvolvido com ❤️ pela Fundação Luzamor**
