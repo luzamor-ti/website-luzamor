@@ -13,12 +13,12 @@ import {
   Button,
   Card,
   Grid,
-  Tag,
   Heading,
   Text,
   Link,
   SectionHeader,
 } from "@/components/ui";
+import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 
 interface InitiativesSectionProps {
   data: HomeSection | null;
@@ -55,9 +55,9 @@ const InitiativesSection = ({ data }: InitiativesSectionProps) => {
               className="bg-gray-800 border-2 border-gray-700 hover:border-primary overflow-hidden transition-all duration-300"
               padding="sm"
             >
-              {item.image?.asset?.url ? (
+              {item.image?.asset?._ref ? (
                 <Image
-                  src={item.image.asset.url}
+                  src={buildSanityImageUrl(item.image.asset._ref)}
                   alt={item.title}
                   width={400}
                   height={224}

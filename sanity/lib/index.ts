@@ -1,21 +1,34 @@
 // Sanity clients and utilities
-export { client } from './sanity/client'
-export { urlFor } from './sanity/image'
+export { client } from "./sanity/client";
+export { urlFor } from "./sanity/image";
 
 // Services
-export { getProjetosHome, getProjetosPage, getProjetoBySlug } from './services/projetoService'
-export { getMembrosHome, getMembrosPage } from './services/membroService'
-export { getApoiadoresDestaque } from './services/apoiadorService'
-export { getPaginaBySlug } from './services/paginaService'
-export { getTrabalhos } from './services/trabalhoService'
-export { getContato } from './services/contatoService'
-export { getFaq } from './services/faqService'
+export {
+  getProjectBySlug,
+  getProjectsHome,
+  getProjectsPage,
+} from "./services/projectService";
+export {
+  getMembersHome,
+  getMembersPage,
+  getWordsOfPresident,
+} from "./services/memberService";
+export { getFeaturedSupporters } from "./services/supporterService";
+export { getContact, getContacts } from "./services/contactService";
+export { getFaqSummary, getFaqs } from "./services/faqService";
+export { getHeroData } from "./services/heroService";
+export { getNavbar } from "./services/navbarService";
+export {
+  getAllHomeSections,
+  getHomeSection,
+  getHomeSectionsByNames,
+} from "./services/homeSectionService";
 
 // Types
-export type { Projeto } from './types/projeto'
-export type { Membro } from './types/membro'
-export type { Apoiador } from './types/apoiador'
-export type { Pagina } from './types/pagina'
-export type { Trabalho } from './types/trabalho'
-export type { Contato } from './types/contato'
-export type { Faq } from './types/faq'
+export type { Project } from "./types/project";
+export type { Member } from "./types/member";
+export type { Supporter } from "./types/supporter";
+export type { Page } from "./types/page";
+export type { Work } from "./types/work";
+export type { Contact } from "./types/contact";
+export type { Faq } from "./types/faq";

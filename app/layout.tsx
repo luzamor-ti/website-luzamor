@@ -1,6 +1,7 @@
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { client } from "@/sanity/lib/sanity/client";
+import { Analytics } from "@vercel/analytics/next";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getNavbar } from "@/sanity/lib/services/navbarService";
 import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
 import { NavBar } from "@/components/NavBar";
@@ -91,6 +92,8 @@ export default async function RootLayout({
         <LayoutWrapper navbar={navbar} footer={footer} logo={config?.logo}>
           {children}
         </LayoutWrapper>
+        <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   );
