@@ -4,12 +4,15 @@ Modern website for Fundação Luzamor built with Next.js 15, Sanity CMS, and Typ
 
 ## 🚀 Tech Stack
 
-- **Framework**: [Next.js 15](https://nextjs.org/) with App Router
+- **Framework**: [Next.js 16](https://nextjs.org/) with App Router
 - **CMS**: [Sanity](https://www.sanity.io/)
 - **Language**: TypeScript
 - **Styling**: Tailwind CSS 4
 - **Animations**: Framer Motion
 - **Icons**: Lucide React
+- **Validation**: Zod
+- **Documentation**: Storybook 10
+- **Analytics**: Vercel Analytics & Speed Insights
 
 ## 📂 Project Structure
 
@@ -170,6 +173,36 @@ Detailed documentation available in [docs/](docs):
 - [CMS Data](docs/cms-data.md) - CMS data structure
 - [Text Management](docs/gerenciamento-textos.md) - Text management system
 - [Animations Guide](docs/animations-guide.md) - Animation patterns
+- [Zod + Storybook](docs/zod-storybook.md) - Component validation and documentation
+
+## 📖 Storybook
+
+### Component Documentation
+
+Interactive component documentation with Storybook:
+
+```bash
+npm run storybook
+```
+
+Open [http://localhost:6006](http://localhost:6006) to view all components.
+
+### Features
+
+- **Interactive Examples**: Test different component variations
+- **Props Validation**: Zod schemas for type-safe props
+- **Accessibility Testing**: Built-in a11y checks
+- **Auto-generated Docs**: Comprehensive documentation for all UI components
+
+### Component Schemas
+
+All UI components have Zod schemas for prop validation in `lib/schemas/`:
+
+- Type safety at runtime
+- Auto-generated controls in Storybook
+- Clear validation errors in development
+
+See [docs/zod-storybook.md](docs/zod-storybook.md) for detailed guide.
 
 ## 🔧 Development
 
@@ -193,6 +226,17 @@ Data fetching abstracted into services ([sanity/lib/services](sanity/lib/service
 - Home sections
 - Navigation
 - Configuration
+
+### Available Scripts
+
+```bash
+npm run dev              # Start Next.js development server
+npm run build            # Build for production
+npm run start            # Start production server
+npm run lint             # Run ESLint
+npm run storybook        # Start Storybook
+npm run build-storybook  # Build static Storybook
+```
 
 ### Migration Status
 
