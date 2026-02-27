@@ -190,6 +190,39 @@ Studio mounted at `/fundacao-cms` route. Config in `sanity.config.ts`:
 npm run dev          # Next.js dev server (port 3000)
 npm run build        # Production build
 npm run lint         # ESLint
+npm run storybook    # Storybook dev server (port 6006)
 ```
 
 Studio access: Navigate to `/fundacao-cms` in browser after starting dev server.
+
+## Component Documentation & Validation
+
+### Zod Schemas
+
+All UI components have Zod schemas in `lib/schemas/ui.ts` for prop validation:
+
+```typescript
+export const buttonPropsSchema = z.object({
+  variant: z.enum(["primary", "secondary"]).default("primary"),
+  size: z.enum(["sm", "md", "lg"]).default("md"),
+  // ...
+});
+
+export type ButtonProps = z.infer<typeof buttonPropsSchema>;
+```
+
+### Storybook
+
+Component documentation at http://localhost:6006 (run `npm run storybook`):
+
+- Stories in `stories/ui/*.stories.tsx` (separated from components)
+- Use Zod schemas for prop validation and type inference
+- See `docs/zod-storybook.md` for complete guide
+- See `stories/README.md` for organization guidelines
+
+**Creating a new component with Zod + Storybook:**
+
+1. Create component in `components/ui/NewComponent.tsx`
+2. Add schema in `lib/schemas/ui.ts`
+3. Create `stories/ui/NewComponent.stories.tsx` (import from `@/components/ui/`)
+4. Define argTypes manually for Storybook controls (TypeScript compatibility)
