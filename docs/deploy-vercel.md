@@ -6,19 +6,25 @@ O erro 500 no Studio do Sanity estava acontecendo porque a rota estava configura
 
 ### Correções Aplicadas
 
-#### 1. Route Segment Config
-Alterado em `app/fundacao-cms/[[...tool]]/page.tsx`:
+#### 1. Client Component (CRÍTICO)
+Adicionado `'use client'` em `app/fundacao-cms/[[...tool]]/page.tsx`:
 
 ```typescript
-// ANTES (ERRADO)
-export const dynamic = "force-static";
+// page.tsx DEVE ser um Client Component
+'use client'
 
-// AGORA (CORRETO)
-export const dynamic = "force-dynamic";
+import { NextStudio } from "next-sanity/studio";
+import config from "../../../sanity.config";
+
+export default function StudioPage() {
+  return <NextStudio config={config} />;
+}
 ```
 
-#### 2. Removed 'use client' from sanity.config.ts (CRÍTICO)
-O arquivo `sanity.config.ts` NÃO deve ter `'use client'` no topo, pois é importado por um Server Component.
+**Importante:** Removido `export const dynamic` e `export { metadata, viewport }` pois Client Components não podem exportá-los.
+
+#### 2. Sanity Config sem 'use client'
+O arquivo `sanity.config.ts` NÃO deve ter `'use client'` no topo.
 
 #### 3. Transpile Packages
 Adicionado em `next.config.ts`:
@@ -92,10 +98,11 @@ Você deverá ver o Sanity Studio funcionando corretamente.
 - ✅ Aguarde alguns minutos para propagar
 - ✅ Limpe o cache do navegador
 
-### Erro 500 persiste
+### Erro 500 ou "createContext is not a function"
 
-- ✅ **CRÍTICO**: Remova `'use client'` do topo do arquivo `sanity.config.ts`
-- ✅ Certifique-se de que `app/fundacao-cms/[[...tool]]/page.tsx` tem `export const dynamic = 'force-dynamic'`
+- ✅ **CRÍTICO**: Adicione `'use client'` no topo de `app/fundacao-cms/[[...tool]]/page.tsx`
+- ✅ **CRÍTICO**: Remova `'use client'` do arquivo `sanity.config.ts`
+- ✅ **CRÍTICO**: Remova `export const dynamic` e `export { metadata, viewport }` do page.tsx (Client Components não podem exportá-los)
 - ✅ Verifique se `next.config.ts` tem `transpilePackages: ["next-sanity", "@sanity/vision"]`
 - ✅ Limpe o cache do build na Vercel (Redeploy **SEM** "Use existing Build Cache")
 - ✅ Verifique os logs no painel da Vercel (**Functions** → selecione a função com erro)
