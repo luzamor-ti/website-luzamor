@@ -6,6 +6,7 @@ import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoServic
 import { NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
 import { getFooter } from "@/sanity/lib/services/footerService";
+import LayoutWrapper from "@/components/LayoutWrapper";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -87,10 +88,9 @@ export default async function RootLayout({
             }}
           />
         </div>
-
-        <NavBar logo={config?.logo} {...navbar}></NavBar>
-        {children}
-        <Footer logo={config?.logo} {...footer}></Footer>
+        <LayoutWrapper navbar={navbar} footer={footer} logo={config?.logo}>
+          {children}
+        </LayoutWrapper>
       </body>
     </html>
   );
