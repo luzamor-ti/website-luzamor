@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import type { Rule } from "sanity";
 
 export const configuracaoGlobal = defineType({
   name: "configuracaoGlobal",
@@ -77,7 +78,7 @@ export const configuracaoGlobal = defineType({
           description:
             "Cor principal do site (ex: #00B749). Usada em botões, links e destaques.",
           placeholder: "#00B749",
-          validation: (Rule: any) =>
+          validation: (Rule: Rule) =>
             Rule.custom((value: string) => {
               if (!value) return true;
               return (
@@ -92,7 +93,7 @@ export const configuracaoGlobal = defineType({
           type: "string",
           description: "Cor secundária para elementos de apoio.",
           placeholder: "#8b5cf6",
-          validation: (Rule: any) =>
+          validation: (Rule: Rule) =>
             Rule.custom((value: string) => {
               if (!value) return true;
               return (
@@ -107,7 +108,7 @@ export const configuracaoGlobal = defineType({
           type: "string",
           description: "Cor para chamar atenção em elementos específicos.",
           placeholder: "#10b981",
-          validation: (Rule: any) =>
+          validation: (Rule: Rule) =>
             Rule.custom((value: string) => {
               if (!value) return true;
               return (
@@ -122,7 +123,7 @@ export const configuracaoGlobal = defineType({
           type: "string",
           description: "Cor de fundo padrão do site.",
           placeholder: "#ffffff",
-          validation: (Rule: any) =>
+          validation: (Rule: Rule) =>
             Rule.custom((value: string) => {
               if (!value) return true;
               return (
@@ -137,7 +138,7 @@ export const configuracaoGlobal = defineType({
           type: "string",
           description: "Cor padrão do texto.",
           placeholder: "#1f2937",
-          validation: (Rule: any) =>
+          validation: (Rule: Rule) =>
             Rule.custom((value: string) => {
               if (!value) return true;
               return (
