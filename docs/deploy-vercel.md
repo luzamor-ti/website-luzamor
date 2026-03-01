@@ -45,22 +45,33 @@ npm run build:verify          # Verify + Build (usado pela Vercel)
 **Trigger:** Push ou PR em `main` ou `develop`
 
 **Jobs:**
-- ✅ Lint com ESLint
-- ✅ Testes unitários
-- ✅ Cobertura de testes
-- ✅ Build do Next.js
 
-**Configuração necessária:**
+- ✅ **Tests** (sempre executa):
+  - Lint com ESLint
+  - Testes unitários (200 tests)
+  - Cobertura de testes
+  - Upload para Codecov (opcional)
+- ✅ **Build** (apenas em push para `main`):
+  - Build do Next.js
+  - Requer secrets do Sanity configurados
+
+**Por que o build só roda em `main`?**
+O build do Next.js precisa de conexão válida com o Sanity para pre-render das páginas. Em PRs, rodamos apenas lint + tests para validar o código sem precisar de secrets.
+
+**Configuração necessária (apenas para branch `main`):**
+
 - Secrets: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`
 - Opcional: `CODECOV_TOKEN` para upload de cobertura
 
 ### 2. Deploy Storybook (`.github/workflows/deploy-storybook.yml`)
 
-**Trigger:** 
+**Trigger:**
+
 - Push em `main` com mudanças em `components/`, `stories/`, `.storybook/`
 - Execução manual via `workflow_dispatch`
 
 **Jobs:**
+
 - ✅ Build do Storybook
 - ✅ Deploy no GitHub Pages
 
@@ -87,6 +98,7 @@ O arquivo `vercel.json` está configurado com:
 ```
 
 Isso significa que **a cada deploy**, a Vercel irá:
+
 1. ✅ Rodar `npm run lint` (ESLint)
 2. ✅ Rodar `npm test` (todos os 200 testes unitários)
 3. ✅ Se tudo passar, rodar `npm run build`
@@ -193,6 +205,7 @@ Você deverá ver o Sanity Studio funcionando corretamente.
 O Sanity Studio **DEVE** ser um Client Component. Configuração correta:
 
 **`app/fundacao-cms/[[...tool]]/page.tsx`:**
+
 ```typescript
 'use client'
 
@@ -205,18 +218,20 @@ export default function StudioPage() {
 ```
 
 **`sanity.config.ts`:**
+
 ```typescript
 // NÃO adicione 'use client' aqui
-import { defineConfig } from 'sanity'
+import { defineConfig } from "sanity";
 // ... resto da configuração
 ```
 
 **`next.config.ts`:**
+
 ```typescript
 const nextConfig: NextConfig = {
   transpilePackages: ["next-sanity", "@sanity/vision"],
   // ... outras configurações
-}
+};
 ```
 
 ### Acessando o Studio
