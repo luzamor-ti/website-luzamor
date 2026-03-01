@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import type { Rule } from "sanity";
 
 const paginasDisponiveis = [
   { title: "Home", value: "home" },
@@ -35,13 +36,13 @@ export const navbar = defineType({
               options: {
                 list: paginasDisponiveis,
               },
-              validation: (Rule: any) => Rule.required(),
+              validation: (Rule: Rule) => Rule.required(),
             },
             {
               name: "titulo",
               title: "Título do Item",
               type: "string",
-              validation: (Rule: any) => Rule.required(),
+              validation: (Rule: Rule) => Rule.required(),
               description: "Texto que aparecerá no menu",
             },
             {
@@ -60,13 +61,13 @@ export const navbar = defineType({
                       options: {
                         list: paginasDisponiveis,
                       },
-                      validation: (Rule: any) => Rule.required(),
+                      validation: (Rule: Rule) => Rule.required(),
                     },
                     {
                       name: "titulo",
                       title: "Título do Sub-item",
                       type: "string",
-                      validation: (Rule: any) => Rule.required(),
+                      validation: (Rule: Rule) => Rule.required(),
                     },
                   ],
                   preview: {

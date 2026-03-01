@@ -1,48 +1,133 @@
-# Guia de Deploy na Vercel - Sanity Studio
+# Guia de Deploy - Vercel & GitHub Pages
 
-## ⚠️ Problema Resolvido
+## 🚀 Pipeline de Deploy
 
-O erro 500 no Studio do Sanity estava acontecendo porque a rota estava configurada como `force-static`, mas o Sanity Studio **deve ser dinâmico**.
+Este projeto utiliza um pipeline automatizado de CI/CD com:
 
-### Correções Aplicadas
+1. **Vercel** - Deploy do site Next.js em produção
+2. **GitHub Pages** - Deploy do Storybook para documentação de componentes
+3. **GitHub Actions** - Testes automatizados e validações
 
-#### 1. Client Component (CRÍTICO)
-Adicionado `'use client'` em `app/fundacao-cms/[[...tool]]/page.tsx`:
+### Fluxo de Deploy
 
-```typescript
-// page.tsx DEVE ser um Client Component
-'use client'
+```
+Push to main → CI Tests → Build & Tests Pass → Deploy Vercel + Storybook
+```
 
-import { NextStudio } from "next-sanity/studio";
-import config from "../../../sanity.config";
+## 📦 Scripts de Deploy
 
-export default function StudioPage() {
-  return <NextStudio config={config} />;
+### Scripts Disponíveis
+
+```bash
+# Desenvolvimento
+npm run dev                    # Next.js dev server
+npm run storybook             # Storybook dev server
+
+# Build
+npm run build                 # Build Next.js
+npm run build-storybook       # Build Storybook localmente
+npm run build-storybook:ci    # Build Storybook para CI
+
+# Testes
+npm test                      # Roda testes unitários
+npm run test:coverage         # Testes com cobertura
+npm run lint                  # Verifica código com ESLint
+
+# Verificação (usado pelo CI)
+npm run verify                # Lint + Testes
+npm run build:verify          # Verify + Build (usado pela Vercel)
+```
+
+## 🔄 GitHub Actions Workflows
+
+### 1. CI - Tests and Lint (`.github/workflows/ci.yml`)
+
+**Trigger:** Push ou PR em `main` ou `develop`
+
+**Jobs:**
+
+- ✅ **Tests** (sempre executa):
+  - Lint com ESLint
+  - Testes unitários (200 tests)
+  - Cobertura de testes
+  - Upload para Codecov (opcional)
+- ✅ **Build** (apenas em push para `main`):
+  - Build do Next.js
+  - Requer secrets do Sanity configurados
+
+**Por que o build só roda em `main`?**
+O build do Next.js precisa de conexão válida com o Sanity para pre-render das páginas. Em PRs, rodamos apenas lint + tests para validar o código sem precisar de secrets.
+
+**Configuração necessária (apenas para branch `main`):**
+
+- Secrets: `NEXT_PUBLIC_SANITY_PROJECT_ID`, `NEXT_PUBLIC_SANITY_DATASET`
+- Opcional: `CODECOV_TOKEN` para upload de cobertura
+
+### 2. Deploy Storybook (`.github/workflows/deploy-storybook.yml`)
+
+**Trigger:**
+
+- Push em `main` com mudanças em `components/`, `stories/`, `.storybook/`
+- Execução manual via `workflow_dispatch`
+
+**Jobs:**
+
+- ✅ Build do Storybook
+- ✅ Deploy no GitHub Pages
+
+**URL do Storybook:** `https://[seu-usuario].github.io/[seu-repo]/`
+
+### Habilitar GitHub Pages
+
+1. Vá em **Settings** → **Pages** no repositório GitHub
+2. Em **Source**, selecione **GitHub Actions**
+3. Salve as configurações
+4. O Storybook será automaticamente deployado a cada push em `main`
+
+## 📋 Vercel - Configuração
+
+### Build Command
+
+O arquivo `vercel.json` está configurado com:
+
+```json
+{
+  "buildCommand": "npm run build:verify",
+  "framework": "nextjs"
 }
 ```
 
-**Importante:** Removido `export const dynamic` e `export { metadata, viewport }` pois Client Components não podem exportá-los.
+Isso significa que **a cada deploy**, a Vercel irá:
 
-#### 2. Sanity Config sem 'use client'
-O arquivo `sanity.config.ts` NÃO deve ter `'use client'` no topo.
+1. ✅ Rodar `npm run lint` (ESLint)
+2. ✅ Rodar `npm test` (todos os 200 testes unitários)
+3. ✅ Se tudo passar, rodar `npm run build`
 
-#### 3. Transpile Packages
-Adicionado em `next.config.ts`:
-```typescript
-transpilePackages: ["next-sanity", "@sanity/vision"]
-```
-
-## 📋 Checklist de Deploy na Vercel
+**⚠️ Se os testes ou lint falharem, o deploy é cancelado automaticamente.**
 
 ### 1. Variáveis de Ambiente Obrigatórias
 
-No painel da Vercel, configure estas variáveis de ambiente:
+**⚠️ IMPORTANTE:** As variáveis de ambiente devem ser configuradas **apenas no painel da Vercel**, não no arquivo `vercel.json`. O arquivo `vercel.json` não deve conter a seção `env`.
+
+No painel da Vercel (`Settings` → `Environment Variables`), configure:
 
 ```env
 NEXT_PUBLIC_SANITY_PROJECT_ID=seu-project-id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-02-11
 ```
+
+**Passos para adicionar na Vercel:**
+
+1. Vá no dashboard do seu projeto na Vercel
+2. Clique em **Settings**
+3. Vá em **Environment Variables**
+4. Adicione cada variável:
+   - Nome: `NEXT_PUBLIC_SANITY_PROJECT_ID`
+   - Valor: seu project ID do Sanity
+   - Ambientes: Production, Preview, Development (selecione todos)
+5. Repita para `NEXT_PUBLIC_SANITY_DATASET` e `NEXT_PUBLIC_SANITY_API_VERSION`
+6. Salve e faça um novo deploy
 
 **Como obter o Project ID:**
 
@@ -114,7 +199,121 @@ Você deverá ver o Sanity Studio funcionando corretamente.
 - ✅ Confirme que o dataset está correto
 - ✅ Verifique configurações de CORS
 
-## 📝 Referências
+### Testes falhando no deploy
+
+- ✅ Verifique os logs da Vercel para ver qual teste falhou
+- ✅ Rode `npm run build:verify` localmente para reproduzir o erro
+- ✅ Corrija o código e faça novo commit
+- ✅ Alternativamente, desabilite temporariamente os testes no build modificando `vercel.json`:
+  ```json
+  {
+    "buildCommand": "npm run build"
+  }
+  ```
+  (Não recomendado para produção)
+
+## 🎨 Sanity Studio
+
+### Configuração Client Component
+
+O Sanity Studio **DEVE** ser um Client Component. Configuração correta:
+
+**`app/fundacao-cms/[[...tool]]/page.tsx`:**
+
+```typescript
+'use client'
+
+import { NextStudio } from "next-sanity/studio";
+import config from "../../../sanity.config";
+
+export default function StudioPage() {
+  return <NextStudio config={config} />;
+}
+```
+
+**`sanity.config.ts`:**
+
+```typescript
+// NÃO adicione 'use client' aqui
+import { defineConfig } from "sanity";
+// ... resto da configuração
+```
+
+**`next.config.ts`:**
+
+```typescript
+const nextConfig: NextConfig = {
+  transpilePackages: ["next-sanity", "@sanity/vision"],
+  // ... outras configurações
+};
+```
+
+### Acessando o Studio
+
+- **Local:** `http://localhost:3000/fundacao-cms`
+- **Produção:** `https://seu-projeto.vercel.app/fundacao-cms`
+
+## � Troubleshooting
+
+### Erro: "Environment Variable references Secret which does not exist"
+
+**Sintoma:**
+
+```
+Environment Variable 'NEXT_PUBLIC_SANITY_PROJECT_ID' references Secret 'sanity-project-id', which does not exist
+```
+
+**Causa:**
+O arquivo `vercel.json` estava usando a sintaxe `@nome-do-secret` que é específica para referenciar itens do **Vercel Secret Store** (secrets criptografados). Mas as variáveis de ambiente regulares não devem usar essa sintaxe.
+
+**Solução:**
+
+1. ❌ **NÃO faça:** Adicionar seção `env` no `vercel.json` com sintaxe `@`
+2. ✅ **FAÇA:** Configure as variáveis **apenas no dashboard da Vercel**
+
+O `vercel.json` **não deve** conter:
+
+```json
+{
+  "env": {
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": "@sanity-project-id" // ❌ ERRADO
+  }
+}
+```
+
+As variáveis devem estar **apenas no dashboard**:
+
+- Settings → Environment Variables → Add Variable
+- Nome: `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- Valor: `abc123xyz` (sem o prefixo @)
+
+**Quando usar @ syntax:**
+
+- **SOMENTE** para referenciar secrets do Vercel Secret Store (dados sensíveis como chaves de API privadas)
+- **NUNCA** para variáveis públicas ou de configuração normais
+
+### Build Falhando em Pull Requests
+
+**Sintoma:**
+
+```
+Error: Configuration is invalid for Sanity client. 'projectId' must be provided
+```
+
+**Causa:**
+O comando `npm run build` tenta fazer pré-renderização de páginas que dependem do Sanity, mas as secrets não estão disponíveis em Pull Requests por segurança.
+
+**Solução:**
+O CI foi configurado para executar o build **apenas no branch main**:
+
+```yaml
+build:
+  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+```
+
+Em Pull Requests, apenas os testes são executados (não necessitam secrets do Sanity).
+
+## �📝 Referências
 
 - [Sanity + Next.js Documentation](https://www.sanity.io/docs/nextjs)
 - [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables)

@@ -229,6 +229,95 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
   },
 };
 
+export const ABOUT_PAGE_FALLBACKS = {
+  hero: {
+    tag: "Sobre Nós",
+    title: "Transformando vidas através da cultura e educação",
+    subtitle:
+      "Conheça nossa história de dedicação ao desenvolvimento comunitário e transformação social.",
+  },
+  impacts: {
+    introText:
+      "Nosso trabalho gera impacto real na vida de milhares de pessoas em nossa comunidade.",
+    items: [
+      {
+        number: "5.000+",
+        title: "Vidas Impactadas",
+        description: "Pessoas beneficiadas por nossos projetos e iniciativas",
+        icon: "Heart",
+      },
+      {
+        number: "20+",
+        title: "Anos de História",
+        description: "Décadas de dedicação ao desenvolvimento comunitário",
+        icon: "Award",
+      },
+      {
+        number: "15",
+        title: "Projetos Ativos",
+        description: "Iniciativas em andamento em diversas áreas",
+        icon: "Target",
+      },
+      {
+        number: "30+",
+        title: "Parceiros",
+        description: "Organizações que apoiam nossa missão",
+        icon: "Users",
+      },
+    ],
+  },
+  history: {
+    tagline: "Nossa Jornada",
+    title: "A História da Fundação Luzamor",
+    description:
+      "Uma trajetória de compromisso com a cultura, educação e desenvolvimento comunitário.",
+    timeline: [
+      {
+        year: "2004",
+        tagline: "O Começo",
+        title: "Fundação",
+        description: "Início de nossa jornada dedicada à transformação social",
+      },
+      {
+        year: "2010",
+        tagline: "Crescimento",
+        title: "Expansão",
+        description: "Ampliação dos projetos culturais e educacionais",
+      },
+      {
+        year: "2015",
+        tagline: "Conquistas",
+        title: "Reconhecimento",
+        description: "Premiação por impacto social e cultural",
+      },
+      {
+        year: "2024",
+        tagline: "Atualidade",
+        title: "Presente",
+        description: "Milhares de vidas transformadas e projetos consolidados",
+      },
+    ],
+  },
+  mission: {
+    tag: "Nossa Missão",
+    title: "Transformar vidas através da cultura e educação",
+    description:
+      "Nossa missão é promover o desenvolvimento integral de pessoas e comunidades através de ações culturais, educacionais e sociais, valorizando a cultura local e fomentando a cidadania.",
+  },
+  vision: {
+    tag: "Nossa Visão",
+    title: "Um futuro de oportunidades para todos",
+    description:
+      "Ser referência em transformação social através da cultura e educação, construindo uma sociedade mais justa, inclusiva e com acesso igualitário a oportunidades de desenvolvimento.",
+  },
+  team: {
+    tag: "Nosso Time",
+    title: "Pessoas dedicadas à transformação",
+    description:
+      "Conheça as pessoas que fazem acontecer e tornam nossa missão possível.",
+  },
+};
+
 /**
  * Get fallback text for a section
  */

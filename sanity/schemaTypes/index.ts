@@ -11,6 +11,7 @@ import { curso } from "./curso";
 import { evento } from "./evento";
 import hero from "./hero";
 import secaoHome from "./secaoHome";
+import sobreNos from "./sobreNos";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -26,5 +27,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     curso,
     evento,
     secaoHome,
+    sobreNos,
   ],
 };
