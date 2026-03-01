@@ -129,6 +129,7 @@ export function ProjectsSection({ data, section }: ProjectsSectionProps) {
 
   useEffect(() => {
     const handleScroll = () => {
+      if (typeof window === "undefined") return;
       const scrollPosition = window.scrollY + window.innerHeight / 2;
       let newActiveIndex = activeImageIndex; // Mantém o index atual por padrão
       let foundActiveCard = false;
