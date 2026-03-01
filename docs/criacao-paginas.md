@@ -783,12 +783,80 @@ export function CursosSection({ data }: CursosSectionProps) {
 
 ---
 
+## Gerenciamento de Rotas
+
+### Constante de Rotas Centralizada
+
+**SEMPRE** utilize a constante `routesPath` localizada em `constants/routesPath.ts` para referenciar URLs internas:
+
+```typescript
+import { routesPath } from "@/constants/routesPath";
+
+// ✅ CORRETO
+<Button href={routesPath.about}>Sobre Nós</Button>
+<Link href={routesPath.projects}>Ver Projetos</Link>
+
+// ❌ ERRADO - Nunca use strings hardcoded
+<Button href="/sobre-nos">Sobre Nós</Button>
+```
+
+### Rotas Disponíveis
+
+```typescript
+routesPath = {
+  home: "/",
+  about: "/sobre-nos",
+  projects: "/projetos",
+  contact: "/contato",
+  courses: "/cursos",
+  events: "/calendario-eventos",
+  classrooms: "/salas-aula",
+  auditorium: "/auditorio",
+  board: "/diretoria",
+  presidentWord: "/palavra-presidente",
+  sponsor: "/patrocinador",
+};
+```
+
+### Por Que Usar a Constante?
+
+1. **Manutenção Centralizada**: Mudanças de URL em um único lugar
+2. **TypeScript Safety**: Autocomplete e verificação de tipos
+3. **Refatoração Segura**: Encontre todas as referências facilmente
+4. **Evita Erros**: Sem typos em URLs
+5. **Documentação**: Todas as rotas visíveis em um arquivo
+
+### Exemplo Completo
+
+```tsx
+import { routesPath } from "@/constants/routesPath";
+import { Button, Link } from "@/components/ui";
+
+function Navigation() {
+  return (
+    <nav>
+      <Link href={routesPath.home}>Home</Link>
+      <Link href={routesPath.about}>Sobre</Link>
+      <Link href={routesPath.projects}>Projetos</Link>
+
+      {/* Botão CTA */}
+      <Button href={routesPath.contact} variant="primary">
+        Entre em Contato
+      </Button>
+    </nav>
+  );
+}
+```
+
+---
+
 ## Checklist de Criação de Página
 
 Antes de finalizar sua página, verifique:
 
 - [ ] Metadados (title, description) configurados
 - [ ] Componentes UI utilizados corretamente
+- [ ] **Rotas internas usando `routesPath` (nunca strings hardcoded)**
 - [ ] Cores vêm do CMS (bg-primary, text-primary, etc.)
 - [ ] Animações funcionando (ou desabilitadas intencionalmente)
 - [ ] Responsivo em mobile, tablet e desktop
