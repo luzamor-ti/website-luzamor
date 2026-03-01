@@ -9,9 +9,5 @@
     "deploymentEnabled": {
       "main": true
     }
-  },
-  "env": {
-    "NEXT_PUBLIC_SANITY_PROJECT_ID": "@sanity-project-id",
-    "NEXT_PUBLIC_SANITY_DATASET": "@sanity-dataset"
   }
 }

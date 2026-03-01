@@ -107,13 +107,27 @@ Isso significa que **a cada deploy**, a Vercel irá:
 
 ### 1. Variáveis de Ambiente Obrigatórias
 
-No painel da Vercel, configure estas variáveis de ambiente:
+**⚠️ IMPORTANTE:** As variáveis de ambiente devem ser configuradas **apenas no painel da Vercel**, não no arquivo `vercel.json`. O arquivo `vercel.json` não deve conter a seção `env`.
+
+No painel da Vercel (`Settings` → `Environment Variables`), configure:
 
 ```env
 NEXT_PUBLIC_SANITY_PROJECT_ID=seu-project-id
 NEXT_PUBLIC_SANITY_DATASET=production
 NEXT_PUBLIC_SANITY_API_VERSION=2026-02-11
 ```
+
+**Passos para adicionar na Vercel:**
+
+1. Vá no dashboard do seu projeto na Vercel
+2. Clique em **Settings**
+3. Vá em **Environment Variables**
+4. Adicione cada variável:
+   - Nome: `NEXT_PUBLIC_SANITY_PROJECT_ID`
+   - Valor: seu project ID do Sanity
+   - Ambientes: Production, Preview, Development (selecione todos)
+5. Repita para `NEXT_PUBLIC_SANITY_DATASET` e `NEXT_PUBLIC_SANITY_API_VERSION`
+6. Salve e faça um novo deploy
 
 **Como obter o Project ID:**
 
@@ -239,7 +253,67 @@ const nextConfig: NextConfig = {
 - **Local:** `http://localhost:3000/fundacao-cms`
 - **Produção:** `https://seu-projeto.vercel.app/fundacao-cms`
 
-## 📝 Referências
+## � Troubleshooting
+
+### Erro: "Environment Variable references Secret which does not exist"
+
+**Sintoma:**
+
+```
+Environment Variable 'NEXT_PUBLIC_SANITY_PROJECT_ID' references Secret 'sanity-project-id', which does not exist
+```
+
+**Causa:**
+O arquivo `vercel.json` estava usando a sintaxe `@nome-do-secret` que é específica para referenciar itens do **Vercel Secret Store** (secrets criptografados). Mas as variáveis de ambiente regulares não devem usar essa sintaxe.
+
+**Solução:**
+
+1. ❌ **NÃO faça:** Adicionar seção `env` no `vercel.json` com sintaxe `@`
+2. ✅ **FAÇA:** Configure as variáveis **apenas no dashboard da Vercel**
+
+O `vercel.json` **não deve** conter:
+
+```json
+{
+  "env": {
+    "NEXT_PUBLIC_SANITY_PROJECT_ID": "@sanity-project-id" // ❌ ERRADO
+  }
+}
+```
+
+As variáveis devem estar **apenas no dashboard**:
+
+- Settings → Environment Variables → Add Variable
+- Nome: `NEXT_PUBLIC_SANITY_PROJECT_ID`
+- Valor: `abc123xyz` (sem o prefixo @)
+
+**Quando usar @ syntax:**
+
+- **SOMENTE** para referenciar secrets do Vercel Secret Store (dados sensíveis como chaves de API privadas)
+- **NUNCA** para variáveis públicas ou de configuração normais
+
+### Build Falhando em Pull Requests
+
+**Sintoma:**
+
+```
+Error: Configuration is invalid for Sanity client. 'projectId' must be provided
+```
+
+**Causa:**
+O comando `npm run build` tenta fazer pré-renderização de páginas que dependem do Sanity, mas as secrets não estão disponíveis em Pull Requests por segurança.
+
+**Solução:**
+O CI foi configurado para executar o build **apenas no branch main**:
+
+```yaml
+build:
+  if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+```
+
+Em Pull Requests, apenas os testes são executados (não necessitam secrets do Sanity).
+
+## �📝 Referências
 
 - [Sanity + Next.js Documentation](https://www.sanity.io/docs/nextjs)
 - [Vercel Environment Variables](https://vercel.com/docs/concepts/projects/environment-variables)
