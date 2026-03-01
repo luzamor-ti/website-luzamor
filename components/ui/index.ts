@@ -9,3 +9,4 @@ export { Heading, Text, Link, Tag } from "./Typography";
 export { Ticker } from "./Ticker";
 export { Accordion } from "./Accordion";
 export { Icon } from "./Icon";
+export { DynamicIcon } from "./DynamicIcon";
