@@ -1,7 +1,6 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { OurHistorySection } from "../OurHistorySection";
-import { OurHistory } from "@/sanity/lib/types/about";
 
 describe("OurHistorySection", () => {
   const mockData = {
