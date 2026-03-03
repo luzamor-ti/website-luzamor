@@ -39,11 +39,11 @@ const ImpactSection = ({ data }: ImpactSectionProps) => {
         />
 
         {/* Grid de cards com imagens */}
-        <Grid cols={3} gap="lg">
+        <Grid cols={4} gap="lg">
           {impacts?.map((item, index) => (
             <motion.div
               key={index}
-              className="relative rounded-2xl overflow-hidden h-[400px] group cursor-pointer"
+              className={`${index === 0 ? "col-span-2" : ""} relative rounded-2xl overflow-hidden h-[400px] group cursor-pointer`}
               variants={staggerItemVariants}
               initial="hidden"
               whileInView="visible"
@@ -81,7 +81,7 @@ const ImpactSection = ({ data }: ImpactSectionProps) => {
                 <Heading level={4} className="text-white mb-3 font-semibold">
                   {item.title}
                 </Heading>
-                <Text className="text-gray-200 leading-relaxed">
+                <Text className="text-white leading-relaxed">
                   {item.description}
                 </Text>
               </div>
