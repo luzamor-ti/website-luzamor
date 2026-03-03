@@ -49,7 +49,6 @@ export function OurHistorySection({ data }: OurHistorySectionProps) {
       imagem: undefined,
     };
   };
-  console.log(data, timeline);
   return (
     <Section>
       <motion.div
