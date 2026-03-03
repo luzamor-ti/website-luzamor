@@ -19,8 +19,7 @@
     "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build-storybook:ci": "storybook build --output-dir storybook-static",
-    "prepare": "husky"
+    "build-storybook:ci": "storybook build --output-dir storybook-static"
   },
   "dependencies": {
     "@sanity/client": "^7.15.0",
