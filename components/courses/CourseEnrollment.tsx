@@ -1,5 +1,11 @@
 import { Section, Heading, Button } from "@/components/ui";
-export function CourseEnrollment({ enrollment }: any) {
+import { Course } from "@/sanity/lib/types/course";
+
+interface CourseEnrollmentProps {
+  enrollment: Course["enrollment"];
+}
+
+export function CourseEnrollment({ enrollment }: CourseEnrollmentProps) {
   const whatsappUrl = `https://wa.me/${enrollment.whatsapp}?text=${encodeURIComponent(enrollment.messageText || "")}`;
   return (
     <Section className="bg-primary text-white text-center">

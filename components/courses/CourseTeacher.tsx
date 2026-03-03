@@ -1,10 +1,22 @@
 import Image from "next/image";
 import { Section, Heading, Text } from "@/components/ui";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
-export function CourseTeacher({ type, member, external }: any) {
+import { Course } from "@/sanity/lib/types/course";
+
+interface CourseTeacherProps {
+  type: Course["teacherType"];
+  member?: Course["teacherMember"];
+  external?: Course["externalTeacher"];
+}
+
+export function CourseTeacher({ type, member, external }: CourseTeacherProps) {
   const teacher = type === "membro" ? member : external;
   if (!teacher) return null;
   const photoUrl = buildSanityImageUrl(teacher.photo?.asset?._ref);
+
+  // Type guard to check if teacher is a Member
+  const isMember = type === "membro" && member;
+
   return (
     <Section className="bg-gray-50">
       <div className="max-w-4xl mx-auto flex flex-col md:flex-row items-center gap-10">
@@ -25,13 +37,13 @@ export function CourseTeacher({ type, member, external }: any) {
           <Heading level={3} className="mb-2">
             {teacher.name}
           </Heading>
-          {teacher.role && (
+          {isMember && member.role && (
             <Text className="font-medium text-gray-700 mb-4">
-              {teacher.role}
+              {member.role}
             </Text>
           )}
-          {teacher.shortBio && (
-            <Text className="text-gray-600 italic">{teacher.shortBio}</Text>
+          {isMember && member.shortBio && (
+            <Text className="text-gray-600 italic">{member.shortBio}</Text>
           )}
         </div>
       </div>
