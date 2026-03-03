@@ -1,13 +1,13 @@
-import { client } from "@/sanity/lib/client";
-import { coursesQuery } from "@/sanity/lib/queries/course";
-import { Section, Heading, Text, Grid, SectionHeader } from "@/components/ui";
+import { Section, Heading, Grid, SectionHeader } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
+import { Course } from "@/sanity/lib/types/course";
+import { getCourses } from "@/sanity/lib/services/courseService";
 
 export async function CursosTemplate() {
-  const cursos = await client.fetch(coursesQuery);
+  const cursos = await getCourses();
 
   return (
     <main className="min-h-screen">
@@ -40,7 +40,7 @@ export async function CursosTemplate() {
       <Section className="py-24">
         <div className="container mx-auto px-4">
           <Grid cols={3} gap="lg">
-            {cursos.map((curso: any) => {
+            {cursos.map((curso: Course) => {
               const imageUrl = buildSanityImageUrl(
                 curso.coverPhoto?.asset?._ref,
               );
@@ -54,7 +54,7 @@ export async function CursosTemplate() {
 
               return (
                 <Link
-                  href={`/course/${curso.slug}`}
+                  href={`/course/${curso.slug.current}`}
                   key={curso._id}
                   className="group"
                 >
