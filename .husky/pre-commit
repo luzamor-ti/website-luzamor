@@ -1,0 +1,61 @@
+#!/usr/bin/env sh
+. "$(dirname -- "$0")/_/husky.sh"
+
+echo "🔍 Running pre-commit checks..."
+echo ""
+
+# Get current branch name
+BRANCH=$(git rev-parse --abbrev-ref HEAD)
+
+# Check if trying to commit directly to main or master
+if [ "$BRANCH" = "main" ] || [ "$BRANCH" = "master" ]; then
+  echo "❌ ERROR: Direct commits to $BRANCH are not allowed!"
+  echo "Please create a feature branch and submit a pull request."
+  echo ""
+  echo "You can create a new branch with:"
+  echo "  git checkout -b feature/your-feature-name"
+  exit 1
+fi
+
+echo "✅ Branch check passed: $BRANCH"
+echo ""
+
+# Run linter
+echo "🔍 Running linter..."
+npm run lint
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Lint failed. Please fix the errors before committing."
+  exit 1
+fi
+echo "✅ Lint passed"
+echo ""
+
+# Run tests
+echo "🧪 Running tests..."
+npm test -- --run
+if [ $? -ne 0 ]; then
+  echo ""
+  echo "❌ Tests failed. Please fix the failing tests before committing."
+  exit 1
+fi
+echo "✅ Tests passed"
+echo ""
+
+# Run build (can be skipped with SKIP_BUILD=1)
+if [ "$SKIP_BUILD" != "1" ]; then
+  echo "🏗️  Running build..."
+  npm run build
+  if [ $? -ne 0 ]; then
+    echo ""
+    echo "❌ Build failed. Please fix the build errors before committing."
+    exit 1
+  fi
+  echo "✅ Build passed"
+  echo ""
+else
+  echo "⚠️  Build skipped (SKIP_BUILD=1)"
+  echo ""
+fi
+
+echo "🎉 All checks passed! Proceeding with commit..."

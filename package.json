@@ -14,10 +14,13 @@
     "test:storybook": "vitest run --project=storybook",
     "test:all": "vitest run",
     "verify": "npm run lint && npm test",
+    "verify:full": "npm run lint && npm test && npm run build",
     "build:verify": "npm run verify && npm run build",
+    "prepare": "husky",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "build-storybook:ci": "storybook build --output-dir storybook-static"
+    "build-storybook:ci": "storybook build --output-dir storybook-static",
+    "prepare": "husky"
   },
   "dependencies": {
     "@sanity/client": "^7.15.0",
@@ -57,6 +60,7 @@
     "eslint-config-next": "16.1.6",
     "eslint-plugin-storybook": "^10.2.13",
     "happy-dom": "^20.7.0",
+    "husky": "^9.1.7",
     "jsdom": "^28.1.0",
     "playwright": "^1.58.2",
     "storybook": "^10.2.13",
