@@ -255,7 +255,8 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
                 )}
 
                 {/* Link para Palavra do Presidente */}
-                {selectedMember.role === "Presidente" && (
+                {selectedMember.role &&
+                  selectedMember.role.trim().toLowerCase() === "presidente" && (
                   <motion.div
                     initial={{ opacity: 0, y: 10 }}
                     animate={{ opacity: 1, y: 0 }}

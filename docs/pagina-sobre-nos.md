@@ -174,7 +174,7 @@ Individual Sections (Client Components)
 ```groq
 *[_type == "sobreNos"][0]{
   hero { imagemFundo, tag, titulo, subtitulo },
-  impactos { textoIntrodutorio[], itens[]{ numero, titulo, descricao, icone } },
+  impactos { textoIntrodutorio[], items[]{ numero, titulo, descricao, icone } },
   nossaHistoria { tagline, titulo, descricao, timeline[]{ ano, tagline, titulo, descricao, imagem } },
   nossaMissao { tag, titulo, descricao, imagem },
   nossaVisao { tag, titulo, descricao, imagem },
