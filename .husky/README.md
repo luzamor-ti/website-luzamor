@@ -42,6 +42,7 @@ SKIP_BUILD=1 git commit -m "feat: add new feature"
 ```
 
 Ou adicione ao seu `.bashrc`/`.zshrc`:
+
 ```bash
 export SKIP_BUILD=1
 ```
@@ -70,6 +71,7 @@ npm run prepare
 ## Boas Práticas
 
 1. **Sempre trabalhe em branches de feature**: Crie branches para suas mudanças
+
    ```bash
    git checkout -b feature/minha-feature
    ```
@@ -85,6 +87,7 @@ npm run prepare
 ### Os hooks não estão executando
 
 Execute:
+
 ```bash
 chmod +x .husky/pre-commit
 npm run prepare
@@ -93,12 +96,14 @@ npm run prepare
 ### Build demora muito no pre-commit
 
 Se o build completo está muito lento, considere:
+
 - Usar `npm run lint && npm test` ao invés de incluir build
 - Configurar o build para rodar apenas no CI/CD
 
 ### Erro de permissão
 
 Execute:
+
 ```bash
 chmod +x .husky/*
 ```
