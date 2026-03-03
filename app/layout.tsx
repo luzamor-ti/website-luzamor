@@ -4,8 +4,6 @@ import { Analytics } from "@vercel/analytics/next";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { getNavbar } from "@/sanity/lib/services/navbarService";
 import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
-import { NavBar } from "@/components/NavBar";
-import { Footer } from "@/components/Footer";
 import { getFooter } from "@/sanity/lib/services/footerService";
 import LayoutWrapper from "@/components/LayoutWrapper";
 
