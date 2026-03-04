@@ -11,6 +11,8 @@ export const buttonVariantSchema = z.enum([
   "secondary",
   "outline",
   "ghost",
+  "outline-subtle",
+  "outline-secondary",
 ]);
 export const buttonSizeSchema = z.enum(["sm", "md", "lg"]);
 
@@ -23,6 +25,7 @@ export const buttonPropsSchema = z.object({
   fullWidth: z.boolean().default(false),
   showArrow: z.boolean().default(false),
   className: z.string().default(""),
+  external: z.boolean().default(false),
 });
 
 export type ButtonProps = z.infer<typeof buttonPropsSchema>;

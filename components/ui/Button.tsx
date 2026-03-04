@@ -9,11 +9,18 @@ interface ButtonProps {
   children: ReactNode;
   href?: string;
   onClick?: () => void;
-  variant?: "primary" | "secondary" | "outline" | "ghost";
+  variant?:
+    | "primary"
+    | "secondary"
+    | "outline"
+    | "ghost"
+    | "outline-subtle"
+    | "outline-secondary";
   size?: "sm" | "md" | "lg";
   fullWidth?: boolean;
   showArrow?: boolean;
   className?: string;
+  external?: boolean; // For external links (target="_blank")
 }
 
 export function Button({
@@ -25,6 +32,7 @@ export function Button({
   fullWidth = false,
   showArrow = false,
   className = "",
+  external = false,
 }: ButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -37,6 +45,10 @@ export function Button({
     outline:
       "bg-white border-2 border-gray-300 text-gray-700 hover:border-primary hover:text-white",
     ghost: "bg-transparent text-primary hover:text-white",
+    "outline-subtle":
+      "bg-white border border-gray-200 text-gray-600 hover:border-gray-300 hover:bg-gray-50",
+    "outline-secondary":
+      "bg-white border border-secondary/40 text-secondary hover:border-secondary hover:bg-secondary/5",
   };
 
   const sizeClasses = {
@@ -50,31 +62,51 @@ export function Button({
   const classes = `${baseClasses} ${variantClasses[variant]} ${sizeClasses[size]} ${widthClass} cursor-pointer ${className}`;
 
   const hoverBackgroundClass =
-    variant === "outline" || variant === "ghost" ? "bg-primary" : "bg-black";
+    variant === "outline" || variant === "ghost"
+      ? "bg-primary"
+      : variant === "outline-subtle"
+        ? "bg-gray-50"
+        : variant === "outline-secondary"
+          ? "bg-secondary"
+          : "bg-black";
 
   const shouldTextBeGreen = variant === "primary" || variant === "secondary";
+  const isSubtle = variant === "outline-subtle"; // apenas outline-subtle é subtle
 
   const content = (
     <>
-      <motion.div
-        className={`absolute inset-0 ${hoverBackgroundClass}`}
-        initial={{ x: "-100%" }}
-        animate={{ x: isHovered ? "0%" : "-100%" }}
-        transition={{ duration: 0.4, ease: "easeInOut" }}
-      />
+      {!isSubtle && (
+        <>
+          <motion.div
+            className={`absolute inset-0 ${hoverBackgroundClass}`}
+            initial={{ x: "-100%" }}
+            animate={{ x: isHovered ? "0%" : "-100%" }}
+            transition={{ duration: 0.4, ease: "easeInOut" }}
+          />
 
-      <motion.div
-        className="absolute inset-0 rounded-full border-2 border-primary"
-        initial={{ opacity: 0 }}
-        animate={{ opacity: isHovered ? 1 : 0 }}
-        transition={{ duration: 0.3, ease: "easeInOut" }}
-      />
+          <motion.div
+            className={`absolute inset-0 rounded-full border-2 ${
+              variant === "outline-secondary"
+                ? "border-secondary"
+                : "border-primary"
+            }`}
+            initial={{ opacity: 0 }}
+            animate={{ opacity: isHovered ? 1 : 0 }}
+            transition={{ duration: 0.3, ease: "easeInOut" }}
+          />
+        </>
+      )}
 
       <motion.span
-        className="relative z-10"
+        className="relative z-10 flex items-center gap-2"
         animate={{
           color:
-            isHovered && shouldTextBeGreen ? "var(--color-primary)" : undefined,
+            isHovered && shouldTextBeGreen
+              ? "var(--color-primary)"
+              : isHovered &&
+                  (variant === "outline-secondary" || variant === "outline")
+                ? "#ffffff"
+                : undefined,
         }}
         transition={{ duration: 0.3, ease: "easeInOut" }}
       >
@@ -89,7 +121,10 @@ export function Button({
             color:
               isHovered && shouldTextBeGreen
                 ? "var(--color-primary)"
-                : undefined,
+                : isHovered &&
+                    (variant === "outline-secondary" || variant === "outline")
+                  ? "#ffffff"
+                  : undefined,
           }}
           transition={{ duration: 0.6, ease: "easeInOut" }}
         >
@@ -105,6 +140,19 @@ export function Button({
   };
 
   if (href) {
+    if (external) {
+      return (
+        <a
+          href={href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className={classes}
+          {...hoverProps}
+        >
+          {content}
+        </a>
+      );
+    }
     return (
       <Link href={href} className={classes} {...hoverProps}>
         {content}
