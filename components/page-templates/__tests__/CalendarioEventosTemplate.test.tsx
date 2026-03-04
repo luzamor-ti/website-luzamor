@@ -208,7 +208,7 @@ describe("CalendarioEventosTemplate", () => {
     expect(eventTitles.length).toBeGreaterThan(0);
   });
 
-   it("renders past events section with events", () => {
+  it("renders past events section with events", () => {
     render(
       <CalendarioEventosTemplate
         pagina={mockPage}
@@ -220,7 +220,7 @@ describe("CalendarioEventosTemplate", () => {
     // Click on past events tab to see past events
     const pastEventsTab = screen.getByLabelText("Ver eventos passados");
     fireEvent.click(pastEventsTab);
-    
+
     // Now past event should be visible
     const eventTitles = screen.getAllByText("Festa Junina 2025");
     expect(eventTitles.length).toBeGreaterThan(0);
@@ -236,9 +236,7 @@ describe("CalendarioEventosTemplate", () => {
     );
 
     // Upcoming tab is active by default, should show empty state
-    expect(
-      screen.getByText("Nenhum evento encontrado."),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Nenhum evento encontrado.")).toBeInTheDocument();
   });
 
   it("shows empty state when no past events", () => {
@@ -250,9 +248,7 @@ describe("CalendarioEventosTemplate", () => {
       />,
     );
 
-    expect(
-      screen.getByText("Nenhum evento encontrado."),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Nenhum evento encontrado.")).toBeInTheDocument();
   });
 
   it("renders multiple upcoming events", () => {
@@ -276,7 +272,7 @@ describe("CalendarioEventosTemplate", () => {
     // "Workshop Educacional" appears in both featured and list
     const workshopTitles = screen.getAllByText("Workshop Educacional");
     expect(workshopTitles.length).toBeGreaterThan(0);
-    
+
     // "Palestra de Saúde" appears only in list (not in top 3 featured, but still in upcoming)
     expect(screen.getByText("Palestra de Saúde")).toBeInTheDocument();
   });
@@ -293,7 +289,7 @@ describe("CalendarioEventosTemplate", () => {
     // Click on past events tab
     const pastEventsTab = screen.getByLabelText("Ver eventos passados");
     fireEvent.click(pastEventsTab);
-    
+
     // Check that past event is rendered using EventListItem component
     expect(screen.getByText("Festa Junina 2025")).toBeInTheDocument();
   });
@@ -313,7 +309,7 @@ describe("CalendarioEventosTemplate", () => {
 
     // Past event should be visible
     expect(screen.getByText("Festa Junina 2025")).toBeInTheDocument();
-    
+
     // EventListItem component should be used (has data-testid)
     expect(screen.getByTestId("event-list-item")).toBeInTheDocument();
   });
@@ -330,15 +326,15 @@ describe("CalendarioEventosTemplate", () => {
     // Both tabs should be available
     expect(screen.getByLabelText("Ver próximos eventos")).toBeInTheDocument();
     expect(screen.getByLabelText("Ver eventos passados")).toBeInTheDocument();
-    
+
     // Upcoming events shown by default (appears in both featured and list)
     const workshopTitles = screen.getAllByText("Workshop Educacional");
     expect(workshopTitles.length).toBeGreaterThan(0);
-    
+
     // Click on past events tab
     const pastEventsTab = screen.getByLabelText("Ver eventos passados");
     fireEvent.click(pastEventsTab);
-    
+
     // Now past events should be visible
     const eventTitles = screen.getAllByText("Festa Junina 2025");
     expect(eventTitles.length).toBeGreaterThan(0);
