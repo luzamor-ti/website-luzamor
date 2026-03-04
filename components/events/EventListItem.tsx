@@ -6,10 +6,9 @@ import Link from "next/link";
 import Image from "next/image";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Calendar, Clock, MapPin, Image as ImageIcon } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { CALENDAR_EVENTS_FALLBACKS } from "@/constants/textFallbacks";
 import { EventCategoryBadge } from "./EventCategoryBadge";
+import { formatEventDate } from "@/utils/eventFormatters";
 
 interface EventListItemProps {
   event: Event;
@@ -21,14 +20,9 @@ export function EventListItem({
   showGalleryIcon = false,
 }: EventListItemProps) {
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
-  const eventDate = new Date(event.eventDate);
-  const dayNumber = format(eventDate, "dd", { locale: ptBR });
-  const monthShort = format(eventDate, "MMM", { locale: ptBR }).toUpperCase();
-  const weekday = format(eventDate, "EEEE", { locale: ptBR });
-  const timeFormatted = eventDate.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const { dayNumber, monthShort, weekday, timeFormatted } = formatEventDate(
+    event.eventDate,
+  );
 
   return (
     <article>

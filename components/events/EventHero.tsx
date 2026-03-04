@@ -5,11 +5,10 @@ import { Section, Heading, Text } from "@/components/ui";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Event } from "@/sanity/lib/types/event";
 import { Calendar, Clock, MapPin, Ticket } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { motion } from "framer-motion";
 import { fadeInVariants, slideUpVariants } from "@/lib/animations";
 import { EventCategoryBadge } from "./EventCategoryBadge";
+import { formatEventDate, isEventPast } from "@/utils/eventFormatters";
 
 interface EventHeroProps {
   event: Event;
@@ -17,14 +16,11 @@ interface EventHeroProps {
 
 export function EventHero({ event }: EventHeroProps) {
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
-  const eventDate = new Date(event.eventDate);
-  const dateFormatted = format(eventDate, "dd 'de' MMMM, yyyy", {
-    locale: ptBR,
-  });
-  const timeFormatted = format(eventDate, "HH:mm", { locale: ptBR });
-  const weekday = format(eventDate, "EEEE", { locale: ptBR });
+  const { dateFormatted, timeFormatted, weekday } = formatEventDate(
+    event.eventDate,
+  );
 
-  const isPast = eventDate < new Date();
+  const isPast = isEventPast(event.eventDate);
   const isFree = event.ticketPrice.free;
   const ticketValue = event.ticketPrice.value;
 

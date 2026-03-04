@@ -3,55 +3,24 @@
 import { Button, Heading, Text } from "@/components/ui";
 import { Event } from "@/sanity/lib/types/event";
 import { Calendar, MapPin, Ticket, ExternalLink } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/lib/animations";
-import { EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 import { routesPath } from "@/constants/routesPath";
+import { formatEventDate } from "@/utils/eventFormatters";
+import { buildEventCTA, getCTAButtonText } from "@/utils/eventCta";
 
 interface EventInfoProps {
   event: Event;
 }
 
 export function EventInfo({ event }: EventInfoProps) {
-  const eventDate = new Date(event.eventDate);
-  const dateFormatted = format(eventDate, "dd 'de' MMMM, yyyy", {
-    locale: ptBR,
-  });
-  const timeFormatted = format(eventDate, "HH:mm", { locale: ptBR });
-  const weekday = format(eventDate, "EEEE", { locale: ptBR });
+  const { dateFormatted, timeFormatted, weekday } = formatEventDate(
+    event.eventDate,
+  );
 
   // CTA Logic
-  const hasCTA = event.cta?.enabled;
-  const ctaButtonText =
-    event.cta?.buttonText || EVENT_DETAIL_FALLBACKS.ctaButtonText;
-
-  let ctaHref = "#";
-  if (hasCTA && event.cta) {
-    if (event.cta.type === "link" && event.cta.link) {
-      ctaHref = event.cta.link;
-    } else if (event.cta.type === "whatsapp") {
-      const whatsappNumber =
-        event.cta.whatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
-      const message =
-        event.cta.whatsappMessage ??
-        EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
-          "{eventName}",
-          event.title,
-        );
-      ctaHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    } else if (event.cta.type === "email" && event.cta.email) {
-      ctaHref = `mailto:${event.cta.email}?subject=${encodeURIComponent(`Interesse no evento: ${event.title}`)}`;
-    }
-  } else {
-    // Fallback: WhatsApp global
-    const message = EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
-      "{eventName}",
-      event.title,
-    );
-    ctaHref = `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`;
-  }
+  const ctaButtonText = getCTAButtonText(event);
+  const { href: ctaHref } = buildEventCTA(event);
 
   // Location Logic
   const hasSpecificLocation =
@@ -159,9 +128,7 @@ export function EventInfo({ event }: EventInfoProps) {
           fullWidth
         >
           <MapPin size={14} />
-          {hasSpecificLocation
-            ? EVENT_DETAIL_FALLBACKS.locationButtonText
-            : "Ver Auditório"}
+          {hasSpecificLocation ? "Ver no Mapa" : "Ver Auditório"}
           {hasSpecificLocation && <ExternalLink size={12} />}
         </Button>
       </div>

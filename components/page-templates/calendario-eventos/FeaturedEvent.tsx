@@ -6,9 +6,6 @@ import Image from "next/image";
 import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock, ArrowRight, Circle } from "lucide-react";
-import { format } from "date-fns";
-import { ptBR } from "date-fns/locale";
-import { EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import {
@@ -16,6 +13,8 @@ import {
   CATEGORY_ICONS,
   CATEGORY_COLORS_FEATURED,
 } from "@/constants/eventCategories";
+import { formatEventDate } from "@/utils/eventFormatters";
+import { handleEventCTAClick } from "@/utils/eventCta";
 
 interface FeaturedEventProps {
   event: Event;
@@ -24,14 +23,9 @@ interface FeaturedEventProps {
 export function FeaturedEvent({ event }: FeaturedEventProps) {
   const [isHovered, setIsHovered] = useState(false);
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
-  const eventDate = new Date(event.eventDate);
-  const dayNumber = format(eventDate, "dd", { locale: ptBR });
-  const monthShort = format(eventDate, "MMM", { locale: ptBR }).toUpperCase();
-  const year = format(eventDate, "yyyy", { locale: ptBR });
-  const timeFormatted = eventDate.toLocaleTimeString("pt-BR", {
-    hour: "2-digit",
-    minute: "2-digit",
-  });
+  const { dayNumber, monthShort, year, timeFormatted } = formatEventDate(
+    event.eventDate,
+  );
 
   const CategoryIcon = CATEGORY_ICONS[event.category] || Circle;
   const categoryColor =
@@ -40,46 +34,7 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
   const handleCTA = (e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-
-    if (!event.cta.enabled) return;
-
-    switch (event.cta.type) {
-      case "whatsapp":
-        if (event.cta.whatsapp) {
-          const message =
-            event.cta.whatsappMessage ||
-            EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
-              "{eventName}",
-              event.title,
-            );
-          window.open(
-            `https://wa.me/${event.cta.whatsapp}?text=${encodeURIComponent(message)}`,
-            "_blank",
-          );
-        } else {
-          // Fallback para WhatsApp global
-          const message = EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
-            "{eventName}",
-            event.title,
-          );
-          window.open(
-            `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`,
-            "_blank",
-          );
-        }
-        break;
-      case "email":
-        if (event.cta.email) {
-          const mailtoLink = `mailto:${event.cta.email}?subject=${encodeURIComponent(`Interesse em: ${event.title}`)}`;
-          window.location.href = mailtoLink;
-        }
-        break;
-      case "link":
-        if (event.cta.link) {
-          window.open(event.cta.link, "_blank");
-        }
-        break;
-    }
+    handleEventCTAClick(event);
   };
 
   return (

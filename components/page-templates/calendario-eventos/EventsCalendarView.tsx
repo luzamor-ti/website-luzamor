@@ -136,8 +136,11 @@ export function EventsCalendarView({
               {/* Eventos do dia - Limite 2 no mobile, 3 no desktop */}
               <div className="space-y-0.5 sm:space-y-1">
                 {dayEvents.slice(0, 2).map((event) => {
-                  const eventTime = format(new Date(event.eventDate), "HH:mm", {
-                    locale: ptBR,
+                  const eventTime = new Date(
+                    event.eventDate,
+                  ).toLocaleTimeString("pt-BR", {
+                    hour: "2-digit",
+                    minute: "2-digit",
                   });
                   return (
                     <Link
