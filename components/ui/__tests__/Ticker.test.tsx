@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { describe, it, expect, beforeEach, afterEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { Ticker } from "@/components/ui/Ticker";
