@@ -85,6 +85,7 @@ describe("CalendarioEventosTemplate", () => {
       },
       alt: "Workshop Educacional",
     },
+    shortDescription: "Um workshop sobre educação financeira",
     description: [
       {
         _type: "block" as const,
@@ -124,6 +125,7 @@ describe("CalendarioEventosTemplate", () => {
       },
       alt: "Festa Junina",
     },
+    shortDescription: "Nossa tradicional festa junina",
     description: [
       {
         _type: "block" as const,
@@ -160,7 +162,6 @@ describe("CalendarioEventosTemplate", () => {
           _type: "reference" as const,
         },
         alt: "Galeria 1",
-        caption: "Participantes se divertindo",
       },
       {
         asset: {

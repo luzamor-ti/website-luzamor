@@ -42,6 +42,8 @@ describe("EventCard", () => {
       },
       alt: "Workshop de Artesanato",
     },
+    shortDescription:
+      "Aprenda técnicas de artesanato com materiais recicláveis",
     description: [
       {
         _type: "block" as const,

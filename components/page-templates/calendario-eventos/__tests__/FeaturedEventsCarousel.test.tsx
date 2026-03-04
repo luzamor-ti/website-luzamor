@@ -52,6 +52,7 @@ describe("FeaturedEventsCarousel", () => {
         asset: { _ref: "image-1", _type: "reference" },
         alt: "Evento 1",
       },
+      shortDescription: "Descrição breve do Evento 1",
       description: [
         {
           _type: "block",
@@ -79,6 +80,7 @@ describe("FeaturedEventsCarousel", () => {
         asset: { _ref: "image-2", _type: "reference" },
         alt: "Evento 2",
       },
+      shortDescription: "Descrição breve do Evento 2",
       description: [
         {
           _type: "block",
@@ -106,6 +108,7 @@ describe("FeaturedEventsCarousel", () => {
         asset: { _ref: "image-3", _type: "reference" },
         alt: "Evento 3",
       },
+      shortDescription: "Descrição breve do Evento 3",
       description: [
         {
           _type: "block",
@@ -139,66 +142,80 @@ describe("FeaturedEventsCarousel", () => {
 
   it("renders navigation buttons", () => {
     render(<FeaturedEventsCarousel events={mockEvents} />);
-    
+
     const prevButton = screen.getByLabelText("Evento anterior");
     const nextButton = screen.getByLabelText("Próximo evento");
-    
+
     expect(prevButton).toBeInTheDocument();
     expect(nextButton).toBeInTheDocument();
   });
 
   it("renders indicator dots for all events", () => {
     render(<FeaturedEventsCarousel events={mockEvents} />);
-    
-    const indicators = screen.getAllByRole("button", { name: /Ir para evento/ });
+
+    const indicators = screen.getAllByRole("button", {
+      name: /Ir para evento/,
+    });
     expect(indicators).toHaveLength(mockEvents.length);
   });
 
   it("renders navigation buttons with correct aria labels", () => {
     render(<FeaturedEventsCarousel events={mockEvents} />);
-    
+
     const prevButton = screen.getByLabelText("Evento anterior");
     const nextButton = screen.getByLabelText("Próximo evento");
-    
+
     expect(prevButton).toHaveAttribute("aria-label", "Evento anterior");
     expect(nextButton).toHaveAttribute("aria-label", "Próximo evento");
   });
 
   it("renders correct number of indicator buttons", () => {
     render(<FeaturedEventsCarousel events={mockEvents} />);
-    
-    const indicators = screen.getAllByRole("button", { name: /Ir para evento/ });
+
+    const indicators = screen.getAllByRole("button", {
+      name: /Ir para evento/,
+    });
     expect(indicators).toHaveLength(mockEvents.length);
-    
+
     // Check individual indicator labels
-    expect(screen.getByRole("button", { name: "Ir para evento 1" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Ir para evento 2" })).toBeInTheDocument();
-    expect(screen.getByRole("button", { name: "Ir para evento 3" })).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Ir para evento 1" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Ir para evento 2" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("button", { name: "Ir para evento 3" }),
+    ).toBeInTheDocument();
   });
 
   it("marks current indicator with aria-current", () => {
     render(<FeaturedEventsCarousel events={mockEvents} />);
-    
-    const firstIndicator = screen.getByRole("button", { name: "Ir para evento 1" });
+
+    const firstIndicator = screen.getByRole("button", {
+      name: "Ir para evento 1",
+    });
     expect(firstIndicator).toHaveAttribute("aria-current", "true");
   });
 
   it("does not autoplay with single event", () => {
     const singleEvent = [mockEvents[0]];
-    render(<FeaturedEventsCarousel events={singleEvent} autoplayDelay={3000} />);
-    
+    render(
+      <FeaturedEventsCarousel events={singleEvent} autoplayDelay={3000} />,
+    );
+
     // Should not set up autoplay for single event
     expect(screen.getByText("Evento 1")).toBeInTheDocument();
-    
+
     vi.advanceTimersByTime(10000);
-      // Still on first event
+    // Still on first event
     expect(screen.getByText("Evento 1")).toBeInTheDocument();
   });
 
   it("renders with single event without navigation controls", () => {
     const singleEvent = [mockEvents[0]];
     render(<FeaturedEventsCarousel events={singleEvent} />);
-    
+
     // With single event, only the FeaturedEvent is rendered, no controls
     expect(screen.getByText("Evento 1")).toBeInTheDocument();
     expect(screen.queryByLabelText("Evento anterior")).not.toBeInTheDocument();
@@ -207,10 +224,10 @@ describe("FeaturedEventsCarousel", () => {
 
   it("has touch-friendly navigation buttons", () => {
     render(<FeaturedEventsCarousel events={mockEvents} />);
-    
+
     const prevButton = screen.getByLabelText("Evento anterior");
     const nextButton = screen.getByLabelText("Próximo evento");
-    
+
     // Check responsive classes
     expect(prevButton).toHaveClass("min-h-[40px]");
     expect(prevButton).toHaveClass("min-w-[40px]");
@@ -219,9 +236,13 @@ describe("FeaturedEventsCarousel", () => {
   });
 
   it("has responsive indicator dots", () => {
-    const { container } = render(<FeaturedEventsCarousel events={mockEvents} />);
-    
-    const indicatorContainer = container.querySelector(".flex.justify-center.gap-1\\.5");
+    const { container } = render(
+      <FeaturedEventsCarousel events={mockEvents} />,
+    );
+
+    const indicatorContainer = container.querySelector(
+      ".flex.justify-center.gap-1\\.5",
+    );
     expect(indicatorContainer).toBeInTheDocument();
   });
 });

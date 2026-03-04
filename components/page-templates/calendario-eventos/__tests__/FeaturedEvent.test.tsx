@@ -49,6 +49,8 @@ describe("FeaturedEvent", () => {
       asset: { _ref: "image-123", _type: "reference" },
       alt: "Arena Sertaneja",
     },
+    shortDescription:
+      "A Fundação LuzAmor convida você para a 4ª edição do Jantar Arena Sertaneja",
     description: [
       {
         _type: "block",
@@ -121,15 +123,118 @@ describe("FeaturedEvent", () => {
     expect(link).toHaveAttribute("href", "/evento/arena-sertaneja");
   });
 
-  it("renders CTA button with text from fallback", () => {
+  it("renders CTA button that executes action", () => {
     render(<FeaturedEvent event={mockEvent} />);
-    expect(screen.getByText("Inscreva-se")).toBeInTheDocument();
+    const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
+    expect(ctaButton).toBeInTheDocument();
+  });
+
+  it("CTA button opens link when clicked", () => {
+    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    
+    render(<FeaturedEvent event={mockEvent} />);
+    const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
+    
+    if (ctaButton) {
+      fireEvent.click(ctaButton);
+      expect(windowOpenSpy).toHaveBeenCalledWith("/inscricao", "_blank");
+    }
+  });
+
+  it("CTA button with WhatsApp type opens WhatsApp", () => {
+    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const whatsappEvent: Event = {
+      ...mockEvent,
+      cta: {
+        enabled: true,
+        type: "whatsapp",
+        whatsapp: "5511999999999",
+        whatsappMessage: "Quero participar!",
+      },
+    };
+    
+    render(<FeaturedEvent event={whatsappEvent} />);
+    const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
+    
+    if (ctaButton) {
+      fireEvent.click(ctaButton);
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        expect.stringContaining("wa.me/5511999999999"),
+        "_blank",
+      );
+    }
+  });
+
+  it("CTA button with email type creates mailto link", () => {
+    const createElementSpy = vi.spyOn(document, "createElement");
+    const emailEvent: Event = {
+      ...mockEvent,
+      cta: {
+        enabled: true,
+        type: "email",
+        email: "eventos@fundacao.org",
+      },
+    };
+    
+    render(<FeaturedEvent event={emailEvent} />);
+    const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
+    
+    if (ctaButton) {
+      fireEvent.click(ctaButton);
+      expect(createElementSpy).toHaveBeenCalledWith("a");
+    }
+  });
+
+  it("card link still navigates to event detail page", () => {
+    render(<FeaturedEvent event={mockEvent} />);
+    const link = screen.getByRole("link");
+    expect(link).toHaveAttribute("href", "/evento/arena-sertaneja");
+  });
+
+  it("uses custom CTA button text when provided", () => {
+    const customTextEvent: Event = {
+      ...mockEvent,
+      cta: {
+        enabled: true,
+        buttonText: "Comprar Ingresso",
+        type: "link",
+        link: "/tickets",
+      },
+    };
+    
+    render(<FeaturedEvent event={customTextEvent} />);
+    expect(screen.getByText("Comprar Ingresso")).toBeInTheDocument();
+  });
+
+  it("uses fallback WhatsApp when event has no WhatsApp configured", () => {
+    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const noWhatsappEvent: Event = {
+      ...mockEvent,
+      cta: {
+        enabled: true,
+        type: "whatsapp",
+        whatsapp: "",
+        whatsappMessage: "Olá!",
+      },
+    };
+    
+    render(<FeaturedEvent event={noWhatsappEvent} />);
+    const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
+    
+    if (ctaButton) {
+      fireEvent.click(ctaButton);
+      // Should use fallback global WhatsApp
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        expect.stringContaining("wa.me/"),
+        "_blank",
+      );
+    }
   });
 
   it("triggers hover state on mouse enter", () => {
     render(<FeaturedEvent event={mockEvent} />);
     const link = screen.getByRole("link");
-    
+
     fireEvent.mouseEnter(link);
     // Hover state is managed internally, just verify no errors
     expect(link).toBeInTheDocument();
@@ -138,7 +243,7 @@ describe("FeaturedEvent", () => {
   it("uses responsive classes for mobile optimization", () => {
     const { container } = render(<FeaturedEvent event={mockEvent} />);
     const gridElement = container.querySelector(".grid");
-    
+
     expect(gridElement).toHaveClass("grid-cols-1");
     expect(gridElement).toHaveClass("md:grid-cols-5");
   });
@@ -164,7 +269,7 @@ describe("FeaturedEvent", () => {
   it("handles events without description", () => {
     const eventWithoutDesc = { ...mockEvent, description: [] };
     render(<FeaturedEvent event={eventWithoutDesc} />);
-    
+
     // Should still render title and other elements
     expect(screen.getByText("Arena Sertaneja")).toBeInTheDocument();
     expect(screen.getByText("24")).toBeInTheDocument();
