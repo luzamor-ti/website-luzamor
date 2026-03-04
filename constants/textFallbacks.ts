@@ -349,6 +349,17 @@ export const ABOUT_PAGE_FALLBACKS = {
 };
 
 /**
+ * Event Detail Page Fallbacks
+ */
+export const EVENT_DETAIL_FALLBACKS = {
+  ctaButtonText: "Participe do Evento",
+  whatsappDefaultMessage:
+    "Olá! Gostaria de mais informações sobre o evento {eventName}",
+  locationButtonText: "Ver Localização",
+  globalWhatsapp: "5511999999999", // Número padrão - deve ser configurado
+};
+
+/**
  * Get fallback text for a section
  */
 export function getFallbackText(section: SectionName): SectionFallback {

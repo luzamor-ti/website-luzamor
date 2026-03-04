@@ -2,14 +2,18 @@
 
 import { Event } from "@/sanity/lib/types/event";
 import { HomeSection } from "@/sanity/lib/types/homeSection";
-import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
-import { Section, SectionHeader, SectionFooter } from "@/components/ui";
+import {
+  TEXT_FALLBACKS,
+  EVENT_DETAIL_FALLBACKS,
+} from "@/constants/textFallbacks";
+import { Section, SectionHeader, SectionFooter, Tag } from "@/components/ui";
 import { motion } from "framer-motion";
 import {
   staggerContainerVariants,
   staggerItemVariants,
 } from "@/lib/animations";
 import Image from "next/image";
+import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Ticket, MapPin, ArrowRight, Clock } from "lucide-react";
 
@@ -53,7 +57,18 @@ export function EventsSection({ data, section }: EventsSectionProps) {
     };
   };
 
-  const handleCTA = (event: Event) => {
+  const formatPrice = (value: number) => {
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+    });
+  };
+
+  const handleCTA = (event: Event, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!event.cta.enabled) return;
 
     switch (event.cta.type) {
@@ -61,9 +76,22 @@ export function EventsSection({ data, section }: EventsSectionProps) {
         if (event.cta.whatsapp) {
           const message =
             event.cta.whatsappMessage ||
-            `Olá! Gostaria de saber mais sobre o evento ${event.title}`;
+            EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
+              "{eventName}",
+              event.title,
+            );
           window.open(
             `https://wa.me/${event.cta.whatsapp}?text=${encodeURIComponent(message)}`,
+            "_blank",
+          );
+        } else {
+          // Fallback para WhatsApp global
+          const message = EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
+            "{eventName}",
+            event.title,
+          );
+          window.open(
+            `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`,
             "_blank",
           );
         }
@@ -71,9 +99,7 @@ export function EventsSection({ data, section }: EventsSectionProps) {
       case "email":
         if (event.cta.email) {
           const mailtoLink = `mailto:${event.cta.email}?subject=${encodeURIComponent(`Interesse em: ${event.title}`)}`;
-          const anchor = document.createElement("a");
-          anchor.href = mailtoLink;
-          anchor.click();
+          window.location.href = mailtoLink;
         }
         break;
       case "link":
@@ -174,7 +200,7 @@ export function EventsSection({ data, section }: EventsSectionProps) {
               return (
                 <motion.div
                   key={event._id}
-                  className="group relative cursor-pointer perspective-1000"
+                  className="group relative perspective-1000"
                   variants={staggerItemVariants}
                   initial={{ opacity: 0, y: 40, rotateX: -15 }}
                   whileInView={{
@@ -195,22 +221,14 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                   }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   style={{ transformStyle: "preserve-3d" }}
-                  onClick={() => event.cta.enabled && handleCTA(event)}
                   role="article"
                   aria-label={`Evento: ${event.title}`}
-                  tabIndex={event.cta.enabled ? 0 : -1}
-                  onKeyDown={(e) => {
-                    if (
-                      event.cta.enabled &&
-                      (e.key === "Enter" || e.key === " ")
-                    ) {
-                      e.preventDefault();
-                      handleCTA(event);
-                    }
-                  }}
                 >
-                  {/* Card principal */}
-                  <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl group-hover:shadow-2xl border-2 border-transparent group-hover:border-primary/20 transition-all duration-500 h-full flex flex-col">
+                  {/* Card principal - Link para página do evento */}
+                  <Link
+                    href={`/evento/${event.slug.current}`}
+                    className="relative rounded-2xl overflow-hidden bg-white shadow-xl group-hover:shadow-2xl border-2 border-transparent group-hover:border-primary/20 transition-all duration-500 h-full flex flex-col block cursor-pointer"
+                  >
                     {/* Imagem de destaque com overlay de gradiente */}
                     <div className="relative h-56 overflow-hidden">
                       <Image
@@ -237,10 +255,10 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                       </div>
 
                       {/* Badge de categoria - canto superior direito */}
-                      <div
-                        className={`absolute top-4 right-4 ${categoryColor.bg} ${categoryColor.text} px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg`}
-                      >
-                        {CATEGORY_LABELS[event.category] || event.category}
+                      <div className="absolute top-4 right-4">
+                        <Tag className="bg-white/95 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full shadow-lg">
+                          {CATEGORY_LABELS[event.category] || event.category}
+                        </Tag>
                       </div>
 
                       {/* Efeito de brilho animado */}
@@ -287,22 +305,25 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                         </div>
                       </div>
 
-                      {/* Botão de ação */}
+                      {/* Botão de ação do CTA */}
                       {event.cta.enabled && (
-                        <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300 mt-auto pt-4 border-t border-gray-100">
+                        <button
+                          onClick={(e) => handleCTA(event, e)}
+                          className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300 mt-auto pt-4 border-t border-gray-100 w-full text-left"
+                        >
                           <span className="uppercase tracking-wide">
-                            {event.cta.buttonText || "Ver detalhes"}
+                            {event.cta.buttonText || "Garantir meu lugar"}
                           </span>
                           <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
                             <ArrowRight className="w-4 h-4 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-300" />
                           </div>
-                        </div>
+                        </button>
                       )}
                     </div>
 
                     {/* Borda animada */}
                     <div className="absolute inset-0 rounded-2xl ring-0 group-hover:ring-4 ring-primary ring-opacity-0 group-hover:ring-opacity-30 transition-all duration-500 pointer-events-none" />
-                  </div>
+                  </Link>
 
                   {/* Reflexo sob o card */}
                   <div className="absolute -bottom-2 left-4 right-4 h-8 bg-gradient-to-br from-primary/20 to-emerald-400/20 opacity-0 group-hover:opacity-40 blur-xl rounded-full transition-opacity duration-500 -z-10" />
