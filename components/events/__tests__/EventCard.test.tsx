@@ -134,7 +134,7 @@ describe("EventCard", () => {
 
   it("displays time correctly", () => {
     render(<EventCard event={mockEvent} />);
-    expect(screen.getByText(/11:00/)).toBeInTheDocument();
+    expect(screen.getByText(/14:00/)).toBeInTheDocument();
   });
 
   it("renders gallery icon when showGalleryIcon is true and event has gallery", () => {

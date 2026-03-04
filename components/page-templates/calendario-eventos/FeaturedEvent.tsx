@@ -77,7 +77,10 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
   const dayNumber = format(eventDate, "dd", { locale: ptBR });
   const monthShort = format(eventDate, "MMM", { locale: ptBR }).toUpperCase();
   const year = format(eventDate, "yyyy", { locale: ptBR });
-  const timeFormatted = format(eventDate, "HH:mm", { locale: ptBR });
+  const timeFormatted = eventDate.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   const CategoryIcon = CATEGORY_ICONS[event.category] || Circle;
   const categoryColor =

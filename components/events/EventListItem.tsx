@@ -25,7 +25,10 @@ export function EventListItem({
   const dayNumber = format(eventDate, "dd", { locale: ptBR });
   const monthShort = format(eventDate, "MMM", { locale: ptBR }).toUpperCase();
   const weekday = format(eventDate, "EEEE", { locale: ptBR });
-  const timeFormatted = format(eventDate, "HH:mm", { locale: ptBR });
+  const timeFormatted = eventDate.toLocaleTimeString("pt-BR", {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
 
   return (
     <article>

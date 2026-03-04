@@ -50,6 +50,9 @@ export default defineConfig({
             "**/.storybook/**",
             "**/stories/**",
           ],
+          env: {
+            TZ: "UTC",
+          },
         },
       },
       // Storybook tests project

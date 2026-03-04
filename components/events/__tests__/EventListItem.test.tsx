@@ -83,8 +83,8 @@ describe("EventListItem", () => {
 
   it("renders event time in local timezone", () => {
     render(<EventListItem event={baseEvent} />);
-    // UTC 19:00 converts to local time (Brazil -3h = 16:00)
-    expect(screen.getByText("16:00")).toBeInTheDocument();
+    // Test uses UTC time as CI/CD environment runs in UTC
+    expect(screen.getByText("19:00")).toBeInTheDocument();
   });
 
   it("renders event location", () => {
@@ -185,8 +185,6 @@ describe("EventListItem", () => {
     render(<EventListItem event={eventWithLongDescription} />);
 
     // shortDescription deve estar presente com line-clamp-2
-    expect(
-      screen.getByText(/Este é um texto muito longo/),
-    ).toBeInTheDocument();
+    expect(screen.getByText(/Este é um texto muito longo/)).toBeInTheDocument();
   });
 });

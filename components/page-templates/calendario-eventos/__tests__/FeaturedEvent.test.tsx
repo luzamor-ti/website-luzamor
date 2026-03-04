@@ -103,7 +103,7 @@ describe("FeaturedEvent", () => {
 
   it("displays event time", () => {
     render(<FeaturedEvent event={mockEvent} />);
-    expect(screen.getByText(/16:30/)).toBeInTheDocument();
+    expect(screen.getByText(/19:30/)).toBeInTheDocument();
   });
 
   it("renders category badge with icon", () => {
@@ -130,11 +130,13 @@ describe("FeaturedEvent", () => {
   });
 
   it("CTA button opens link when clicked", () => {
-    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
-    
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
+
     render(<FeaturedEvent event={mockEvent} />);
     const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
-    
+
     if (ctaButton) {
       fireEvent.click(ctaButton);
       expect(windowOpenSpy).toHaveBeenCalledWith("/inscricao", "_blank");
@@ -142,7 +144,9 @@ describe("FeaturedEvent", () => {
   });
 
   it("CTA button with WhatsApp type opens WhatsApp", () => {
-    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
     const whatsappEvent: Event = {
       ...mockEvent,
       cta: {
@@ -152,10 +156,10 @@ describe("FeaturedEvent", () => {
         whatsappMessage: "Quero participar!",
       },
     };
-    
+
     render(<FeaturedEvent event={whatsappEvent} />);
     const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
-    
+
     if (ctaButton) {
       fireEvent.click(ctaButton);
       expect(windowOpenSpy).toHaveBeenCalledWith(
@@ -175,10 +179,10 @@ describe("FeaturedEvent", () => {
         email: "eventos@fundacao.org",
       },
     };
-    
+
     render(<FeaturedEvent event={emailEvent} />);
     const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
-    
+
     if (ctaButton) {
       fireEvent.click(ctaButton);
       expect(createElementSpy).toHaveBeenCalledWith("a");
@@ -201,13 +205,15 @@ describe("FeaturedEvent", () => {
         link: "/tickets",
       },
     };
-    
+
     render(<FeaturedEvent event={customTextEvent} />);
     expect(screen.getByText("Comprar Ingresso")).toBeInTheDocument();
   });
 
   it("uses fallback WhatsApp when event has no WhatsApp configured", () => {
-    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
     const noWhatsappEvent: Event = {
       ...mockEvent,
       cta: {
@@ -217,10 +223,10 @@ describe("FeaturedEvent", () => {
         whatsappMessage: "Olá!",
       },
     };
-    
+
     render(<FeaturedEvent event={noWhatsappEvent} />);
     const ctaButton = screen.getByText("Garantir meu lugar").closest("button");
-    
+
     if (ctaButton) {
       fireEvent.click(ctaButton);
       // Should use fallback global WhatsApp
