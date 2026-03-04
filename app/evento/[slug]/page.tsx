@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import { getEventBySlug } from "@/sanity/lib/services/eventService";
 import {
   EventHero,
-  EventCTA,
   EventDetails,
   EventInfo,
   EventGallerySection,
@@ -10,15 +9,16 @@ import {
 import { Metadata } from "next";
 
 interface EventPageProps {
-  params: {
+  params: Promise<{
     slug: string;
-  };
+  }>;
 }
 
 export async function generateMetadata({
   params,
 }: EventPageProps): Promise<Metadata> {
-  const event = await getEventBySlug(params.slug);
+  const { slug } = await params;
+  const event = await getEventBySlug(slug);
 
   if (!event) {
     return {
@@ -35,7 +35,8 @@ export async function generateMetadata({
 }
 
 export default async function EventPage({ params }: EventPageProps) {
-  const event = await getEventBySlug(params.slug);
+  const { slug } = await params;
+  const event = await getEventBySlug(slug);
 
   if (!event) {
     notFound();
@@ -44,7 +45,6 @@ export default async function EventPage({ params }: EventPageProps) {
   return (
     <main className="min-h-screen">
       <EventHero event={event} />
-      <EventCTA event={event} />
 
       <div className="container mx-auto px-4 py-16">
         <div className="grid lg:grid-cols-3 gap-12">

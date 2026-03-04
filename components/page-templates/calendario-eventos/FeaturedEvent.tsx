@@ -20,7 +20,7 @@ import {
 } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
-import { CALENDAR_EVENTS_FALLBACKS } from "@/constants/textFallbacks";
+import { EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 import { motion } from "framer-motion";
 import { useState } from "react";
 
@@ -82,6 +82,51 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
   const CategoryIcon = CATEGORY_ICONS[event.category] || Circle;
   const categoryColor =
     CATEGORY_COLORS[event.category] || CATEGORY_COLORS.outro;
+
+  const handleCTA = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
+    if (!event.cta.enabled) return;
+
+    switch (event.cta.type) {
+      case "whatsapp":
+        if (event.cta.whatsapp) {
+          const message =
+            event.cta.whatsappMessage ||
+            EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
+              "{eventName}",
+              event.title,
+            );
+          window.open(
+            `https://wa.me/${event.cta.whatsapp}?text=${encodeURIComponent(message)}`,
+            "_blank",
+          );
+        } else {
+          // Fallback para WhatsApp global
+          const message = EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
+            "{eventName}",
+            event.title,
+          );
+          window.open(
+            `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`,
+            "_blank",
+          );
+        }
+        break;
+      case "email":
+        if (event.cta.email) {
+          const mailtoLink = `mailto:${event.cta.email}?subject=${encodeURIComponent(`Interesse em: ${event.title}`)}`;
+          window.location.href = mailtoLink;
+        }
+        break;
+      case "link":
+        if (event.cta.link) {
+          window.open(event.cta.link, "_blank");
+        }
+        break;
+    }
+  };
 
   return (
     <article className="group">
@@ -149,9 +194,9 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
               </Heading>
 
               {/* Event Description */}
-              {event.description && event.description.length > 0 && (
+              {event.shortDescription && (
                 <Text className="text-sm sm:text-base text-gray-600 mb-4 sm:mb-6 line-clamp-2 leading-relaxed">
-                  {event.description[0]?.children?.[0]?.text || ""}
+                  {event.shortDescription}
                 </Text>
               )}
 
@@ -167,44 +212,48 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
                 </Text>
               </div>
 
-              {/* CTA Button - Visual only (card is already clickable) */}
-              <span
-                className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-base w-full sm:w-fit min-h-[44px] pointer-events-none relative overflow-hidden"
-                aria-hidden="true"
-              >
-                {/* Background hover animation */}
-                <motion.div
-                  className="absolute inset-0 bg-primary"
-                  initial={{ x: "-100%" }}
-                  animate={{ x: isHovered ? "0%" : "-100%" }}
-                  transition={{ duration: 0.4, ease: "easeInOut" }}
-                />
-
-                <motion.span
-                  className="relative z-10"
-                  animate={{
-                    color: isHovered ? "#ffffff" : undefined,
-                  }}
-                  transition={{ duration: 0.3, ease: "easeInOut" }}
+              {/* CTA Button - Executa ação do CTA */}
+              {event.cta.enabled && (
+                <button
+                  onClick={handleCTA}
+                  onMouseEnter={() => setIsHovered(true)}
+                  onMouseLeave={() => setIsHovered(false)}
+                  className="inline-flex items-center justify-center gap-2 border-2 border-primary text-primary px-6 sm:px-8 py-3 sm:py-3.5 rounded-full font-bold text-sm sm:text-base w-full sm:w-fit min-h-[44px] relative overflow-hidden cursor-pointer"
                 >
-                  {CALENDAR_EVENTS_FALLBACKS.enrollButton}
-                </motion.span>
-
-                <motion.div
-                  className="relative z-10"
-                  animate={{
-                    rotate: isHovered ? 360 : 0,
-                    color: isHovered ? "#ffffff" : undefined,
-                  }}
-                  transition={{ duration: 0.6, ease: "easeInOut" }}
-                >
-                  <ArrowRight
-                    size={18}
-                    className="sm:w-5 sm:h-5"
-                    aria-hidden="true"
+                  {/* Background hover animation */}
+                  <motion.div
+                    className="absolute inset-0 bg-primary"
+                    initial={{ x: "-100%" }}
+                    animate={{ x: isHovered ? "0%" : "-100%" }}
+                    transition={{ duration: 0.4, ease: "easeInOut" }}
                   />
-                </motion.div>
-              </span>
+
+                  <motion.span
+                    className="relative z-10"
+                    animate={{
+                      color: isHovered ? "#ffffff" : undefined,
+                    }}
+                    transition={{ duration: 0.3, ease: "easeInOut" }}
+                  >
+                    {event.cta.buttonText || "Garantir meu lugar"}
+                  </motion.span>
+
+                  <motion.div
+                    className="relative z-10"
+                    animate={{
+                      rotate: isHovered ? 360 : 0,
+                      color: isHovered ? "#ffffff" : undefined,
+                    }}
+                    transition={{ duration: 0.6, ease: "easeInOut" }}
+                  >
+                    <ArrowRight
+                      size={18}
+                      className="sm:w-5 sm:h-5"
+                      aria-hidden="true"
+                    />
+                  </motion.div>
+                </button>
+              )}
             </div>
           </div>
         </div>

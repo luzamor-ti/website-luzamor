@@ -16,13 +16,13 @@ export function EventGallerySection({ event }: EventGallerySectionProps) {
   if (!hasGallery) return null;
 
   return (
-    <Section className="bg-gray-50">
+    <Section>
       <motion.div
         initial="hidden"
         whileInView="visible"
         viewport={{ once: true }}
         variants={fadeInVariants}
-        className="max-w-6xl mx-auto"
+        className="max-w-7xl mx-auto"
       >
         <Heading level={2} className="mb-8 text-center">
           Galeria de Fotos

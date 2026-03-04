@@ -101,12 +101,12 @@ export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
             </Heading>
 
             {/* Description Preview */}
-            {event.description && event.description.length > 0 && (
+            {event.shortDescription && (
               <Text
                 variant="small"
                 className="text-gray-600 mb-5 line-clamp-2 leading-relaxed"
               >
-                {event.description[0]?.children?.[0]?.text || ""}
+                {event.shortDescription}
               </Text>
             )}
 

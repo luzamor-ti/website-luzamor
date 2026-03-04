@@ -9,6 +9,7 @@ export const eventsQuery = groq`
       "asset": imagemCapa.asset,
       "alt": imagemCapa.alt
     },
+    "shortDescription": descricaoCurta,
     "description": descricao,
     "category": categoria,
     "eventDate": dataEvento,
@@ -46,6 +47,7 @@ export const upcomingEventsQuery = groq`
       "asset": imagemCapa.asset,
       "alt": imagemCapa.alt
     },
+    "shortDescription": descricaoCurta,
     "description": descricao,
     "category": categoria,
     "eventDate": dataEvento,
@@ -78,6 +80,7 @@ export const featuredEventsQuery = groq`
       "asset": imagemCapa.asset,
       "alt": imagemCapa.alt
     },
+    "shortDescription": descricaoCurta,
     "description": descricao,
     "category": categoria,
     "eventDate": dataEvento,
@@ -110,6 +113,7 @@ export const eventBySlugQuery = groq`
       "asset": imagemCapa.asset,
       "alt": imagemCapa.alt
     },
+    "shortDescription": descricaoCurta,
     "description": descricao,
     "category": categoria,
     "eventDate": dataEvento,
@@ -153,6 +157,7 @@ export const allUpcomingEventsQuery = groq`
       "asset": imagemCapa.asset,
       "alt": imagemCapa.alt
     },
+    "shortDescription": descricaoCurta,
     "description": descricao,
     "category": categoria,
     "eventDate": dataEvento,
@@ -191,6 +196,7 @@ export const allPastEventsQuery = groq`
       "asset": imagemCapa.asset,
       "alt": imagemCapa.alt
     },
+    "shortDescription": descricaoCurta,
     "description": descricao,
     "category": categoria,
     "eventDate": dataEvento,

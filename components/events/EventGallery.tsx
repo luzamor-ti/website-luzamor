@@ -69,26 +69,29 @@ export function EventGallery({ images, eventTitle }: EventGalleryProps) {
 
   return (
     <>
-      {/* Gallery Grid */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+      {/* Masonry Gallery */}
+      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-4 space-y-4">
         {images.map((image, index) => {
           const imageUrl = buildSanityImageUrl(image.asset._ref);
           return (
             <motion.button
               key={index}
               onClick={() => openLightbox(index)}
-              className="relative aspect-square overflow-hidden rounded-lg bg-gray-100 group cursor-pointer"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              className="relative w-full overflow-hidden rounded-lg bg-gray-100 group cursor-pointer break-inside-avoid mb-4"
+              whileHover={{ scale: 1.02 }}
+              whileTap={{ scale: 0.98 }}
               transition={{ duration: 0.2 }}
             >
-              <Image
-                src={imageUrl}
-                alt={image.alt || `${eventTitle} - Foto ${index + 1}`}
-                fill
-                className="object-cover transition-opacity group-hover:opacity-80"
-                sizes="(max-width: 768px) 50vw, (max-width: 1200px) 33vw, 25vw"
-              />
+              <div className="relative w-full">
+                <Image
+                  src={imageUrl}
+                  alt={image.alt || `${eventTitle} - Foto ${index + 1}`}
+                  width={800}
+                  height={600}
+                  className="w-full h-auto object-cover transition-opacity group-hover:opacity-80"
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, (max-width: 1280px) 33vw, 25vw"
+                />
+              </div>
               {image.caption && (
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/70 to-transparent p-3 opacity-0 group-hover:opacity-100 transition-opacity">
                   <p className="text-white text-sm line-clamp-2">

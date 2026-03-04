@@ -5,71 +5,16 @@ import { Heading, Text } from "@/components/ui";
 import Link from "next/link";
 import Image from "next/image";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
-import {
-  Calendar,
-  Clock,
-  MapPin,
-  Image as ImageIcon,
-  Music,
-  BookOpen,
-  Users,
-  Heart,
-  PartyPopper,
-  Trophy,
-  Palette,
-  BookMarked,
-  Circle,
-} from "lucide-react";
+import { Calendar, Clock, MapPin, Image as ImageIcon } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { CALENDAR_EVENTS_FALLBACKS } from "@/constants/textFallbacks";
+import { EventCategoryBadge } from "./EventCategoryBadge";
 
 interface EventListItemProps {
   event: Event;
   showGalleryIcon?: boolean;
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  cultural: "Cultural",
-  educacional: "Educacional",
-  social: "Social",
-  arrecadacao: "Arrecadação",
-  celebracao: "Celebração",
-  esportivo: "Esportivo",
-  arte: "Arte",
-  musical: "Musical",
-  literario: "Literário",
-  outro: "Outro",
-};
-
-const CATEGORY_ICONS: Record<
-  string,
-  React.ComponentType<{ size?: number; className?: string }>
-> = {
-  cultural: Users,
-  educacional: BookOpen,
-  social: Heart,
-  arrecadacao: Heart,
-  celebracao: PartyPopper,
-  esportivo: Trophy,
-  arte: Palette,
-  musical: Music,
-  literario: BookMarked,
-  outro: Circle,
-};
-
-const CATEGORY_COLORS: Record<string, string> = {
-  cultural: "bg-purple-100 text-purple-700",
-  educacional: "bg-blue-100 text-blue-700",
-  social: "bg-green-100 text-green-700",
-  arrecadacao: "bg-yellow-100 text-yellow-700",
-  celebracao: "bg-pink-100 text-pink-700",
-  esportivo: "bg-red-100 text-red-700",
-  arte: "bg-indigo-100 text-indigo-700",
-  musical: "bg-violet-100 text-violet-700",
-  literario: "bg-cyan-100 text-cyan-700",
-  outro: "bg-gray-100 text-gray-700",
-};
 
 export function EventListItem({
   event,
@@ -81,10 +26,6 @@ export function EventListItem({
   const monthShort = format(eventDate, "MMM", { locale: ptBR }).toUpperCase();
   const weekday = format(eventDate, "EEEE", { locale: ptBR });
   const timeFormatted = format(eventDate, "HH:mm", { locale: ptBR });
-
-  const categoryColor =
-    CATEGORY_COLORS[event.category] || CATEGORY_COLORS.outro;
-  const CategoryIcon = CATEGORY_ICONS[event.category] || Circle;
 
   return (
     <article>
@@ -139,12 +80,9 @@ export function EventListItem({
           {/* Topo */}
           <div>
             {/* Categoria Badge */}
-            <span
-              className={`inline-flex items-center gap-1.5 px-2.5 sm:px-3 py-1 sm:py-1.5 rounded-lg text-xs font-bold mb-2 sm:mb-3 ${categoryColor}`}
-            >
-              <CategoryIcon size={12} className="sm:w-3.5 sm:h-3.5" />
-              {CATEGORY_LABELS[event.category]}
-            </span>
+            <div className="mb-2 sm:mb-3">
+              <EventCategoryBadge category={event.category} size="sm" />
+            </div>
 
             {/* Título */}
             <Heading
@@ -155,9 +93,9 @@ export function EventListItem({
             </Heading>
 
             {/* Descrição - Esconder no mobile para economizar espaço */}
-            {event.description && event.description.length > 0 && (
+            {event.shortDescription && (
               <Text className="hidden sm:block text-sm sm:text-base text-gray-600 line-clamp-2 mb-3 sm:mb-4">
-                {event.description[0]?.children?.[0]?.text || ""}
+                {event.shortDescription}
               </Text>
             )}
           </div>
