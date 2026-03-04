@@ -1,7 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { FeaturedEventsCarousel } from "../FeaturedEventsCarousel";
-import { Event } from "@/sanity/lib/types/event";
+import { createMockEvents } from "@/components/events/__tests__/eventMocks";
 
 // Mock Next.js Image
 vi.mock("next/image", () => ({
@@ -43,92 +43,7 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("FeaturedEventsCarousel", () => {
-  const mockEvents: Event[] = [
-    {
-      _id: "event-1",
-      title: "Evento 1",
-      slug: { current: "evento-1" },
-      coverImage: {
-        asset: { _ref: "image-1", _type: "reference" },
-        alt: "Evento 1",
-      },
-      shortDescription: "Descrição breve do Evento 1",
-      description: [
-        {
-          _type: "block",
-          _key: "block1",
-          children: [
-            { _type: "span", _key: "span1", text: "Descrição 1", marks: [] },
-          ],
-          style: "normal",
-          markDefs: [],
-        },
-      ],
-      category: "cultural",
-      eventDate: "2026-04-15T19:00:00.000Z",
-      ticketPrice: { free: true },
-      location: { name: "Local 1" },
-      cta: { enabled: false },
-      featured: true,
-      active: true,
-    },
-    {
-      _id: "event-2",
-      title: "Evento 2",
-      slug: { current: "evento-2" },
-      coverImage: {
-        asset: { _ref: "image-2", _type: "reference" },
-        alt: "Evento 2",
-      },
-      shortDescription: "Descrição breve do Evento 2",
-      description: [
-        {
-          _type: "block",
-          _key: "block2",
-          children: [
-            { _type: "span", _key: "span2", text: "Descrição 2", marks: [] },
-          ],
-          style: "normal",
-          markDefs: [],
-        },
-      ],
-      category: "musical",
-      eventDate: "2026-05-20T20:00:00.000Z",
-      ticketPrice: { free: false, value: 30.0 },
-      location: { name: "Local 2" },
-      cta: { enabled: false },
-      featured: true,
-      active: true,
-    },
-    {
-      _id: "event-3",
-      title: "Evento 3",
-      slug: { current: "evento-3" },
-      coverImage: {
-        asset: { _ref: "image-3", _type: "reference" },
-        alt: "Evento 3",
-      },
-      shortDescription: "Descrição breve do Evento 3",
-      description: [
-        {
-          _type: "block",
-          _key: "block3",
-          children: [
-            { _type: "span", _key: "span3", text: "Descrição 3", marks: [] },
-          ],
-          style: "normal",
-          markDefs: [],
-        },
-      ],
-      category: "educacional",
-      eventDate: "2026-06-10T14:00:00.000Z",
-      ticketPrice: { free: true },
-      location: { name: "Local 3" },
-      cta: { enabled: false },
-      featured: true,
-      active: true,
-    },
-  ];
+  const mockEvents = createMockEvents(3);
 
   beforeEach(() => {
     vi.clearAllTimers();

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { EventListItem } from "../EventListItem";
-import { Event } from "@/sanity/lib/types/event";
+import { mockMusicalEvent } from "./eventMocks";
 
 // Mock Next.js Image
 vi.mock("next/image", () => ({
@@ -23,39 +23,7 @@ vi.mock("next/link", () => ({
 }));
 
 describe("EventListItem", () => {
-  const baseEvent: Event = {
-    _id: "event-1",
-    title: "Concerto de Primavera",
-    slug: { current: "concerto-primavera" },
-    coverImage: {
-      asset: { _ref: "image-1", _type: "reference" },
-      alt: "Imagem do Concerto",
-    },
-    shortDescription: "Um concerto emocionante com música clássica.",
-    description: [
-      {
-        _type: "block",
-        _key: "block1",
-        children: [
-          {
-            _type: "span",
-            _key: "span1",
-            text: "Um concerto emocionante com música clássica.",
-            marks: [],
-          },
-        ],
-        style: "normal",
-        markDefs: [],
-      },
-    ],
-    category: "musical",
-    eventDate: "2026-04-15T19:00:00.000Z",
-    ticketPrice: { free: false, value: 50.0 },
-    location: { name: "Teatro Municipal" },
-    cta: { enabled: false },
-    featured: false,
-    active: true,
-  };
+  const baseEvent = mockMusicalEvent;
 
   it("renders event title", () => {
     render(<EventListItem event={baseEvent} />);
@@ -65,13 +33,13 @@ describe("EventListItem", () => {
   it("renders event description", () => {
     render(<EventListItem event={baseEvent} />);
     expect(
-      screen.getByText("Um concerto emocionante com música clássica."),
+      screen.getByText(/Aprenda técnicas de artesanato/i),
     ).toBeInTheDocument();
   });
 
   it("renders event image with correct alt text", () => {
     render(<EventListItem event={baseEvent} />);
-    const image = screen.getByAltText("Imagem do Concerto");
+    const image = screen.getByAltText(/Workshop de Artesanato/i);
     expect(image).toBeInTheDocument();
   });
 

@@ -1,7 +1,7 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { FeaturedEvent } from "../FeaturedEvent";
-import { Event } from "@/sanity/lib/types/event";
+import { mockFeaturedEvent } from "@/components/events/__tests__/eventMocks";
 
 // Mock Next.js Image
 vi.mock("next/image", () => ({
@@ -41,40 +41,7 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("FeaturedEvent", () => {
-  const mockEvent: Event = {
-    _id: "event-1",
-    title: "Arena Sertaneja",
-    slug: { current: "arena-sertaneja" },
-    coverImage: {
-      asset: { _ref: "image-123", _type: "reference" },
-      alt: "Arena Sertaneja",
-    },
-    shortDescription:
-      "A Fundação LuzAmor convida você para a 4ª edição do Jantar Arena Sertaneja",
-    description: [
-      {
-        _type: "block",
-        _key: "block1",
-        children: [
-          {
-            _type: "span",
-            _key: "span1",
-            text: "A Fundação LuzAmor convida você para a 4ª edição do Jantar Arena Sertaneja",
-            marks: [],
-          },
-        ],
-        style: "normal",
-        markDefs: [],
-      },
-    ],
-    category: "musical",
-    eventDate: "2026-04-24T19:30:00.000Z",
-    ticketPrice: { free: false, value: 50.0 },
-    location: { name: "Pátio da Fundação" },
-    cta: { enabled: true, type: "link", link: "/inscricao" },
-    featured: true,
-    active: true,
-  };
+  const mockEvent = mockFeaturedEvent;
 
   it("renders event title", () => {
     render(<FeaturedEvent event={mockEvent} />);

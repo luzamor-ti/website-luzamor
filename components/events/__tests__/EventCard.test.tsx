@@ -1,7 +1,7 @@
 import { describe, it, expect, beforeEach, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { EventCard } from "@/components/events/EventCard";
-import { Event } from "@/sanity/lib/types/event";
+import { createMockEvent, mockEventWithGallery } from "./eventMocks";
 
 // Mock Next.js Image component
 vi.mock("next/image", () => ({
@@ -31,54 +31,7 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("EventCard", () => {
-  const mockEvent: Event = {
-    _id: "event-1",
-    title: "Workshop de Artesanato",
-    slug: { current: "workshop-artesanato" },
-    coverImage: {
-      asset: {
-        _ref: "image-abc123",
-        _type: "reference" as const,
-      },
-      alt: "Workshop de Artesanato",
-    },
-    shortDescription:
-      "Aprenda técnicas de artesanato com materiais recicláveis",
-    description: [
-      {
-        _type: "block" as const,
-        _key: "block1",
-        children: [
-          {
-            _type: "span" as const,
-            _key: "span1",
-            text: "Aprenda técnicas de artesanato com materiais recicláveis",
-            marks: [],
-          },
-        ],
-        style: "normal" as const,
-        markDefs: [],
-      },
-    ],
-    category: "educacional",
-    eventDate: "2026-04-15T14:00:00.000Z",
-    ticketPrice: {
-      free: true,
-    },
-    cta: {
-      enabled: true,
-      buttonText: "Inscreva-se",
-      type: "link" as const,
-      link: "https://example.com/inscricao",
-    },
-    location: {
-      name: "Sede da Fundação Luz & Amor",
-      address: "Rua das Flores, 123 - Centro",
-      mapLink: "https://maps.google.com",
-    },
-    featured: false,
-    active: true,
-  };
+  const mockEvent = createMockEvent();
 
   beforeEach(() => {
     vi.clearAllMocks();
@@ -138,22 +91,9 @@ describe("EventCard", () => {
   });
 
   it("renders gallery icon when showGalleryIcon is true and event has gallery", () => {
-    const eventWithGallery = {
-      ...mockEvent,
-      gallery: [
-        {
-          asset: { _ref: "img1", _type: "reference" as const },
-          alt: "Foto 1",
-        },
-        {
-          asset: { _ref: "img2", _type: "reference" as const },
-          alt: "Foto 2",
-        },
-      ],
-    };
-    render(<EventCard event={eventWithGallery} showGalleryIcon={true} />);
-    // Should display just the number "2"
-    expect(screen.getByText("2")).toBeInTheDocument();
+    render(<EventCard event={mockEventWithGallery} showGalleryIcon={true} />);
+    // Should display the number of gallery images
+    expect(screen.getByText("3")).toBeInTheDocument();
   });
 
   it("does not render gallery icon when event has no gallery", () => {

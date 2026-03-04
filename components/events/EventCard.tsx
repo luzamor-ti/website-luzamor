@@ -9,6 +9,7 @@ import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { MapPin, Calendar, Clock, Images } from "lucide-react";
 import Link from "next/link";
 import { CATEGORY_LABELS } from "@/constants/eventCategories";
+import { formatEventDate } from "@/utils/eventFormatters";
 
 interface EventCardProps {
   event: Event;
@@ -16,23 +17,9 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
-  const formatDate = (dateString: string) => {
-    const date = new Date(dateString);
-    return {
-      day: date.getDate().toString().padStart(2, "0"),
-      month: date
-        .toLocaleDateString("pt-BR", { month: "short" })
-        .replace(".", ""),
-      year: date.getFullYear(),
-      weekday: date.toLocaleDateString("pt-BR", { weekday: "long" }),
-      time: date.toLocaleTimeString("pt-BR", {
-        hour: "2-digit",
-        minute: "2-digit",
-      }),
-    };
-  };
-
-  const dateInfo = formatDate(event.eventDate);
+  const { dayNumber, monthShort, weekday, timeFormatted } = formatEventDate(
+    event.eventDate,
+  );
   const hasGallery = event.gallery && event.gallery.length > 0;
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
 
@@ -57,10 +44,10 @@ export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
             <div className="absolute top-4 left-4 bg-gradient-to-br from-primary to-primary/90 text-white px-5 py-3 rounded-2xl shadow-xl">
               <div className="text-center">
                 <div className="text-3xl font-bold leading-none">
-                  {dateInfo.day}
+                  {dayNumber}
                 </div>
                 <div className="text-xs uppercase mt-1 opacity-90">
-                  {dateInfo.month}
+                  {monthShort}
                 </div>
               </div>
             </div>
@@ -105,7 +92,7 @@ export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
                   <Calendar size={16} className="text-primary flex-shrink-0" />
                 </div>
                 <Text variant="small" className="font-medium capitalize">
-                  {dateInfo.weekday}
+                  {weekday}
                 </Text>
               </div>
 
@@ -114,7 +101,7 @@ export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
                   <Clock size={16} className="text-primary flex-shrink-0" />
                 </div>
                 <Text variant="small" className="font-medium">
-                  {dateInfo.time}
+                  {timeFormatted}
                 </Text>
               </div>
 
