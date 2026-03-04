@@ -210,6 +210,37 @@ export const evento = defineType({
     }),
 
     defineField({
+      name: "galeria",
+      title: "Galeria de Fotos",
+      type: "array",
+      description:
+        "Fotos do evento (disponível após a realização). Adicione imagens que mostrem os melhores momentos.",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              title: "Texto Alternativo",
+              type: "string",
+              description: "Descrição da imagem para acessibilidade",
+            },
+            {
+              name: "legenda",
+              title: "Legenda",
+              type: "string",
+              description: "Legenda opcional para a foto",
+            },
+          ],
+        },
+      ],
+      group: "detalhes",
+    }),
+
+    defineField({
       name: "destaque",
       title: "Evento em Destaque",
       type: "boolean",

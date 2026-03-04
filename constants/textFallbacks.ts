@@ -229,6 +229,36 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
   },
 };
 
+/**
+ * Calendar Events Page Fallbacks
+ */
+export const CALENDAR_EVENTS_FALLBACKS = {
+  agendaTag: "Agenda Completa",
+  tabUpcoming: "Próximos Eventos",
+  tabPast: "Eventos Passados",
+  viewList: "Lista",
+  viewCalendar: "Calendário",
+  noEventsFound: "Nenhum evento encontrado.",
+  loadMoreButton: "Carregar mais eventos",
+  showingCount: "Exibindo {current} de {total} eventos",
+  enrollButton: "Inscreva-se",
+  freeEntry: "Entrada Gratuita",
+  andMore: "+{count} mais",
+  legendUpcoming: "Próximos eventos",
+  legendPast: "Eventos passados",
+  ariaLabels: {
+    previousMonth: "Mês anterior",
+    nextMonth: "Próximo mês",
+    previousEvent: "Evento anterior",
+    nextEvent: "Próximo evento",
+    listView: "Visualização em lista",
+    calendarView: "Visualização em calendário",
+    upcomingTab: "Ver próximos eventos",
+    pastTab: "Ver eventos passados",
+    loadMore: "Carregar mais eventos",
+  },
+};
+
 export const ABOUT_PAGE_FALLBACKS = {
   hero: {
     tag: "Sobre Nós",

@@ -45,6 +45,14 @@ export interface Event {
     address?: string;
     mapLink?: string;
   };
+  gallery?: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+    alt?: string;
+    caption?: string;
+  }[];
   featured: boolean;
   active: boolean;
   highlightColor?: string;
