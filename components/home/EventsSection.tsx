@@ -99,7 +99,9 @@ export function EventsSection({ data, section }: EventsSectionProps) {
       case "email":
         if (event.cta.email) {
           const mailtoLink = `mailto:${event.cta.email}?subject=${encodeURIComponent(`Interesse em: ${event.title}`)}`;
-          window.location.href = mailtoLink;
+          const anchor = document.createElement("a");
+          anchor.href = mailtoLink;
+          anchor.click();
         }
         break;
       case "link":
@@ -112,66 +114,6 @@ export function EventsSection({ data, section }: EventsSectionProps) {
 
   // Pegar os 3 próximos eventos
   const upcomingEvents = data.slice(0, 3);
-
-  // Cores vibrantes para categorias de eventos
-  const getCategoryColor = (category: string) => {
-    const colors: Record<
-      string,
-      { bg: string; text: string; gradient: string }
-    > = {
-      cultural: {
-        bg: "bg-purple-500",
-        text: "text-purple-100",
-        gradient: "from-purple-500 to-purple-700",
-      },
-      educacional: {
-        bg: "bg-blue-500",
-        text: "text-blue-100",
-        gradient: "from-blue-500 to-blue-700",
-      },
-      social: {
-        bg: "bg-green-500",
-        text: "text-green-100",
-        gradient: "from-green-500 to-green-700",
-      },
-      arrecadacao: {
-        bg: "bg-yellow-500",
-        text: "text-yellow-100",
-        gradient: "from-yellow-500 to-yellow-700",
-      },
-      celebracao: {
-        bg: "bg-pink-500",
-        text: "text-pink-100",
-        gradient: "from-pink-500 to-pink-700",
-      },
-      esportivo: {
-        bg: "bg-red-500",
-        text: "text-red-100",
-        gradient: "from-red-500 to-red-700",
-      },
-      arte: {
-        bg: "bg-indigo-500",
-        text: "text-indigo-100",
-        gradient: "from-indigo-500 to-indigo-700",
-      },
-      musical: {
-        bg: "bg-violet-500",
-        text: "text-violet-100",
-        gradient: "from-violet-500 to-violet-700",
-      },
-      literario: {
-        bg: "bg-cyan-500",
-        text: "text-cyan-100",
-        gradient: "from-cyan-500 to-cyan-700",
-      },
-      outro: {
-        bg: "bg-gray-500",
-        text: "text-gray-100",
-        gradient: "from-gray-500 to-gray-700",
-      },
-    };
-    return colors[category] || colors.outro;
-  };
 
   return (
     <Section>
@@ -195,7 +137,6 @@ export function EventsSection({ data, section }: EventsSectionProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             {upcomingEvents.map((event, index) => {
               const date = formatDate(event.eventDate);
-              const categoryColor = getCategoryColor(event.category);
 
               return (
                 <motion.div
@@ -300,7 +241,7 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                           >
                             {event.ticketPrice.free
                               ? "Gratuito"
-                              : `R$ ${event.ticketPrice.value?.toFixed(2)}`}
+                              : formatPrice(event.ticketPrice.value || 0)}
                           </span>
                         </div>
                       </div>

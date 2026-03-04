@@ -31,6 +31,7 @@ describe("EventListItem", () => {
       asset: { _ref: "image-1", _type: "reference" },
       alt: "Imagem do Concerto",
     },
+    shortDescription: "Um concerto emocionante com música clássica.",
     description: [
       {
         _type: "block",
@@ -64,7 +65,7 @@ describe("EventListItem", () => {
   it("renders event description", () => {
     render(<EventListItem event={baseEvent} />);
     expect(
-      screen.getByText("Um concerto emocionante com música clássica.")
+      screen.getByText("Um concerto emocionante com música clássica."),
     ).toBeInTheDocument();
   });
 
@@ -106,7 +107,7 @@ describe("EventListItem", () => {
 
   it("renders musical category badge with icon", () => {
     render(<EventListItem event={baseEvent} />);
-    
+
     const badge = screen.getByText("Musical");
     expect(badge).toBeInTheDocument();
     expect(badge).toHaveClass("bg-violet-100");
@@ -116,7 +117,7 @@ describe("EventListItem", () => {
   it("renders cultural category badge with icon", () => {
     const culturalEvent: Event = { ...baseEvent, category: "cultural" };
     render(<EventListItem event={culturalEvent} />);
-    
+
     const badge = screen.getByText("Cultural");
     expect(badge).toBeInTheDocument();
     expect(badge).toHaveClass("bg-purple-100");
@@ -126,7 +127,7 @@ describe("EventListItem", () => {
   it("renders educacional category badge with icon", () => {
     const educacionalEvent: Event = { ...baseEvent, category: "educacional" };
     render(<EventListItem event={educacionalEvent} />);
-    
+
     const badge = screen.getByText("Educacional");
     expect(badge).toBeInTheDocument();
     expect(badge).toHaveClass("bg-blue-100");
@@ -136,7 +137,7 @@ describe("EventListItem", () => {
   it("renders social category badge with icon", () => {
     const socialEvent: Event = { ...baseEvent, category: "social" };
     render(<EventListItem event={socialEvent} />);
-    
+
     const badge = screen.getByText("Social");
     expect(badge).toBeInTheDocument();
     expect(badge).toHaveClass("bg-green-100");
@@ -146,7 +147,7 @@ describe("EventListItem", () => {
   it("renders celebration category badge with icon", () => {
     const celebrationEvent: Event = { ...baseEvent, category: "celebracao" };
     render(<EventListItem event={celebrationEvent} />);
-    
+
     const badge = screen.getByText("Celebração");
     expect(badge).toBeInTheDocument();
     expect(badge).toHaveClass("bg-pink-100");
@@ -161,7 +162,7 @@ describe("EventListItem", () => {
 
   it("has responsive vertical layout classes", () => {
     const { container } = render(<EventListItem event={baseEvent} />);
-    
+
     // Check for mobile-first vertical layout (flex-col sm:flex-row)
     const eventCard = container.querySelector(".flex-col");
     expect(eventCard).toBeInTheDocument();
@@ -170,38 +171,22 @@ describe("EventListItem", () => {
   it("handles events without description", () => {
     const eventWithoutDescription: Event = { ...baseEvent, description: [] };
     render(<EventListItem event={eventWithoutDescription} />);
-    
+
     expect(screen.getByText("Concerto de Primavera")).toBeInTheDocument();
   });
 
-  it("renders description with first block only (line-clamp-2)", () => {
-    const eventWithMultipleBlocks = {
+  it("renders shortDescription with line-clamp-2", () => {
+    const eventWithLongDescription = {
       ...baseEvent,
-      description: [
-        {
-          _type: "block" as const,
-          _key: "block1",
-          children: [
-            { _type: "span" as const, _key: "span1", text: "Parágrafo 1. ", marks: [] },
-          ],
-          style: "normal" as const,
-          markDefs: [],
-        },
-        {
-          _type: "block" as const,
-          _key: "block2",
-          children: [
-            { _type: "span" as const, _key: "span2", text: "Parágrafo 2.", marks: [] },
-          ],
-          style: "normal" as const,
-          markDefs: [],
-        },
-      ],
+      shortDescription:
+        "Este é um texto muito longo que deve ser cortado pela classe line-clamp-2 do Tailwind, garantindo que apenas duas linhas sejam exibidas no componente EventListItem.",
     };
-    
-    render(<EventListItem event={eventWithMultipleBlocks} />);
-    
-    // Only first paragraph visible due to line-clamp-2
-    expect(screen.getByText(/Parágrafo 1/)).toBeInTheDocument();
+
+    render(<EventListItem event={eventWithLongDescription} />);
+
+    // shortDescription deve estar presente com line-clamp-2
+    expect(
+      screen.getByText(/Este é um texto muito longo/),
+    ).toBeInTheDocument();
   });
 });
