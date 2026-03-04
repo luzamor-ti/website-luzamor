@@ -25,6 +25,13 @@ O sistema de Eventos permite divulgar e gerenciar todos os eventos da fundação
 - Adicione um texto alternativo para acessibilidade
 - Esta imagem aparece nos cards do evento
 
+#### **Descrição Curta** (obrigatório)
+
+- Texto resumido do evento (máximo 200 caracteres)
+- Aparece nos cards de listagem e no hero da página do evento
+- Seja conciso e atrativo
+- Exemplo: "Uma noite inesquecível de música e solidariedade com grandes artistas locais"
+
 #### **Descrição** (obrigatório)
 
 - Editor de texto rico (Portable Text)
@@ -68,9 +75,7 @@ Configure se o evento é pago ou gratuito:
 - Desative "Evento Gratuito"
 - Preencha o **Valor (R$)**
 - Exemplo: 25.00 para R$ 25,00
-- Opcional: **Informações Adicionais**
-  - Exemplo: "Meia-entrada disponível"
-  - Exemplo: "Desconto de 20% para grupos"
+- O valor será formatado automaticamente (ex: R$ 25,00)
 
 #### **Call-to-Action (CTA)**
 
@@ -128,37 +133,33 @@ Informações sobre onde acontecerá:
 - ✅ Ativo: Evento aparece no site
 - ❌ Inativo: Evento oculto
 
-#### **Cor de Destaque** (opcional)
-
-- Cor em hexadecimal para personalizar o card
-- Exemplo: `#FF6B6B` para vermelho
-- Exemplo: `#4ECDC4` para turquesa
-- Se não preenchido, usa cor padrão
-
 ## 🎨 Layout no Site
 
-### EventsSection
+### EventsSection (Home)
 
 **Background:**
 
 - Gradiente cinza escuro neutro (gray-900/gray-800)
 - Elementos decorativos em verde (#00B749 - cor primária do projeto)
-- Destaca as cores personalizáveis de cada evento
 
-**Eventos em Destaque** (até 2):
+**Cards de Eventos:**
 
-- Cards grandes (400px altura)
-- Grid 2 colunas (desktop) / 1 coluna (mobile)
-- Badge de data no canto
-- Badge de categoria
-- Gradiente personalizado com a cor de destaque
-- Botão de CTA em destaque
-
-**Eventos Regulares** (até 3):
-
-- Cards menores em grid 3 colunas
+- Badge branco com texto em verde primário para categoria
+- Exibem próximos 3 eventos futuros
 - Background translúcido
-- Exibem próximos eventos futuros
+- Informações exibidas:
+  - Categoria (badge padronizado)
+  - Título do evento
+  - Data e horário (em itálico)
+  - Local do evento (com ícone de mapa)
+  - Preço formatado em pt-BR (ex: R$ 50,00) ou "Gratuito"
+  - Botão de CTA (se configurado)
+
+**Comportamento de Clique:**
+
+- **Clique no card**: Navega para a página completa do evento
+- **Clique no botão CTA**: Executa a ação configurada (WhatsApp, email ou link externo)
+- Os dois cliques são independentes - você pode visualizar o evento ou tomar ação direta
 
 **Animações:**
 
@@ -179,11 +180,12 @@ O sistema mostra automaticamente:
 
 1. **Imagem de Capa**: Use imagens chamativas e coloridas
 2. **Título**: Seja criativo mas claro
-3. **Categoria**: Escolha corretamente para melhor organização
-4. **Destaque**: Use apenas para eventos muito importantes
-5. **Cor de Destaque**: Combine com a paleta visual do evento
+3. **Descrição Curta**: Seja conciso e atrativo (máximo 200 caracteres)
+4. **Categoria**: Escolha corretamente para melhor organização
+5. **Destaque**: Use apenas para eventos muito importantes
 6. **CTA**: Configure sempre que houver ação desejada
 7. **Data**: Verifique data e horário antes de publicar
+8. **Local**: Preencha com endereço completo e link do Google Maps
 
 ## 🎨 Exemplos de Uso
 
@@ -191,29 +193,33 @@ O sistema mostra automaticamente:
 
 ```
 Título: Festa Junina Beneficente 2024
+Descrição Curta: Uma noite de diversão e solidariedade com comidas típicas e quadrilha
 Categoria: 💰 Arrecadação
 Data: 15/06/2024 às 18:00
-Ingresso: R$ 30,00 (meia-entrada disponível)
+Ingresso: R$ 30,00
 Destaque: ✅ Sim
-Cor: #FF6B6B (vermelho festivo)
 CTA: Link para Sympla
+Local: Sede da Fundação + link do Google Maps
 ```
 
 ### Evento Regular - Cultural
 
 ```
 Título: Sarau Poético
+Descrição Curta: Uma tarde de poesias e apresentações artísticas com a comunidade
 Categoria: 📚 Literário
 Data: 22/06/2024 às 19:00
 Ingresso: Gratuito
 Destaque: ❌ Não
 CTA: WhatsApp para confirmação
+Local: Centro Cultural + link do Maps
 ```
 
 ### Evento Futuro - Educacional
 
 ```
 Título: Workshop de Fotografia
+Descrição Curta: Aprenda técnicas profissionais de fotografia em 4 horas práticas
 Categoria: 🎓 Educacional
 Data: 05/07/2024 às 14:00
 Ingresso: R$ 50,00
@@ -227,14 +233,14 @@ Antes de ativar um evento, verifique:
 
 - [ ] Imagem de capa atrativa e de boa qualidade
 - [ ] Título claro e chamativo
+- [ ] Descrição curta concisa e atrativa (máx. 200 caracteres)
 - [ ] Categoria correta
 - [ ] Data e horário conferidos
 - [ ] Descrição completa com programação
 - [ ] Informações de ingresso (gratuito ou valor)
 - [ ] CTA configurado (se aplicável)
-- [ ] Local preenchido (se evento presencial)
+- [ ] Local preenchido com endereço e link do Maps
 - [ ] Definiu se é destaque ou não
-- [ ] Cor de destaque (opcional) harmoniza com a imagem
 - [ ] Evento marcado como "Ativo"
 - [ ] Testou o botão de CTA no site
 
@@ -261,14 +267,3 @@ Antes de ativar um evento, verifique:
 | 🎵 Musical     | Shows, apresentações musicais               |
 | 📚 Literário   | Saraus, lançamentos de livros               |
 | 🌟 Outro       | Eventos que não se encaixam acima           |
-
-## 🎨 Sugestões de Cores de Destaque
-
-- **Verde Primário**: `#00B749` - Cor oficial da fundação (recomendado)
-- **Verde Esmeralda**: `#26DE81` - Natureza, esperança, crescimento
-- **Vermelho**: `#FF6B6B` - Urgência, paixão, energia
-- **Laranja**: `#FF9F43` - Energia, entusiasmo, calor
-- **Amarelo**: `#FFC107` - Alegria, otimismo, luz
-- **Azul**: `#4ECDC4` - Confiança, serenidade, tranquilidade
-- **Roxo**: `#A55EEA` - Criatividade, luxo, mistério
-- **Rosa**: `#FC5C9C` - Amor, delicadeza, carinho

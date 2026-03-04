@@ -5,6 +5,7 @@ Documentação de referência dos componentes relacionados a eventos da Fundaç�
 ## Índice
 
 - [EventCard](#eventcard)
+- [EventsSection](#eventssection)
 - [EventGallery](#eventgallery)
 
 ---
@@ -32,6 +33,7 @@ import { EventCard } from "@/components/events";
 interface Event {
   _id: string;
   title: string;
+  shortDescription: string; // Máximo 200 caracteres
   slug: { current: string };
   coverImage: {
     asset: { _ref: string; _type: "reference" };
@@ -53,7 +55,6 @@ interface Event {
   ticketPrice: {
     free: boolean;
     value?: number;
-    additionalInfo?: string;
   };
   cta: {
     enabled: boolean;
@@ -72,11 +73,9 @@ interface Event {
   gallery?: {
     asset: { _ref: string; _type: "reference" };
     alt?: string;
-    caption?: string;
   }[];
   featured: boolean;
   active: boolean;
-  highlightColor?: string;
 }
 ```
 
@@ -166,6 +165,234 @@ O componente formata automaticamente a data do evento:
 
 ---
 
+## EventsSection
+
+Componente de seção da home que exibe os próximos 3 eventos ativos. Utiliza o padrão de click handlers separados para navegação e ação.
+
+### Importação
+
+```typescript
+import { EventsSection } from "@/components/home";
+```
+
+### Props
+
+| Prop      | Tipo           | Obrigatório | Padrão | Descrição                    |
+| --------- | -------------- | ----------- | ------ | ---------------------------- |
+| `data`    | `Event[]`      | ✅          | -      | Array com até 3 eventos      |
+| `section` | `HomeSection`  | ❌          | `null` | Configuração da seção do CMS |
+
+### Interface HomeSection
+
+```typescript
+interface HomeSection {
+  _id: string;
+  _type: "secaoHome";
+  name: string;
+  tag?: string;
+  title?: string;
+  description?: string;
+  active: boolean;
+}
+```
+
+### Exemplos de Uso
+
+#### Uso Básico (com dados do CMS)
+
+```tsx
+<EventsSection data={upcomingEvents} section={eventsSection} />
+```
+
+#### Com Fallbacks
+
+```tsx
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
+
+// Se CMS falhar, usa fallbacks
+<EventsSection 
+  data={events} 
+  section={null} // Usará TEXT_FALLBACKS.events
+/>
+```
+
+### Elementos Visuais
+
+O componente exibe para cada evento:
+
+- **Badge de Categoria**: Tag branco com texto em verde primário
+- **Imagem de Capa**: Otimizada e responsiva
+- **Título**: Truncado em 2 linhas
+- **Descrição Curta**: Preview do evento
+- **Data e Horário**: Em itálico
+- **Local**: Nome do local com ícone de mapa (MapPin)
+- **Preço**: Formatado em pt-BR (R$ 50,00) ou "Gratuito"
+- **Botão CTA**: Se configurado no evento
+
+### Comportamento de Clique (Critical)
+
+O EventsSection implementa **dois handlers de clique independentes**:
+
+#### 1. Click no Card (Navegação)
+
+```tsx
+// Link wrapper = navega para página do evento
+<Link href={`/evento/${event.slug.current}`}>
+  {/* Todo o conteúdo do card */}
+</Link>
+```
+
+- **Ação**: Navega para `/evento/{slug}`
+- **Comportamento**: Navegação padrão do Next.js
+- **UX**: Usuário visualiza detalhes completos do evento
+
+#### 2. Click no Botão CTA (Ação)
+
+```tsx
+// Botão interno = executa ação do CTA
+<button onClick={(e) => handleCTA(event, e)}>
+  {event.cta.buttonText || "Garantir meu lugar"}
+</button>
+```
+
+- **Ação**: Executa ação configurada no CMS (WhatsApp, email ou link)
+- **Comportamento**: `e.preventDefault()` e `e.stopPropagation()` para não propagar ao card
+- **UX**: Usuário toma ação imediata sem sair da página
+
+#### Lógica do handleCTA
+
+```typescript
+const handleCTA = (event: Event, e: React.MouseEvent) => {
+  e.preventDefault();
+  e.stopPropagation(); // Evita propagação para o Link do card
+
+  if (!event.cta.enabled) return;
+
+  const whatsappNumber = event.cta.whatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
+
+  switch (event.cta.type) {
+    case "whatsapp":
+      const message = encodeURIComponent(event.cta.whatsappMessage || "");
+      window.open(`https://wa.me/${whatsappNumber}?text=${message}`, "_blank");
+      break;
+    
+    case "email":
+      const mailtoLink = `mailto:${event.cta.email || ""}`;
+      const anchor = document.createElement("a");
+      anchor.href = mailtoLink;
+      anchor.click();
+      break;
+    
+    case "link":
+      window.open(event.cta.link, "_blank");
+      break;
+  }
+};
+```
+
+### Formatação de Preço
+
+```typescript
+const formatPrice = (value: number): string => {
+  return value.toLocaleString('pt-BR', {
+    style: 'currency',
+    currency: 'BRL'
+  });
+};
+
+// Uso:
+{event.ticketPrice.free
+  ? "Gratuito"
+  : formatPrice(event.ticketPrice.value || 0)
+}
+// Output: "R$ 50,00"
+```
+
+### Fallbacks
+
+Usa `TEXT_FALLBACKS.events` quando `section` é null:
+
+```typescript
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
+
+const tag = section?.tag || TEXT_FALLBACKS.events.tag;
+const title = section?.title || TEXT_FALLBACKS.events.title;
+const description = section?.description || TEXT_FALLBACKS.events.description;
+```
+
+### Responsividade
+
+| Breakpoint      | Grid     | Gap  |
+| --------------- | -------- | ---- |
+| Mobile (< 768px)| 1 coluna | 1rem |
+| Tablet/Desktop  | 3 colunas| 1.5rem |
+
+### Animações
+
+Utiliza Framer Motion com variantes do `lib/animations.ts`:
+
+```typescript
+import { staggerContainerVariants, fadeInVariants } from "@/lib/animations";
+
+<motion.div
+  variants={staggerContainerVariants}
+  initial="hidden"
+  animate="visible"
+>
+  {events.map((event) => (
+    <motion.div key={event._id} variants={fadeInVariants}>
+      {/* Card */}
+    </motion.div>
+  ))}
+</motion.div>
+```
+
+### Casos Especiais
+
+#### Sem Eventos
+
+```typescript
+// Componente retorna null automaticamente
+if (!data || data.length === 0) return null;
+```
+
+#### Evento sem Local
+
+```typescript
+// Local não é renderizado
+{event.location?.name && (
+  <div className="flex items-center gap-2">
+    <MapPin className="w-4 h-4" />
+    <span>{event.location.name}</span>
+  </div>
+)}
+```
+
+#### CTA sem WhatsApp Configurado
+
+```typescript
+// Usa fallback global do EVENT_DETAIL_FALLBACKS
+const whatsappNumber = event.cta.whatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
+```
+
+### Testes
+
+```bash
+npm test -- components/home/__tests__/EventsSection
+```
+
+Cobertura essencial:
+
+- ✅ Renderização de eventos
+- ✅ Exibição de local quando presente
+- ✅ Formatação de preço pt-BR
+- ✅ Click no card navega (Link)
+- ✅ Click no CTA executa ação (preventDefault/stopPropagation)
+- ✅ Fallback para WhatsApp global
+- ✅ Retorna null quando sem dados
+
+---
+
 ## EventGallery
 
 Componente de galeria de fotos com lightbox modal para visualização detalhada.
@@ -192,7 +419,6 @@ interface GalleryImage {
     _type: "reference";
   };
   alt?: string;
-  caption?: string;
 }
 ```
 

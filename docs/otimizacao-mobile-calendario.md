@@ -19,7 +19,7 @@ Otimização mobile-first completa do calendário de eventos com foco em perform
   - Horário em timezone local (converte UTC automaticamente)
   - Badge de "Entrada Gratuita" para eventos gratuitos
   - **Não exibe preço** para eventos pagos (simplificação mobile)
-  
+
 #### Categoria System
 
 10 categorias com TitleCase display e cores específicas:
@@ -103,6 +103,7 @@ Outro → gray-100
 #### Single Event Behavior
 
 Quando `events.length === 1`:
+
 - Renderiza apenas `<FeaturedEvent />` (sem wrapper de carrossel)
 - Sem controles de navegação
 - Sem indicadores
@@ -146,6 +147,7 @@ Exibindo {visibleEvents.length} de {events.length} eventos
 #### Gallery Icon Control
 
 Passa `showGalleryIcon` para EventListItem:
+
 - **Próximos eventos**: `false` (sem galeria)
 - **Eventos passados**: `true` (exibe ícone se disponível)
 
@@ -229,18 +231,18 @@ Mensagem genérica: "Nenhum evento encontrado." (otimização simplificada)
 
 ### Cores e Ícones
 
-| Categoria | Cor (bg) | Texto | Ícone | Uso |
-|-----------|----------|-------|-------|-----|
-| Musical | violet-100 | violet-700 | Music | Concertos, shows |
-| Cultural | purple-100 | purple-700 | Palette | Exposições, festivais |
-| Educacional | blue-100 | blue-700 | BookOpen | Workshops, cursos |
-| Social | green-100 | green-700 | Users | Campanhas, ações |
-| Celebração | orange-100 | orange-700 | PartyPopper | Festas, eventos especiais |
-| Esportivo | teal-100 | teal-700 | Dumbbell | Torneios, atividades |
-| Arte | pink-100 | pink-700 | Brush | Apresentações artísticas |
-| Literário | indigo-100 | indigo-700 | BookOpenText | Feiras, saraus |
-| Arrecadação | yellow-100 | yellow-700 | Heart | Bazares, doações |
-| Outro | gray-100 | gray-700 | Calendar | Outros eventos |
+| Categoria   | Cor (bg)   | Texto      | Ícone        | Uso                       |
+| ----------- | ---------- | ---------- | ------------ | ------------------------- |
+| Musical     | violet-100 | violet-700 | Music        | Concertos, shows          |
+| Cultural    | purple-100 | purple-700 | Palette      | Exposições, festivais     |
+| Educacional | blue-100   | blue-700   | BookOpen     | Workshops, cursos         |
+| Social      | green-100  | green-700  | Users        | Campanhas, ações          |
+| Celebração  | orange-100 | orange-700 | PartyPopper  | Festas, eventos especiais |
+| Esportivo   | teal-100   | teal-700   | Dumbbell     | Torneios, atividades      |
+| Arte        | pink-100   | pink-700   | Brush        | Apresentações artísticas  |
+| Literário   | indigo-100 | indigo-700 | BookOpenText | Feiras, saraus            |
+| Arrecadação | yellow-100 | yellow-700 | Heart        | Bazares, doações          |
+| Outro       | gray-100   | gray-700   | Calendar     | Outros eventos            |
 
 ### Implementação
 
@@ -276,33 +278,38 @@ lg: 1024px // Desktop
 ### Padrões Mobile-First
 
 1. **Layout Stack → Horizontal**
+
    ```tsx
-   className="flex-col sm:flex-row"
+   className = "flex-col sm:flex-row";
    ```
 
 2. **Spacing Progressivo**
+
    ```tsx
-   className="p-4 sm:p-6 md:p-8"
+   className = "p-4 sm:p-6 md:p-8";
    ```
 
 3. **Text Size Escalável**
+
    ```tsx
-   className="text-sm sm:text-base md:text-lg"
+   className = "text-sm sm:text-base md:text-lg";
    ```
 
 4. **Grid Reduction**
+
    ```tsx
-   className="grid-cols-1 md:grid-cols-2 lg:grid-cols-3"
+   className = "grid-cols-1 md:grid-cols-2 lg:grid-cols-3";
    ```
 
 5. **Hidden em Mobile**
+
    ```tsx
-   className="hidden sm:block"
+   className = "hidden sm:block";
    ```
 
 6. **Full-Width → Auto**
    ```tsx
-   className="w-full sm:w-auto"
+   className = "w-full sm:w-auto";
    ```
 
 ### Touch Targets
@@ -310,9 +317,10 @@ lg: 1024px // Desktop
 **WCAG 2.1 Guideline**: Minimum 44x44px para touch
 
 **Aplicação**:
+
 ```tsx
-className="min-h-[44px] min-w-[44px]"  // Botões
-className="min-h-[44px]"                // Tabs, inputs
+className = "min-h-[44px] min-w-[44px]"; // Botões
+className = "min-h-[44px]"; // Tabs, inputs
 ```
 
 ## Timezone Handling
@@ -333,10 +341,10 @@ import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 
 // Dia da semana
-format(eventDate, "EEEE", { locale: ptBR })  // "quarta-feira"
+format(eventDate, "EEEE", { locale: ptBR }); // "quarta-feira"
 
 // Horário (automático para timezone do browser)
-format(eventDate, "HH:mm", { locale: ptBR }) // "16:00" (se Brazil = UTC-3)
+format(eventDate, "HH:mm", { locale: ptBR }); // "16:00" (se Brazil = UTC-3)
 ```
 
 ### Exemplo Prático
@@ -358,7 +366,7 @@ format(eventDate, "HH:mm", { locale: ptBR }) // "16:00" (se Brazil = UTC-3)
   fill
   sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
   quality={85}
-  priority={false}  // Lazy load por padrão
+  priority={false} // Lazy load por padrão
 />
 ```
 
@@ -400,6 +408,7 @@ const variants = {
 ### Testing Patterns
 
 1. **Rendering Básico**
+
    ```typescript
    it("renders event title", () => {
      render(<EventListItem event={mockEvent} />);
@@ -408,6 +417,7 @@ const variants = {
    ```
 
 2. **Responsive Classes**
+
    ```typescript
    it("has responsive layout classes", () => {
      const { container } = render(<EventListItem event={mockEvent} />);
@@ -417,6 +427,7 @@ const variants = {
    ```
 
 3. **Timezone Conversion**
+
    ```typescript
    it("converts UTC to local time", () => {
      const mockEvent = {
@@ -430,6 +441,7 @@ const variants = {
    ```
 
 4. **Category Display**
+
    ```typescript
    it("displays category with TitleCase", () => {
      const mockEvent = { /* ... */ category: "musical" };
@@ -439,13 +451,14 @@ const variants = {
    ```
 
 5. **Conditional Rendering**
+
    ```typescript
    it("shows free badge for free events", () => {
      const freeEvent = { ...mockEvent, ticketPrice: { free: true } };
      render(<EventListItem event={freeEvent} />);
      expect(screen.getByText("Entrada Gratuita")).toBeInTheDocument();
    });
-   
+
    it("does not display price for paid events", () => {
      const paidEvent = { ...mockEvent, ticketPrice: { free: false, value: 50 } };
      render(<EventListItem event={paidEvent} />);
@@ -454,6 +467,7 @@ const variants = {
    ```
 
 6. **Accessibility**
+
    ```typescript
    it("has accessible aria-labels", () => {
      render(<EventsTabNavigation {...props} />);
@@ -461,18 +475,19 @@ const variants = {
    });
    ```
 
- 7. **User Interaction**
-   ```typescript
-   it("switches tab on click", () => {
-     const mockOnTabChange = vi.fn();
-     render(<EventsTabNavigation onTabChange={mockOnTabChange} {...props} />);
-     
-     const pastTab = screen.getByLabelText("Ver eventos passados");
-     fireEvent.click(pastTab);
-     
-     expect(mockOnTabChange).toHaveBeenCalledWith("past");
-   });
-   ```
+7. **User Interaction**
+
+```typescript
+it("switches tab on click", () => {
+  const mockOnTabChange = vi.fn();
+  render(<EventsTabNavigation onTabChange={mockOnTabChange} {...props} />);
+
+  const pastTab = screen.getByLabelText("Ver eventos passados");
+  fireEvent.click(pastTab);
+
+  expect(mockOnTabChange).toHaveBeenCalledWith("past");
+});
+```
 
 ### Mocking Strategy
 
@@ -563,7 +578,7 @@ export const CALENDAR_EVENTS_FALLBACKS = {
     upcomingTab: "Ver próximos eventos",
     pastTab: "Ver eventos passados",
     viewList: "Visualização em lista",
-   viewCalendar: "Visualização em calendário",
+    viewCalendar: "Visualização em calendário",
     previousEvent: "Evento anterior",
     nextEvent: "Próximo evento",
   },
@@ -622,14 +637,14 @@ const freeLabel = CALENDAR_EVENTS_FALLBACKS.freeEntry; // "Entrada Gratuita"
    - Otimizar LCP/FID/CLS
    - Reduzir bundle size
 
-2. **Accessibility Audit**  
+2. **Accessibility Audit**
    - WAVE tool
    - Screen reader testing
    - Keyboard navigation
 
 3. **Cross-Browser Testing**
    - Chrome/Firefox/Safari
-   - iOS Safari  
+   - iOS Safari
    - Android Chrome
 
 4. **Real Device Testing**
