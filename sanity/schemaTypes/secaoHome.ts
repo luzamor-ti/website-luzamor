@@ -1,4 +1,5 @@
 import { defineType, defineField } from "sanity";
+import type { LucideIcon } from "lucide-react";
 import {
   Users,
   DollarSign,
@@ -281,7 +282,7 @@ export default defineType({
             },
             prepare({ title, subtitle, media, icon }) {
               // Mapear ícones para componentes React
-              const iconMap: Record<string, any> = {
+              const iconMap: Record<string, LucideIcon> = {
                 Users,
                 DollarSign,
                 Clock,

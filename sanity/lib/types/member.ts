@@ -7,7 +7,7 @@ export interface Member {
   role: string;
   photo?: SanityImage;
   shortBio?: string;
-  fullBio?: string;
+  fullBio?: PortableTextBlock[];
   words?: PortableTextBlock[];
   order?: number;
 }

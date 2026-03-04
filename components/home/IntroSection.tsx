@@ -6,6 +6,7 @@ import { staggerItemVariants } from "@/lib/animations";
 import { Section, SectionHeader, Button, Text } from "@/components/ui";
 import { HomeSection } from "@/sanity/lib/types/homeSection";
 import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
+import { routesPath } from "@/constants/routesPath";
 
 interface IntroSectionProps {
   data: HomeSection | null;
@@ -28,7 +29,7 @@ const IntroSection = ({ data }: IntroSectionProps) => {
             {section?.description || fallback.description}
           </Text>
           <Button
-            href={section?.buttonUrl || "/sobre-nos"}
+            href={section?.buttonUrl || routesPath.about}
             variant="outline"
             showArrow
           >

@@ -1,4 +1,3 @@
-import Link from "next/link";
 import { Section, Heading, Text, Button } from "@/components/ui";
 
 export default function NotFound() {

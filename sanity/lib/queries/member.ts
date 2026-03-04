@@ -18,7 +18,9 @@ export const membersPageQuery = `
     "role": cargo,
     "photo": foto,
     alt,
-    "fullBio": bioCompleta
+    "shortBio": bioCurta,
+    "fullBio": bioCompleta,
+    "words": palavra
   }
 `;
 

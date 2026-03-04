@@ -1,13 +1,5 @@
 "use client";
-import {
-  Button,
-  Card,
-  Grid,
-  Heading,
-  Link,
-  Text,
-  Ticker,
-} from "@/components/ui";
+import { Button, Grid, Heading, Link, Text, Ticker } from "@/components/ui";
 
 import type { Footer } from "@/sanity/lib/types/footer";
 import { Image as SanityImage } from "sanity";
@@ -21,7 +13,6 @@ interface FooterProps extends Partial<Footer> {
 
 export function Footer({
   logo,
-  email,
   sejaApoiadorSubtitulo,
   sejaApoiadorTitulo,
   slogan,

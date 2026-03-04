@@ -1,6 +1,21 @@
 import Image from "next/image";
 import { Section, SectionHeader } from "@/components/ui";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
+import { Course } from "@/sanity/lib/types/course";
+
+interface CourseHeroProps {
+  title: string;
+  description: string;
+  coverPhoto?: Course["coverPhoto"];
+  teacherName?: string;
+  teacherPhoto?: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+    alt?: string;
+  };
+}
 
 export function CourseHero({
   title,
@@ -8,7 +23,7 @@ export function CourseHero({
   coverPhoto,
   teacherName,
   teacherPhoto,
-}: any) {
+}: CourseHeroProps) {
   const imageUrl = buildSanityImageUrl(coverPhoto?.asset?._ref);
 
   // Gera a URL da foto do professor se ela existir

@@ -18,12 +18,19 @@ website-luzamor/
 │   ├── Welcome.mdx            # Página inicial do Storybook
 │   ├── README.md              # Guia de organização
 │   └── ui/                    # Stories dos componentes UI
+│       ├── Accordion.stories.tsx
 │       ├── Button.stories.tsx
 │       ├── Card.stories.tsx
+│       ├── DynamicIcon.stories.tsx
 │       ├── Grid.stories.tsx
 │       ├── Heading.stories.tsx
+│       ├── Icon.stories.tsx
+│       ├── LinkButton.stories.tsx
 │       ├── Section.stories.tsx
-│       └── Text.stories.tsx
+│       ├── SectionFooter.stories.tsx
+│       ├── SectionHeader.stories.tsx
+│       ├── Text.stories.tsx
+│       └── Ticker.stories.tsx
 │
 ├── lib/
 │   └── schemas/               # Schemas Zod
@@ -123,10 +130,29 @@ npm run build-storybook
 
 ## 📚 Documentação
 
+### Componentes UI Documentados
+
+Todos os componentes UI principais agora possuem stories completas no Storybook:
+
+- **Accordion** - Accordion expansível para FAQs e conteúdo colapsável
+- **Button** - Botão reutilizável com variantes e tamanhos
+- **Card** - Componente de card para exibição de conteúdo
+- **DynamicIcon** - Renderização dinâmica de ícones Lucide por nome
+- **Grid** - Sistema de grid responsivo
+- **Icon** - Wrapper para ícones Lucide React
+- **LinkButton** - Link estilizado como botão com animações
+- **Section** - Container de seção com padding e espaçamento
+- **SectionFooter** - Rodapé de seção com texto e link
+- **SectionHeader** - Cabeçalho de seção com tag, título e descrição
+- **Ticker** - Ticker horizontal infinito para logos e badges
+- **Typography** - Componentes de texto (Heading e Text)
+
+### Guias de Referência
+
 - `stories/README.md` - Guia de organização das stories
 - `docs/zod-storybook.md` - Guia completo de Zod + Storybook
 - `docs/componentes.md` - Guia de componentes do projeto
 
 ---
 
-**Organização concluída em**: Fevereiro 2026
+**Última atualização**: Janeiro 2025

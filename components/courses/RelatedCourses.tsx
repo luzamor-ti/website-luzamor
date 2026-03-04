@@ -1,12 +1,16 @@
 "use client";
-import { Section, SectionHeader, Grid, Heading, Text } from "@/components/ui";
+import { Section, SectionHeader, Grid, Heading } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
+import { Course } from "@/sanity/lib/types/course";
 
-export function RelatedCourses({ courses }: { courses: any[] }) {
-  console.log("Cursos relacionados recebidos:", courses); // Log para verificar os dados recebidos
+interface RelatedCoursesProps {
+  courses: Course[];
+}
+
+export function RelatedCourses({ courses }: RelatedCoursesProps) {
   if (!courses || courses.length === 0) return null;
 
   return (
@@ -22,7 +26,7 @@ export function RelatedCourses({ courses }: { courses: any[] }) {
         />
 
         <Grid cols={3} gap="lg">
-          {courses.map((curso: any) => {
+          {courses.map((curso) => {
             const imageUrl = buildSanityImageUrl(curso.coverPhoto?.asset?._ref);
             const teacher =
               curso.teacherType === "membro"
@@ -34,7 +38,7 @@ export function RelatedCourses({ courses }: { courses: any[] }) {
 
             return (
               <Link
-                href={`/course/${curso.slug}`}
+                href={`/course/${curso.slug.current}`}
                 key={curso._id}
                 className="group"
               >

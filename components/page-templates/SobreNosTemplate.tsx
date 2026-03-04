@@ -1,30 +1,48 @@
-import { Page } from "@/sanity/lib/types/page";
-import { Section, Heading, Text } from "@/components/ui";
-import { PortableText } from "@portabletext/react";
+import {
+  AboutHeroSection,
+  AboutImpactsSection,
+  OurHistorySection,
+  ContentImageSection,
+  OurTeamSection,
+} from "@/components/about";
+import { SupportersSection } from "@/components/home/SupportersSection";
+import { ABOUT_PAGE_FALLBACKS } from "@/constants/textFallbacks";
+import { getAboutPageData } from "@/sanity/lib/services/aboutService";
 
-interface SobreNosTemplateProps {
-  pagina: Page;
-}
-
-export function SobreNosTemplate({ pagina }: SobreNosTemplateProps) {
+export async function SobreNosTemplate() {
+  const { aboutPage, supporters, members } = await getAboutPageData();
   return (
-    <main className="min-h-screen pt-24">
-      <Section>
-        <Heading level={1} className="text-center">
-          {pagina.title}
-        </Heading>
-        {pagina.description && (
-          <Text variant="large" className="text-center mt-4 max-w-3xl mx-auto">
-            {pagina.description}
-          </Text>
-        )}
-        aaaaaaaaaaaaaaaaaaaaaaaaaaa
-        {pagina.content && (
-          <div className="mt-8 prose prose-lg max-w-4xl mx-auto">
-            <PortableText value={pagina.content} />
-          </div>
-        )}
-      </Section>
+    <main className="min-h-screen">
+      {/* Hero */}
+      <AboutHeroSection data={aboutPage?.hero || null} />
+
+      {/* Impactos */}
+      <AboutImpactsSection data={aboutPage?.impactos || null} />
+
+      {/* Nossa História (Timeline) */}
+      <OurHistorySection data={aboutPage?.nossaHistoria || null} />
+
+      {/* Nossos Apoiadores */}
+      <SupportersSection data={supporters} section={null} />
+
+      {/* Nossa Missão */}
+      <ContentImageSection
+        data={aboutPage?.nossaMissao || null}
+        fallback={ABOUT_PAGE_FALLBACKS.mission}
+        imagePosition="right"
+        backgroundColor="light"
+      />
+
+      {/* Nossa Visão */}
+      <ContentImageSection
+        data={aboutPage?.nossaVisao || null}
+        fallback={ABOUT_PAGE_FALLBACKS.vision}
+        imagePosition="left"
+        backgroundColor="light"
+      />
+
+      {/* Nosso Time */}
+      <OurTeamSection data={aboutPage?.nossoTime || null} members={members} />
     </main>
   );
 }
