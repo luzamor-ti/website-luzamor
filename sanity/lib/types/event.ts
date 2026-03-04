@@ -13,6 +13,7 @@ export interface Event {
     };
     alt?: string;
   };
+  shortDescription: string;
   description: PortableTextBlock[];
   category:
     | "cultural"
@@ -29,7 +30,6 @@ export interface Event {
   ticketPrice: {
     free: boolean;
     value?: number;
-    additionalInfo?: string;
   };
   cta: {
     enabled: boolean;
@@ -45,7 +45,13 @@ export interface Event {
     address?: string;
     mapLink?: string;
   };
+  gallery?: {
+    asset: {
+      _ref: string;
+      _type: "reference";
+    };
+    alt?: string;
+  }[];
   featured: boolean;
   active: boolean;
-  highlightColor?: string;
 }

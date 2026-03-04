@@ -49,8 +49,19 @@ export const evento = defineType({
     }),
 
     defineField({
+      name: "descricaoCurta",
+      title: "Descrição Curta",
+      type: "text",
+      rows: 3,
+      description:
+        "Resumo do evento para exibição na listagem e no hero (máximo 200 caracteres)",
+      validation: (Rule) => Rule.required().max(200),
+      group: "informacoes",
+    }),
+
+    defineField({
       name: "descricao",
-      title: "Descrição",
+      title: "Descrição Completa",
       type: "array",
       of: [{ type: "block" }],
       validation: (Rule) => Rule.required(),
@@ -111,12 +122,6 @@ export const evento = defineType({
               }
               return true;
             }),
-        },
-        {
-          name: "informacoesAdicionais",
-          title: "Informações Adicionais",
-          type: "string",
-          description: "Ex: Meia-entrada disponível, desconto para grupos",
         },
       ],
       group: "detalhes",
@@ -210,6 +215,31 @@ export const evento = defineType({
     }),
 
     defineField({
+      name: "galeria",
+      title: "Galeria de Fotos",
+      type: "array",
+      description:
+        "Fotos do evento (disponível após a realização). Adicione imagens que mostrem os melhores momentos.",
+      of: [
+        {
+          type: "image",
+          options: {
+            hotspot: true,
+          },
+          fields: [
+            {
+              name: "alt",
+              title: "Texto Alternativo",
+              type: "string",
+              description: "Descrição da imagem para acessibilidade",
+            },
+          ],
+        },
+      ],
+      group: "detalhes",
+    }),
+
+    defineField({
       name: "destaque",
       title: "Evento em Destaque",
       type: "boolean",
@@ -225,16 +255,6 @@ export const evento = defineType({
       type: "boolean",
       initialValue: true,
       description: "Desative para ocultar o evento do site",
-      group: "configuracoes",
-    }),
-
-    defineField({
-      name: "corDestaque",
-      title: "Cor de Destaque",
-      type: "string",
-      description:
-        "Cor em hexadecimal para destacar o evento (opcional). Ex: #FF6B6B",
-      placeholder: "#FF6B6B",
       group: "configuracoes",
     }),
   ],

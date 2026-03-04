@@ -4,6 +4,8 @@ import {
   upcomingEventsQuery,
   featuredEventsQuery,
   eventBySlugQuery,
+  allUpcomingEventsQuery,
+  allPastEventsQuery,
 } from "../queries/event";
 import { Event } from "../types/event";
 
@@ -44,5 +46,45 @@ export async function getEventBySlug(slug: string): Promise<Event | null> {
   } catch (error) {
     console.error(`Error fetching event with slug ${slug}:`, error);
     return null;
+  }
+}
+
+export async function getAllUpcomingEvents(): Promise<Event[]> {
+  try {
+    const events = await client.fetch<Event[]>(allUpcomingEventsQuery);
+    return events || [];
+  } catch (error) {
+    console.error("Error fetching all upcoming events:", error);
+    return [];
+  }
+}
+
+export async function getAllPastEvents(): Promise<Event[]> {
+  try {
+    const events = await client.fetch<Event[]>(allPastEventsQuery);
+    return events || [];
+  } catch (error) {
+    console.error("Error fetching all past events:", error);
+    return [];
+  }
+}
+
+export async function getEventsCalendarData() {
+  try {
+    const [upcomingEvents, pastEvents] = await Promise.all([
+      getAllUpcomingEvents(),
+      getAllPastEvents(),
+    ]);
+
+    return {
+      upcomingEvents,
+      pastEvents,
+    };
+  } catch (error) {
+    console.error("Error fetching events calendar data:", error);
+    return {
+      upcomingEvents: [],
+      pastEvents: [],
+    };
   }
 }

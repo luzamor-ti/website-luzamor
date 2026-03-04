@@ -2,14 +2,19 @@
 
 import { Event } from "@/sanity/lib/types/event";
 import { HomeSection } from "@/sanity/lib/types/homeSection";
-import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
+import {
+  TEXT_FALLBACKS,
+  EVENT_DETAIL_FALLBACKS,
+} from "@/constants/textFallbacks";
 import { Section, SectionHeader, SectionFooter } from "@/components/ui";
+import { EventCategoryBadge } from "@/components/events/EventCategoryBadge";
 import { motion } from "framer-motion";
 import {
   staggerContainerVariants,
   staggerItemVariants,
 } from "@/lib/animations";
 import Image from "next/image";
+import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Ticket, MapPin, ArrowRight, Clock } from "lucide-react";
 
@@ -17,19 +22,6 @@ interface EventsSectionProps {
   data: Event[];
   section: HomeSection | null;
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  cultural: "Cultural",
-  educacional: "Educacional",
-  social: "Social",
-  arrecadacao: "Arrecadação",
-  celebracao: "Celebração",
-  esportivo: "Esportivo",
-  arte: "Arte",
-  musical: "Musical",
-  literario: "Literário",
-  outro: "Outro",
-};
 
 export function EventsSection({ data, section }: EventsSectionProps) {
   if (!data || data.length === 0) {
@@ -53,7 +45,18 @@ export function EventsSection({ data, section }: EventsSectionProps) {
     };
   };
 
-  const handleCTA = (event: Event) => {
+  const formatPrice = (value: number) => {
+    return value.toLocaleString("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+      minimumFractionDigits: 2,
+    });
+  };
+
+  const handleCTA = (event: Event, e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+
     if (!event.cta.enabled) return;
 
     switch (event.cta.type) {
@@ -61,9 +64,22 @@ export function EventsSection({ data, section }: EventsSectionProps) {
         if (event.cta.whatsapp) {
           const message =
             event.cta.whatsappMessage ||
-            `Olá! Gostaria de saber mais sobre o evento ${event.title}`;
+            EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
+              "{eventName}",
+              event.title,
+            );
           window.open(
             `https://wa.me/${event.cta.whatsapp}?text=${encodeURIComponent(message)}`,
+            "_blank",
+          );
+        } else {
+          // Fallback para WhatsApp global
+          const message = EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
+            "{eventName}",
+            event.title,
+          );
+          window.open(
+            `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`,
             "_blank",
           );
         }
@@ -87,66 +103,6 @@ export function EventsSection({ data, section }: EventsSectionProps) {
   // Pegar os 3 próximos eventos
   const upcomingEvents = data.slice(0, 3);
 
-  // Cores vibrantes para categorias de eventos
-  const getCategoryColor = (category: string) => {
-    const colors: Record<
-      string,
-      { bg: string; text: string; gradient: string }
-    > = {
-      cultural: {
-        bg: "bg-purple-500",
-        text: "text-purple-100",
-        gradient: "from-purple-500 to-purple-700",
-      },
-      educacional: {
-        bg: "bg-blue-500",
-        text: "text-blue-100",
-        gradient: "from-blue-500 to-blue-700",
-      },
-      social: {
-        bg: "bg-green-500",
-        text: "text-green-100",
-        gradient: "from-green-500 to-green-700",
-      },
-      arrecadacao: {
-        bg: "bg-yellow-500",
-        text: "text-yellow-100",
-        gradient: "from-yellow-500 to-yellow-700",
-      },
-      celebracao: {
-        bg: "bg-pink-500",
-        text: "text-pink-100",
-        gradient: "from-pink-500 to-pink-700",
-      },
-      esportivo: {
-        bg: "bg-red-500",
-        text: "text-red-100",
-        gradient: "from-red-500 to-red-700",
-      },
-      arte: {
-        bg: "bg-indigo-500",
-        text: "text-indigo-100",
-        gradient: "from-indigo-500 to-indigo-700",
-      },
-      musical: {
-        bg: "bg-violet-500",
-        text: "text-violet-100",
-        gradient: "from-violet-500 to-violet-700",
-      },
-      literario: {
-        bg: "bg-cyan-500",
-        text: "text-cyan-100",
-        gradient: "from-cyan-500 to-cyan-700",
-      },
-      outro: {
-        bg: "bg-gray-500",
-        text: "text-gray-100",
-        gradient: "from-gray-500 to-gray-700",
-      },
-    };
-    return colors[category] || colors.outro;
-  };
-
   return (
     <Section>
       <motion.div
@@ -169,12 +125,11 @@ export function EventsSection({ data, section }: EventsSectionProps) {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 mb-8 md:mb-12">
             {upcomingEvents.map((event, index) => {
               const date = formatDate(event.eventDate);
-              const categoryColor = getCategoryColor(event.category);
 
               return (
                 <motion.div
                   key={event._id}
-                  className="group relative cursor-pointer perspective-1000"
+                  className="group relative perspective-1000"
                   variants={staggerItemVariants}
                   initial={{ opacity: 0, y: 40, rotateX: -15 }}
                   whileInView={{
@@ -195,22 +150,14 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                   }}
                   transition={{ duration: 0.4, ease: "easeOut" }}
                   style={{ transformStyle: "preserve-3d" }}
-                  onClick={() => event.cta.enabled && handleCTA(event)}
                   role="article"
                   aria-label={`Evento: ${event.title}`}
-                  tabIndex={event.cta.enabled ? 0 : -1}
-                  onKeyDown={(e) => {
-                    if (
-                      event.cta.enabled &&
-                      (e.key === "Enter" || e.key === " ")
-                    ) {
-                      e.preventDefault();
-                      handleCTA(event);
-                    }
-                  }}
                 >
-                  {/* Card principal */}
-                  <div className="relative rounded-2xl overflow-hidden bg-white shadow-xl group-hover:shadow-2xl border-2 border-transparent group-hover:border-primary/20 transition-all duration-500 h-full flex flex-col">
+                  {/* Card principal - Link para página do evento */}
+                  <Link
+                    href={`/evento/${event.slug.current}`}
+                    className="relative rounded-2xl overflow-hidden bg-white shadow-xl group-hover:shadow-2xl border-2 border-transparent group-hover:border-primary/20 transition-all duration-500 h-full flex flex-col block cursor-pointer"
+                  >
                     {/* Imagem de destaque com overlay de gradiente */}
                     <div className="relative h-56 overflow-hidden">
                       <Image
@@ -237,10 +184,12 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                       </div>
 
                       {/* Badge de categoria - canto superior direito */}
-                      <div
-                        className={`absolute top-4 right-4 ${categoryColor.bg} ${categoryColor.text} px-3 py-1.5 rounded-full text-xs font-semibold shadow-lg`}
-                      >
-                        {CATEGORY_LABELS[event.category] || event.category}
+                      <div className="absolute top-4 right-4">
+                        <EventCategoryBadge
+                          category={event.category}
+                          variant="solid"
+                          size="sm"
+                        />
                       </div>
 
                       {/* Efeito de brilho animado */}
@@ -282,27 +231,28 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                           >
                             {event.ticketPrice.free
                               ? "Gratuito"
-                              : `R$ ${event.ticketPrice.value?.toFixed(2)}`}
+                              : formatPrice(event.ticketPrice.value || 0)}
                           </span>
                         </div>
                       </div>
 
-                      {/* Botão de ação */}
+                      {/* Botão de ação do CTA */}
                       {event.cta.enabled && (
-                        <div className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300 mt-auto pt-4 border-t border-gray-100">
+                        <button
+                          onClick={(e) => handleCTA(event, e)}
+                          className="group/cta flex items-center justify-center gap-2 text-primary font-semibold text-sm transition-all duration-300 mt-auto pt-4 border-t border-gray-100 w-full py-3 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg cursor-pointer"
+                        >
                           <span className="uppercase tracking-wide">
-                            {event.cta.buttonText || "Ver detalhes"}
+                            {event.cta.buttonText || "Garantir meu lugar"}
                           </span>
-                          <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                            <ArrowRight className="w-4 h-4 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-300" />
-                          </div>
-                        </div>
+                          <ArrowRight className="w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover/cta:translate-x-1" />
+                        </button>
                       )}
                     </div>
 
                     {/* Borda animada */}
                     <div className="absolute inset-0 rounded-2xl ring-0 group-hover:ring-4 ring-primary ring-opacity-0 group-hover:ring-opacity-30 transition-all duration-500 pointer-events-none" />
-                  </div>
+                  </Link>
 
                   {/* Reflexo sob o card */}
                   <div className="absolute -bottom-2 left-4 right-4 h-8 bg-gradient-to-br from-primary/20 to-emerald-400/20 opacity-0 group-hover:opacity-40 blur-xl rounded-full transition-opacity duration-500 -z-10" />

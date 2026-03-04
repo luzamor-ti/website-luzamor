@@ -15,18 +15,25 @@ import {
   type Page as PageType,
   type PageType as PageTypeEnum,
 } from "@/sanity/lib/types/page";
+import { getEventsCalendarData } from "@/sanity/lib/services/eventService";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
 }
 
+// Tipo para os componentes de template
+type TemplateComponent =
+  | React.ComponentType<{ pagina: PageType }>
+  | typeof CalendarioEventosTemplate;
+
 // Mapeamento de slugs para templates e informações básicas
 const pageConfig: Record<
   string,
   {
-    component: React.ComponentType<{ pagina: PageType }>;
+    component: TemplateComponent;
     pageType: PageTypeEnum;
     title: string;
+    description?: string;
   }
 > = {
   projetos: {
@@ -73,6 +80,7 @@ const pageConfig: Record<
     component: CalendarioEventosTemplate,
     pageType: "calendario-eventos",
     title: "Calendário de Eventos",
+    description: "Confira os eventos futuros e passados da Fundação Luz & Amor",
   },
   cursos: {
     component: CursosTemplate,
@@ -95,6 +103,7 @@ export default async function Page({ params }: PageProps) {
     _id: slug,
     _type: "pagina",
     title: config.title,
+    description: config.description,
     slug: { current: slug },
     pageType: config.pageType,
     active: true,
@@ -102,5 +111,21 @@ export default async function Page({ params }: PageProps) {
 
   const TemplateComponent = config.component;
 
-  return <TemplateComponent pagina={pagina} />;
+  // Special handling for calendar events page
+  if (slug === "calendario-eventos") {
+    const { upcomingEvents, pastEvents } = await getEventsCalendarData();
+    return (
+      <CalendarioEventosTemplate
+        pagina={pagina}
+        upcomingEvents={upcomingEvents}
+        pastEvents={pastEvents}
+      />
+    );
+  }
+
+  // For other templates, use the standard component
+  const StandardTemplate = TemplateComponent as React.ComponentType<{
+    pagina: PageType;
+  }>;
+  return <StandardTemplate pagina={pagina} />;
 }

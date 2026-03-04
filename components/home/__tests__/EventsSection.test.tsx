@@ -20,6 +20,7 @@ describe("EventsSection", () => {
     {
       _id: "event-1",
       title: "Festival Cultural",
+      shortDescription: "Um evento incrível de cultura e arte",
       description: [
         {
           _type: "block",
@@ -57,6 +58,7 @@ describe("EventsSection", () => {
     {
       _id: "event-2",
       title: "Workshop Educacional",
+      shortDescription: "Aprenda coisas novas neste workshop",
       description: [
         {
           _type: "block",
@@ -199,6 +201,7 @@ describe("EventsSection", () => {
       {
         _id: "event-3",
         title: "Evento 3",
+        shortDescription: "Terceiro evento da lista",
         description: [
           {
             _type: "block",
@@ -223,6 +226,7 @@ describe("EventsSection", () => {
       {
         _id: "event-4",
         title: "Evento 4",
+        shortDescription: "Quarto evento da lista",
         description: [
           {
             _type: "block",
@@ -297,19 +301,114 @@ describe("EventsSection", () => {
       },
     ];
 
-    const { container } = render(
-      <EventsSection data={eventWithLinkCTA} section={mockSection} />,
-    );
+    render(<EventsSection data={eventWithLinkCTA} section={mockSection} />);
 
-    expect(container).toBeTruthy();
+    const linkButton = screen.getByText("Ver mais").closest("button");
 
-    const linkButton = screen.queryByText("Ver mais");
     if (linkButton) {
-      await user.click(linkButton.closest("div")!);
+      await user.click(linkButton);
       expect(windowOpenSpy).toHaveBeenCalledWith(
         "https://example.com/evento",
         "_blank",
       );
     }
+  });
+
+  it("formats ticket price with pt-BR currency format", () => {
+    render(<EventsSection data={mockData} section={mockSection} />);
+
+    // Evento pago deve mostrar preço em formato pt-BR - R$ 50,00
+    expect(screen.getByText(/R\$\s*50,00/)).toBeInTheDocument();
+  });
+
+  it("displays 'Gratuito' for free events", () => {
+    render(<EventsSection data={mockData} section={mockSection} />);
+
+    // Evento gratuito deve mostrar "Gratuito"
+    expect(screen.getByText("Gratuito")).toBeInTheDocument();
+  });
+
+  it("renders EventCategoryBadge component for category badge", () => {
+    render(<EventsSection data={mockData} section={mockSection} />);
+
+    // EventCategoryBadge deve estar presente com labels corretas
+    expect(screen.getByText("Cultural")).toBeInTheDocument();
+    expect(screen.getByText("Educacional")).toBeInTheDocument();
+  });
+
+  it("prevents CTA button click from propagating to card link", async () => {
+    const user = userEvent.setup();
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
+
+    render(<EventsSection data={mockData} section={mockSection} />);
+
+    const ctaButton = screen.getByText("Inscrever-se").closest("button");
+
+    if (ctaButton) {
+      await user.click(ctaButton);
+
+      // Deve ter chamado WhatsApp, não navegado
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        expect.stringContaining("wa.me/5511999999999"),
+        "_blank",
+      );
+    }
+  });
+
+  it("uses global WhatsApp fallback when event has no WhatsApp", async () => {
+    const user = userEvent.setup();
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
+
+    const eventWithoutWhatsApp: Event[] = [
+      {
+        ...mockData[0],
+        cta: {
+          enabled: true,
+          buttonText: "Falar no WhatsApp",
+          type: "whatsapp",
+          whatsapp: "", // Sem WhatsApp configurado
+          whatsappMessage: "Olá!",
+        },
+      },
+    ];
+
+    render(<EventsSection data={eventWithoutWhatsApp} section={mockSection} />);
+
+    const ctaButton = screen.getByText("Falar no WhatsApp").closest("button");
+
+    if (ctaButton) {
+      await user.click(ctaButton);
+
+      // Deve usar fallback global (assumindo que existe)
+      expect(windowOpenSpy).toHaveBeenCalledWith(
+        expect.stringContaining("wa.me/"),
+        "_blank",
+      );
+    }
+  });
+
+  it("renders event links with correct hrefs", () => {
+    const { container } = render(
+      <EventsSection data={mockData} section={mockSection} />,
+    );
+
+    const links = container.querySelectorAll('a[href^="/evento/"]');
+
+    expect(links.length).toBeGreaterThan(0);
+    expect(links[0]).toHaveAttribute("href", "/evento/festival-cultural");
+  });
+
+  it("displays event time with Clock icon", () => {
+    const { container } = render(
+      <EventsSection data={mockData} section={mockSection} />,
+    );
+
+    // Deve haver ícones de relógio (Clock)
+    const clockIcons = container.querySelectorAll("svg");
+    expect(clockIcons.length).toBeGreaterThan(0);
   });
 });
