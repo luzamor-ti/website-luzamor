@@ -6,7 +6,8 @@ import {
   TEXT_FALLBACKS,
   EVENT_DETAIL_FALLBACKS,
 } from "@/constants/textFallbacks";
-import { Section, SectionHeader, SectionFooter, Tag } from "@/components/ui";
+import { Section, SectionHeader, SectionFooter } from "@/components/ui";
+import { EventCategoryBadge } from "@/components/events/EventCategoryBadge";
 import { motion } from "framer-motion";
 import {
   staggerContainerVariants,
@@ -21,19 +22,6 @@ interface EventsSectionProps {
   data: Event[];
   section: HomeSection | null;
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  cultural: "Cultural",
-  educacional: "Educacional",
-  social: "Social",
-  arrecadacao: "Arrecadação",
-  celebracao: "Celebração",
-  esportivo: "Esportivo",
-  arte: "Arte",
-  musical: "Musical",
-  literario: "Literário",
-  outro: "Outro",
-};
 
 export function EventsSection({ data, section }: EventsSectionProps) {
   if (!data || data.length === 0) {
@@ -197,9 +185,11 @@ export function EventsSection({ data, section }: EventsSectionProps) {
 
                       {/* Badge de categoria - canto superior direito */}
                       <div className="absolute top-4 right-4">
-                        <Tag className="bg-white/95 backdrop-blur-sm text-primary px-3 py-1.5 rounded-full shadow-lg">
-                          {CATEGORY_LABELS[event.category] || event.category}
-                        </Tag>
+                        <EventCategoryBadge
+                          category={event.category}
+                          variant="solid"
+                          size="sm"
+                        />
                       </div>
 
                       {/* Efeito de brilho animado */}
@@ -250,14 +240,12 @@ export function EventsSection({ data, section }: EventsSectionProps) {
                       {event.cta.enabled && (
                         <button
                           onClick={(e) => handleCTA(event, e)}
-                          className="flex items-center gap-2 text-primary font-semibold text-sm group-hover:gap-3 transition-all duration-300 mt-auto pt-4 border-t border-gray-100 w-full text-left"
+                          className="group/cta flex items-center justify-center gap-2 text-primary font-semibold text-sm transition-all duration-300 mt-auto pt-4 border-t border-gray-100 w-full py-3 rounded-lg hover:bg-primary hover:text-white hover:shadow-lg cursor-pointer"
                         >
                           <span className="uppercase tracking-wide">
                             {event.cta.buttonText || "Garantir meu lugar"}
                           </span>
-                          <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center group-hover:bg-primary group-hover:scale-110 transition-all duration-300">
-                            <ArrowRight className="w-4 h-4 group-hover:text-white group-hover:translate-x-0.5 transition-all duration-300" />
-                          </div>
+                          <ArrowRight className="w-5 h-5 flex-shrink-0 transition-transform duration-300 group-hover/cta:translate-x-1" />
                         </button>
                       )}
                     </div>

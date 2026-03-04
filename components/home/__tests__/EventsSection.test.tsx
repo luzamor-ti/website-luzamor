@@ -304,7 +304,7 @@ describe("EventsSection", () => {
     render(<EventsSection data={eventWithLinkCTA} section={mockSection} />);
 
     const linkButton = screen.getByText("Ver mais").closest("button");
-    
+
     if (linkButton) {
       await user.click(linkButton);
       expect(windowOpenSpy).toHaveBeenCalledWith(
@@ -328,25 +328,27 @@ describe("EventsSection", () => {
     expect(screen.getByText("Gratuito")).toBeInTheDocument();
   });
 
-  it("renders Tag component for category badge", () => {
+  it("renders EventCategoryBadge component for category badge", () => {
     render(<EventsSection data={mockData} section={mockSection} />);
 
-    // Tags de categoria devem estar presentes
+    // EventCategoryBadge deve estar presente com labels corretas
     expect(screen.getByText("Cultural")).toBeInTheDocument();
     expect(screen.getByText("Educacional")).toBeInTheDocument();
   });
 
   it("prevents CTA button click from propagating to card link", async () => {
     const user = userEvent.setup();
-    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
 
     render(<EventsSection data={mockData} section={mockSection} />);
 
     const ctaButton = screen.getByText("Inscrever-se").closest("button");
-    
+
     if (ctaButton) {
       await user.click(ctaButton);
-      
+
       // Deve ter chamado WhatsApp, não navegado
       expect(windowOpenSpy).toHaveBeenCalledWith(
         expect.stringContaining("wa.me/5511999999999"),
@@ -357,7 +359,9 @@ describe("EventsSection", () => {
 
   it("uses global WhatsApp fallback when event has no WhatsApp", async () => {
     const user = userEvent.setup();
-    const windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+    const windowOpenSpy = vi
+      .spyOn(window, "open")
+      .mockImplementation(() => null);
 
     const eventWithoutWhatsApp: Event[] = [
       {
@@ -375,10 +379,10 @@ describe("EventsSection", () => {
     render(<EventsSection data={eventWithoutWhatsApp} section={mockSection} />);
 
     const ctaButton = screen.getByText("Falar no WhatsApp").closest("button");
-    
+
     if (ctaButton) {
       await user.click(ctaButton);
-      
+
       // Deve usar fallback global (assumindo que existe)
       expect(windowOpenSpy).toHaveBeenCalledWith(
         expect.stringContaining("wa.me/"),
@@ -393,7 +397,7 @@ describe("EventsSection", () => {
     );
 
     const links = container.querySelectorAll('a[href^="/evento/"]');
-    
+
     expect(links.length).toBeGreaterThan(0);
     expect(links[0]).toHaveAttribute("href", "/evento/festival-cultural");
   });
@@ -404,7 +408,7 @@ describe("EventsSection", () => {
     );
 
     // Deve haver ícones de relógio (Clock)
-    const clockIcons = container.querySelectorAll('svg');
+    const clockIcons = container.querySelectorAll("svg");
     expect(clockIcons.length).toBeGreaterThan(0);
   });
 });
