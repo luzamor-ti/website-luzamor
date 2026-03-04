@@ -5,70 +5,21 @@ import { Heading, Text } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
-import {
-  Clock,
-  ArrowRight,
-  Music,
-  BookOpen,
-  Users,
-  Heart,
-  PartyPopper,
-  Trophy,
-  Palette,
-  BookMarked,
-  Circle,
-} from "lucide-react";
+import { Clock, ArrowRight, Circle } from "lucide-react";
 import { format } from "date-fns";
 import { ptBR } from "date-fns/locale";
 import { EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import {
+  CATEGORY_LABELS,
+  CATEGORY_ICONS,
+  CATEGORY_COLORS_FEATURED,
+} from "@/constants/eventCategories";
 
 interface FeaturedEventProps {
   event: Event;
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  cultural: "Cultural",
-  educacional: "Educacional",
-  social: "Social",
-  arrecadacao: "Arrecadação",
-  celebracao: "Celebração",
-  esportivo: "Esportivo",
-  arte: "Arte",
-  musical: "Musical",
-  literario: "Literário",
-  outro: "Outro",
-};
-
-const CATEGORY_ICONS: Record<
-  string,
-  React.ComponentType<{ size?: number; className?: string }>
-> = {
-  cultural: Users,
-  educacional: BookOpen,
-  social: Heart,
-  arrecadacao: Heart,
-  celebracao: PartyPopper,
-  esportivo: Trophy,
-  arte: Palette,
-  musical: Music,
-  literario: BookMarked,
-  outro: Circle,
-};
-
-const CATEGORY_COLORS: Record<string, string> = {
-  cultural: "bg-purple-100 text-purple-700",
-  educacional: "bg-blue-100 text-blue-700",
-  social: "bg-green-100 text-green-700",
-  arrecadacao: "bg-yellow-100 text-yellow-700",
-  celebracao: "bg-pink-100 text-pink-700",
-  esportivo: "bg-red-100 text-red-700",
-  arte: "bg-indigo-100 text-indigo-700",
-  musical: "bg-violet-100 text-violet-700",
-  literario: "bg-cyan-100 text-cyan-700",
-  outro: "bg-gray-100 text-gray-700",
-};
 
 export function FeaturedEvent({ event }: FeaturedEventProps) {
   const [isHovered, setIsHovered] = useState(false);
@@ -84,7 +35,7 @@ export function FeaturedEvent({ event }: FeaturedEventProps) {
 
   const CategoryIcon = CATEGORY_ICONS[event.category] || Circle;
   const categoryColor =
-    CATEGORY_COLORS[event.category] || CATEGORY_COLORS.outro;
+    CATEGORY_COLORS_FEATURED[event.category] || CATEGORY_COLORS_FEATURED.outro;
 
   const handleCTA = (e: React.MouseEvent) => {
     e.preventDefault();

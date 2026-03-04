@@ -2,58 +2,77 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { FeaturedEventsCarousel } from "@/components/page-templates/calendario-eventos/FeaturedEventsCarousel";
 import { Event } from "@/sanity/lib/types/event";
 
+// Simple deterministic hash function for Storybook data generation
+const hashString = (str: string): number => {
+  let hash = 0;
+  for (let i = 0; i < str.length; i++) {
+    const char = str.charCodeAt(i);
+    hash = (hash << 5) - hash + char;
+    hash = hash & hash; // Convert to 32bit integer
+  }
+  return Math.abs(hash);
+};
+
 const createMockEvent = (
   id: string,
   title: string,
   category: Event["category"],
   date: string,
-): Event => ({
-  _id: id,
-  title,
-  slug: { current: title.toLowerCase().replace(/ /g, "-") },
-  coverImage: {
-    asset: {
-      _ref: `image-${id}`,
-      _type: "reference" as const,
+): Event => {
+  const hash = hashString(title);
+  const isFree = hash % 2 === 0;
+  const hasValue = hash % 3 !== 0;
+  const ticketValue = (hash % 100) + 20;
+  const ctaEnabled = hash % 5 !== 0;
+
+  return {
+    _id: id,
+    title,
+    slug: { current: title.toLowerCase().replace(/ /g, "-") },
+    coverImage: {
+      asset: {
+        _ref: `image-${id}`,
+        _type: "reference" as const,
+      },
+      alt: title,
     },
-    alt: title,
-  },
-  shortDescription: `Descrição breve do evento ${title}`,
-  description: [
-    {
-      _type: "block" as const,
-      _key: "block1",
-      children: [
-        {
-          _type: "span" as const,
-          _key: "span1",
-          text: `Descrição breve do evento ${title}`,
-          marks: [],
-        },
-      ],
-      style: "normal" as const,
-      markDefs: [],
+    shortDescription: `Descrição breve do evento ${title}`,
+    description: [
+      {
+        _type: "block" as const,
+        _key: "block1",
+        children: [
+          {
+            _type: "span" as const,
+            _key: "span1",
+            text: `Descrição breve do evento ${title}`,
+            marks: [],
+          },
+        ],
+        style: "normal" as const,
+        markDefs: [],
+      },
+    ],
+    category,
+    eventDate: date,
+    ticketPrice: {
+      free: isFree,
+      value: !isFree && hasValue ? ticketValue : undefined,
     },
-  ],
-  category,
-  eventDate: date,
-  ticketPrice: {
-    free: Math.random() > 0.5,
-    value: Math.random() > 0.5 ? Math.floor(Math.random() * 100) : undefined,
-  },
-  cta: {
-    enabled: Math.random() > 0.5,
-    buttonText: "Saiba Mais",
-    type: "link" as const,
-    link: `/evento/${title.toLowerCase().replace(/ /g, "-")}`,
-  },
-  location: {
-    name: "Local do Evento",
-    address: "Endereço do Local",
-  },
-  featured: true,
-  active: true,
-});
+    cta: {
+      enabled: ctaEnabled,
+      buttonText: "Saiba Mais",
+      type: "link" as const,
+      link: `/evento/${title.toLowerCase().replace(/ /g, "-")}`,
+    },
+    location: {
+      name: "Local do Evento",
+      address: "Endereço do Local",
+    },
+    featured: true,
+    active: true,
+  };
+};
 
 const meta = {
   title: "Events/FeaturedEventsCarousel",

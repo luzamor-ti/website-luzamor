@@ -8,24 +8,12 @@ import Image from "next/image";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { MapPin, Calendar, Clock, Images } from "lucide-react";
 import Link from "next/link";
+import { CATEGORY_LABELS } from "@/constants/eventCategories";
 
 interface EventCardProps {
   event: Event;
   showGalleryIcon?: boolean;
 }
-
-const CATEGORY_LABELS: Record<string, string> = {
-  cultural: "Cultural",
-  educacional: "Educacional",
-  social: "Social",
-  arrecadacao: "Arrecadação",
-  celebracao: "Celebração",
-  esportivo: "Esportivo",
-  arte: "Arte",
-  musical: "Musical",
-  literario: "Literário",
-  outro: "Outro",
-};
 
 export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
   const formatDate = (dateString: string) => {
