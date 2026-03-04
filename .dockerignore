@@ -1,0 +1,47 @@
+# Dependências
+node_modules
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Build outputs
+.next
+out
+dist
+build
+storybook-static
+
+# Cobertura de testes
+coverage
+
+# Variáveis de ambiente
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+
+# Git
+.git
+.gitignore
+
+# Docker
+Dockerfile
+docker-compose*.yml
+.dockerignore
+
+# Ferramentas de desenvolvimento
+.storybook
+stories
+__tests__
+
+# Documentação
+docs
+*.md
+!README.md
+
+# Misc
+.DS_Store
+*.pem
+.vscode
+.idea
