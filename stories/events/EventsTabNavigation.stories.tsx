@@ -1,7 +1,10 @@
 import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { EventsTabNavigation } from "@/components/page-templates/calendario-eventos/EventsTabNavigation";
 import { useState } from "react";
-import type { EventsTab, EventsView } from "@/components/page-templates/calendario-eventos/EventsTabNavigation";
+import type {
+  EventsTab,
+  EventsView,
+} from "@/components/page-templates/calendario-eventos/EventsTabNavigation";
 
 const meta = {
   title: "Events/EventsTabNavigation",
@@ -44,8 +47,12 @@ const InteractiveWrapper = (args: {
   initialTab?: EventsTab;
   initialView?: EventsView;
 }) => {
-  const [activeTab, setActiveTab] = useState<EventsTab>(args.initialTab || "upcoming");
-  const [activeView, setActiveView] = useState<EventsView>(args.initialView || "list");
+  const [activeTab, setActiveTab] = useState<EventsTab>(
+    args.initialTab || "upcoming",
+  );
+  const [activeView, setActiveView] = useState<EventsView>(
+    args.initialView || "list",
+  );
 
   return (
     <div className="max-w-6xl mx-auto">
@@ -57,10 +64,12 @@ const InteractiveWrapper = (args: {
       />
       <div className="mt-8 p-6 bg-gray-50 rounded-lg">
         <p className="text-gray-700">
-          <strong>Aba Ativa:</strong> {activeTab === "upcoming" ? "Próximos Eventos" : "Eventos Passados"}
+          <strong>Aba Ativa:</strong>{" "}
+          {activeTab === "upcoming" ? "Próximos Eventos" : "Eventos Passados"}
         </p>
         <p className="text-gray-700 mt-2">
-          <strong>Visualização:</strong> {activeView === "list" ? "Lista" : "Calendário"}
+          <strong>Visualização:</strong>{" "}
+          {activeView === "list" ? "Lista" : "Calendário"}
         </p>
       </div>
     </div>

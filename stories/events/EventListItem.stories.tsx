@@ -13,6 +13,8 @@ const mockEvent: Event = {
     },
     alt: "Workshop de Educação Financeira",
   },
+  shortDescription:
+    "Aprenda a gerenciar suas finanças pessoais e alcançar seus objetivos financeiros.",
   description: [
     {
       _type: "block" as const,
@@ -109,8 +111,14 @@ export const CulturalComGaleria: Story = {
           asset: { _ref: "gallery-1", _type: "reference" as const },
           alt: "Foto 1",
         },
-        { asset: { _ref: "gallery-2", _type: "reference" as const }, alt: "Foto 2" },
-        { asset: { _ref: "gallery-3", _type: "reference" as const }, alt: "Foto 3" },
+        {
+          asset: { _ref: "gallery-2", _type: "reference" as const },
+          alt: "Foto 2",
+        },
+        {
+          asset: { _ref: "gallery-3", _type: "reference" as const },
+          alt: "Foto 3",
+        },
       ],
     },
     showGalleryIcon: true,
@@ -136,7 +144,8 @@ export const CelebracaoTituloLongo: Story = {
     event: {
       ...mockEvent,
       _id: "event-5",
-      title: "Festa Junina Beneficente da Fundação Luz & Amor - Edição Especial 2026",
+      title:
+        "Festa Junina Beneficente da Fundação Luz & Amor - Edição Especial 2026",
       category: "celebracao",
       eventDate: "2026-06-20T17:00:00.000Z",
       ticketPrice: {

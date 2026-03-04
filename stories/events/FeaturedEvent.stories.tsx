@@ -13,6 +13,8 @@ const mockEvent: Event = {
     },
     alt: "Festival de Música Clássica",
   },
+  shortDescription:
+    "Join Junte-se a nós para uma noite mágica de música clássica com orquestra sinfônica completa.",
   description: [
     {
       _type: "block" as const,
@@ -183,7 +185,8 @@ export const TituloLongo: Story = {
     event: {
       ...mockEvent,
       _id: "featured-6",
-      title: "Grande Festival Internacional de Cinema Independente e Documentários - Edição Comemorativa 2026",
+      title:
+        "Grande Festival Internacional de Cinema Independente e Documentários - Edição Comemorativa 2026",
       category: "arte",
       eventDate: "2026-10-15T19:00:00.000Z",
     },

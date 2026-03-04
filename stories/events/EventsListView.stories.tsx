@@ -6,7 +6,7 @@ const createMockEvent = (
   id: number,
   category: Event["category"],
   isFree: boolean = true,
-  hasGallery: boolean = false
+  hasGallery: boolean = false,
 ): Event => ({
   _id: `event-${id}`,
   title: `Evento de Teste ${id}`,
@@ -18,6 +18,7 @@ const createMockEvent = (
     },
     alt: `Evento ${id}`,
   },
+  shortDescription: `Descrição do evento ${id} com informações relevantes sobre o que será apresentado.`,
   description: [
     {
       _type: "block" as const,
@@ -84,7 +85,8 @@ const meta = {
     },
     loadMoreCount: {
       control: "number",
-      description: "Quantidade de eventos carregados ao clicar 'Carregar mais' (padrão: 5)",
+      description:
+        "Quantidade de eventos carregados ao clicar 'Carregar mais' (padrão: 5)",
     },
   },
 } satisfies Meta<typeof EventsListView>;
@@ -108,10 +110,18 @@ export const MuitosEventos: Story = {
     events: Array.from({ length: 15 }, (_, i) =>
       createMockEvent(
         i + 1,
-        (["educacional", "musical", "cultural", "social", "celebracao"] as const)[i % 5],
+        (
+          [
+            "educacional",
+            "musical",
+            "cultural",
+            "social",
+            "celebracao",
+          ] as const
+        )[i % 5],
         i % 3 === 0,
-        false
-      )
+        false,
+      ),
     ),
     showGalleryIcon: false,
   },
@@ -124,8 +134,8 @@ export const EventosPassadosComGaleria: Story = {
         i + 1,
         (["musical", "cultural", "arte"] as const)[i % 3],
         false,
-        true
-      )
+        true,
+      ),
     ),
     showGalleryIcon: true,
   },
@@ -141,7 +151,7 @@ export const ListaVazia: Story = {
 export const PaginacaoCustomizada: Story = {
   args: {
     events: Array.from({ length: 20 }, (_, i) =>
-      createMockEvent(i + 1, "educacional", i % 2 === 0, false)
+      createMockEvent(i + 1, "educacional", i % 2 === 0, false),
     ),
     showGalleryIcon: false,
     initialDisplayCount: 3,
@@ -183,7 +193,12 @@ export const EventosComGaleriaVariada: Story = {
 export const MobileView: Story = {
   args: {
     events: Array.from({ length: 6 }, (_, i) =>
-      createMockEvent(i + 1, (["educacional", "musical"] as const)[i % 2], i % 3 === 0, false)
+      createMockEvent(
+        i + 1,
+        (["educacional", "musical"] as const)[i % 2],
+        i % 3 === 0,
+        false,
+      ),
     ),
     showGalleryIcon: false,
   },
@@ -197,7 +212,7 @@ export const MobileView: Story = {
 export const TabletView: Story = {
   args: {
     events: Array.from({ length: 8 }, (_, i) =>
-      createMockEvent(i + 1, "cultural", i % 2 === 0, true)
+      createMockEvent(i + 1, "cultural", i % 2 === 0, true),
     ),
     showGalleryIcon: true,
   },

@@ -2,7 +2,12 @@ import type { Meta, StoryObj } from "@storybook/nextjs-vite";
 import { FeaturedEventsCarousel } from "@/components/page-templates/calendario-eventos/FeaturedEventsCarousel";
 import { Event } from "@/sanity/lib/types/event";
 
-const createMockEvent = (id: string, title: string, category: Event["category"], date: string): Event => ({
+const createMockEvent = (
+  id: string,
+  title: string,
+  category: Event["category"],
+  date: string,
+): Event => ({
   _id: id,
   title,
   slug: { current: title.toLowerCase().replace(/ /g, "-") },
@@ -13,6 +18,7 @@ const createMockEvent = (id: string, title: string, category: Event["category"],
     },
     alt: title,
   },
+  shortDescription: `Descrição breve do evento ${title}`,
   description: [
     {
       _type: "block" as const,
@@ -79,9 +85,24 @@ type Story = StoryObj<typeof meta>;
 export const TresEventos: Story = {
   args: {
     events: [
-      createMockEvent("1", "Festival de Música Clássica", "musical", "2026-08-15T20:00:00.000Z"),
-      createMockEvent("2", "Workshop de Programação", "educacional", "2026-09-10T14:00:00.000Z"),
-      createMockEvent("3", "Exposição de Arte Moderna", "cultural", "2026-07-20T10:00:00.000Z"),
+      createMockEvent(
+        "1",
+        "Festival de Música Clássica",
+        "musical",
+        "2026-08-15T20:00:00.000Z",
+      ),
+      createMockEvent(
+        "2",
+        "Workshop de Programação",
+        "educacional",
+        "2026-09-10T14:00:00.000Z",
+      ),
+      createMockEvent(
+        "3",
+        "Exposição de Arte Moderna",
+        "cultural",
+        "2026-07-20T10:00:00.000Z",
+      ),
     ],
     autoplayDelay: 7000,
   },
@@ -90,8 +111,18 @@ export const TresEventos: Story = {
 export const DoisEventos: Story = {
   args: {
     events: [
-      createMockEvent("4", "Campanha de Doação", "social", "2026-06-05T08:00:00.000Z"),
-      createMockEvent("5", "Festa Junina Beneficente", "celebracao", "2026-06-24T18:00:00.000Z"),
+      createMockEvent(
+        "4",
+        "Campanha de Doação",
+        "social",
+        "2026-06-05T08:00:00.000Z",
+      ),
+      createMockEvent(
+        "5",
+        "Festa Junina Beneficente",
+        "celebracao",
+        "2026-06-24T18:00:00.000Z",
+      ),
     ],
     autoplayDelay: 5000,
   },
@@ -100,7 +131,12 @@ export const DoisEventos: Story = {
 export const EventoUnico: Story = {
   args: {
     events: [
-      createMockEvent("6", "Grande Concerto de Fim de Ano", "musical", "2026-12-20T21:00:00.000Z"),
+      createMockEvent(
+        "6",
+        "Grande Concerto de Fim de Ano",
+        "musical",
+        "2026-12-20T21:00:00.000Z",
+      ),
     ],
     autoplayDelay: 7000,
   },
@@ -109,9 +145,24 @@ export const EventoUnico: Story = {
 export const AutoplayRapido: Story = {
   args: {
     events: [
-      createMockEvent("7", "Palestra Motivacional", "educacional", "2026-05-15T19:00:00.000Z"),
-      createMockEvent("8", "Cinema ao Ar Livre", "arte", "2026-06-10T20:30:00.000Z"),
-      createMockEvent("9", "Torneio Esportivo", "esportivo", "2026-07-05T09:00:00.000Z"),
+      createMockEvent(
+        "7",
+        "Palestra Motivacional",
+        "educacional",
+        "2026-05-15T19:00:00.000Z",
+      ),
+      createMockEvent(
+        "8",
+        "Cinema ao Ar Livre",
+        "arte",
+        "2026-06-10T20:30:00.000Z",
+      ),
+      createMockEvent(
+        "9",
+        "Torneio Esportivo",
+        "esportivo",
+        "2026-07-05T09:00:00.000Z",
+      ),
     ],
     autoplayDelay: 3000,
   },
@@ -120,9 +171,24 @@ export const AutoplayRapido: Story = {
 export const AutoplayLento: Story = {
   args: {
     events: [
-      createMockEvent("10", "Feira Literária", "literario", "2026-08-25T10:00:00.000Z"),
-      createMockEvent("11", "Bazar Beneficente", "arrecadacao", "2026-09-15T14:00:00.000Z"),
-      createMockEvent("12", "Sarau Cultural", "cultural", "2026-10-05T19:00:00.000Z"),
+      createMockEvent(
+        "10",
+        "Feira Literária",
+        "literario",
+        "2026-08-25T10:00:00.000Z",
+      ),
+      createMockEvent(
+        "11",
+        "Bazar Beneficente",
+        "arrecadacao",
+        "2026-09-15T14:00:00.000Z",
+      ),
+      createMockEvent(
+        "12",
+        "Sarau Cultural",
+        "cultural",
+        "2026-10-05T19:00:00.000Z",
+      ),
     ],
     autoplayDelay: 10000,
   },
@@ -131,8 +197,18 @@ export const AutoplayLento: Story = {
 export const MobileView: Story = {
   args: {
     events: [
-      createMockEvent("13", "Workshop de Fotografia", "educacional", "2026-11-20T15:00:00.000Z"),
-      createMockEvent("14", "Apresentação de Dança", "arte", "2026-12-10T18:00:00.000Z"),
+      createMockEvent(
+        "13",
+        "Workshop de Fotografia",
+        "educacional",
+        "2026-11-20T15:00:00.000Z",
+      ),
+      createMockEvent(
+        "14",
+        "Apresentação de Dança",
+        "arte",
+        "2026-12-10T18:00:00.000Z",
+      ),
     ],
     autoplayDelay: 7000,
   },
@@ -146,9 +222,24 @@ export const MobileView: Story = {
 export const TabletView: Story = {
   args: {
     events: [
-      createMockEvent("15", "Oficina de Artesanato", "cultural", "2026-10-18T14:00:00.000Z"),
-      createMockEvent("16", "Palestra de Saúde", "educacional", "2026-11-05T16:00:00.000Z"),
-      createMockEvent("17", "Gincana Solidária", "social", "2026-12-01T09:00:00.000Z"),
+      createMockEvent(
+        "15",
+        "Oficina de Artesanato",
+        "cultural",
+        "2026-10-18T14:00:00.000Z",
+      ),
+      createMockEvent(
+        "16",
+        "Palestra de Saúde",
+        "educacional",
+        "2026-11-05T16:00:00.000Z",
+      ),
+      createMockEvent(
+        "17",
+        "Gincana Solidária",
+        "social",
+        "2026-12-01T09:00:00.000Z",
+      ),
     ],
     autoplayDelay: 7000,
   },
