@@ -262,9 +262,10 @@ describe("PatrocinadorTemplate", () => {
       renderTemplate(fullData);
       fireEvent.click(screen.getByRole("tab", { name: /anteriores/i }));
       // Re-query após re-render para evitar referência stale
-      expect(
-        screen.getByRole("tab", { name: /anteriores/i }),
-      ).toHaveAttribute("aria-selected", "true");
+      expect(screen.getByRole("tab", { name: /anteriores/i })).toHaveAttribute(
+        "aria-selected",
+        "true",
+      );
     });
 
     it("exibe mensagem de vazio quando não há parceiros de 2026 (CMS)", () => {

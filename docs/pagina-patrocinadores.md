@@ -33,12 +33,12 @@ Doadores (Mensais / Pontuais)
 
 **Campos CMS** (`paginaParceiros.hero`):
 
-| Campo           | Tipo     | Descrição                                     |
-| --------------- | -------- | --------------------------------------------- |
-| `tag`           | `string` | Tag acima do título (ex: "Transparência e Gratidão") |
-| `titulo`        | `string` | Título principal da página                    |
-| `descricao`     | `text`   | Parágrafo introdutório                        |
-| `imagemFundo`   | `image`  | Imagem full-width de fundo com hotspot        |
+| Campo         | Tipo     | Descrição                                            |
+| ------------- | -------- | ---------------------------------------------------- |
+| `tag`         | `string` | Tag acima do título (ex: "Transparência e Gratidão") |
+| `titulo`      | `string` | Título principal da página                           |
+| `descricao`   | `text`   | Parágrafo introdutório                               |
+| `imagemFundo` | `image`  | Imagem full-width de fundo com hotspot               |
 
 Quando `imagemFundo` está preenchida, a seção exibe um overlay gradiente escuro e textos em branco. Sem imagem, usa fundo gradiente verde/roxo claro.
 
@@ -48,13 +48,13 @@ Quando `imagemFundo` está preenchida, a seção exibe um overlay gradiente escu
 
 **Campos CMS** (`paginaParceiros.ctaPrincipal`):
 
-| Campo                | Tipo     | Fallback                        |
-| -------------------- | -------- | ------------------------------- |
-| `titulo`             | `string` | "Faça Parte da Mudança"         |
-| `descricao`          | `text`   | Texto genérico de apoio         |
-| `botaoPatrocinador`  | `string` | "Seja um Patrocinador"          |
-| `botaoApoiador`      | `string` | "Seja um Apoiador"              |
-| `botaoDoador`        | `string` | "Faça uma Doação"               |
+| Campo               | Tipo     | Fallback                |
+| ------------------- | -------- | ----------------------- |
+| `titulo`            | `string` | "Faça Parte da Mudança" |
+| `descricao`         | `text`   | Texto genérico de apoio |
+| `botaoPatrocinador` | `string` | "Seja um Patrocinador"  |
+| `botaoApoiador`     | `string` | "Seja um Apoiador"      |
+| `botaoDoador`       | `string` | "Faça uma Doação"       |
 
 Todos os três botões apontam para `/contato`.
 
@@ -66,15 +66,15 @@ Exibida apenas quando há pelo menos um patrocinador ou apoiador cadastrado (202
 
 **Campos CMS** (`paginaParceiros.secaoParceiros`):
 
-| Campo                       | Tipo     | Fallback                                          |
-| --------------------------- | -------- | -------------------------------------------------- |
-| `tag`                       | `string` | "Parceiros"                                        |
-| `titulo`                    | `string` | "Patrocinadores e Apoiadores"                      |
-| `descricao`                 | `text`   | Texto genérico                                     |
-| `labelAba2026`              | `string` | "Parceiros de 2026"                                |
-| `labelAbaAnteriores`        | `string` | "Parceiros Anteriores"                             |
-| `mensagemVazioAtual`        | `string` | "Nenhuma parceria cadastrada para 2026 ainda."     |
-| `mensagemVazioAnteriores`   | `string` | "Nenhuma parceria anterior cadastrada."            |
+| Campo                     | Tipo     | Fallback                                       |
+| ------------------------- | -------- | ---------------------------------------------- |
+| `tag`                     | `string` | "Parceiros"                                    |
+| `titulo`                  | `string` | "Patrocinadores e Apoiadores"                  |
+| `descricao`               | `text`   | Texto genérico                                 |
+| `labelAba2026`            | `string` | "Parceiros de 2026"                            |
+| `labelAbaAnteriores`      | `string` | "Parceiros Anteriores"                         |
+| `mensagemVazioAtual`      | `string` | "Nenhuma parceria cadastrada para 2026 ainda." |
+| `mensagemVazioAnteriores` | `string` | "Nenhuma parceria anterior cadastrada."        |
 
 #### Comportamento das Abas
 
@@ -93,11 +93,11 @@ Exibida apenas quando há `apoiadorIndividual` cadastrados.
 
 **Campos CMS** (`paginaParceiros.secaoIndividuais`):
 
-| Campo       | Tipo     | Fallback                                                   |
-| ----------- | -------- | ---------------------------------------------------------- |
-| `tag`       | `string` | "Pessoas que fazem a diferença"                            |
-| `titulo`    | `string` | "Apoiadores Individuais"                                   |
-| `descricao` | `text`   | "Pessoas físicas que contribuem com ..."                   |
+| Campo       | Tipo     | Fallback                                 |
+| ----------- | -------- | ---------------------------------------- |
+| `tag`       | `string` | "Pessoas que fazem a diferença"          |
+| `titulo`    | `string` | "Apoiadores Individuais"                 |
+| `descricao` | `text`   | "Pessoas físicas que contribuem com ..." |
 
 Cards com foto circular e link externo quando `site` está preenchido.
 
@@ -109,11 +109,11 @@ Sempre renderizado (não depende de dados de parceiros).
 
 **Campos CMS** (`paginaParceiros.ctaFinal`):
 
-| Campo         | Tipo     | Fallback                        |
-| ------------- | -------- | ------------------------------- |
-| `titulo`      | `string` | "Sua empresa pode estar aqui"   |
-| `descricao`   | `text`   | Texto genérico de convite       |
-| `textoBotao`  | `string` | "Entrar em Contato"             |
+| Campo        | Tipo     | Fallback                      |
+| ------------ | -------- | ----------------------------- |
+| `titulo`     | `string` | "Sua empresa pode estar aqui" |
+| `descricao`  | `text`   | Texto genérico de convite     |
+| `textoBotao` | `string` | "Entrar em Contato"           |
 
 Seção com fundo na cor primária (`bg-primary`), botão aponta para `/contato`.
 
@@ -125,13 +125,13 @@ Exibida apenas quando há `doadorMensal` ou `doadorPontual` cadastrados.
 
 **Campos CMS** (`paginaParceiros.secaoDoadores`):
 
-| Campo           | Tipo     | Fallback               |
-| --------------- | -------- | ---------------------- |
-| `tag`           | `string` | "Gratidão"             |
-| `titulo`        | `string` | "Nossos Doadores"      |
-| `descricao`     | `text`   | Texto genérico         |
-| `tituloMensais` | `string` | "Doadores Mensais"     |
-| `tituloPontuais`| `string` | "Doadores Pontuais"    |
+| Campo            | Tipo     | Fallback            |
+| ---------------- | -------- | ------------------- |
+| `tag`            | `string` | "Gratidão"          |
+| `titulo`         | `string` | "Nossos Doadores"   |
+| `descricao`      | `text`   | Texto genérico      |
+| `tituloMensais`  | `string` | "Doadores Mensais"  |
+| `tituloPontuais` | `string` | "Doadores Pontuais" |
 
 Dois grupos lado a lado (mobile: coluna única, desktop: 2 colunas). Cards com foto circular.
 
@@ -141,23 +141,23 @@ Dois grupos lado a lado (mobile: coluna única, desktop: 2 colunas). Cards com f
 
 ### `apoiador` (documento)
 
-| Campo        | Tipo        | Obrigatório | Notas                                                     |
-| ------------ | ----------- | ----------- | --------------------------------------------------------- |
-| `nome`       | `string`    | ✓           |                                                           |
-| `logo`       | `image`     |             | Hotspot habilitado                                        |
-| `site`       | `url`       |             | Gera link externo no card                                 |
-| `tipo`       | `string`    | ✓           | `patrocinador`, `apoiador`, `apoiadorIndividual`, `doadorMensal`, `doadorPontual` |
-| `ano`        | `number`    | ✓           | Oculto para doadores; padrão: 2026                        |
-| `categoria`  | `reference` | *           | Referência a `categoriaParceria`; obrigatório para patrocinadores/apoiadores |
-| `destaque`   | `boolean`   |             | Exibe na homepage                                         |
-| `ordem`      | `number`    |             | Ordenação dentro da categoria                             |
+| Campo       | Tipo        | Obrigatório | Notas                                                                             |
+| ----------- | ----------- | ----------- | --------------------------------------------------------------------------------- |
+| `nome`      | `string`    | ✓           |                                                                                   |
+| `logo`      | `image`     |             | Hotspot habilitado                                                                |
+| `site`      | `url`       |             | Gera link externo no card                                                         |
+| `tipo`      | `string`    | ✓           | `patrocinador`, `apoiador`, `apoiadorIndividual`, `doadorMensal`, `doadorPontual` |
+| `ano`       | `number`    | ✓           | Oculto para doadores; padrão: 2026                                                |
+| `categoria` | `reference` | \*          | Referência a `categoriaParceria`; obrigatório para patrocinadores/apoiadores      |
+| `destaque`  | `boolean`   |             | Exibe na homepage                                                                 |
+| `ordem`     | `number`    |             | Ordenação dentro da categoria                                                     |
 
 ### `categoriaParceria` (documento)
 
-| Campo    | Tipo     | Obrigatório | Notas                                  |
-| -------- | -------- | ----------- | -------------------------------------- |
-| `titulo` | `string` | ✓           | Ex: "Lei Rouanet", "Edital Estadual"   |
-| `ordem`  | `number` |             | Ordenação entre categorias             |
+| Campo    | Tipo     | Obrigatório | Notas                                |
+| -------- | -------- | ----------- | ------------------------------------ |
+| `titulo` | `string` | ✓           | Ex: "Lei Rouanet", "Edital Estadual" |
+| `ordem`  | `number` |             | Ordenação entre categorias           |
 
 ### `paginaParceiros` (singleton)
 
@@ -190,30 +190,30 @@ O serviço usa `sanityFetch` (Live Content API) — mudanças publicadas no Stud
 
 ## Tipos TypeScript
 
-| Arquivo                                    | Exporta                                                        |
-| ------------------------------------------ | -------------------------------------------------------------- |
-| `sanity/lib/types/supporter.ts`            | `Supporter`, `SupporterCategory`, `SupporterType`, `PartnersPageData` |
-| `sanity/lib/types/partnersPage.ts`         | `PartnersPageConfig`                                           |
+| Arquivo                            | Exporta                                                               |
+| ---------------------------------- | --------------------------------------------------------------------- |
+| `sanity/lib/types/supporter.ts`    | `Supporter`, `SupporterCategory`, `SupporterType`, `PartnersPageData` |
+| `sanity/lib/types/partnersPage.ts` | `PartnersPageConfig`                                                  |
 
 ---
 
 ## Queries GROQ
 
-| Constante                        | Arquivo                          | Parâmetros                         |
-| -------------------------------- | -------------------------------- | ---------------------------------- |
-| `PARTNERS_PAGE_CONFIG_QUERY`     | `queries/partner.ts`             | nenhum                             |
-| `PARTNER_CATEGORIES_QUERY`       | `queries/partner.ts`             | `$tipo`, `$ano`                    |
-| `PAST_PARTNER_CATEGORIES_QUERY`  | `queries/partner.ts`             | `$tipo`, `$currentYear`            |
-| `INDIVIDUAL_PARTNERS_QUERY`      | `queries/partner.ts`             | `$tipo`                            |
+| Constante                       | Arquivo              | Parâmetros              |
+| ------------------------------- | -------------------- | ----------------------- |
+| `PARTNERS_PAGE_CONFIG_QUERY`    | `queries/partner.ts` | nenhum                  |
+| `PARTNER_CATEGORIES_QUERY`      | `queries/partner.ts` | `$tipo`, `$ano`         |
+| `PAST_PARTNER_CATEGORIES_QUERY` | `queries/partner.ts` | `$tipo`, `$currentYear` |
+| `INDIVIDUAL_PARTNERS_QUERY`     | `queries/partner.ts` | `$tipo`                 |
 
 ---
 
 ## Testes
 
-| Arquivo                                                                         | Cobertura                                            |
-| ------------------------------------------------------------------------------- | ---------------------------------------------------- |
-| `components/page-templates/__tests__/PatrocinadorTemplate.test.tsx`             | Hero, CTA, abas, accordion, individuais, doadores, CTA final, fallbacks |
-| `sanity/lib/services/__tests__/partnerService.test.ts`                          | Queries corretas, parâmetros, fallbacks de erro, paralelismo |
+| Arquivo                                                             | Cobertura                                                               |
+| ------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `components/page-templates/__tests__/PatrocinadorTemplate.test.tsx` | Hero, CTA, abas, accordion, individuais, doadores, CTA final, fallbacks |
+| `sanity/lib/services/__tests__/partnerService.test.ts`              | Queries corretas, parâmetros, fallbacks de erro, paralelismo            |
 
 Execute com:
 
