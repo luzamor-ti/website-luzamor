@@ -25,7 +25,8 @@ interface PageProps {
 // Tipo para os componentes de template
 type TemplateComponent =
   | React.ComponentType<{ pagina: PageType }>
-  | typeof CalendarioEventosTemplate;
+  | typeof CalendarioEventosTemplate
+  | typeof PatrocinadorTemplate;
 
 // Mapeamento de slugs para templates e informações básicas
 const pageConfig: Record<
