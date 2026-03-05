@@ -12,6 +12,8 @@ import { evento } from "./evento";
 import hero from "./hero";
 import secaoHome from "./secaoHome";
 import sobreNos from "./sobreNos";
+import { categoriaParceria } from "./categoriaParceria";
+import paginaParceiros from "./paginaParceiros";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -28,5 +30,7 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     evento,
     secaoHome,
     sobreNos,
+    categoriaParceria,
+    paginaParceiros,
   ],
 };

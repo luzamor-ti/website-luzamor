@@ -4,4 +4,18 @@ import type {StructureResolver} from 'sanity/structure'
 export const structure: StructureResolver = (S) =>
   S.list()
     .title('Content')
-    .items(S.documentTypeListItems())
+    .items([
+      // Singleton — Página de Parceiros (apenas um documento, com ID fixo)
+      S.listItem()
+        .title('Página de Parceiros')
+        .id('paginaParceiros')
+        .child(
+          S.document()
+            .schemaType('paginaParceiros')
+            .documentId('paginaParceiros')
+        ),
+      // Demais tipos de documento
+      ...S.documentTypeListItems().filter(
+        (listItem) => listItem.getId() !== 'paginaParceiros'
+      ),
+    ])
