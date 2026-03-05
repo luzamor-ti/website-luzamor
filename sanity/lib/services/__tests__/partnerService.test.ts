@@ -45,6 +45,11 @@ function mockFetchSequence(responses: unknown[]) {
   });
 }
 
+async function callWithNullData() {
+  vi.mocked(sanityFetch).mockResolvedValue({ data: null });
+  return getPartnersPageData();
+}
+
 // ─────────────────────────────────────────
 // Tests
 // ─────────────────────────────────────────
@@ -107,17 +112,13 @@ describe("partnerService — getPartnersPageData", () => {
   });
 
   it("chama sanityFetch exatamente 8 vezes (um por fonte de dados)", async () => {
-    vi.mocked(sanityFetch).mockResolvedValue({ data: null });
-
-    await getPartnersPageData();
+    await callWithNullData();
 
     expect(sanityFetch).toHaveBeenCalledTimes(8);
   });
 
   it("busca a configuração de página com a query correta", async () => {
-    vi.mocked(sanityFetch).mockResolvedValue({ data: null });
-
-    await getPartnersPageData();
+    await callWithNullData();
 
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({ query: PARTNERS_PAGE_CONFIG_QUERY }),
@@ -125,9 +126,7 @@ describe("partnerService — getPartnersPageData", () => {
   });
 
   it("busca patrocinadores de 2026 com tipo e ano corretos", async () => {
-    vi.mocked(sanityFetch).mockResolvedValue({ data: null });
-
-    await getPartnersPageData();
+    await callWithNullData();
 
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -138,9 +137,7 @@ describe("partnerService — getPartnersPageData", () => {
   });
 
   it("busca apoiadores de 2026 com tipo e ano corretos", async () => {
-    vi.mocked(sanityFetch).mockResolvedValue({ data: null });
-
-    await getPartnersPageData();
+    await callWithNullData();
 
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -151,9 +148,7 @@ describe("partnerService — getPartnersPageData", () => {
   });
 
   it("busca patrocinadores anteriores com tipo e ano corretos", async () => {
-    vi.mocked(sanityFetch).mockResolvedValue({ data: null });
-
-    await getPartnersPageData();
+    await callWithNullData();
 
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({
@@ -164,9 +159,7 @@ describe("partnerService — getPartnersPageData", () => {
   });
 
   it("busca apoiadores individuais, mensais e pontuais com params corretos", async () => {
-    vi.mocked(sanityFetch).mockResolvedValue({ data: null });
-
-    await getPartnersPageData();
+    await callWithNullData();
 
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({

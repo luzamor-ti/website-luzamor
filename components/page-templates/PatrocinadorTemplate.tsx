@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, type ReactNode } from "react";
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { Page } from "@/sanity/lib/types/page";
@@ -172,6 +172,29 @@ function DonorGroup({
 }
 
 // ─────────────────────────────────────────
+// Sub-component: Animated Section Wrapper
+// ─────────────────────────────────────────
+function AnimatedSection({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
+  return (
+    <motion.div
+      variants={staggerContainerVariants}
+      initial="hidden"
+      whileInView="visible"
+      viewport={{ once: true }}
+      className={className}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
+// ─────────────────────────────────────────
 // Main Template
 // ─────────────────────────────────────────
 export function PatrocinadorTemplate({
@@ -244,13 +267,7 @@ export function PatrocinadorTemplate({
 
       {/* ── CTA Principal ── */}
       <Section className="!py-12">
-        <motion.div
-          variants={staggerContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="bg-gradient-to-br from-primary/5 to-secondary/5 border border-gray-100 rounded-2xl p-8 md:p-12 text-center"
-        >
+        <AnimatedSection className="bg-gradient-to-br from-primary/5 to-secondary/5 border border-gray-100 rounded-2xl p-8 md:p-12 text-center">
           <motion.div variants={slideUpVariants}>
             <Heading level={2} className="mb-4">
               {cta?.title || "Faça Parte da Mudança"}
@@ -277,18 +294,13 @@ export function PatrocinadorTemplate({
               {cta?.donorButtonText || "Faça uma Doação"}
             </Button>
           </motion.div>
-        </motion.div>
+        </AnimatedSection>
       </Section>
 
       {/* ── Patrocinadores e Apoiadores (Tabs) ── */}
       {(hasCurrentYear || hasPastYears) && (
         <Section id="parceiros">
-          <motion.div
-            variants={staggerContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
                 tag={partners?.tag || "Parceiros"}
@@ -364,19 +376,14 @@ export function PatrocinadorTemplate({
                 )}
               </div>
             </div>
-          </motion.div>
+          </AnimatedSection>
         </Section>
       )}
 
       {/* ── Apoiadores Individuais ── */}
       {hasIndividuals && (
         <Section>
-          <motion.div
-            variants={staggerContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
                 tag={individuals?.tag || "Pessoas que fazem a diferença"}
@@ -392,18 +399,12 @@ export function PatrocinadorTemplate({
                 <PartnerCard key={supporter._id} partner={supporter} isRound />
               ))}
             </Grid>
-          </motion.div>
+          </AnimatedSection>
         </Section>
       )}
       {/* ── CTA Final ── */}
       <Section className="bg-primary !py-16">
-        <motion.div
-          variants={staggerContainerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true }}
-          className="text-center"
-        >
+        <AnimatedSection className="text-center">
           <motion.div variants={slideUpVariants}>
             <Heading level={2} className="text-white mb-4">
               {ctaFinal?.title || "Sua empresa pode estar aqui"}
@@ -421,17 +422,12 @@ export function PatrocinadorTemplate({
               {ctaFinal?.buttonText || "Entrar em Contato"}
             </Button>
           </motion.div>
-        </motion.div>
+        </AnimatedSection>
       </Section>
       {/* ── Doadores ── */}
       {hasDonors && (
         <Section>
-          <motion.div
-            variants={staggerContainerVariants}
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-          >
+          <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
                 tag={donors?.tag || "Gratidão"}
@@ -457,7 +453,7 @@ export function PatrocinadorTemplate({
                 emptyMessage="Nenhum doador pontual cadastrado ainda."
               />
             </motion.div>
-          </motion.div>
+          </AnimatedSection>
         </Section>
       )}
     </main>
