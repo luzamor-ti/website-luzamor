@@ -16,6 +16,7 @@ import {
   type PageType as PageTypeEnum,
 } from "@/sanity/lib/types/page";
 import { getEventsCalendarData } from "@/sanity/lib/services/eventService";
+import { getPartnersPageData } from "@/sanity/lib/services/partnerService";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -121,6 +122,12 @@ export default async function Page({ params }: PageProps) {
         pastEvents={pastEvents}
       />
     );
+  }
+
+  // Special handling for partners page
+  if (slug === "patrocinador") {
+    const partnersData = await getPartnersPageData();
+    return <PatrocinadorTemplate pagina={pagina} {...partnersData} />;
   }
 
   // For other templates, use the standard component
