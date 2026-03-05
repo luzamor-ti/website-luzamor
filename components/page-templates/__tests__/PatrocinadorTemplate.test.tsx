@@ -35,7 +35,7 @@ const mockPageConfig: PartnersPageConfig = {
     tag: "Parceiros",
     title: "Patrocinadores e Apoiadores",
     description: "Empresas que acreditam em nosso trabalho.",
-    tab2026Label: "2026",
+    tabCurrentLabel: "2026",
     tabPastLabel: "Anteriores",
     emptyCurrentMessage: "Nenhum parceiro cadastrado para 2026.",
     emptyPastMessage: "Nenhuma parceria anterior cadastrada.",
@@ -116,8 +116,8 @@ const mockPunctualDonor = {
 
 const emptyData: PartnersPageData = {
   pageConfig: null,
-  sponsors2026: [],
-  supporters2026: [],
+  currentSponsors: [],
+  currentSupporters: [],
   pastSponsors: [],
   pastSupporters: [],
   individualSupporters: [],
@@ -127,8 +127,8 @@ const emptyData: PartnersPageData = {
 
 const fullData: PartnersPageData = {
   pageConfig: mockPageConfig,
-  sponsors2026: [mockCategory],
-  supporters2026: [],
+  currentSponsors: [mockCategory],
+  currentSupporters: [],
   pastSponsors: [mockPastCategory],
   pastSupporters: [],
   individualSupporters: [mockIndividual],
@@ -245,10 +245,10 @@ describe("PatrocinadorTemplate", () => {
     it("exibe rótulos padrão das abas quando pageConfig é null", () => {
       const dataWithPartners: PartnersPageData = {
         ...emptyData,
-        sponsors2026: [mockCategory],
+        currentSponsors: [mockCategory],
       };
       renderTemplate(dataWithPartners);
-      expect(screen.getByText("Parceiros de 2026")).toBeInTheDocument();
+      expect(screen.getByText("Parceiros do Ano Atual")).toBeInTheDocument();
       expect(screen.getByText("Parceiros Anteriores")).toBeInTheDocument();
     });
 
@@ -271,8 +271,8 @@ describe("PatrocinadorTemplate", () => {
     it("exibe mensagem de vazio quando não há parceiros de 2026 (CMS)", () => {
       const dataNoCurrentYear: PartnersPageData = {
         ...fullData,
-        sponsors2026: [],
-        supporters2026: [],
+        currentSponsors: [],
+        currentSupporters: [],
         pastSponsors: [mockPastCategory],
       };
       renderTemplate(dataNoCurrentYear);
@@ -288,7 +288,7 @@ describe("PatrocinadorTemplate", () => {
       };
       renderTemplate(dataNoCurrentYear);
       expect(
-        screen.getByText("Nenhuma parceria cadastrada para 2026 ainda."),
+        screen.getByText("Nenhuma parceria cadastrada para o ano atual ainda."),
       ).toBeInTheDocument();
     });
   });

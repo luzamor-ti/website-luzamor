@@ -12,7 +12,7 @@ import {
 } from "../types/supporter";
 import { PartnersPageConfig } from "../types/partnersPage";
 
-const CURRENT_YEAR = 2026;
+const CURRENT_YEAR = new Date().getFullYear();
 
 async function fetch<T>(
   query: string,
@@ -28,8 +28,8 @@ async function fetch<T>(
 export async function getPartnersPageData(): Promise<PartnersPageData> {
   const [
     pageConfig,
-    sponsors2026,
-    supporters2026,
+    currentSponsors,
+    currentSupporters,
     pastSponsors,
     pastSupporters,
     individualSupporters,
@@ -72,8 +72,8 @@ export async function getPartnersPageData(): Promise<PartnersPageData> {
 
   return {
     pageConfig,
-    sponsors2026,
-    supporters2026,
+    currentSponsors,
+    currentSupporters,
     pastSponsors,
     pastSupporters,
     individualSupporters,

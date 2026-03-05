@@ -14,7 +14,7 @@ const supporterFields = groq`
  * Busca a configuração textual/visual da página de parceiros (singleton)
  */
 export const PARTNERS_PAGE_CONFIG_QUERY = groq`
-  *[_type == "paginaParceiros"][0] {
+  *[_type == "paginaParceiros" && _id == "paginaParceiros"][0] {
     "hero": {
       "tag": hero.tag,
       "title": hero.titulo,
@@ -32,7 +32,7 @@ export const PARTNERS_PAGE_CONFIG_QUERY = groq`
       "tag": secaoParceiros.tag,
       "title": secaoParceiros.titulo,
       "description": secaoParceiros.descricao,
-      "tab2026Label": secaoParceiros.labelAba2026,
+      "tabCurrentLabel": secaoParceiros.labelAbaAnoAtual,
       "tabPastLabel": secaoParceiros.labelAbaAnteriores,
       "emptyCurrentMessage": secaoParceiros.mensagemVazioAtual,
       "emptyPastMessage": secaoParceiros.mensagemVazioAnteriores

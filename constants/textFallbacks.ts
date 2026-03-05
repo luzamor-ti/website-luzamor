@@ -360,6 +360,58 @@ export const EVENT_DETAIL_FALLBACKS = {
 };
 
 /**
+ * Partners Page Fallbacks
+ */
+export const PARTNERS_PAGE_FALLBACKS = {
+  hero: {
+    tag: "Transparência e Gratidão",
+    title: "Nossos Parceiros e Amigos",
+    description:
+      "Um enorme obrigado a todos os parceiros, apoiadores e doadores que tornam nossa missão possível.",
+  },
+  cta: {
+    title: "Faça Parte da Mudança",
+    description:
+      "Sua empresa ou você pode transformar vidas. Conheça as formas de apoiar a Fundação Luz & Amor e juntos faremos mais.",
+    sponsorButtonText: "Seja um Patrocinador",
+    supporterButtonText: "Seja um Apoiador",
+    donorButtonText: "Faça uma Doação",
+  },
+  partnersSection: {
+    tag: "Parceiros",
+    title: "Patrocinadores e Apoiadores",
+    description:
+      "Empresas, instituições e editais que acreditam e investem no nosso trabalho.",
+    tabCurrentLabel: "Parceiros do Ano Atual",
+    tabPastLabel: "Parceiros Anteriores",
+    emptyCurrentMessage: "Nenhuma parceria cadastrada para o ano atual ainda.",
+    emptyPastMessage: "Nenhuma parceria anterior cadastrada.",
+  },
+  individualsSection: {
+    tag: "Pessoas que fazem a diferença",
+    title: "Apoiadores Individuais",
+    description:
+      "Pessoas físicas que contribuem com sua presença e apoio direto à fundação.",
+  },
+  donorsSection: {
+    tag: "Gratidão",
+    title: "Nossos Doadores",
+    description:
+      "Cada contribuição, pequena ou grande, faz toda a diferença em nossa missão.",
+    monthlyTitle: "Doadores Mensais",
+    punctualTitle: "Doadores Pontuais",
+    emptyMonthly: "Nenhum doador mensal cadastrado ainda.",
+    emptyPunctual: "Nenhum doador pontual cadastrado ainda.",
+  },
+  ctaFinal: {
+    title: "Sua empresa pode estar aqui",
+    description:
+      "Entre em contato e descubra como fazer parte da rede de parceiros da Fundação Luz & Amor.",
+    buttonText: "Entrar em Contato",
+  },
+};
+
+/**
  * Get fallback text for a section
  */
 export function getFallbackText(section: SectionName): SectionFallback {

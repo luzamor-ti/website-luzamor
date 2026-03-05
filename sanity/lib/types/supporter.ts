@@ -12,7 +12,10 @@ export interface Supporter {
   _id: string;
   name: string;
   logo?: SanityImage;
+  /** Campo normalizado pelo GROQ (queries/partner.ts). */
   site?: string;
+  /** Campo legado retornado por queries/supporter.ts. */
+  website?: string;
   featured?: boolean;
   type?: SupporterType;
   year?: number;
@@ -27,8 +30,8 @@ export interface SupporterCategory {
 
 export interface PartnersPageData {
   pageConfig: PartnersPageConfig | null;
-  sponsors2026: SupporterCategory[];
-  supporters2026: SupporterCategory[];
+  currentSponsors: SupporterCategory[];
+  currentSupporters: SupporterCategory[];
   pastSponsors: SupporterCategory[];
   pastSupporters: SupporterCategory[];
   individualSupporters: Supporter[];

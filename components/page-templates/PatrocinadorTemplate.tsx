@@ -26,6 +26,9 @@ import {
   Heading,
   Text,
 } from "@/components/ui";
+import { PARTNERS_PAGE_FALLBACKS } from "@/constants/textFallbacks";
+
+const CURRENT_YEAR = new Date().getFullYear();
 
 // ─────────────────────────────────────────
 // Types
@@ -34,7 +37,7 @@ interface PatrocinadorTemplateProps extends PartnersPageData {
   pagina: Page;
 }
 
-type TabKey = "2026" | "past";
+type TabKey = "current" | "past";
 
 // ─────────────────────────────────────────
 // Sub-component: Partner Card
@@ -200,17 +203,17 @@ function AnimatedSection({
 export function PatrocinadorTemplate({
   pagina,
   pageConfig,
-  sponsors2026,
-  supporters2026,
+  currentSponsors,
+  currentSupporters,
   pastSponsors,
   pastSupporters,
   individualSupporters,
   monthlyDonors,
   punctualDonors,
 }: PatrocinadorTemplateProps) {
-  const [activeTab, setActiveTab] = useState<TabKey>("2026");
+  const [activeTab, setActiveTab] = useState<TabKey>("current");
 
-  const hasCurrentYear = sponsors2026.length > 0 || supporters2026.length > 0;
+  const hasCurrentYear = currentSponsors.length > 0 || currentSupporters.length > 0;
   const hasPastYears = pastSponsors.length > 0 || pastSupporters.length > 0;
   const hasIndividuals = individualSupporters.length > 0;
   const hasDonors = monthlyDonors.length > 0 || punctualDonors.length > 0;
@@ -224,8 +227,8 @@ export function PatrocinadorTemplate({
   const ctaFinal = pageConfig?.ctaFinal;
 
   const bgImage = hero?.backgroundImage;
-  const tab2026Label = partners?.tab2026Label || "Parceiros de 2026";
-  const tabPastLabel = partners?.tabPastLabel || "Parceiros Anteriores";
+  const tab2026Label = partners?.tabCurrentLabel || PARTNERS_PAGE_FALLBACKS.partnersSection.tabCurrentLabel;
+  const tabPastLabel = partners?.tabPastLabel || PARTNERS_PAGE_FALLBACKS.partnersSection.tabPastLabel;
 
   return (
     <main className="min-h-screen">
@@ -270,14 +273,13 @@ export function PatrocinadorTemplate({
         <AnimatedSection className="bg-gradient-to-br from-primary/5 to-secondary/5 border border-gray-100 rounded-2xl p-8 md:p-12 text-center">
           <motion.div variants={slideUpVariants}>
             <Heading level={2} className="mb-4">
-              {cta?.title || "Faça Parte da Mudança"}
+              {cta?.title || PARTNERS_PAGE_FALLBACKS.cta.title}
             </Heading>
             <Text
               variant="large"
               className="max-w-2xl mx-auto mb-8 text-gray-600"
             >
-              {cta?.description ||
-                "Sua empresa ou você pode transformar vidas. Conheça as formas de apoiar a Fundação Luz & Amor e juntos faremos mais."}
+              {cta?.description || PARTNERS_PAGE_FALLBACKS.cta.description}
             </Text>
           </motion.div>
           <motion.div
@@ -285,13 +287,13 @@ export function PatrocinadorTemplate({
             className="flex flex-col sm:flex-row gap-3 justify-center"
           >
             <Button href="/contato" size="lg">
-              {cta?.sponsorButtonText || "Seja um Patrocinador"}
+              {cta?.sponsorButtonText || PARTNERS_PAGE_FALLBACKS.cta.sponsorButtonText}
             </Button>
             <Button href="/contato" variant="outline" size="lg">
-              {cta?.supporterButtonText || "Seja um Apoiador"}
+              {cta?.supporterButtonText || PARTNERS_PAGE_FALLBACKS.cta.supporterButtonText}
             </Button>
             <Button href="/contato" variant="outline-secondary" size="lg">
-              {cta?.donorButtonText || "Faça uma Doação"}
+              {cta?.donorButtonText || PARTNERS_PAGE_FALLBACKS.cta.donorButtonText}
             </Button>
           </motion.div>
         </AnimatedSection>
@@ -303,11 +305,10 @@ export function PatrocinadorTemplate({
           <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
-                tag={partners?.tag || "Parceiros"}
-                title={partners?.title || "Patrocinadores e Apoiadores"}
+                tag={partners?.tag || PARTNERS_PAGE_FALLBACKS.partnersSection.tag}
+                title={partners?.title || PARTNERS_PAGE_FALLBACKS.partnersSection.title}
                 description={
-                  partners?.description ||
-                  "Empresas, instituições e editais que acreditam e investem no nosso trabalho."
+                  partners?.description || PARTNERS_PAGE_FALLBACKS.partnersSection.description
                 }
               />
             </motion.div>
@@ -319,7 +320,7 @@ export function PatrocinadorTemplate({
               >
                 {(
                   [
-                    ["2026", tab2026Label],
+                    ["current", tab2026Label],
                     ["past", tabPastLabel],
                   ] as [TabKey, string][]
                 ).map(([key, label]) => (
@@ -342,19 +343,18 @@ export function PatrocinadorTemplate({
 
             {/* Ambas as abas ficam montadas — CSS show/hide preserva o estado do accordion */}
             <div>
-              <div className={activeTab === "2026" ? "block" : "hidden"}>
+              <div className={activeTab === "current" ? "block" : "hidden"}>
                 <PartnerGroups
-                  title={`Patrocinadores ${new Date().getFullYear()}`}
-                  categories={sponsors2026}
+                  title={`Patrocinadores ${CURRENT_YEAR}`}
+                  categories={currentSponsors}
                 />
                 <PartnerGroups
-                  title={`Apoiadores ${new Date().getFullYear()}`}
-                  categories={supporters2026}
+                  title={`Apoiadores ${CURRENT_YEAR}`}
+                  categories={currentSupporters}
                 />
                 {!hasCurrentYear && (
                   <Text variant="muted" className="text-center py-8">
-                    {partners?.emptyCurrentMessage ||
-                      "Nenhuma parceria cadastrada para 2026 ainda."}
+                    {partners?.emptyCurrentMessage || PARTNERS_PAGE_FALLBACKS.partnersSection.emptyCurrentMessage}
                   </Text>
                 )}
               </div>
@@ -370,8 +370,7 @@ export function PatrocinadorTemplate({
                 />
                 {!hasPastYears && (
                   <Text variant="muted" className="text-center py-8">
-                    {partners?.emptyPastMessage ||
-                      "Nenhuma parceria anterior cadastrada."}
+                    {partners?.emptyPastMessage || PARTNERS_PAGE_FALLBACKS.partnersSection.emptyPastMessage}
                   </Text>
                 )}
               </div>
@@ -386,11 +385,10 @@ export function PatrocinadorTemplate({
           <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
-                tag={individuals?.tag || "Pessoas que fazem a diferença"}
-                title={individuals?.title || "Apoiadores Individuais"}
+                tag={individuals?.tag || PARTNERS_PAGE_FALLBACKS.individualsSection.tag}
+                title={individuals?.title || PARTNERS_PAGE_FALLBACKS.individualsSection.title}
                 description={
-                  individuals?.description ||
-                  "Pessoas físicas que contribuem com sua presença e apoio direto à fundação."
+                  individuals?.description || PARTNERS_PAGE_FALLBACKS.individualsSection.description
                 }
               />
             </motion.div>
@@ -407,19 +405,18 @@ export function PatrocinadorTemplate({
         <AnimatedSection className="text-center">
           <motion.div variants={slideUpVariants}>
             <Heading level={2} className="text-white mb-4">
-              {ctaFinal?.title || "Sua empresa pode estar aqui"}
+              {ctaFinal?.title || PARTNERS_PAGE_FALLBACKS.ctaFinal.title}
             </Heading>
             <Text
               variant="large"
               className="!text-white/80 max-w-xl mx-auto mb-8"
             >
-              {ctaFinal?.description ||
-                "Entre em contato e descubra como fazer parte da rede de parceiros da Fundação Luz & Amor."}
+              {ctaFinal?.description || PARTNERS_PAGE_FALLBACKS.ctaFinal.description}
             </Text>
           </motion.div>
           <motion.div variants={fadeInVariants}>
             <Button href="/contato" variant="secondary" size="lg">
-              {ctaFinal?.buttonText || "Entrar em Contato"}
+              {ctaFinal?.buttonText || PARTNERS_PAGE_FALLBACKS.ctaFinal.buttonText}
             </Button>
           </motion.div>
         </AnimatedSection>
@@ -430,11 +427,10 @@ export function PatrocinadorTemplate({
           <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
-                tag={donors?.tag || "Gratidão"}
-                title={donors?.title || "Nossos Doadores"}
+                tag={donors?.tag || PARTNERS_PAGE_FALLBACKS.donorsSection.tag}
+                title={donors?.title || PARTNERS_PAGE_FALLBACKS.donorsSection.title}
                 description={
-                  donors?.description ||
-                  "Cada contribuição, pequena ou grande, faz toda a diferença em nossa missão."
+                  donors?.description || PARTNERS_PAGE_FALLBACKS.donorsSection.description
                 }
               />
             </motion.div>
@@ -443,14 +439,14 @@ export function PatrocinadorTemplate({
               className="grid grid-cols-1 md:grid-cols-2 gap-10"
             >
               <DonorGroup
-                title={donors?.monthlyTitle || "Doadores Mensais"}
+                title={donors?.monthlyTitle || PARTNERS_PAGE_FALLBACKS.donorsSection.monthlyTitle}
                 donors={monthlyDonors}
-                emptyMessage="Nenhum doador mensal cadastrado ainda."
+                emptyMessage={PARTNERS_PAGE_FALLBACKS.donorsSection.emptyMonthly}
               />
               <DonorGroup
-                title={donors?.punctualTitle || "Doadores Pontuais"}
+                title={donors?.punctualTitle || PARTNERS_PAGE_FALLBACKS.donorsSection.punctualTitle}
                 donors={punctualDonors}
-                emptyMessage="Nenhum doador pontual cadastrado ainda."
+                emptyMessage={PARTNERS_PAGE_FALLBACKS.donorsSection.emptyPunctual}
               />
             </motion.div>
           </AnimatedSection>

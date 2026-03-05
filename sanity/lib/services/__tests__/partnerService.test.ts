@@ -17,6 +17,8 @@ vi.mock("@/sanity/lib/live", () => ({
 
 import { sanityFetch } from "@/sanity/lib/live";
 
+const CURRENT_YEAR = new Date().getFullYear();
+
 // ─────────────────────────────────────────
 // Fixtures
 // ─────────────────────────────────────────
@@ -62,8 +64,8 @@ describe("partnerService — getPartnersPageData", () => {
   it("retorna todos os campos com dados quando sanityFetch responde", async () => {
     mockFetchSequence([
       mockPageConfig,
-      mockCategories, // sponsors2026
-      mockCategories, // supporters2026
+      mockCategories, // currentSponsors
+      mockCategories, // currentSupporters
       mockCategories, // pastSponsors
       mockCategories, // pastSupporters
       mockIndividuals, // individualSupporters
@@ -74,8 +76,8 @@ describe("partnerService — getPartnersPageData", () => {
     const result = await getPartnersPageData();
 
     expect(result.pageConfig).toEqual(mockPageConfig);
-    expect(result.sponsors2026).toEqual(mockCategories);
-    expect(result.supporters2026).toEqual(mockCategories);
+    expect(result.currentSponsors).toEqual(mockCategories);
+    expect(result.currentSupporters).toEqual(mockCategories);
     expect(result.pastSponsors).toEqual(mockCategories);
     expect(result.pastSupporters).toEqual(mockCategories);
     expect(result.individualSupporters).toEqual(mockIndividuals);
@@ -91,7 +93,7 @@ describe("partnerService — getPartnersPageData", () => {
     const result = await getPartnersPageData();
 
     expect(result.pageConfig).toBeNull();
-    expect(result.sponsors2026).toEqual([]);
+    expect(result.currentSponsors).toEqual([]);
   });
 
   it("retorna arrays vazios quando sanityFetch lança erro nas categorias", async () => {
@@ -102,8 +104,8 @@ describe("partnerService — getPartnersPageData", () => {
     const result = await getPartnersPageData();
 
     expect(result.pageConfig).toEqual(mockPageConfig);
-    expect(result.sponsors2026).toEqual([]);
-    expect(result.supporters2026).toEqual([]);
+    expect(result.currentSponsors).toEqual([]);
+    expect(result.currentSupporters).toEqual([]);
     expect(result.pastSponsors).toEqual([]);
     expect(result.pastSupporters).toEqual([]);
     expect(result.individualSupporters).toEqual([]);
@@ -131,7 +133,7 @@ describe("partnerService — getPartnersPageData", () => {
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({
         query: PARTNER_CATEGORIES_QUERY,
-        params: { tipo: "patrocinador", ano: 2026 },
+        params: { tipo: "patrocinador", ano: CURRENT_YEAR },
       }),
     );
   });
@@ -142,7 +144,7 @@ describe("partnerService — getPartnersPageData", () => {
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({
         query: PARTNER_CATEGORIES_QUERY,
-        params: { tipo: "apoiador", ano: 2026 },
+        params: { tipo: "apoiador", ano: CURRENT_YEAR },
       }),
     );
   });
@@ -153,7 +155,7 @@ describe("partnerService — getPartnersPageData", () => {
     expect(sanityFetch).toHaveBeenCalledWith(
       expect.objectContaining({
         query: PAST_PARTNER_CATEGORIES_QUERY,
-        params: { tipo: "patrocinador", currentYear: 2026 },
+        params: { tipo: "patrocinador", currentYear: CURRENT_YEAR },
       }),
     );
   });
@@ -182,20 +184,24 @@ describe("partnerService — getPartnersPageData", () => {
   });
 
   it("executa todas as buscas em paralelo (Promise.all)", async () => {
-    const resolveOrder: number[] = [];
-    let callIndex = 0;
+    const resolvers: Array<(value: { data: null }) => void> = [];
 
-    vi.mocked(sanityFetch).mockImplementation(async () => {
-      const idx = callIndex++;
-      resolveOrder.push(idx);
-      return { data: null };
-    });
+    vi.mocked(sanityFetch).mockImplementation(
+      () => new Promise<{ data: null }>((resolve) => { resolvers.push(resolve); }),
+    );
 
-    await getPartnersPageData();
+    const servicePromise = getPartnersPageData();
 
-    // Todas as 8 chamadas foram disparadas antes de qualquer resolução
+    // Deixa microtasks pendentes resolverem (permite que Promise.all dispare todos)
+    await Promise.resolve();
+    await Promise.resolve();
+
+    // Todas as 8 chamadas devem ter sido disparadas antes de qualquer resolução
     expect(sanityFetch).toHaveBeenCalledTimes(8);
-    // A ordem de chamada deve ser 0..7
-    expect(resolveOrder).toEqual([0, 1, 2, 3, 4, 5, 6, 7]);
+    expect(resolvers).toHaveLength(8);
+
+    // Resolve todas para que o serviço termine
+    resolvers.forEach((resolve) => resolve({ data: null }));
+    await servicePromise;
   });
 });

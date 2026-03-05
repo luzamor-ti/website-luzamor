@@ -40,15 +40,27 @@ export const apoiador = defineType({
         layout: "radio",
       },
       initialValue: "apoiador",
-      validation: (Rule) => Rule.required(),
+      validation: (Rule) =>
+        Rule.required().warning(
+          "Recomendado preencher o tipo; registros antigos serão migrados em breve.",
+        ),
     }),
     defineField({
       name: "ano",
       title: "Ano da Parceria",
       type: "number",
-      initialValue: 2026,
+      initialValue: new Date().getFullYear(),
       description: "Ano em que a parceria foi realizada",
-      validation: (Rule) => Rule.required().integer().positive(),
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const tipo = (context.parent as { tipo?: string })?.tipo;
+          if (tipo === "doadorMensal" || tipo === "doadorPontual") return true;
+          if (value === undefined || value === null)
+            return "O ano da parceria é obrigatório para Patrocinadores e Apoiadores";
+          if (!Number.isInteger(value) || value <= 0)
+            return "Informe um ano válido (número inteiro positivo)";
+          return true;
+        }),
       hidden: ({ parent }) =>
         parent?.tipo === "doadorMensal" || parent?.tipo === "doadorPontual",
     }),

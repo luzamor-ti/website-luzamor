@@ -4,7 +4,7 @@ export default defineType({
   name: "paginaParceiros",
   title: "Página de Parceiros",
   type: "document",
-  // Singleton — apenas um documento
+  // Singleton — gerenciado via structure.ts com documentId fixo
   fields: [
     // ── Hero ──
     defineField({
@@ -118,10 +118,10 @@ export default defineType({
             "Empresas, instituições e editais que acreditam e investem no nosso trabalho.",
         }),
         defineField({
-          name: "labelAba2026",
+          name: "labelAbaAnoAtual",
           title: "Label Aba Ano Atual",
           type: "string",
-          initialValue: "Parceiros de 2026",
+          initialValue: "Parceiros do Ano Atual",
         }),
         defineField({
           name: "labelAbaAnteriores",

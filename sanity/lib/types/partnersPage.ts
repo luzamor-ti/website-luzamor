@@ -18,7 +18,7 @@ export interface PartnersPageConfig {
     tag?: string;
     title?: string;
     description?: string;
-    tab2026Label?: string;
+    tabCurrentLabel?: string;
     tabPastLabel?: string;
     emptyCurrentMessage?: string;
     emptyPastMessage?: string;
