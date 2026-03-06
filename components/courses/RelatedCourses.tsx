@@ -14,7 +14,7 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
   if (!courses || courses.length === 0) return null;
 
   return (
-    <Section className="bg-[#f5f5f5] py-24">
+    <Section className=" py-24">
       <div className="container mx-auto px-4">
         {/* Usando o layout 'split' para o título ficar igual à print */}
         <SectionHeader
@@ -42,7 +42,7 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
                 key={curso._id}
                 className="group"
               >
-                <div className="bg-gray-300 rounded-[32px] p-4 h-full shadow-md hover:shadow-xl transition-all duration-500 border border-gray-400 flex flex-col">
+                <div className="bg-white rounded-[32px] p-4 h-full shadow-md hover:shadow-xl transition-all duration-500 border border-gray-200 flex flex-col">
                   {/* PASSO 1: IMAGEM COM SELO FLUTUANTE */}
                   <div className="relative h-64 w-full rounded-[24px] overflow-hidden mb-6">
                     {imageUrl && (
