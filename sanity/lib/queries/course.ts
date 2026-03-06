@@ -9,7 +9,9 @@ export const coursesQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
+    "price": valor,
     "description": descricao,
+    "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
@@ -48,7 +50,9 @@ export const courseBySlugQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
+    "price": valor,
     "description": descricao,
+    "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
@@ -87,7 +91,9 @@ export const relatedcoursesQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
+    "price": valor,
     "description": descricao,
+    "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
