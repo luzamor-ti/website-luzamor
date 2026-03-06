@@ -60,6 +60,7 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
           </Text>
         </div>
       )}
+
       {/* IDADE MÍNIMA */}
       <div className="flex items-center gap-2 mb-6 text-gray-700">
         <UserCheck size={16} className="text-primary" />
