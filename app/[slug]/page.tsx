@@ -18,9 +18,11 @@ import {
 import { getEventsCalendarData } from "@/sanity/lib/services/eventService";
 import { getPartnersPageData } from "@/sanity/lib/services/partnerService";
 import { getProjectsPage } from "@/sanity/lib/services/projectService";
+import { getClassrooms } from "@/sanity/lib/services/classroomService";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ sala?: string }>;
 }
 
 // Tipo para os componentes de template
@@ -49,11 +51,6 @@ const pageConfig: Record<
     component: SobreNosTemplate,
     pageType: "sobre-nos",
     title: "Sobre Nós",
-  },
-  "salas-aula": {
-    component: SalasAulaTemplate,
-    pageType: "salas-aula",
-    title: "Salas de Aula",
   },
   contato: {
     component: ContatoTemplate,
@@ -93,8 +90,15 @@ const pageConfig: Record<
   },
 };
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const { sala } = await searchParams;
+
+  // Special handling for classrooms page (before pageConfig lookup)
+  if (slug === "salas-aula") {
+    const classrooms = await getClassrooms();
+    return <SalasAulaTemplate classrooms={classrooms} initialSlug={sala} />;
+  }
 
   const config = pageConfig[slug];
 

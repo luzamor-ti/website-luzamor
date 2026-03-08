@@ -44,6 +44,72 @@
   .hover\:border-primary:hover {
     border-color: var(--color-primary);
   }
+
+  /* Ring */
+  .ring-primary {
+    --tw-ring-color: var(--color-primary);
+  }
+
+  /* Variantes de opacidade — primary */
+  .bg-primary\/10 {
+    background-color: color-mix(in srgb, var(--color-primary) 10%, transparent);
+  }
+  .bg-primary\/15 {
+    background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+  .bg-primary\/20 {
+    background-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+  .bg-primary\/80 {
+    background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+  }
+
+  .border-primary\/20 {
+    border-color: color-mix(in srgb, var(--color-primary) 20%, transparent);
+  }
+  .border-primary\/30 {
+    border-color: color-mix(in srgb, var(--color-primary) 30%, transparent);
+  }
+  .border-primary\/50 {
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  }
+
+  .text-primary\/70 {
+    color: color-mix(in srgb, var(--color-primary) 70%, transparent);
+  }
+
+  /* Hover com opacidade */
+  .hover\:bg-primary\/80:hover {
+    background-color: color-mix(in srgb, var(--color-primary) 80%, transparent);
+  }
+  .hover\:border-primary\/50:hover {
+    border-color: color-mix(in srgb, var(--color-primary) 50%, transparent);
+  }
+
+  /* Group-hover com opacidade */
+  .group:hover .group-hover\:bg-primary\/15 {
+    background-color: color-mix(in srgb, var(--color-primary) 15%, transparent);
+  }
+
+  /* Variantes de opacidade — secondary */
+  .bg-secondary\/10 {
+    background-color: color-mix(
+      in srgb,
+      var(--color-secondary) 10%,
+      transparent
+    );
+  }
+  .border-secondary\/20 {
+    border-color: color-mix(in srgb, var(--color-secondary) 20%, transparent);
+  }
+
+  /* Variantes de opacidade — accent */
+  .bg-accent\/10 {
+    background-color: color-mix(in srgb, var(--color-accent) 10%, transparent);
+  }
+  .border-accent\/20 {
+    border-color: color-mix(in srgb, var(--color-accent) 20%, transparent);
+  }
 }
 
 body {
