@@ -21,7 +21,7 @@ describe("CursosTemplate", () => {
     {
       _id: "course-1",
       title: "Curso de Violão",
-      slug: { current: "curso-violao" },
+      slug: "curso-violao",
       coverPhoto: {
         asset: {
           _ref: "image-violao",
@@ -52,7 +52,7 @@ describe("CursosTemplate", () => {
     {
       _id: "course-2",
       title: "Curso de Piano",
-      slug: { current: "curso-piano" },
+      slug: "curso-piano",
       coverPhoto: {
         asset: {
           _ref: "image-piano",
@@ -195,7 +195,7 @@ describe("CursosTemplate", () => {
       {
         _id: "course-3",
         title: "Curso de Canto",
-        slug: { current: "curso-canto" },
+        slug: "curso-canto",
         coverPhoto: {
           asset: {
             _ref: "image-canto",

@@ -34,6 +34,7 @@ export const coursesQuery = groq`
       "whatsapp": whatsapp,
       "buttonText": textoBotao
     },
+    "classroom": salaAula->{ "slug": slug.current, "name": nome },
     "active": ativo,
     "order": ordem
   }
@@ -74,6 +75,7 @@ export const courseBySlugQuery = groq`
       "whatsapp": whatsapp,
       "buttonText": textoBotao
     },
+    "classroom": salaAula->{ "slug": slug.current, "name": nome },
     "active": ativo
   }
 `;
@@ -112,6 +114,7 @@ export const relatedcoursesQuery = groq`
       "whatsapp": whatsapp,
       "buttonText": textoBotao
     },
+    "classroom": salaAula->{ "slug": slug.current, "name": nome },
     "active": ativo,
     "order": ordem
   }
