@@ -416,6 +416,16 @@ export const PARTNERS_PAGE_FALLBACKS = {
 };
 
 /**
+ * Auditorium Page Fallbacks
+ */
+export const AUDITORIUM_PAGE_FALLBACKS = {
+  title: "Nosso Auditório",
+  subtitle:
+    "Um espaço versátil e sofisticado para seus eventos, apresentações e celebrações.",
+  ctaText: "Reservar o Auditório",
+};
+
+/**
  * Get fallback text for a section
  */
 export function getFallbackText(section: SectionName): SectionFallback {

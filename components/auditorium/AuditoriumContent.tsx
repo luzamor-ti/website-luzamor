@@ -24,9 +24,10 @@ import {
   ArrowDown,
   Camera,
 } from "lucide-react";
-import { useState, useCallback } from "react";
+import { useState, useCallback, useRef, useEffect } from "react";
 import { ctaWhatsappGlobal } from "@/utils/ctaWhatsappGlobal";
-import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
+import { GlobalConfiguration } from "@/sanity/lib/types/configuration";
+import { AUDITORIUM_PAGE_FALLBACKS } from "@/constants/textFallbacks";
 import { Button } from "../ui";
 
 // ─────────────────────────────────────────────────────────
@@ -52,14 +53,41 @@ function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps) {
   if (!images || images.length === 0) return null;
   const img = images[index];
   const url = buildSanityImageUrl(img.asset._ref);
+  const dialogRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    dialogRef.current?.focus();
+  }, []);
 
   return (
     <motion.div
+      ref={dialogRef}
+      role="dialog"
+      aria-modal="true"
+      aria-label="Visualização de foto"
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       className="fixed inset-0 z-50 flex items-center justify-center bg-black/92 backdrop-blur-sm"
       onClick={onClose}
+      onKeyDown={(e) => {
+        if (e.key === "Escape") {
+          e.preventDefault();
+          e.stopPropagation();
+          onClose();
+        }
+        if (e.key === "ArrowLeft") {
+          e.preventDefault();
+          e.stopPropagation();
+          onPrev();
+        }
+        if (e.key === "ArrowRight") {
+          e.preventDefault();
+          e.stopPropagation();
+          onNext();
+        }
+      }}
+      tabIndex={0}
     >
       {/* Fechar */}
       <button
@@ -136,13 +164,8 @@ function Lightbox({ images, index, onClose, onPrev, onNext }: LightboxProps) {
 interface AuditoriumContentProps {
   pagina: Page;
   data: Auditorium | null;
-  globalConfiguration: Awaited<ReturnType<typeof getGlobalConfiguration>>;
+  globalConfiguration: GlobalConfiguration | null;
 }
-
-const FALLBACK_TITLE = "Nosso Auditório";
-const FALLBACK_SUBTITLE =
-  "Um espaço versátil e sofisticado para seus eventos, apresentações e celebrações.";
-const FALLBACK_CTA = "Reservar o Auditório";
 
 export function AuditoriumContent({
   pagina,
@@ -156,9 +179,9 @@ export function AuditoriumContent({
     ? buildSanityImageUrl(data.heroImage.asset._ref)
     : null;
 
-  const title = data?.title || pagina.title || FALLBACK_TITLE;
-  const subtitle = data?.subtitle || pagina.description || FALLBACK_SUBTITLE;
-  const ctaText = data?.ctaText || FALLBACK_CTA;
+  const title = data?.title || pagina.title || AUDITORIUM_PAGE_FALLBACKS.title;
+  const subtitle = data?.subtitle || pagina.description || AUDITORIUM_PAGE_FALLBACKS.subtitle;
+  const ctaText = data?.ctaText || AUDITORIUM_PAGE_FALLBACKS.ctaText;
   const gallery = data?.gallery ?? [];
   const resources = data?.resources ?? [];
 
@@ -281,6 +304,7 @@ export function AuditoriumContent({
             <Button
               href={hrefCTA}
               rel="noopener noreferrer"
+              external
               size="lg"
               showArrow
             >
@@ -436,7 +460,7 @@ export function AuditoriumContent({
 
               {/* CTA secundário */}
               <div className="mt-10 pt-8 border-t border-gray-100">
-                <Button href={hrefCTA} rel="noopener noreferrer" showArrow>
+                <Button href={hrefCTA} rel="noopener noreferrer" external showArrow>
                   <MessageCircle size={20} />
                   {ctaText}
                 </Button>
