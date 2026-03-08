@@ -65,7 +65,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
               </div>
             </div>
             <Link
-              href={`/salas-aula?sala=${curso.classroom.slug}`}
+              href={`/salas-aula?sala=${encodeURIComponent(curso.classroom.slug ?? "")}`}
               className="cursor-pointer inline-flex items-center gap-2 bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"
             >
               Ver sala

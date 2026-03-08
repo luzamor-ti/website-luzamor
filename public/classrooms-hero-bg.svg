@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1416" height="921" viewBox="0 0 1416 921">
+  <defs>
+    <filter id="noise">
+      <feTurbulence type="fractalNoise" baseFrequency="0.65" numOctaves="3" stitchTiles="stitch"/>
+      <feColorMatrix type="saturate" values="0"/>
+    </filter>
+    <linearGradient id="grad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#1a0533;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#0a0a1a;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#0d1f3c;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+  <rect width="1416" height="921" fill="url(#grad)"/>
+  <rect width="1416" height="921" filter="url(#noise)" opacity="0.4"/>
+</svg>

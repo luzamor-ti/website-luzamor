@@ -38,7 +38,7 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
 
             return (
               <Link
-                href={`/course/${curso.slug.current}`}
+                href={`/course/${curso.slug}`}
                 key={curso._id}
                 className="group"
               >

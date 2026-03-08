@@ -4,9 +4,7 @@ import { Member } from "./member";
 export interface Course {
   _id: string;
   title: string;
-  slug: {
-    current: string;
-  };
+  slug: string;
   coverPhoto: {
     asset: {
       _ref: string;

@@ -54,7 +54,7 @@ export async function CursosTemplate() {
 
               return (
                 <Link
-                  href={`/course/${curso.slug.current}`}
+                  href={`/course/${curso.slug}`}
                   key={curso._id}
                   className="group"
                 >
