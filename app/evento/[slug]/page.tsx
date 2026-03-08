@@ -5,6 +5,8 @@ import {
   EventDetails,
   EventInfo,
   EventGallerySection,
+  EventSupportersSection,
+  EventOrganizations,
 } from "@/components/events";
 import { Metadata } from "next";
 
@@ -46,10 +48,11 @@ export default async function EventPage({ params }: EventPageProps) {
     <main className="min-h-screen">
       <EventHero event={event} />
 
-      <div className="container mx-auto px-4 py-16">
-        <div className="grid lg:grid-cols-3 gap-12">
+      <div className="container mx-auto px-4 pt-8 pb-16">
+        <div className="grid lg:grid-cols-3 gap-8 items-start">
           <div className="lg:col-span-2">
             <EventDetails event={event} />
+            <EventSupportersSection event={event} />
           </div>
           <div className="lg:col-span-1">
             <div className="sticky top-24">
@@ -58,6 +61,7 @@ export default async function EventPage({ params }: EventPageProps) {
           </div>
         </div>
       </div>
+      <EventOrganizations event={event} />
 
       <EventGallerySection event={event} />
     </main>

@@ -6,3 +6,5 @@ export { EventDetails } from "./EventDetails";
 export { EventInfo } from "./EventInfo";
 export { EventGallerySection } from "./EventGallerySection";
 export { EventCategoryBadge } from "./EventCategoryBadge";
+export { EventOrganizations } from "./EventOrganizations";
+export { EventSupportersSection } from "./EventSupportersSection";
