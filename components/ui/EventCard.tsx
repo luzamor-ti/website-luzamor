@@ -87,7 +87,6 @@ export function EventCard({
 
   const date = formatDate(event?.eventDate || new Date().toISOString());
   const price = formatPrice(event?.ticketPrice?.value || 0);
-  console.log("EventCard render:", { event, date, price });
 
   return (
     <motion.div
