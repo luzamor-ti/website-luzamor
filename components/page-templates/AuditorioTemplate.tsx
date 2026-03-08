@@ -1,29 +1,20 @@
 import { Page } from "@/sanity/lib/types/page";
-import { Section, Heading, Text } from "@/components/ui";
-import { PortableText } from "@portabletext/react";
+import { getAuditorium } from "@/sanity/lib/services/auditoriumService";
+import { AuditoriumContent } from "@/components/auditorium/AuditoriumContent";
+import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
 
 interface AuditorioTemplateProps {
   pagina: Page;
 }
 
-export function AuditorioTemplate({ pagina }: AuditorioTemplateProps) {
+export async function AuditorioTemplate({ pagina }: AuditorioTemplateProps) {
+  const data = await getAuditorium();
+  const globalConfiguration = await getGlobalConfiguration();
   return (
-    <main className="min-h-screen pt-24">
-      <Section>
-        <Heading level={1} className="text-center">
-          {pagina.title}
-        </Heading>
-        {pagina.description && (
-          <Text variant="large" className="text-center mt-4 max-w-3xl mx-auto">
-            {pagina.description}
-          </Text>
-        )}
-        {pagina.content && (
-          <div className="mt-8 prose prose-lg max-w-4xl mx-auto">
-            <PortableText value={pagina.content} />
-          </div>
-        )}
-      </Section>
-    </main>
+    <AuditoriumContent
+      pagina={pagina}
+      data={data}
+      globalConfiguration={globalConfiguration}
+    />
   );
 }
