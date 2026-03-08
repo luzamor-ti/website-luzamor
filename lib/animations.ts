@@ -83,6 +83,17 @@ export const staggerContainerVariants: Variants = {
 };
 
 /**
+ * Hero Stagger Container - Container para animar hero com stagger mais lento
+ */
+export const heroStaggerVariants: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.18 },
+  },
+};
+
+/**
  * Stagger Item - Item dentro de stagger container
  */
 export const staggerItemVariants: Variants = {
