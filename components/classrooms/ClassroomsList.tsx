@@ -107,6 +107,7 @@ export function ClassroomsList({
 
               {/* CABEÇALHO DA SALA (clicável) */}
               <button
+                type="button"
                 onClick={() => toggle(classroom.slug.current)}
                 className="cursor-pointer w-full flex items-center gap-5 px-6 py-5 md:px-8 md:py-6 text-left group focus:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-inset"
                 aria-expanded={isOpen}
@@ -243,39 +244,45 @@ export function ClassroomsList({
                       </div>
 
                       {/* GALERIA DE FOTOS */}
-                      {classroom.gallery && classroom.gallery.length > 0 && (
-                        <div className="lg:col-span-2">
-                          <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
-                            Galeria de fotos
-                          </p>
-                          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
-                            {classroom.gallery.map((photo, index) => {
-                              const photoUrl = buildSanityImageUrl(
-                                photo.asset?._ref,
-                              );
-                              if (!photoUrl) return null;
-                              return (
+                      {classroom.gallery && classroom.gallery.length > 0 && (() => {
+                        const galleryWithUrls = classroom.gallery
+                          .map((photo) => ({
+                            ...photo,
+                            url: buildSanityImageUrl(photo.asset?._ref),
+                          }))
+                          .filter((item): item is typeof item & { url: string } => !!item.url);
+
+                        if (galleryWithUrls.length === 0) return null;
+
+                        return (
+                          <div className="lg:col-span-2">
+                            <p className="text-xs font-semibold uppercase tracking-widest text-gray-400 mb-3">
+                              Galeria de fotos
+                            </p>
+                            <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3">
+                              {galleryWithUrls.map((photo, filteredIndex) => (
                                 <button
-                                  key={index}
-                                  onClick={() => openLightbox(index)}
+                                  type="button"
+                                  key={filteredIndex}
+                                  onClick={() => openLightbox(filteredIndex)}
                                   className="cursor-pointer relative aspect-square rounded-xl overflow-hidden group border border-gray-200 focus:outline-none focus-visible:ring-2 focus-visible:ring-primary shadow-sm hover:shadow-md hover:border-gray-300 transition-all duration-300"
                                 >
                                   <Image
-                                    src={photoUrl}
+                                    src={photo.url}
                                     alt={
                                       photo.alt ||
-                                      `Foto ${index + 1} - ${classroom.name}`
+                                      `Foto ${filteredIndex + 1} - ${classroom.name}`
                                     }
                                     fill
                                     className="object-cover group-hover:scale-110 transition-transform duration-500"
                                   />
                                   <div className="absolute inset-0 bg-black/0 group-hover:bg-black/15 transition-colors duration-300" />
                                 </button>
-                              );
-                            })}
+                              ))}
+                            </div>
                           </div>
-                        </div>
-                      )}
+                        );
+                      })()}
                     </div>
                   </motion.div>
                 )}
@@ -293,11 +300,14 @@ export function ClassroomsList({
             const classroom = classrooms.find(
               (c) => c.slug.current === openSlug,
             );
-            const gallery = classroom?.gallery ?? [];
-            const photo = gallery[galleryIndex];
-            const photoUrl = photo
-              ? buildSanityImageUrl(photo.asset?._ref)
-              : null;
+            const galleryWithUrls = (classroom?.gallery ?? [])
+              .map((photo) => ({
+                ...photo,
+                url: buildSanityImageUrl(photo.asset?._ref),
+              }))
+              .filter((item): item is typeof item & { url: string } => !!item.url);
+            const photo = galleryWithUrls[galleryIndex];
+            const photoUrl = photo?.url ?? null;
 
             return (
               <motion.div
@@ -311,6 +321,7 @@ export function ClassroomsList({
               >
                 {/* Botão fechar */}
                 <button
+                  type="button"
                   onClick={closeLightbox}
                   className="cursor-pointer absolute top-4 right-4 p-2 rounded-full bg-white/10 hover:bg-primary/80 text-white transition-colors"
                   aria-label="Fechar galeria"
@@ -319,11 +330,12 @@ export function ClassroomsList({
                 </button>
 
                 {/* Navegação anterior */}
-                {gallery.length > 1 && (
+                {galleryWithUrls.length > 1 && (
                   <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      prevImage(gallery.length);
+                      prevImage(galleryWithUrls.length);
                     }}
                     className="cursor-pointer absolute left-4 p-3 rounded-full bg-white/10 hover:bg-primary/80 text-white transition-colors"
                     aria-label="Foto anterior"
@@ -353,11 +365,12 @@ export function ClassroomsList({
                 )}
 
                 {/* Navegação próxima */}
-                {gallery.length > 1 && (
+                {galleryWithUrls.length > 1 && (
                   <button
+                    type="button"
                     onClick={(e) => {
                       e.stopPropagation();
-                      nextImage(gallery.length);
+                      nextImage(galleryWithUrls.length);
                     }}
                     className="cursor-pointer absolute right-4 p-3 rounded-full bg-white/10 hover:bg-primary/80 text-white transition-colors"
                     aria-label="Próxima foto"
@@ -368,7 +381,7 @@ export function ClassroomsList({
 
                 {/* Contador */}
                 <div className="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/70 text-sm">
-                  {galleryIndex + 1} / {gallery.length}
+                  {galleryIndex + 1} / {galleryWithUrls.length}
                   {photo?.caption && (
                     <span className="ml-2 text-white/50">{photo.caption}</span>
                   )}

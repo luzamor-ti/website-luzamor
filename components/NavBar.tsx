@@ -84,6 +84,7 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
               <li key={itemKey} className="relative" data-dropdown>
                 {hasSubItems ? (
                   <button
+                    type="button"
                     className="flex items-center gap-1 text-white/90 hover:text-white transition-colors duration-300 text-sm font-medium rounded-full px-3 py-1 cursor-pointer"
                     onClick={() =>
                       setOpenDropdown(openDropdown === itemKey ? null : itemKey)
@@ -148,6 +149,7 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
 
         {/* Mobile hamburger */}
         <button
+          type="button"
           className="md:hidden text-white p-1 cursor-pointer"
           onClick={() => setMobileOpen((prev) => !prev)}
           aria-label={mobileOpen ? "Fechar menu" : "Abrir menu"}
@@ -178,6 +180,7 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
                     {hasSubItems ? (
                       <>
                         <button
+                          type="button"
                           className="w-full flex items-center justify-between px-5 py-3 text-white/90 hover:text-white hover:bg-white/10 transition-colors text-sm font-medium cursor-pointer"
                           onClick={() =>
                             setOpenDropdown(

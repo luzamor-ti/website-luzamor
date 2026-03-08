@@ -18,8 +18,7 @@ export function SalasAulaTemplate({
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            backgroundImage:
-              "url('https://framerusercontent.com/images/al6LHhZeQCUgkaAutT71lCt7G5w.png')",
+            backgroundImage: "url('/classrooms-hero-bg.svg')",
             backgroundSize: "cover",
             backgroundPosition: "center",
             filter: "blur(20px)",

@@ -190,6 +190,7 @@ export const curso = defineType({
       type: "reference",
       to: [{ type: "salaAula" }],
       description: "Vincule o curso a uma sala de aula (opcional)",
+      group: "informacoes",
     }),
 
     defineField({
