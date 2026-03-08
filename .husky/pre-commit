@@ -39,8 +39,9 @@ fi
 echo "✅ Tests passed"
 echo ""
 
-# Run build (can be skipped with SKIP_BUILD=1)
-if [ "$SKIP_BUILD" != "1" ]; then
+# Run build (can be skipped with SKIP_BUILD=1 or git config hook.skip-build=true)
+SKIP_BUILD_GIT=$(git config --local --get hook.skip-build 2>/dev/null || echo "")
+if [ "$SKIP_BUILD" != "1" ] && [ "$SKIP_BUILD_GIT" != "true" ]; then
   echo "🏗️  Running build..."
   npm run build
   if [ $? -ne 0 ]; then

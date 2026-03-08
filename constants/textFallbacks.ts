@@ -416,6 +416,16 @@ export const PARTNERS_PAGE_FALLBACKS = {
 };
 
 /**
+ * President Page Fallbacks
+ */
+export const PRESIDENT_PAGE_FALLBACKS = {
+  tagLabel: "Uma mensagem especial",
+  byLabel: "por",
+  scrollLabel: "Role para ler",
+  unavailableMessage: "Conteúdo indisponível no momento.",
+};
+
+/**
  * Get fallback text for a section
  */
 export function getFallbackText(section: SectionName): SectionFallback {

@@ -10,7 +10,9 @@ import {
   slideUpVariants,
   slideInFromLeftVariants,
   slideInFromRightVariants,
+  heroStaggerVariants,
 } from "@/lib/animations";
+import { PRESIDENT_PAGE_FALLBACKS } from "@/constants/textFallbacks";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
 import { Quote } from "lucide-react";
@@ -59,18 +61,12 @@ export function PresidentPageContent({
           className="relative z-10 max-w-3xl mx-auto px-6 text-center"
           initial="hidden"
           animate="visible"
-          variants={{
-            hidden: { opacity: 0 },
-            visible: {
-              opacity: 1,
-              transition: { staggerChildren: 0.18 },
-            },
-          }}
+          variants={heroStaggerVariants}
         >
           {/* Tag */}
           <motion.div variants={fadeInVariants}>
             <span className="inline-block px-5 py-1.5 border border-primary text-primary rounded-full text-xs font-semibold uppercase tracking-widest mb-8">
-              Uma mensagem especial
+              {PRESIDENT_PAGE_FALLBACKS.tagLabel}
             </span>
           </motion.div>
 
@@ -97,7 +93,7 @@ export function PresidentPageContent({
             className="flex flex-col items-center gap-1.5"
           >
             <p className="text-white/50 text-xs uppercase tracking-widest">
-              por
+              {PRESIDENT_PAGE_FALLBACKS.byLabel}
             </p>
             <p className="text-white text-xl font-semibold">
               {presidentData.name}
@@ -118,7 +114,9 @@ export function PresidentPageContent({
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 1.4, duration: 0.8 }}
         >
-          <p className="text-xs uppercase tracking-widest">Role para ler</p>
+          <p className="text-xs uppercase tracking-widest">
+              {PRESIDENT_PAGE_FALLBACKS.scrollLabel}
+            </p>
           <motion.div
             animate={{ y: [0, 8, 0] }}
             transition={{ repeat: Infinity, duration: 1.6, ease: "easeInOut" }}
@@ -142,7 +140,7 @@ export function PresidentPageContent({
               {photoUrl && (
                 <div className="relative">
                   {/* Foto */}
-                  <div className="aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
+                  <div className="relative aspect-[3/4] rounded-2xl overflow-hidden shadow-2xl">
                     <Image
                       src={photoUrl}
                       alt={presidentData.name}
