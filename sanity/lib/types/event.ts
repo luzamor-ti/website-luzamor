@@ -52,6 +52,39 @@ export interface Event {
     };
     alt?: string;
   }[];
+  project?: {
+    _id: string;
+    title: string;
+    slug: string;
+    realizacao?: {
+      _id?: string;
+      titulo?: string;
+      imagem?: {
+        asset: { _ref: string; _type: "reference" };
+        alt?: string;
+      };
+      site?: string;
+    } | null;
+    incentivadoPor?: {
+      _id?: string;
+      titulo?: string;
+      imagem?: {
+        asset: { _ref: string; _type: "reference" };
+        alt?: string;
+      };
+      site?: string;
+    } | null;
+    supporters?: {
+      _id: string;
+      name: string;
+      logo?: {
+        asset: { _ref: string; _type: "reference" };
+        alt?: string;
+      };
+      site?: string;
+      type?: string;
+    }[];
+  } | null;
   featured: boolean;
   active: boolean;
 }
