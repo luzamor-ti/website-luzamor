@@ -2,6 +2,7 @@ import { getBoardMembers } from "@/sanity/lib/services/memberService";
 import { Page } from "@/sanity/lib/types/page";
 import { Section, SectionHeader } from "@/components/ui";
 import { BoardSection } from "@/components/board/BoardSection";
+import { DIRETORIA_PAGE_FALLBACKS } from "@/constants/textFallbacks";
 
 interface DiretoriaTemplateProps {
   pagina: Page;
@@ -28,11 +29,10 @@ export async function DiretoriaTemplate({ pagina }: DiretoriaTemplateProps) {
         <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0a]/80" />
         <div className="relative z-10 max-w-5xl">
           <SectionHeader
-            tag="Gestão & Governança"
-            title={pagina.title || "Nossa Diretoria"}
+            tag={DIRETORIA_PAGE_FALLBACKS.hero.tag}
+            title={pagina.title || DIRETORIA_PAGE_FALLBACKS.hero.title}
             description={
-              pagina.description ||
-              "Conheça os líderes que guiam a Fundação com dedicação e propósito."
+              pagina.description || DIRETORIA_PAGE_FALLBACKS.hero.description
             }
             variant="dark"
             align="left"

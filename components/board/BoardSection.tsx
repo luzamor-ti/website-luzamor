@@ -11,9 +11,8 @@ import { portableTextComponents } from "@/constants/portableTextComponents";
 import { urlFor } from "@/sanity/lib/image";
 import Image from "next/image";
 import { ArrowLeft, Quote } from "lucide-react";
-import { useRef, useState } from "react";
+import { type CSSProperties, useRef, useState } from "react";
 import { routesPath } from "@/constants/routesPath";
-import Link from "next/link";
 import { LinkButton } from "../ui";
 
 // ──────────────────────────────────────────────
@@ -94,6 +93,19 @@ function MemberCard({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay: index * 0.08, duration: 0.5, ease: "easeOut" }}
       onClick={hasBio ? onClick : undefined}
+      onKeyDown={
+        hasBio
+          ? (e) => {
+              if (e.key === "Enter" || e.key === " ") {
+                e.preventDefault();
+                onClick();
+              }
+            }
+          : undefined
+      }
+      role={hasBio ? "button" : undefined}
+      tabIndex={hasBio ? 0 : undefined}
+      aria-label={hasBio ? `Ver perfil de ${member.name}` : undefined}
       className={`group relative rounded-2xl overflow-hidden bg-gray-100 shadow-md
         ${hasBio ? "cursor-pointer hover:-translate-y-1 hover:shadow-xl" : "cursor-default"}
         transition-all duration-300
@@ -104,7 +116,7 @@ function MemberCard({
       {photoUrl ? (
         <Image
           src={photoUrl}
-          alt={member.name}
+          alt={member.alt || member.name}
           fill
           className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
         />
@@ -182,9 +194,10 @@ function MemberDetail({
   const photoUrl = member.photo
     ? urlFor(member.photo).width(500).height(670).url()
     : null;
+  const normalizedRole = member.role?.trim().toLowerCase();
   const isPresident =
-    member.role?.trim().toLowerCase().includes("presidente") ||
-    member.roleType === "presidente";
+    member.roleType === "presidente" ||
+    (normalizedRole ? normalizedRole.startsWith("presidente") : false);
 
   return (
     <motion.div
@@ -200,7 +213,7 @@ function MemberDetail({
         onClick={onBack}
         className="flex items-center gap-2 text-gray-700 hover:text-primary transition-colors group cursor-pointer"
         whileHover={{ x: -4 }}
-        style={{ "--tw-text-opacity": "1" } as React.CSSProperties}
+        style={{ "--tw-text-opacity": "1" } as CSSProperties}
       >
         <ArrowLeft className="w-5 h-5" />
         <span className="font-medium">Voltar para a diretoria</span>
@@ -218,7 +231,7 @@ function MemberDetail({
           {photoUrl ? (
             <Image
               src={photoUrl}
-              alt={member.name}
+              alt={member.alt || member.name}
               fill
               className="object-cover object-top"
             />

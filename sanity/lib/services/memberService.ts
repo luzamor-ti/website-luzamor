@@ -22,7 +22,8 @@ export async function getWordsOfPresident(): Promise<Member> {
 export async function getBoardMembers(): Promise<Member[]> {
   try {
     return await client.fetch(boardMembersQuery);
-  } catch {
+  } catch (error) {
+    console.error("[memberService] Failed to fetch board members:", error);
     return [];
   }
 }

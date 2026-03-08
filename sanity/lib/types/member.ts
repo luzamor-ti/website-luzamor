@@ -6,7 +6,7 @@ export interface Member {
   name: string;
   role: string;
   roleType?: string;
-  boardMember?: boolean;
+  alt?: string;
   photo?: SanityImage;
   shortBio?: string;
   fullBio?: PortableTextBlock[];
