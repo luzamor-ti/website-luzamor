@@ -1,0 +1,1 @@
+export { PresidentPageContent } from "./PresidentPageContent";
