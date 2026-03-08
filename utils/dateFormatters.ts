@@ -25,11 +25,13 @@ export interface EventDateFormatted {
  * @param dateString - String ISO da data do evento
  * @returns Objeto com todas as formatações comuns
  */
-export function formatEventDate(dateString: string): EventDateFormatted {
+export function formatDate(dateString: string): EventDateFormatted {
   const eventDate = new Date(dateString);
 
   return {
-    dateFormatted: format(eventDate, "dd 'de' MMMM, yyyy", { locale: ptBR }),
+    dateFormatted: format(eventDate, "dd 'de' MMMM 'de' yyyy", {
+      locale: ptBR,
+    }),
     timeFormatted: eventDate.toLocaleTimeString("pt-BR", {
       hour: "2-digit",
       minute: "2-digit",
