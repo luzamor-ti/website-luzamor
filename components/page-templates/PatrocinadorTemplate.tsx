@@ -262,8 +262,12 @@ export function PatrocinadorTemplate({
         <div className="relative z-10 max-w-5xl">
           <SectionHeader
             tag={hero?.tag || PARTNERS_PAGE_FALLBACKS.hero.tag}
-            title={hero?.title || pagina.title || PARTNERS_PAGE_FALLBACKS.hero.title}
-            description={hero?.description || PARTNERS_PAGE_FALLBACKS.hero.description}
+            title={
+              hero?.title || pagina.title || PARTNERS_PAGE_FALLBACKS.hero.title
+            }
+            description={
+              hero?.description || PARTNERS_PAGE_FALLBACKS.hero.description
+            }
             variant="dark"
             align="left"
           >
