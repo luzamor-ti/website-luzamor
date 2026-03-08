@@ -32,6 +32,11 @@ export const eventsQuery = groq`
       "address": endereco,
       "mapLink": linkMapa
     },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
+    },
     "featured": destaque,
     "active": ativo,
     "highlightColor": corDestaque
@@ -65,6 +70,11 @@ export const upcomingEventsQuery = groq`
       "whatsappMessage": mensagemWhatsApp,
       "email": email
     },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
+    },
     "featured": destaque,
     "active": ativo,
     "highlightColor": corDestaque
@@ -97,6 +107,16 @@ export const featuredEventsQuery = groq`
       "whatsapp": whatsapp,
       "whatsappMessage": mensagemWhatsApp,
       "email": email
+    },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
+    },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
     },
     "featured": destaque,
     "active": ativo,
@@ -141,6 +161,30 @@ export const eventBySlugQuery = groq`
       "alt": alt,
       "caption": legenda
     },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current,
+      "realizacao": realizacao-> {
+        _id,
+        "titulo": nome,
+        "imagem": logo,
+        "site": site
+      },
+      "incentivadoPor": incentivadoPor-> {
+        _id,
+        "titulo": nome,
+        "imagem": logo,
+        "site": site
+      },
+      "supporters": patrocinadores[]-> {
+        _id,
+        "name": nome,
+        "logo": logo,
+        "site": site,
+        "type": tipo
+      }
+    },
     "featured": destaque,
     "active": ativo,
     "highlightColor": corDestaque
@@ -180,6 +224,11 @@ export const allUpcomingEventsQuery = groq`
       "address": endereco,
       "mapLink": linkMapa
     },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
+    },
     "featured": destaque,
     "active": ativo,
     "highlightColor": corDestaque
@@ -215,8 +264,44 @@ export const allPastEventsQuery = groq`
       "alt": alt,
       "caption": legenda
     },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
+    },
     "featured": destaque,
     "active": ativo,
     "highlightColor": corDestaque
+  }
+`;
+
+// Query for events by project ID
+export const eventsByProjectQuery = groq`
+  *[_type == "evento" && ativo == true && projeto._ref == $projectId] | order(dataEvento desc) {
+    _id,
+    "title": titulo,
+    "slug": { "current": slug.current },
+    "coverImage": {
+      "asset": imagemCapa.asset,
+      "alt": imagemCapa.alt
+    },
+    "shortDescription": descricaoCurta,
+    "category": categoria,
+    "eventDate": dataEvento,
+    "ticketPrice": valorIngresso {
+      "free": gratuito,
+      "value": valor
+    },
+    "location": local {
+      "name": nome,
+      "address": endereco
+    },
+    "project": projeto-> {
+      _id,
+      "title": titulo,
+      "slug": slug.current
+    },
+    "featured": destaque,
+    "active": ativo
   }
 `;

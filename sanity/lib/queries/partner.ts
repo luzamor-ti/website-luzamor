@@ -62,9 +62,9 @@ export const PARTNERS_PAGE_CONFIG_QUERY = groq`
  * Parâmetros: $tipo (string), $ano (number)
  */
 export const PARTNER_CATEGORIES_QUERY = groq`
-  *[_type == "categoriaParceria"] | order(ordem asc) {
+  *[_type == "incentivador"] | order(ordem asc) {
     _id,
-    "title": titulo,
+    "title": nome,
     "order": ordem,
     "supporters": *[
       _type == "apoiador" &&
@@ -82,9 +82,9 @@ export const PARTNER_CATEGORIES_QUERY = groq`
  * Parâmetros: $tipo (string), $currentYear (number)
  */
 export const PAST_PARTNER_CATEGORIES_QUERY = groq`
-  *[_type == "categoriaParceria"] | order(ordem asc) {
+  *[_type == "incentivador"] | order(ordem asc) {
     _id,
-    "title": titulo,
+    "title": nome,
     "order": ordem,
     "supporters": *[
       _type == "apoiador" &&
