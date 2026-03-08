@@ -416,6 +416,18 @@ export const PARTNERS_PAGE_FALLBACKS = {
 };
 
 /**
+ * Diretoria Page Fallbacks
+ */
+export const DIRETORIA_PAGE_FALLBACKS = {
+  hero: {
+    tag: "Gestão & Governança",
+    title: "Nossa Diretoria",
+    description:
+      "Conheça os líderes que guiam a Fundação com dedicação e propósito.",
+  },
+};
+
+/**
  * President Page Fallbacks
  */
 export const PRESIDENT_PAGE_FALLBACKS = {
@@ -424,6 +436,7 @@ export const PRESIDENT_PAGE_FALLBACKS = {
   scrollLabel: "Role para ler",
   unavailableMessage: "Conteúdo indisponível no momento.",
 };
+
 
 /**
  * Get fallback text for a section
