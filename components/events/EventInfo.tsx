@@ -1,12 +1,12 @@
 "use client";
 
-import { Button, Heading, Text } from "@/components/ui";
+import { Button, LinkButton } from "@/components/ui";
 import { Event } from "@/sanity/lib/types/event";
-import { Calendar, MapPin, Ticket, ExternalLink } from "lucide-react";
+import { Calendar, MapPin, Ticket, FolderOpen } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeInVariants } from "@/lib/animations";
 import { routesPath } from "@/constants/routesPath";
-import { formatEventDate } from "@/utils/eventFormatters";
+import { formatDate } from "@/utils/dateFormatters";
 import { buildEventCTA, getCTAButtonText } from "@/utils/eventCta";
 
 interface EventInfoProps {
@@ -14,9 +14,7 @@ interface EventInfoProps {
 }
 
 export function EventInfo({ event }: EventInfoProps) {
-  const { dateFormatted, timeFormatted, weekday } = formatEventDate(
-    event.eventDate,
-  );
+  const { dateFormatted, timeFormatted, weekday } = formatDate(event.eventDate);
 
   // CTA Logic
   const ctaButtonText = getCTAButtonText(event);
@@ -39,98 +37,100 @@ export function EventInfo({ event }: EventInfoProps) {
       whileInView="visible"
       viewport={{ once: true }}
       variants={fadeInVariants}
-      className="bg-gradient-to-br from-white to-gray-50 rounded-2xl p-6 shadow-xl border border-gray-100 space-y-6"
+      className="bg-white rounded-xl p-6 shadow-lg border border-gray-200"
     >
-      <Heading level={3} className="mb-4">
+      {/* Header */}
+      <h2 className="text-lg font-bold text-gray-900 mb-6">
         Informações do Evento
-      </Heading>
+      </h2>
 
-      {/* Valor do Ingresso - DESTAQUE */}
+      {/* Valor do Ingresso */}
       {event.ticketPrice && (
-        <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-5 border border-primary/20">
-          <div className="flex items-center gap-3 mb-2">
-            <Ticket size={24} className="text-primary" />
-            <Text
-              variant="small"
-              className="text-gray-600 uppercase font-bold tracking-wide"
-            >
+        <div className="bg-primary/5 rounded-lg p-4 mb-5 border border-primary/10">
+          <div className="flex items-center gap-2 mb-2">
+            <Ticket size={18} className="text-primary" />
+            <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">
               Valor do Ingresso
-            </Text>
+            </span>
           </div>
           {isFree ? (
-            <Text className="text-3xl font-extrabold text-primary">
-              Gratuito
-            </Text>
+            <p className="text-2xl font-bold text-primary">Gratuito</p>
           ) : (
-            <Text className="text-3xl font-extrabold text-primary">
+            <p className="text-2xl font-bold text-primary">
               R$ {ticketValue?.toFixed(2).replace(".", ",")}
-            </Text>
+            </p>
           )}
         </div>
       )}
 
-      {/* Botão CTA - DESTAQUE */}
+      {/* Botão CTA */}
       <Button
         href={ctaHref}
         external
         variant="primary"
-        size="lg"
+        size="md"
         fullWidth
-        className="font-bold"
+        className="font-semibold mb-6"
       >
         {ctaButtonText}
       </Button>
 
-      {/* Data e Horário */}
-      <div className="space-y-3">
-        <div>
-          <div className="flex items-center gap-2 mb-1">
-            <Calendar size={16} className="text-primary" />
-            <Text
-              variant="small"
-              className="text-gray-500 uppercase font-semibold"
-            >
-              Data e Horário
-            </Text>
-          </div>
-          <Text className="italic text-gray-700">
-            {weekday}, {dateFormatted} às {timeFormatted}
-          </Text>
-        </div>
-      </div>
+      {/* Divisor */}
+      <div className="border-t border-gray-200 mb-5" />
 
-      {/* Localização */}
-      <div className="pt-4 border-t border-gray-200">
-        <div className="flex items-center gap-2 mb-2">
-          <MapPin size={16} className="text-primary" />
-          <Text
-            variant="small"
-            className="text-gray-500 uppercase font-semibold"
-          >
-            Localização
-          </Text>
+      {/* Informações do Evento */}
+      <div className="space-y-5">
+        {/* Data e Horário */}
+        <div>
+          <div className="flex items-center gap-2 mb-2">
+            <Calendar size={18} className="text-primary" />
+            <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">
+              Data e Horário
+            </span>
+          </div>
+          <p className="text-sm text-gray-900 font-medium">
+            {weekday}, {dateFormatted}
+          </p>
+          <p className="text-sm text-gray-600">às {timeFormatted}</p>
         </div>
-        {event.location?.name && (
-          <Text className="text-gray-700 font-medium mb-2">
-            {event.location.name}
-          </Text>
+
+        {/* Localização */}
+        <div>
+          <div className="flex items-center gap-2 mb-3">
+            <MapPin size={18} className="text-primary" />
+            <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">
+              Localização
+            </span>
+          </div>
+          {event.location?.name && (
+            <p className="text-sm text-gray-900 font-medium mb-1">
+              {event.location.name}
+            </p>
+          )}
+          {event.location?.address && (
+            <p className="text-sm text-gray-600 mb-3">
+              {event.location.address}
+            </p>
+          )}
+          <LinkButton href={locationHref}>
+            {hasSpecificLocation ? "Ver no Mapa" : "Ver Auditório"}
+          </LinkButton>
+        </div>
+
+        {/* Projeto Relacionado */}
+        {event.project && (
+          <div>
+            <div className="flex items-center gap-2 mb-3">
+              <FolderOpen size={18} className="text-primary" />
+              <span className="text-xs uppercase tracking-wide font-semibold text-gray-500">
+                Projeto
+              </span>
+            </div>
+            <LinkButton href={`${routesPath.projects}/${event.project.slug}`}>
+              {event.project.title}
+            </LinkButton>
+          </div>
         )}
-        {event.location?.address && (
-          <Text variant="small" className="text-gray-600 mb-3">
-            {event.location.address}
-          </Text>
-        )}
-        <Button
-          href={locationHref}
-          external={hasSpecificLocation}
-          variant="outline-secondary"
-          size="sm"
-          fullWidth
-        >
-          <MapPin size={14} />
-          {hasSpecificLocation ? "Ver no Mapa" : "Ver Auditório"}
-          {hasSpecificLocation && <ExternalLink size={12} />}
-        </Button>
       </div>
     </motion.div>
   );

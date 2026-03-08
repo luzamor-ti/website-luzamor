@@ -6,6 +6,7 @@ import {
   eventBySlugQuery,
   allUpcomingEventsQuery,
   allPastEventsQuery,
+  eventsByProjectQuery,
 } from "../queries/event";
 import { Event } from "../types/event";
 
@@ -86,5 +87,17 @@ export async function getEventsCalendarData() {
       upcomingEvents: [],
       pastEvents: [],
     };
+  }
+}
+
+export async function getEventsByProject(projectId: string): Promise<Event[]> {
+  try {
+    const events = await client.fetch<Event[]>(eventsByProjectQuery, {
+      projectId,
+    });
+    return events || [];
+  } catch (error) {
+    console.error(`Error fetching events for project ${projectId}:`, error);
+    return [];
   }
 }

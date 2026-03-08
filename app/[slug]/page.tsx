@@ -17,6 +17,7 @@ import {
 } from "@/sanity/lib/types/page";
 import { getEventsCalendarData } from "@/sanity/lib/services/eventService";
 import { getPartnersPageData } from "@/sanity/lib/services/partnerService";
+import { getProjectsPage } from "@/sanity/lib/services/projectService";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -26,7 +27,8 @@ interface PageProps {
 type TemplateComponent =
   | React.ComponentType<{ pagina: PageType }>
   | typeof CalendarioEventosTemplate
-  | typeof PatrocinadorTemplate;
+  | typeof PatrocinadorTemplate
+  | typeof ProjetosTemplate;
 
 // Mapeamento de slugs para templates e informações básicas
 const pageConfig: Record<
@@ -112,6 +114,12 @@ export default async function Page({ params }: PageProps) {
   };
 
   const TemplateComponent = config.component;
+
+  // Special handling for projects page
+  if (slug === "projetos") {
+    const projects = await getProjectsPage();
+    return <ProjetosTemplate pagina={pagina} projects={projects} />;
+  }
 
   // Special handling for calendar events page
   if (slug === "calendario-eventos") {

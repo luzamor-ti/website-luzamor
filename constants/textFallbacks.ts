@@ -37,6 +37,10 @@ interface SectionFallback {
   labels?: FallbackLabels;
 }
 
+export const GENERIC_FALLBACK = {
+  whatsappDefaultMessage: "Olá! Gostaria de mais informações sobre {itemName}",
+};
+
 export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
   hero: {
     title: "Fundação Luzamor",

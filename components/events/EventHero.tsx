@@ -1,14 +1,14 @@
 "use client";
 
 import Image from "next/image";
-import { Section, Heading, Text } from "@/components/ui";
+import { SectionHeader, Text } from "@/components/ui";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Event } from "@/sanity/lib/types/event";
 import { Calendar, Clock, MapPin, Ticket } from "lucide-react";
 import { motion } from "framer-motion";
 import { fadeInVariants, slideUpVariants } from "@/lib/animations";
 import { EventCategoryBadge } from "./EventCategoryBadge";
-import { formatEventDate, isEventPast } from "@/utils/eventFormatters";
+import { formatDate, isEventPast } from "@/utils/dateFormatters";
 
 interface EventHeroProps {
   event: Event;
@@ -16,16 +16,14 @@ interface EventHeroProps {
 
 export function EventHero({ event }: EventHeroProps) {
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
-  const { dateFormatted, timeFormatted, weekday } = formatEventDate(
-    event.eventDate,
-  );
+  const { dateFormatted, timeFormatted, weekday } = formatDate(event.eventDate);
 
   const isPast = isEventPast(event.eventDate);
   const isFree = event.ticketPrice.free;
   const ticketValue = event.ticketPrice.value;
 
   return (
-    <Section isFluid className="relative overflow-hidden !p-0">
+    <section className="relative overflow-hidden">
       {/* Hero com Imagem de Fundo */}
       <div className="relative min-h-[95vh] md:min-h-[90vh] flex items-end">
         {/* Background Image com Overlay */}
@@ -62,20 +60,12 @@ export function EventHero({ event }: EventHeroProps) {
               />
             </div>
 
-            {/* Título */}
-            <Heading
-              level={1}
-              className="text-white mb-4 md:mb-6 text-3xl md:text-5xl lg:text-6xl font-bold leading-tight drop-shadow-lg"
-            >
-              {event.title}
-            </Heading>
-
-            {/* Descrição Curta */}
-            {event.shortDescription && (
-              <Text className="text-white mb-6 md:mb-8 text-base md:text-lg max-w-2xl leading-relaxed drop-shadow-md">
-                {event.shortDescription}
-              </Text>
-            )}
+            <SectionHeader
+              title={event.title}
+              description={event.shortDescription || ""}
+              align="left"
+              variant="dark"
+            ></SectionHeader>
 
             {/* Grid de Informações */}
             <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 md:gap-3">
@@ -192,6 +182,6 @@ export function EventHero({ event }: EventHeroProps) {
           </motion.div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }

@@ -13,7 +13,7 @@ import {
   CATEGORY_ICONS,
   CATEGORY_COLORS_FEATURED,
 } from "@/constants/eventCategories";
-import { formatEventDate } from "@/utils/eventFormatters";
+import { formatDate } from "@/utils/dateFormatters";
 import { handleEventCTAClick } from "@/utils/eventCta";
 
 interface FeaturedEventProps {
@@ -23,7 +23,7 @@ interface FeaturedEventProps {
 export function FeaturedEvent({ event }: FeaturedEventProps) {
   const [isHovered, setIsHovered] = useState(false);
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
-  const { dayNumber, monthShort, year, timeFormatted } = formatEventDate(
+  const { dayNumber, monthShort, year, timeFormatted } = formatDate(
     event.eventDate,
   );
 
