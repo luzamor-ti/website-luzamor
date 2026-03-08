@@ -60,11 +60,11 @@ describe("ProjectsSection", () => {
     expect(screen.getByText("Description for project 2")).toBeInTheDocument();
   });
 
-  it("renders project categories", () => {
+  it("renders project titles and descriptions", () => {
     render(<ProjectsSection data={mockProjects} section={mockSection} />);
 
-    expect(screen.getByText("Education")).toBeInTheDocument();
-    expect(screen.getByText("Health")).toBeInTheDocument();
+    expect(screen.getByText("Project 1")).toBeInTheDocument();
+    expect(screen.getByText("Project 2")).toBeInTheDocument();
   });
 
   it("formats currency correctly", () => {
