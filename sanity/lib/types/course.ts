@@ -34,6 +34,10 @@ export interface Course {
     whatsapp?: string;
     buttonText?: string;
   };
+  classroom?: {
+    slug: string;
+    name: string;
+  };
   active: boolean;
   order?: number;
 }
