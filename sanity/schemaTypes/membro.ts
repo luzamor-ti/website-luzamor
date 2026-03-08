@@ -34,6 +34,17 @@ export const membro = defineType({
           { title: "Outro", value: "outro" },
         ],
       },
+      hidden: ({ parent }: { parent?: { diretoria?: boolean } }) =>
+        !parent?.diretoria,
+      validation: (Rule) =>
+        Rule.custom((value, context) => {
+          const ctx = context as { parent?: { diretoria?: boolean } };
+          const isDiretoria = ctx?.parent?.diretoria;
+          if (isDiretoria && !value) {
+            return "Selecione o tipo de cargo para membros da Diretoria.";
+          }
+          return true;
+        }),
     },
     {
       name: "diretoria",
