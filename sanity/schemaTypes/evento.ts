@@ -240,6 +240,15 @@ export const evento = defineType({
     }),
 
     defineField({
+      name: "projeto",
+      title: "Projeto Relacionado",
+      type: "reference",
+      to: [{ type: "projeto" }],
+      description: "Vincule este evento a um projeto da fundação (opcional)",
+      group: "configuracoes",
+    }),
+
+    defineField({
       name: "destaque",
       title: "Evento em Destaque",
       type: "boolean",
@@ -266,8 +275,9 @@ export const evento = defineType({
       data: "dataEvento",
       categoria: "categoria",
       destaque: "destaque",
+      projetoTitulo: "projeto.titulo",
     },
-    prepare({ titulo, media, data, categoria, destaque }) {
+    prepare({ titulo, media, data, categoria, destaque, projetoTitulo }) {
       const dataFormatada = data
         ? new Date(data).toLocaleDateString("pt-BR", {
             day: "2-digit",
@@ -276,9 +286,11 @@ export const evento = defineType({
           })
         : "Data não definida";
 
+      const projetoInfo = projetoTitulo ? ` | 📁 ${projetoTitulo}` : "";
+
       return {
         title: `${destaque ? "⭐ " : ""}${titulo}`,
-        subtitle: `${dataFormatada} • ${categoria || "Sem categoria"}`,
+        subtitle: `${dataFormatada} • ${categoria || "Sem categoria"}${projetoInfo}`,
         media,
       };
     },
