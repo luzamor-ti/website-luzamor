@@ -8,7 +8,7 @@ import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Calendar, Clock, MapPin, Image as ImageIcon } from "lucide-react";
 import { CALENDAR_EVENTS_FALLBACKS } from "@/constants/textFallbacks";
 import { EventCategoryBadge } from "./EventCategoryBadge";
-import { formatEventDate } from "@/utils/eventFormatters";
+import { formatDate } from "@/utils/dateFormatters";
 
 interface EventListItemProps {
   event: Event;
@@ -20,7 +20,7 @@ export function EventListItem({
   showGalleryIcon = false,
 }: EventListItemProps) {
   const imageUrl = buildSanityImageUrl(event.coverImage.asset._ref);
-  const { dayNumber, monthShort, weekday, timeFormatted } = formatEventDate(
+  const { dayNumber, monthShort, weekday, timeFormatted } = formatDate(
     event.eventDate,
   );
 
