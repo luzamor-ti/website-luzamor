@@ -4,9 +4,7 @@ import { Member } from "./member";
 export interface Course {
   _id: string;
   title: string;
-  slug: {
-    current: string;
-  };
+  slug: string;
   coverPhoto: {
     asset: {
       _ref: string;
@@ -33,6 +31,10 @@ export interface Course {
     messageText?: string;
     whatsapp?: string;
     buttonText?: string;
+  };
+  classroom?: {
+    slug: string;
+    name: string;
   };
   active: boolean;
   order?: number;

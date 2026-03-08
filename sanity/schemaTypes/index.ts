@@ -15,6 +15,7 @@ import sobreNos from "./sobreNos";
 import { incentivador } from "./incentivador";
 import { realizacao } from "./realizacao";
 import paginaParceiros from "./paginaParceiros";
+import { salaAula } from "./salaAula";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -34,5 +35,6 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     incentivador,
     realizacao,
     paginaParceiros,
+    salaAula,
   ],
 };
