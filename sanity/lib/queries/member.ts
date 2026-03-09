@@ -36,3 +36,18 @@ export const wordsOfPresidentPageQuery = `
     "words": palavra
   }
 `;
+
+export const boardMembersQuery = `
+  *[_type == "membro" && diretoria == true]
+  | order(ordem asc){
+    _id,
+    "name": nome,
+    "role": cargo,
+    "roleType": tipoCargo,
+    "photo": foto,
+    alt,
+    "shortBio": bioCurta,
+    "fullBio": bioCompleta,
+    "order": ordem
+  }
+`;

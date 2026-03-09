@@ -1,70 +1,24 @@
-"use client";
-import { Grid, SectionHeader } from "@/components/ui";
-import { PortableText } from "@portabletext/react";
-import Image from "next/image";
-import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
-import { motion } from "framer-motion";
-import { staggerContainerVariants } from "@/lib/animations";
-import { useEffect, useState } from "react";
 import { getWordsOfPresident } from "@/sanity/lib/services/memberService";
 import { Page } from "@/sanity/lib/types/page";
-import { Member } from "@/sanity/lib/types/member";
+import { PresidentPageContent } from "@/components/president";
+import { PRESIDENT_PAGE_FALLBACKS } from "@/constants/textFallbacks";
 
-interface PalabraPresidenteTemplateProps {
+interface PalavraPresidenteTemplateProps {
   pagina: Page;
 }
 
-export function PalavraPresidenteTemplate({
+export async function PalavraPresidenteTemplate({
   pagina,
-}: PalabraPresidenteTemplateProps) {
-  const [presidentData, setPresidentData] = useState<Member | null>();
+}: PalavraPresidenteTemplateProps) {
+  const presidentData = await getWordsOfPresident();
 
-  useEffect(() => {
-    getWordsOfPresident().then((data) => setPresidentData(data));
-  }, []);
+  if (!presidentData) {
+    return (
+      <main className="min-h-screen flex items-center justify-center">
+        <p className="text-gray-500">{PRESIDENT_PAGE_FALLBACKS.unavailableMessage}</p>
+      </main>
+    );
+  }
 
-  if (!presidentData) return <div>Carregando...</div>;
-  const imgPresident = buildSanityImageUrl(
-    presidentData.photo?.asset?._ref || "",
-  );
-  return (
-    <main className="min-h-screen">
-      <div
-        style={{
-          backgroundImage:
-            "url(https://framerusercontent.com/images/al6LHhZeQCUgkaAutT71lCt7G5w.png?width=1416&height=921)",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          filter: "blur(16px)",
-          position: "fixed",
-          top: -30,
-          left: -30,
-          right: -30,
-          bottom: -30,
-          zIndex: -1,
-        }}
-      ></div>
-      <motion.section
-        className="relative min-h-screen flex flex-col items-start justify-center p-10"
-        initial="hidden"
-        animate="visible"
-        variants={staggerContainerVariants}
-      >
-        <Grid cols={2} className="max-w-6xl mx-auto items-center">
-          <Image
-            alt={presidentData.name || "Foto do presidente"}
-            src={imgPresident}
-            width={500}
-            height={500}
-          ></Image>
-          <div className="text-white">
-            <SectionHeader variant="dark" title={pagina.title}></SectionHeader>
-            {presidentData.words && (
-              <PortableText value={presidentData.words} />
-            )}
-          </div>
-        </Grid>
-      </motion.section>
-    </main>
-  );
+  return <PresidentPageContent pagina={pagina} presidentData={presidentData} />;
 }
