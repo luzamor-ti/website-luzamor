@@ -1,4 +1,4 @@
-import { Section, Heading, Grid, SectionHeader } from "@/components/ui";
+import { Section, Heading, Grid, SectionHeader, Button } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
@@ -107,9 +107,9 @@ export async function CursosTemplate() {
 
                       {/* --- PASSO 2: BOTÃO VERDE ARREDONDADO --- */}
                       <div className="mt-auto pt-2">
-                        <div className="w-full bg-[#00b341] group-hover:bg-[#009a37] text-white font-bold py-4 rounded-full text-center transition-colors shadow-md shadow-emerald-100">
+                        <Button variant="primary" size="md" fullWidth>
                           {curso.enrollment?.buttonText || "Saiba mais"}
-                        </div>
+                        </Button>
                       </div>
                     </div>
                   </div>

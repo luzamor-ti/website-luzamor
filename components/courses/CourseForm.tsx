@@ -2,8 +2,8 @@
 import { Course } from "@/sanity/lib/types/course";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Text } from "../ui";
-import { Calendar, MapPin, Ticket, UserCheck } from "lucide-react";
+import { Button, LinkButton, Text } from "../ui";
+import { Calendar, Ticket, UserCheck } from "lucide-react";
 
 interface EnrollmentModalProps {
   course: Course;
@@ -15,11 +15,10 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!name.trim()) return;
 
     const messageTemplate =
-      course.enrollment.messageText ||
+      course.enrollment?.messageText ||
       "Olá! Gostaria de me inscrever no curso {curso}. Meu nome é {nome}.";
 
     const message = messageTemplate
@@ -37,13 +36,15 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
 
   return (
     <motion.div
-      className="rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl bg-white border border-gray-100"
+      initial={{ opacity: 0, scale: 0.95 }}
+      animate={{ opacity: 1, scale: 1 }}
+      className="rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl bg-white border-gray-100"
       onClick={(e) => e.stopPropagation()}
     >
       {/* CUSTOS */}
       {course.price && (
         <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-5 border border-primary mb-6">
-          <div className="flex items-center gap-2 mb-4">
+          <div className="flex items-center gap-2 mb-2">
             <Ticket size={24} className="text-primary" />
             <Text
               variant="small"
@@ -54,21 +55,20 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
           </div>
           <Text
             variant="small"
-            className="font-bold text-primary tracking-wide"
+            className="font-bold text-primary text-xl tracking-wide"
           >
             {formattedPrice}
           </Text>
         </div>
       )}
 
-      {/* IDADE MÍNIMA */}
-      <div className="flex items-center gap-2 mb-6 text-gray-700">
-        <UserCheck size={16} className="text-primary" />
-        <span className="text-sm">Idade mínima: 16 anos</span>
-      </div>
+      {/* DETALHES (Idade e Horário) */}
+      <div className="space-y-4 mb-6">
+        <div className="flex items-center gap-2 text-gray-700">
+          <UserCheck size={16} className="text-primary" />
+          <span className="text-sm font-medium">Idade mínima: 16 anos</span>
+        </div>
 
-      {/* MÉTODO DE HORÁRIO INSERIDO AQUI */}
-      <div className="space-y-3 mb-4">
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Calendar size={16} className="text-primary" />
@@ -83,15 +83,20 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
             {course.schedule || "Data e horário a definir"}
           </Text>
         </div>
+
+        {course.classroom && (
+          <div className="flex flex-col gap-3 pt-2">
+            {/* BOTÃO DA SALA DE AULA (ACIMA) */}
+            <LinkButton
+              href={`/salas-aula?sala=${encodeURIComponent(course.classroom?.slug ?? "")}`}
+            >
+              Ver sala
+            </LinkButton>
+          </div>
+        )}
       </div>
 
-      {/* LOCAL / ENDEREÇO */}
-      <div className="flex items-center gap-2 mb-4 text-gray-700">
-        <MapPin size={16} className="text-primary" />
-        <span className="text-sm">Local/Endereço</span>
-      </div>
-
-      <h3 className="text-2xl font-bold mb-4 text-gray-900 border-t pt-4">
+      <h3 className="border-gray-200 text-2xl font-bold mb-4 text-gray-900 border-t pt-4">
         Inscrever-se em {course.title}
       </h3>
 
@@ -108,19 +113,19 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition text-gray-900"
             placeholder="Digite seu nome completo"
             required
           />
         </div>
-        <div className="flex gap-3 pt-2">
-          <button
-            type="submit"
-            className="flex-1 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary/90 font-semibold transition"
-          >
-            {course.enrollment?.buttonText || "Inscrever-se"}
-          </button>
-        </div>
+        <Button
+          variant="primary"
+          size="md"
+          fullWidth
+          className="font-semibold mb-6"
+        >
+          {course.enrollment?.buttonText || "Inscrever-se via WhatsApp"}
+        </Button>
       </form>
     </motion.div>
   );
