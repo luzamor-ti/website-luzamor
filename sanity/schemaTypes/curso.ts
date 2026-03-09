@@ -199,6 +199,15 @@ export const curso = defineType({
     }),
 
     defineField({
+      name: "salaAula",
+      title: "Sala de Aula",
+      type: "reference",
+      to: [{ type: "salaAula" }],
+      description: "Vincule o curso a uma sala de aula (opcional)",
+      group: "informacoes",
+    }),
+
+    defineField({
       name: "ordem",
       title: "Ordem de Exibição",
       type: "number",

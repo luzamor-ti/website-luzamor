@@ -1,55 +1,96 @@
+"use client";
+
 import { Page } from "@/sanity/lib/types/page";
-import { Section, Heading, Text } from "@/components/ui";
-import { PortableText } from "@portabletext/react";
+import { Project } from "@/sanity/lib/types/project";
+import { Section, Heading, Text, SectionHeader } from "@/components/ui";
+import { ProjectCard } from "@/components/projects";
+import { motion } from "framer-motion";
+import { staggerContainerVariants } from "@/lib/animations";
+import { FolderOpen } from "lucide-react";
 
 interface ProjetosTemplateProps {
   pagina: Page;
+  projects: Project[];
 }
 
-export function ProjetosTemplate({ pagina }: ProjetosTemplateProps) {
+export function ProjetosTemplate({ pagina, projects }: ProjetosTemplateProps) {
+  const futureProjects = projects.filter((p) => p.futurProject);
+  const activeProjects = projects.filter((p) => !p.futurProject);
+
   return (
     <main className="min-h-screen pt-24">
-      <Section>
-        <Heading level={1} className="text-center">
-          {pagina.title}
-        </Heading>
+      {/* Hero */}
+      <section className="bg-gradient-to-br from-primary/5 to-secondary/5 py-20 px-4">
+        <div className="max-w-6xl mx-auto text-center">
+          <Heading level={1} className="text-gray-900 mb-4">
+            {pagina.title}
+          </Heading>
+          {pagina.description && (
+            <Text variant="large" className="max-w-2xl mx-auto text-gray-600">
+              {pagina.description}
+            </Text>
+          )}
+        </div>
+      </section>
 
-        {pagina.description && (
-          <Text variant="large" className="text-center mt-4 max-w-3xl mx-auto">
-            {pagina.description}
-          </Text>
-        )}
-
-        {pagina.content && (
-          <div className="mt-8 prose prose-lg max-w-4xl mx-auto">
-            <PortableText value={pagina.content} />
-          </div>
-        )}
-
-        {pagina.sections && pagina.sections.length > 0 && (
-          <div className="mt-16">
-            {pagina.sections.map((secao) => (
-              <div key={secao._key} className="mb-16">
-                {secao.title && (
-                  <Heading level={2} className="mb-4">
-                    {secao.title}
-                  </Heading>
-                )}
-                {secao.subtitle && (
-                  <Text variant="large" className="mb-6">
-                    {secao.subtitle}
-                  </Text>
-                )}
-                {secao.content && (
-                  <div className="prose prose-lg max-w-none">
-                    <PortableText value={secao.content} />
-                  </div>
-                )}
-              </div>
+      {/* Projetos em Andamento */}
+      {activeProjects.length > 0 && (
+        <Section>
+          <SectionHeader
+            tag="Projetos"
+            title="Em Andamento"
+            description="Iniciativas que estão transformando vidas agora"
+          />
+          <motion.div
+            variants={staggerContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10"
+          >
+            {activeProjects.map((project) => (
+              <ProjectCard key={project._id} project={project} />
             ))}
+          </motion.div>
+        </Section>
+      )}
+
+      {/* Projetos Futuros */}
+      {futureProjects.length > 0 && (
+        <Section className="bg-gray-50">
+          <SectionHeader
+            tag="Em Breve"
+            title="Projetos Futuros"
+            description="O que vem por aí: projetos que estamos planejando"
+          />
+          <motion.div
+            variants={staggerContainerVariants}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-10"
+          >
+            {futureProjects.map((project) => (
+              <ProjectCard key={project._id} project={project} />
+            ))}
+          </motion.div>
+        </Section>
+      )}
+
+      {/* Estado vazio */}
+      {projects.length === 0 && (
+        <Section>
+          <div className="flex flex-col items-center justify-center py-24 text-center">
+            <FolderOpen size={64} className="text-gray-200 mb-6" />
+            <Heading level={3} className="text-gray-400 mb-2">
+              Nenhum projeto cadastrado ainda
+            </Heading>
+            <Text variant="muted">
+              Em breve novos projetos serão publicados aqui.
+            </Text>
           </div>
-        )}
-      </Section>
+        </Section>
+      )}
     </main>
   );
 }

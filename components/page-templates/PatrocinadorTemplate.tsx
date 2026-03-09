@@ -213,7 +213,8 @@ export function PatrocinadorTemplate({
 }: PatrocinadorTemplateProps) {
   const [activeTab, setActiveTab] = useState<TabKey>("current");
 
-  const hasCurrentYear = currentSponsors.length > 0 || currentSupporters.length > 0;
+  const hasCurrentYear =
+    currentSponsors.length > 0 || currentSupporters.length > 0;
   const hasPastYears = pastSponsors.length > 0 || pastSupporters.length > 0;
   const hasIndividuals = individualSupporters.length > 0;
   const hasDonors = monthlyDonors.length > 0 || punctualDonors.length > 0;
@@ -226,77 +227,74 @@ export function PatrocinadorTemplate({
   const donors = pageConfig?.donorsSection;
   const ctaFinal = pageConfig?.ctaFinal;
 
-  const bgImage = hero?.backgroundImage;
-  const tab2026Label = partners?.tabCurrentLabel || PARTNERS_PAGE_FALLBACKS.partnersSection.tabCurrentLabel;
-  const tabPastLabel = partners?.tabPastLabel || PARTNERS_PAGE_FALLBACKS.partnersSection.tabPastLabel;
+  const bgImage = hero?.backgroundImage || null;
+  const tab2026Label =
+    partners?.tabCurrentLabel ||
+    PARTNERS_PAGE_FALLBACKS.partnersSection.tabCurrentLabel;
+  const tabPastLabel =
+    partners?.tabPastLabel ||
+    PARTNERS_PAGE_FALLBACKS.partnersSection.tabPastLabel;
 
   return (
     <main className="min-h-screen">
       {/* ── Hero com imagem de fundo ── */}
-      <Section className="relative min-h-[420px] md:min-h-[500px] flex items-end pt-24">
-        {/* Imagem de fundo */}
-        {bgImage ? (
-          <>
-            <Image
-              src={urlFor(bgImage)
-                .width(1920)
-                .height(600)
-                .fit("crop")
-                .auto("format")
-                .url()}
-              alt={bgImage.alt || ""}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-            <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/40 to-black/20" />
-          </>
-        ) : (
-          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-white to-secondary/10" />
-        )}
-
-        {/* Conteúdo */}
-        <div className="relative z-10 w-full max-w-6xl mx-auto px-4 pb-16 pt-8">
+      <Section className="relative bg-[#0a0a0a] pt-40 pb-24 overflow-hidden">
+        <div
+          className="absolute inset-0 opacity-40"
+          style={{
+            backgroundImage: `url('${
+              bgImage
+                ? urlFor(bgImage)
+                    .width(1920)
+                    .height(600)
+                    .fit("crop")
+                    .auto("format")
+                    .url()
+                : ""
+            }')`,
+            backgroundSize: "cover",
+            backgroundPosition: "center",
+            filter: "blur(20px)",
+            transform: "scale(1.2)",
+          }}
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a0a0a]/80" />
+        <div className="relative z-10 max-w-5xl">
           <SectionHeader
-            tag={hero?.tag}
-            title={hero?.title || pagina.title}
-            description={hero?.description || pagina.description}
-            align="center"
+            tag={hero?.tag || PARTNERS_PAGE_FALLBACKS.hero.tag}
+            title={
+              hero?.title || pagina.title || PARTNERS_PAGE_FALLBACKS.hero.title
+            }
+            description={
+              hero?.description || PARTNERS_PAGE_FALLBACKS.hero.description
+            }
             variant="dark"
-          />
-        </div>
-      </Section>
-
-      {/* ── CTA Principal ── */}
-      <Section className="!py-12">
-        <AnimatedSection className="bg-gradient-to-br from-primary/5 to-secondary/5 border border-gray-100 rounded-2xl p-8 md:p-12 text-center">
-          <motion.div variants={slideUpVariants}>
-            <Heading level={2} className="mb-4">
-              {cta?.title || PARTNERS_PAGE_FALLBACKS.cta.title}
-            </Heading>
-            <Text
-              variant="large"
-              className="max-w-2xl mx-auto mb-8 text-gray-600"
-            >
-              {cta?.description || PARTNERS_PAGE_FALLBACKS.cta.description}
-            </Text>
-          </motion.div>
-          <motion.div
-            variants={fadeInVariants}
-            className="flex flex-col sm:flex-row gap-3 justify-center"
+            align="left"
           >
-            <Button href="/contato" size="lg">
-              {cta?.sponsorButtonText || PARTNERS_PAGE_FALLBACKS.cta.sponsorButtonText}
-            </Button>
-            <Button href="/contato" variant="outline" size="lg">
-              {cta?.supporterButtonText || PARTNERS_PAGE_FALLBACKS.cta.supporterButtonText}
-            </Button>
-            <Button href="/contato" variant="outline-secondary" size="lg">
-              {cta?.donorButtonText || PARTNERS_PAGE_FALLBACKS.cta.donorButtonText}
-            </Button>
-          </motion.div>
-        </AnimatedSection>
+            <motion.div
+              variants={fadeInVariants}
+              className="flex flex-col gap-4 mt-16"
+            >
+              <p className="text-lg font-semibold text-white">
+                {cta?.title || PARTNERS_PAGE_FALLBACKS.cta.title}
+              </p>
+              <div className="flex flex-col sm:flex-row gap-3">
+                <Button href="/contato" variant="primary" showArrow>
+                  {cta?.sponsorButtonText ||
+                    PARTNERS_PAGE_FALLBACKS.cta.sponsorButtonText}
+                </Button>
+                <Button href="/contato" variant="outline">
+                  {cta?.supporterButtonText ||
+                    PARTNERS_PAGE_FALLBACKS.cta.supporterButtonText}
+                </Button>
+                <Button href="/contato" variant="ghost">
+                  {cta?.donorButtonText ||
+                    PARTNERS_PAGE_FALLBACKS.cta.donorButtonText}
+                </Button>
+              </div>
+            </motion.div>
+          </SectionHeader>
+        </div>
       </Section>
 
       {/* ── Patrocinadores e Apoiadores (Tabs) ── */}
@@ -305,10 +303,16 @@ export function PatrocinadorTemplate({
           <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
-                tag={partners?.tag || PARTNERS_PAGE_FALLBACKS.partnersSection.tag}
-                title={partners?.title || PARTNERS_PAGE_FALLBACKS.partnersSection.title}
+                tag={
+                  partners?.tag || PARTNERS_PAGE_FALLBACKS.partnersSection.tag
+                }
+                title={
+                  partners?.title ||
+                  PARTNERS_PAGE_FALLBACKS.partnersSection.title
+                }
                 description={
-                  partners?.description || PARTNERS_PAGE_FALLBACKS.partnersSection.description
+                  partners?.description ||
+                  PARTNERS_PAGE_FALLBACKS.partnersSection.description
                 }
               />
             </motion.div>
@@ -354,7 +358,9 @@ export function PatrocinadorTemplate({
                 />
                 {!hasCurrentYear && (
                   <Text variant="muted" className="text-center py-8">
-                    {partners?.emptyCurrentMessage || PARTNERS_PAGE_FALLBACKS.partnersSection.emptyCurrentMessage}
+                    {partners?.emptyCurrentMessage ||
+                      PARTNERS_PAGE_FALLBACKS.partnersSection
+                        .emptyCurrentMessage}
                   </Text>
                 )}
               </div>
@@ -370,7 +376,8 @@ export function PatrocinadorTemplate({
                 />
                 {!hasPastYears && (
                   <Text variant="muted" className="text-center py-8">
-                    {partners?.emptyPastMessage || PARTNERS_PAGE_FALLBACKS.partnersSection.emptyPastMessage}
+                    {partners?.emptyPastMessage ||
+                      PARTNERS_PAGE_FALLBACKS.partnersSection.emptyPastMessage}
                   </Text>
                 )}
               </div>
@@ -385,10 +392,17 @@ export function PatrocinadorTemplate({
           <AnimatedSection>
             <motion.div variants={fadeInVariants}>
               <SectionHeader
-                tag={individuals?.tag || PARTNERS_PAGE_FALLBACKS.individualsSection.tag}
-                title={individuals?.title || PARTNERS_PAGE_FALLBACKS.individualsSection.title}
+                tag={
+                  individuals?.tag ||
+                  PARTNERS_PAGE_FALLBACKS.individualsSection.tag
+                }
+                title={
+                  individuals?.title ||
+                  PARTNERS_PAGE_FALLBACKS.individualsSection.title
+                }
                 description={
-                  individuals?.description || PARTNERS_PAGE_FALLBACKS.individualsSection.description
+                  individuals?.description ||
+                  PARTNERS_PAGE_FALLBACKS.individualsSection.description
                 }
               />
             </motion.div>
@@ -411,12 +425,14 @@ export function PatrocinadorTemplate({
               variant="large"
               className="!text-white/80 max-w-xl mx-auto mb-8"
             >
-              {ctaFinal?.description || PARTNERS_PAGE_FALLBACKS.ctaFinal.description}
+              {ctaFinal?.description ||
+                PARTNERS_PAGE_FALLBACKS.ctaFinal.description}
             </Text>
           </motion.div>
           <motion.div variants={fadeInVariants}>
             <Button href="/contato" variant="secondary" size="lg">
-              {ctaFinal?.buttonText || PARTNERS_PAGE_FALLBACKS.ctaFinal.buttonText}
+              {ctaFinal?.buttonText ||
+                PARTNERS_PAGE_FALLBACKS.ctaFinal.buttonText}
             </Button>
           </motion.div>
         </AnimatedSection>
@@ -428,9 +444,12 @@ export function PatrocinadorTemplate({
             <motion.div variants={fadeInVariants}>
               <SectionHeader
                 tag={donors?.tag || PARTNERS_PAGE_FALLBACKS.donorsSection.tag}
-                title={donors?.title || PARTNERS_PAGE_FALLBACKS.donorsSection.title}
+                title={
+                  donors?.title || PARTNERS_PAGE_FALLBACKS.donorsSection.title
+                }
                 description={
-                  donors?.description || PARTNERS_PAGE_FALLBACKS.donorsSection.description
+                  donors?.description ||
+                  PARTNERS_PAGE_FALLBACKS.donorsSection.description
                 }
               />
             </motion.div>
@@ -439,14 +458,24 @@ export function PatrocinadorTemplate({
               className="grid grid-cols-1 md:grid-cols-2 gap-10"
             >
               <DonorGroup
-                title={donors?.monthlyTitle || PARTNERS_PAGE_FALLBACKS.donorsSection.monthlyTitle}
+                title={
+                  donors?.monthlyTitle ||
+                  PARTNERS_PAGE_FALLBACKS.donorsSection.monthlyTitle
+                }
                 donors={monthlyDonors}
-                emptyMessage={PARTNERS_PAGE_FALLBACKS.donorsSection.emptyMonthly}
+                emptyMessage={
+                  PARTNERS_PAGE_FALLBACKS.donorsSection.emptyMonthly
+                }
               />
               <DonorGroup
-                title={donors?.punctualTitle || PARTNERS_PAGE_FALLBACKS.donorsSection.punctualTitle}
+                title={
+                  donors?.punctualTitle ||
+                  PARTNERS_PAGE_FALLBACKS.donorsSection.punctualTitle
+                }
                 donors={punctualDonors}
-                emptyMessage={PARTNERS_PAGE_FALLBACKS.donorsSection.emptyPunctual}
+                emptyMessage={
+                  PARTNERS_PAGE_FALLBACKS.donorsSection.emptyPunctual
+                }
               />
             </motion.div>
           </AnimatedSection>

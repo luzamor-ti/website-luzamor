@@ -163,3 +163,33 @@ export const mockFeaturedEvent: Event = createMockEvent({
   shortDescription:
     "A Fundação LuzAmor convida você para a 4ª edição do Jantar Arena Sertaneja",
 });
+
+/**
+ * Mock de projeto para testes de relacionamento evento↔projeto
+ */
+export const mockProject = {
+  _id: "project-1",
+  title: "Projeto Esperança",
+  slug: "projeto-esperanca",
+};
+
+/**
+ * Mock de evento vinculado a um projeto
+ */
+export const mockEventWithProject: Event = createMockEvent({
+  _id: "event-with-project",
+  title: "Workshop do Projeto Esperança",
+  slug: { current: "workshop-projeto-esperanca" },
+  category: "educacional",
+  project: mockProject,
+});
+
+/**
+ * Mock de evento sem projeto (project null)
+ */
+export const mockEventWithoutProject: Event = createMockEvent({
+  _id: "event-no-project",
+  title: "Evento Independente",
+  slug: { current: "evento-independente" },
+  project: null,
+});

@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-interface LinkButtonProps {
+interface LinkButtonProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
   href: string;
   children: React.ReactNode;
   className?: string;
@@ -13,11 +13,13 @@ export function LinkButton({
   href,
   children,
   className = "",
+  ...rest
 }: LinkButtonProps) {
   return (
     <Link
       href={href}
       className={`group inline-flex items-center gap-2 text-primary font-medium text-base relative pb-2 transition-all duration-300 hover:gap-3 ${className}`}
+      {...rest}
     >
       <span>{children}</span>
       <ArrowUpRight className="w-5 h-5 transition-all duration-300 group-hover:rotate-45" />

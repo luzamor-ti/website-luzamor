@@ -17,16 +17,20 @@ import {
 } from "@/sanity/lib/types/page";
 import { getEventsCalendarData } from "@/sanity/lib/services/eventService";
 import { getPartnersPageData } from "@/sanity/lib/services/partnerService";
+import { getProjectsPage } from "@/sanity/lib/services/projectService";
+import { getClassrooms } from "@/sanity/lib/services/classroomService";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
+  searchParams: Promise<{ sala?: string }>;
 }
 
 // Tipo para os componentes de template
 type TemplateComponent =
   | React.ComponentType<{ pagina: PageType }>
   | typeof CalendarioEventosTemplate
-  | typeof PatrocinadorTemplate;
+  | typeof PatrocinadorTemplate
+  | typeof ProjetosTemplate;
 
 // Mapeamento de slugs para templates e informações básicas
 const pageConfig: Record<
@@ -47,11 +51,6 @@ const pageConfig: Record<
     component: SobreNosTemplate,
     pageType: "sobre-nos",
     title: "Sobre Nós",
-  },
-  "salas-aula": {
-    component: SalasAulaTemplate,
-    pageType: "salas-aula",
-    title: "Salas de Aula",
   },
   contato: {
     component: ContatoTemplate,
@@ -91,8 +90,15 @@ const pageConfig: Record<
   },
 };
 
-export default async function Page({ params }: PageProps) {
+export default async function Page({ params, searchParams }: PageProps) {
   const { slug } = await params;
+  const { sala } = await searchParams;
+
+  // Special handling for classrooms page (before pageConfig lookup)
+  if (slug === "salas-aula") {
+    const classrooms = await getClassrooms();
+    return <SalasAulaTemplate classrooms={classrooms} initialSlug={sala} />;
+  }
 
   const config = pageConfig[slug];
 
@@ -112,6 +118,12 @@ export default async function Page({ params }: PageProps) {
   };
 
   const TemplateComponent = config.component;
+
+  // Special handling for projects page
+  if (slug === "projetos") {
+    const projects = await getProjectsPage();
+    return <ProjetosTemplate pagina={pagina} projects={projects} />;
+  }
 
   // Special handling for calendar events page
   if (slug === "calendario-eventos") {

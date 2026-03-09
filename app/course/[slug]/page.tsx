@@ -1,5 +1,5 @@
 import { client } from "@/sanity/lib/client";
-import { courseBySlugQuery } from "@/sanity/lib/queries/course"; // Importei a mesma query da listagem
+import { courseBySlugQuery } from "@/sanity/lib/queries/course";
 import { notFound } from "next/navigation";
 import {
   CourseHero,
@@ -8,6 +8,8 @@ import {
 } from "@/components/courses";
 import { RelatedCourses } from "@/components/courses/RelatedCourses";
 import { getRelatedCourses } from "@/sanity/lib/services/courseService";
+import Link from "next/link";
+import { DoorOpen } from "lucide-react";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -65,6 +67,34 @@ export default async function CourseDetailPage({ params }: PageProps) {
           </aside>
         </div>
       </section>
+
+      {/* Link para a sala de aula vinculada */}
+      {curso.classroom && (
+        <section className="bg-gray-50 border-t border-gray-200">
+          <div className="max-w-5xl mx-auto px-6 py-8 flex items-center justify-between gap-4 flex-wrap">
+            <div className="flex items-center gap-3">
+              <div className="p-2.5 bg-primary/10 rounded-xl">
+                <DoorOpen size={20} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-400">
+                  Sala de Aula
+                </p>
+                <p className="text-base font-semibold text-gray-800">
+                  {curso.classroom.name}
+                </p>
+              </div>
+            </div>
+            <Link
+              href={`/salas-aula?sala=${encodeURIComponent(curso.classroom.slug ?? "")}`}
+              className="cursor-pointer inline-flex items-center gap-2 bg-primary text-white text-sm font-medium px-5 py-2.5 rounded-full hover:opacity-90 transition-opacity"
+            >
+              Ver sala
+              <DoorOpen size={15} />
+            </Link>
+          </div>
+        </section>
+      )}
 
       {/* Seção de sugestões usando os dados da query reaproveitada */}
       <RelatedCourses courses={outrosCursos} />

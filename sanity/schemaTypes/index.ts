@@ -12,8 +12,10 @@ import { evento } from "./evento";
 import hero from "./hero";
 import secaoHome from "./secaoHome";
 import sobreNos from "./sobreNos";
-import { categoriaParceria } from "./categoriaParceria";
+import { incentivador } from "./incentivador";
+import { realizacao } from "./realizacao";
 import paginaParceiros from "./paginaParceiros";
+import { salaAula } from "./salaAula";
 
 export const schema: { types: SchemaTypeDefinition[] } = {
   types: [
@@ -30,7 +32,9 @@ export const schema: { types: SchemaTypeDefinition[] } = {
     evento,
     secaoHome,
     sobreNos,
-    categoriaParceria,
+    incentivador,
+    realizacao,
     paginaParceiros,
+    salaAula,
   ],
 };

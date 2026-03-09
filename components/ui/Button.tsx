@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import Link from "next/link";
 
-interface ButtonProps {
+interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   href?: string;
   onClick?: () => void;
@@ -33,6 +33,7 @@ export function Button({
   showArrow = false,
   className = "",
   external = false,
+  ...rest
 }: ButtonProps) {
   const [isHovered, setIsHovered] = useState(false);
 
@@ -161,7 +162,7 @@ export function Button({
   }
 
   return (
-    <button onClick={onClick} className={classes} {...hoverProps}>
+    <button onClick={onClick} className={classes} {...hoverProps} {...rest}>
       {content}
     </button>
   );

@@ -68,7 +68,7 @@ export const apoiador = defineType({
       name: "categoria",
       title: "Categoria",
       type: "reference",
-      to: [{ type: "categoriaParceria" }],
+      to: [{ type: "incentivador" }],
       description:
         "Ex: Lei Rouanet, Edital da Prefeitura — obrigatório para Patrocinadores e Apoiadores",
       hidden: ({ parent }) =>

@@ -9,7 +9,7 @@ import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { MapPin, Calendar, Clock, Images } from "lucide-react";
 import Link from "next/link";
 import { CATEGORY_LABELS } from "@/constants/eventCategories";
-import { formatEventDate } from "@/utils/eventFormatters";
+import { formatDate } from "@/utils/dateFormatters";
 
 interface EventCardProps {
   event: Event;
@@ -17,7 +17,7 @@ interface EventCardProps {
 }
 
 export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
-  const { dayNumber, monthShort, weekday, timeFormatted } = formatEventDate(
+  const { dayNumber, monthShort, weekday, timeFormatted } = formatDate(
     event.eventDate,
   );
   const hasGallery = event.gallery && event.gallery.length > 0;

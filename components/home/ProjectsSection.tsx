@@ -64,13 +64,6 @@ function ProjectCard({
 
       {/* Conteúdo do card */}
       <div className="p-8">
-        {/* Categoria/Badge */}
-        {project.category && (
-          <div className="inline-block px-4 py-1.5 bg-gradient-to-r from-accent to-primary text-white rounded-full text-sm font-medium mb-4 shadow-md">
-            {project.category}
-          </div>
-        )}
-
         {/* Título */}
         <Heading level={3} className="text-gray-900 mb-3">
           {project.title}

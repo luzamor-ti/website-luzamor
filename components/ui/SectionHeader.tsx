@@ -11,6 +11,7 @@ interface SectionHeaderProps {
   align?: "left" | "center";
   variant?: "light" | "dark";
   layout?: "default" | "split"; // split = tag+título à esquerda, descrição à direita
+  children?: ReactNode;
 }
 
 export function SectionHeader({
@@ -20,6 +21,7 @@ export function SectionHeader({
   align = "left",
   variant = "light",
   layout = "default",
+  children,
 }: SectionHeaderProps) {
   const textColorClass = variant === "dark" ? "text-white" : "text-gray-900";
   const descriptionColorClass =
@@ -128,6 +130,7 @@ export function SectionHeader({
           {description}
         </p>
       )}
+      {children}
     </motion.div>
   );
 }
