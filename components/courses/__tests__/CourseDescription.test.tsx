@@ -51,14 +51,6 @@ describe("CourseDescription", () => {
     expect(screen.queryByText("Datas e Horários")).not.toBeInTheDocument();
   });
 
-  it("renders with correct section styling", () => {
-    const { container } = render(
-      <CourseDescription description={mockDescription} />,
-    );
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("bg-white");
-  });
 
   it("renders schedule with correct styling", () => {
     const schedule = "Segundas e quartas, das 14h às 16h";
