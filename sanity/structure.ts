@@ -1,15 +1,5 @@
 import type { StructureResolver } from "sanity/structure";
 
-// Documentos únicos (singletons) — devem ter apenas um registro
-const SINGLETONS = {
-  configuracaoGlobal: "configuracaoGlobal",
-  navbar: "navbar",
-  rodape: "rodape",
-  sobreNos: "sobreNos",
-  paginaParceiros: "paginaParceiros",
-  auditorio: "auditorio",
-};
-
 export const structure: StructureResolver = (S) =>
   S.list()
     .title("Painel de Administração")
@@ -77,14 +67,7 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title("Espaços da Fundação")
             .items([
-              S.listItem()
-                .title("Auditório")
-                .id("auditorio-singleton")
-                .child(
-                  S.document()
-                    .schemaType("auditorio")
-                    .documentId(SINGLETONS.auditorio),
-                ),
+              S.documentTypeListItem("auditorio").title("Auditório"),
               S.documentTypeListItem("salaAula").title("Salas de Aula"),
             ]),
         ),
@@ -98,22 +81,10 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title("Páginas do Site")
             .items([
-              S.listItem()
-                .title("Sobre Nós")
-                .id("sobreNos-singleton")
-                .child(
-                  S.document()
-                    .schemaType("sobreNos")
-                    .documentId(SINGLETONS.sobreNos),
-                ),
-              S.listItem()
-                .title("Parceiros e Apoiadores")
-                .id("paginaParceiros-singleton")
-                .child(
-                  S.document()
-                    .schemaType("paginaParceiros")
-                    .documentId(SINGLETONS.paginaParceiros),
-                ),
+              S.documentTypeListItem("sobreNos").title("Sobre Nós"),
+              S.documentTypeListItem("paginaParceiros").title(
+                "Parceiros e Apoiadores",
+              ),
             ]),
         ),
 
@@ -126,30 +97,11 @@ export const structure: StructureResolver = (S) =>
           S.list()
             .title("Configurações do Site")
             .items([
-              S.listItem()
-                .title("Configuração Geral")
-                .id("configuracaoGlobal-singleton")
-                .child(
-                  S.document()
-                    .schemaType("configuracaoGlobal")
-                    .documentId(SINGLETONS.configuracaoGlobal),
-                ),
-              S.listItem()
-                .title("Menu de Navegação")
-                .id("navbar-singleton")
-                .child(
-                  S.document()
-                    .schemaType("navbar")
-                    .documentId(SINGLETONS.navbar),
-                ),
-              S.listItem()
-                .title("Rodapé")
-                .id("rodape-singleton")
-                .child(
-                  S.document()
-                    .schemaType("rodape")
-                    .documentId(SINGLETONS.rodape),
-                ),
+              S.documentTypeListItem("configuracaoGlobal").title(
+                "Configuração Geral",
+              ),
+              S.documentTypeListItem("navbar").title("Menu de Navegação"),
+              S.documentTypeListItem("rodape").title("Rodapé"),
             ]),
         ),
     ]);
