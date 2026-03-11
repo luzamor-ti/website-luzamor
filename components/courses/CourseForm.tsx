@@ -2,31 +2,42 @@
 import { Course } from "@/sanity/lib/types/course";
 import { useState } from "react";
 import { motion } from "framer-motion";
-import { Button, LinkButton, Text } from "../ui";
+import { Button, Text } from "../ui";
 import { Calendar, Ticket, UserCheck } from "lucide-react";
+import { ctaWhatsappGlobal } from "@/utils/ctaWhatsappGlobal";
 
 interface EnrollmentModalProps {
   course: Course;
-  whatsappNumber: string;
+  whatsappNumber?: string; // Do curso
+  globalWhatsapp?: string; // Da fundação (Sanity)
 }
 
-export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
+export function CourseForm({
+  course,
+  whatsappNumber,
+  globalWhatsapp,
+}: EnrollmentModalProps) {
   const [name, setName] = useState("");
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!name.trim()) return;
 
-    const messageTemplate =
-      course.enrollment?.messageText ||
-      "Olá! Gostaria de me inscrever no curso {curso}. Meu nome é {nome}.";
+    // A utility decide qual número usar com base no que passamos
+    const whatsappData = ctaWhatsappGlobal(
+      course.title,
+      whatsappNumber,
+      course.enrollment?.messageText,
+      globalWhatsapp,
+    );
 
-    const message = messageTemplate
+    // Injeta o nome do usuário na mensagem
+    const finalUrl = decodeURIComponent(whatsappData.href)
+      .replace("{nome}", name)
       .replace("{curso}", course.title)
-      .replace("{nome}", name);
+      .replace("{itemName}", course.title);
 
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(message)}`;
-    window.open(whatsappUrl, "_blank");
+    window.open(encodeURI(finalUrl), "_blank");
   };
 
   const formattedPrice = new Intl.NumberFormat("pt-BR", {
@@ -39,9 +50,8 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
       initial={{ opacity: 0, scale: 0.95 }}
       animate={{ opacity: 1, scale: 1 }}
       className="rounded-2xl p-6 md:p-8 max-w-md w-full shadow-2xl bg-white border-gray-100"
-      onClick={(e) => e.stopPropagation()}
     >
-      {/* CUSTOS */}
+      {/* Informações de Preço */}
       {course.price && (
         <div className="bg-gradient-to-r from-primary/10 to-primary/5 rounded-xl p-5 border border-primary mb-6">
           <div className="flex items-center gap-2 mb-2">
@@ -62,13 +72,12 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
         </div>
       )}
 
-      {/* DETALHES (Idade e Horário) */}
+      {/* Detalhes do Curso */}
       <div className="space-y-4 mb-6">
         <div className="flex items-center gap-2 text-gray-700">
           <UserCheck size={16} className="text-primary" />
           <span className="text-sm font-medium">Idade mínima: 16 anos</span>
         </div>
-
         <div>
           <div className="flex items-center gap-2 mb-1">
             <Calendar size={16} className="text-primary" />
@@ -80,24 +89,13 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
             </Text>
           </div>
           <Text className="italic text-gray-700">
-            {course.schedule || "Data e horário a definir"}
+            {course.schedule || "A definir"}
           </Text>
         </div>
-
-        {course.classroom && (
-          <div className="flex flex-col gap-3 pt-2">
-            {/* BOTÃO DA SALA DE AULA (ACIMA) */}
-            <LinkButton
-              href={`/salas-aula?sala=${encodeURIComponent(course.classroom?.slug ?? "")}`}
-            >
-              Ver sala
-            </LinkButton>
-          </div>
-        )}
       </div>
 
       <h3 className="border-gray-200 text-2xl font-bold mb-4 text-gray-900 border-t pt-4">
-        Inscrever-se em {course.title}
+        Inscrever-se
       </h3>
 
       <form onSubmit={handleSubmit} className="space-y-4">
@@ -113,7 +111,7 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
             id="name"
             value={name}
             onChange={(e) => setName(e.target.value)}
-            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent transition text-gray-900"
+            className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary text-gray-900"
             placeholder="Digite seu nome completo"
             required
           />
@@ -121,8 +119,9 @@ export function CourseForm({ course, whatsappNumber }: EnrollmentModalProps) {
         <Button
           variant="primary"
           size="md"
+          type="submit"
           fullWidth
-          className="font-semibold mb-6"
+          className="font-semibold"
         >
           {course.enrollment?.buttonText || "Inscrever-se via WhatsApp"}
         </Button>

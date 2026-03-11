@@ -59,8 +59,10 @@ export default async function CourseDetailPage({ params }: PageProps) {
           {/* 'sticky' faz o form seguir o scroll se a descrição for longa */}
           <aside className="lg:col-span-1 lg:sticky lg:top-8">
             <div className="bg-gray-50 rounded-2xl shadow-xl overflow-hidden">
-              {/* Note que removi o padding aqui para deixar o form controlar o espaço interno */}
-              <CourseForm course={curso} whatsappNumber="99999999" />
+              <CourseForm
+                course={curso}
+                whatsappNumber={curso.whatsappNumber}
+              />
             </div>
           </aside>
         </div>
