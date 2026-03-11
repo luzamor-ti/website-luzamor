@@ -64,6 +64,18 @@ Agora você pode ordenar as seções por:
 - Tipo de seção (alfabético)
 - Título (alfabético)
 
+### 6. **Campos Condicionais por Tipo de Seção** 🎛️
+
+Cada tipo de seção exibe apenas os campos relevantes para ela. Isso elimina a confusão de ver campos de outros tipos que não se aplicam ao seu contexto.
+
+**Exemplo:** A seção `supporters` não tem "Título" (pois não é usada no componente). Já a seção `intro` é a única que mostra o campo "Imagem Principal".
+
+Consulte a tabela completa na seção [Campos por Tipo de Seção](#-campos-por-tipo-de-seção) abaixo.
+
+### 7. **Seletor de Páginas Internas** 🗺️
+
+Os campos de URL (botões e links) agora são **dropdowns com todas as páginas do site**. Não é mais necessário digitar caminhos manualmente — basta selecionar a página de destino.
+
 ---
 
 ## 🚀 Como Usar
@@ -119,9 +131,7 @@ Adicione quantos cards precisar. Cada card tem:
 2. **Descrições claras**: Máximo 200 caracteres por card
 3. **Use emojis no seletor**: Facilita identificar o ícone certo
 4. **Imagens otimizadas**: Use imagens de boa qualidade mas não muito pesadas
-5. **Links corretos**:
-   - Links internos: `/contato`, `/sobre`
-   - Links externos: `https://exemplo.com`
+5. **Links corretos**: Use o dropdown de páginas internas. Para URLs externas, o campo aceita `https://...` diretamente
 
 ### ⚠️ Campos Opcionais vs Obrigatórios
 
@@ -211,7 +221,40 @@ Adicione quantos cards precisar. Cada card tem:
 
 ---
 
-## 🆘 Problemas Comuns
+## �️ Campos por Tipo de Seção
+
+A tabela abaixo mostra quais campos ficam **visíveis** no Studio para cada tipo de seção. Campos marcados com ✅ são exibidos; ❌ estão ocultos automaticamente.
+
+| Campo          | intro | projects | members | supporters | faq | contact | impact | initiatives | howToHelp |
+| -------------- | :---: | :------: | :-----: | :--------: | :-: | :-----: | :----: | :---------: | :-------: |
+| tag            |  ✅   |    ✅    |   ✅    |     ✅     | ✅  |   ✅    |   ✅   |     ✅      |    ✅     |
+| titulo         |  ✅   |    ✅    |   ✅    |     ❌     | ✅  |   ✅    |   ✅   |     ✅      |    ✅     |
+| descricao      |  ✅   |    ✅    |   ✅    |     ✅     | ✅  |   ❌    |   ✅   |     ✅      |    ✅     |
+| imagem (seção) |  ✅   |    ❌    |   ❌    |     ❌     | ❌  |   ❌    |   ❌   |     ❌      |    ❌     |
+| textoBotao     |  ✅   |    ❌    |   ❌    |     ❌     | ❌  |   ❌    |   ❌   |     ✅      |    ✅     |
+| urlBotao       | ✅\*  |    ❌    |   ❌    |     ❌     | ❌  |   ❌    |   ❌   |     ❌      |    ❌     |
+| textoLink      |  ❌   |    ✅    |   ❌    |     ✅     | ❌  |   ❌    |   ❌   |     ✅      |    ✅     |
+| urlLink        |  ❌   |   ✅\*   |   ❌    |    ✅\*    | ❌  |   ❌    |   ❌   |    ✅\*     |   ✅\*    |
+| cards (array)  |  ❌   |    ❌    |   ❌    |     ❌     | ❌  |   ❌    |   ✅   |     ✅      |    ✅     |
+| labels         |  ❌   |    ❌    |   ❌    |     ❌     | ❌  |   ✅    |   ❌   |     ❌      |    ❌     |
+
+> **\*** Campo condicional: só aparece quando o campo de texto correspondente está preenchido (ex: `urlBotao` só aparece se `textoBotao` tiver valor).
+
+### Sub-campos dos Cards
+
+| Campo do Card  | impact | initiatives | howToHelp |
+| -------------- | :----: | :---------: | :-------: |
+| titulo         |   ✅   |     ✅      |    ✅     |
+| descricao      |   ✅   |     ❌      |    ✅     |
+| icone          |   ❌   |     ❌      |    ✅     |
+| imagem         |   ✅   |     ✅      |    ✅     |
+| url (destino)  |   ❌   |     ✅      |    ✅     |
+| subtitulo      |   ❌   |     ✅      |    ❌     |
+| numero/métrica |   ✅   |     ❌      |    ❌     |
+
+---
+
+## �🆘 Problemas Comuns
 
 ### Não vejo o campo de URL do Botão
 
@@ -248,4 +291,4 @@ Dúvidas sobre como usar o CMS? Entre em contato com a equipe de desenvolvimento
 ---
 
 **Documentação criada em:** 26/02/2026  
-**Versão do Schema:** 2.0 (Reorganizado e Otimizado)
+**Versão do Schema:** 3.0 (Campos condicionais + seletor de páginas internas)
