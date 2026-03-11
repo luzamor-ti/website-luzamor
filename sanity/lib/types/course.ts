@@ -15,7 +15,16 @@ export interface Course {
   description: PortableTextBlock[];
   schedule: string;
   teacherType: "membro" | "externo";
+  enrollment: {
+    active: boolean;
+    messageText?: string;
+    whatsapp?: string;
+    buttonText?: string;
+  };
+  active: boolean;
   teacherMember?: Member;
+  shortDescription?: string;
+  price?: number;
   externalTeacher?: {
     name: string;
     photo?: {
@@ -26,16 +35,9 @@ export interface Course {
       alt?: string;
     };
   };
-  enrollment: {
-    active: boolean;
-    messageText?: string;
-    whatsapp?: string;
-    buttonText?: string;
-  };
   classroom?: {
     slug: string;
     name: string;
   };
-  active: boolean;
   order?: number;
 }

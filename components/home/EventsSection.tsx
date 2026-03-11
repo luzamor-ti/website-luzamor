@@ -2,21 +2,10 @@
 
 import { Event } from "@/sanity/lib/types/event";
 import { HomeSection } from "@/sanity/lib/types/homeSection";
-import {
-  TEXT_FALLBACKS,
-  EVENT_DETAIL_FALLBACKS,
-} from "@/constants/textFallbacks";
+import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
 import { Section, SectionHeader, SectionFooter } from "@/components/ui";
-import { EventCategoryBadge } from "@/components/events/EventCategoryBadge";
 import { motion } from "framer-motion";
-import {
-  staggerContainerVariants,
-  staggerItemVariants,
-} from "@/lib/animations";
-import Image from "next/image";
-import Link from "next/link";
-import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
-import { Ticket, MapPin, ArrowRight, Clock } from "lucide-react";
+import { staggerContainerVariants } from "@/lib/animations";
 import { EventCard } from "../ui/EventCard";
 
 interface EventsSectionProps {
