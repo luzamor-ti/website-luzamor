@@ -61,14 +61,14 @@ export default async function RootLayout({
           <div
             className="absolute -left-48 top-1/4 w-[500px] h-[500px] rounded-full blur-[120px]"
             style={{
-              backgroundColor: theme.primaryColor || "#00B749",
+              backgroundColor: theme.primaryColor || "#6366f1",
               opacity: 0.3,
             }}
           />
           <div
             className="absolute -left-32 top-2/3 w-[400px] h-[400px] rounded-full blur-[100px]"
             style={{
-              backgroundColor: theme.primaryColor || "#00B749",
+              backgroundColor: theme.primaryColor || "#6366f1",
               opacity: 0.03,
             }}
           />
@@ -76,18 +76,24 @@ export default async function RootLayout({
           <div
             className="absolute -right-48 top-1/3 w-[480px] h-[480px] rounded-full blur-[120px]"
             style={{
-              backgroundColor: theme.primaryColor || "#00B749",
+              backgroundColor: theme.primaryColor || "#6366f1",
               opacity: 0.2,
             }}
           />
           <div
             className="absolute -right-36 top-3/4 w-[420px] h-[420px] rounded-full blur-[110px]"
             style={{
-              backgroundColor: theme.primaryColor || "#00B749",
+              backgroundColor: theme.primaryColor || "#6366f1",
               opacity: 0.1,
             }}
           />
         </div>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:text-gray-900 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:font-semibold focus:outline-none"
+        >
+          Pular para o conteúdo principal
+        </a>
         <LayoutWrapper navbar={navbar} footer={footer} logo={config?.logo}>
           {children}
         </LayoutWrapper>
