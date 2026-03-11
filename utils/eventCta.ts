@@ -15,7 +15,10 @@ export interface CTAConfig {
  * @param globalWhatsapp - Número global da fundação vindo do CMS (configuracaoGlobal)
  * @returns Configuração do CTA com href e handler
  */
-export function buildEventCTA(event: Event, globalWhatsapp?: string): CTAConfig {
+export function buildEventCTA(
+  event: Event,
+  globalWhatsapp?: string,
+): CTAConfig {
   const hasCTA = event.cta?.enabled;
   const fallbackNumber =
     globalWhatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
@@ -73,7 +76,10 @@ export function buildEventCTA(event: Event, globalWhatsapp?: string): CTAConfig 
  * @param event - Objeto do evento
  * @param globalWhatsapp - Número global da fundação vindo do CMS (configuracaoGlobal)
  */
-export function handleEventCTAClick(event: Event, globalWhatsapp?: string): void {
+export function handleEventCTAClick(
+  event: Event,
+  globalWhatsapp?: string,
+): void {
   const fallbackNumber =
     globalWhatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
 
