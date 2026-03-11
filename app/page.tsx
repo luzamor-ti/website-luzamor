@@ -15,7 +15,26 @@ import {
   EventsSection,
 } from "@/components/home";
 
+const SECTION_NAMES = [
+  "intro",
+  "projects",
+  "supporters",
+  "faq",
+  "contact",
+  "impact",
+  "initiatives",
+  "howToHelp",
+  "courses",
+  "events",
+] as const;
+
 export default async function Home() {
+  const [homeData, hero, sections] = await Promise.all([
+    getHomeData(),
+    getHeroData(),
+    getHomeSectionsByNames([...SECTION_NAMES]),
+  ]);
+
   const {
     projects,
     supporters,
@@ -24,22 +43,7 @@ export default async function Home() {
     configuration,
     courses,
     events,
-  } = await getHomeData();
-  const hero = await getHeroData();
-
-  // Busca todas as seções do CMS
-  const sections = await getHomeSectionsByNames([
-    "intro",
-    "projects",
-    "supporters",
-    "faq",
-    "contact",
-    "impact",
-    "initiatives",
-    "howToHelp",
-    "courses",
-    "events",
-  ]);
+  } = homeData;
 
   return (
     <main>

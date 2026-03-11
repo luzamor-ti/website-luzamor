@@ -28,10 +28,11 @@ export const metadata = {
 };
 
 async function getLayoutData() {
-  const config = await getGlobalConfiguration();
-  const navbar = await getNavbar();
-  const footer = await getFooter();
-
+  const [config, navbar, footer] = await Promise.all([
+    getGlobalConfiguration(),
+    getNavbar(),
+    getFooter(),
+  ]);
   return { config, navbar, footer };
 }
 
