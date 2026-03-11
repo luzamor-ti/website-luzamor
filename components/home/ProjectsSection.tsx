@@ -104,7 +104,7 @@ function ProjectCard({
 
         {/* Botão */}
         <Link
-          href={`/projetos/${project.slug.current}`}
+          href={`/projeto/${project.slug.current}`}
           className="group inline-flex items-center gap-2 text-gray-900 font-medium hover:text-primary transition-colors duration-300"
         >
           <span>Quero ajudar este projeto</span>

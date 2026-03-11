@@ -71,7 +71,7 @@ export function EventsSection({ data, section }: EventsSectionProps) {
           linkText={
             section?.linkText || fallback.linkText || "Ver todos os eventos"
           }
-          linkHref="/eventos"
+          linkHref="/calendario-eventos"
           showLink={data.length > 3}
         />
       </motion.div>
