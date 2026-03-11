@@ -1,5 +1,11 @@
 import { groq } from "next-sanity";
 
+export const globalConfigQuery = groq`
+  *[_type == "configuracaoGlobal"][0] {
+    "whatsappGlobal": contato.whatsapp
+  }
+`;
+
 export const coursesQuery = groq`
   *[_type == "curso" && ativo == true] | order(ordem asc, _createdAt desc) {
     _id,
@@ -9,7 +15,9 @@ export const coursesQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
+    "price": valor,
     "description": descricao,
+    "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
@@ -49,7 +57,9 @@ export const courseBySlugQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
+    "price": valor,
     "description": descricao,
+    "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
@@ -89,7 +99,9 @@ export const relatedcoursesQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
+    "price": valor,
     "description": descricao,
+    "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{

@@ -151,13 +151,6 @@ describe("RelatedCourses", () => {
     expect(container).toBeEmptyDOMElement();
   });
 
-  it("renders with correct section styling", () => {
-    const { container } = render(<RelatedCourses courses={mockCourses} />);
-
-    const section = container.querySelector("section");
-    expect(section).toHaveClass("bg-[#f5f5f5]", "py-24");
-  });
-
   it("renders course without teacher seal when teacher info is missing", () => {
     const coursesWithoutTeacher: Course[] = [
       {

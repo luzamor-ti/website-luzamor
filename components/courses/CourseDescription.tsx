@@ -1,7 +1,7 @@
 import { Section, Heading, Text } from "@/components/ui";
 import { PortableText } from "@portabletext/react";
-// Importe o tipo específico para o Portable Text
 import type { PortableTextBlock } from "@portabletext/types";
+import { portableTextComponents } from "@/constants/portableTextComponents";
 
 interface CourseDescriptionProps {
   description: PortableTextBlock[];
@@ -13,13 +13,17 @@ export function CourseDescription({
   schedule,
 }: CourseDescriptionProps) {
   return (
-    <Section className="bg-white">
+    <Section className="!pt-0">
       <div className="max-w-4xl mx-auto">
-        <Heading level={2} className="mb-8">
+        <Heading level={2} className="mb-8 ">
           Sobre o Curso
         </Heading>
+
         <div className="prose prose-lg max-w-none">
-          <PortableText value={description} />
+          <PortableText
+            value={description}
+            components={portableTextComponents}
+          />
         </div>
 
         {schedule && (

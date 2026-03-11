@@ -49,6 +49,20 @@ export const curso = defineType({
     }),
 
     defineField({
+      name: "descricaoCurta",
+      title: "Descrição Curta",
+      type: "text",
+      group: "informacoes",
+    }),
+
+    defineField({
+      name: "valor",
+      title: "Valor do Curso (R$)",
+      type: "number",
+      group: "informacoes",
+    }),
+
+    defineField({
       name: "descricao",
       title: "Descrição",
       type: "array",

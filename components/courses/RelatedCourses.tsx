@@ -1,5 +1,5 @@
 "use client";
-import { Section, SectionHeader, Grid, Heading } from "@/components/ui";
+import { Section, SectionHeader, Grid, Heading, Button } from "@/components/ui";
 import Image from "next/image";
 import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
@@ -14,7 +14,7 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
   if (!courses || courses.length === 0) return null;
 
   return (
-    <Section className="bg-[#f5f5f5] py-24">
+    <Section className=" py-24">
       <div className="container mx-auto px-4">
         {/* Usando o layout 'split' para o título ficar igual à print */}
         <SectionHeader
@@ -42,7 +42,7 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
                 key={curso._id}
                 className="group"
               >
-                <div className="bg-gray-300 rounded-[32px] p-4 h-full shadow-md hover:shadow-xl transition-all duration-500 border border-gray-400 flex flex-col">
+                <div className="bg-white rounded-[32px] p-4 h-full shadow-md hover:shadow-xl transition-all duration-500 border border-gray-200 flex flex-col">
                   {/* PASSO 1: IMAGEM COM SELO FLUTUANTE */}
                   <div className="relative h-64 w-full rounded-[24px] overflow-hidden mb-6">
                     {imageUrl && (
@@ -91,9 +91,9 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
 
                     {/* --- PASSO 2: BOTÃO VERDE ARREDONDADO --- */}
                     <div className="mt-auto pt-2">
-                      <div className="w-full bg-[#00b341] group-hover:bg-[#009a37] text-white font-bold py-4 rounded-full text-center transition-colors shadow-md shadow-emerald-100">
+                      <Button variant="primary" size="md" fullWidth>
                         {curso.enrollment?.buttonText || "Saiba mais"}
-                      </div>
+                      </Button>
                     </div>
                   </div>
                 </div>
