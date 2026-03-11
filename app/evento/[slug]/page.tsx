@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getEventBySlug } from "@/sanity/lib/services/eventService";
+import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
 import {
   EventHero,
   EventDetails,
@@ -38,7 +39,11 @@ export async function generateMetadata({
 
 export default async function EventPage({ params }: EventPageProps) {
   const { slug } = await params;
-  const event = await getEventBySlug(slug);
+
+  const [event, globalConfig] = await Promise.all([
+    getEventBySlug(slug),
+    getGlobalConfiguration(),
+  ]);
 
   if (!event) {
     notFound();
@@ -56,7 +61,10 @@ export default async function EventPage({ params }: EventPageProps) {
           </div>
           <div className="lg:col-span-1">
             <div className="sticky top-24">
-              <EventInfo event={event} />
+              <EventInfo
+                event={event}
+                globalWhatsapp={globalConfig?.contact?.whatsapp}
+              />
             </div>
           </div>
         </div>
