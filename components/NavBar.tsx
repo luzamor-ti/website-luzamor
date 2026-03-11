@@ -1,6 +1,6 @@
 "use client";
 
-import { motion, AnimatePresence } from "framer-motion";
+import { AnimatePresence, motion } from "framer-motion";
 import { Image as SanityImage } from "sanity";
 import Image from "next/image";
 import Link from "next/link";
@@ -52,6 +52,7 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
+        aria-label="Navegação principal"
       >
         {/* Logo */}
         <Link
@@ -61,7 +62,7 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
           {logoUrl && (
             <Image
               src={logoUrl}
-              alt="Logo"
+              alt=""
               width={34}
               height={34}
               className="h-8 w-auto object-contain rounded-full"
@@ -89,6 +90,8 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
                     onClick={() =>
                       setOpenDropdown(openDropdown === itemKey ? null : itemKey)
                     }
+                    aria-expanded={openDropdown === itemKey}
+                    aria-haspopup="true"
                   >
                     {item.title}
                     <ChevronDown
@@ -187,6 +190,8 @@ export function NavBar({ logo, items, primaryButton }: NavBarProps) {
                               openDropdown === itemKey ? null : itemKey,
                             )
                           }
+                          aria-expanded={openDropdown === itemKey}
+                          aria-haspopup="true"
                         >
                           {item.title}
                           <ChevronDown
