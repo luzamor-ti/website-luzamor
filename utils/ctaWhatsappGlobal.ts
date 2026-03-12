@@ -23,3 +23,17 @@ export function ctaWhatsappGlobal(
     isExternal: true,
   };
 }
+
+export function getWhatsappContactUrl(
+  number?: string,
+  customMessage?: string,
+  fallbackNumber?: string,
+): string {
+  const finalNumber =
+    number ||
+    fallbackNumber ||
+    process.env.NEXT_PUBLIC_FALLBACK_WHATSAPP_NUMBER;
+
+  const baseMessage = customMessage || "Olá! Gostaria de mais informações.";
+  return `https://wa.me/${finalNumber}?text=${encodeURIComponent(baseMessage)}`;
+}
