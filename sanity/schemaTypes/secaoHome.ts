@@ -279,7 +279,7 @@ export default defineType({
               title: "Destino do Card",
               type: "string",
               description:
-                "Selecione uma página interna. Para URLs externas (ex: links de doação), use uma URL completa com https://",
+                "Selecione uma página interna ou escolha WhatsApp para abrir o contato da fundação",
               options: {
                 list: [
                   ...paginasInternas,

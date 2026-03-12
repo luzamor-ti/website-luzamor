@@ -50,7 +50,7 @@ export default async function RootLayout({
         className={inter.variable}
         style={
           {
-            "--color-primary": theme.primaryColor || "#6366f1",
+            "--color-primary": theme.primaryColor || "#00B749",
             "--color-secondary": theme.secondaryColor || "#8b5cf6",
             "--color-accent": theme.accentColor || "#10b981",
             "--color-bg": theme.backgroundColor || "#ffffff",
@@ -62,14 +62,14 @@ export default async function RootLayout({
           <div
             className="absolute -left-48 top-1/4 w-[500px] h-[500px] rounded-full blur-[120px]"
             style={{
-              backgroundColor: theme.primaryColor || "#6366f1",
+              backgroundColor: theme.primaryColor || "#00B749",
               opacity: 0.3,
             }}
           />
           <div
             className="absolute -left-32 top-2/3 w-[400px] h-[400px] rounded-full blur-[100px]"
             style={{
-              backgroundColor: theme.primaryColor || "#6366f1",
+              backgroundColor: theme.primaryColor || "#00B749",
               opacity: 0.03,
             }}
           />
@@ -77,14 +77,14 @@ export default async function RootLayout({
           <div
             className="absolute -right-48 top-1/3 w-[480px] h-[480px] rounded-full blur-[120px]"
             style={{
-              backgroundColor: theme.primaryColor || "#6366f1",
+              backgroundColor: theme.primaryColor || "#00B749",
               opacity: 0.2,
             }}
           />
           <div
             className="absolute -right-36 top-3/4 w-[420px] h-[420px] rounded-full blur-[110px]"
             style={{
-              backgroundColor: theme.primaryColor || "#6366f1",
+              backgroundColor: theme.primaryColor || "#00B749",
               opacity: 0.1,
             }}
           />

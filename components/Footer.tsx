@@ -35,9 +35,9 @@ export function Footer({
   ];
 
   const socialLinks = [
-    { name: "Facebook", href: "#" },
-    { name: "Instagram", href: "#" },
-  ];
+    { name: "Facebook", href: "" },
+    { name: "Instagram", href: "" },
+  ].filter((link) => link.href);
 
   const contactLinks = [
     { name: "(44) 3346-2217", href: "tel:4433462217" },
@@ -87,9 +87,11 @@ export function Footer({
           <Text variant="small" className="text-white/70">
             {sejaApoiadorSubtitulo}
           </Text>
-          <Button href={whatsapp ?? "#"} external variant="primary">
-            {sejaApoiadorTitulo}
-          </Button>
+          {whatsapp ? (
+            <Button href={whatsapp} external variant="primary">
+              {sejaApoiadorTitulo}
+            </Button>
+          ) : null}
         </div>
       </Grid>
       <Grid

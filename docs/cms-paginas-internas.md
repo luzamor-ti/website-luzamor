@@ -121,4 +121,4 @@ Os schemas Sanity precisam de um array de `{ title, value }` para o campo `list`
 ---
 
 **Criado em:** Janeiro/2025  
-**Atualizado em:** Janeiro/2025
+**Atualizado em:** Março/2026

@@ -32,7 +32,9 @@ export default function LayoutWrapper({
     <>
       {!hideLayout && navbar && <NavBar logo={logo ?? undefined} {...navbar} />}
 
-      {children}
+      <div id="main-content" tabIndex={-1}>
+        {children}
+      </div>
 
       {!hideLayout && footer && <Footer logo={logo ?? undefined} {...footer} />}
     </>
