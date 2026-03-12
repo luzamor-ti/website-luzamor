@@ -7,7 +7,7 @@ import {
   staggerContainerVariants,
 } from "@/lib/animations";
 import { HomeSection } from "@/sanity/lib/types/homeSection";
-import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
+import { TEXT_FALLBACKS, EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 import {
   Section,
   Button,
@@ -75,8 +75,19 @@ const InitiativesSection = ({ data }: InitiativesSectionProps) => {
                     {item.subtitle}
                   </Text>
                 )}
-                {item.url && (
+                {item.url && item.url !== "__whatsapp__" && (
                   <Button href={item.url} variant="primary" fullWidth showArrow>
+                    {section.buttonText || fallback.buttonText}
+                  </Button>
+                )}
+                {item.url === "__whatsapp__" && (
+                  <Button
+                    href={`https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}`}
+                    external
+                    variant="primary"
+                    fullWidth
+                    showArrow
+                  >
                     {section.buttonText || fallback.buttonText}
                   </Button>
                 )}

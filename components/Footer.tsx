@@ -22,28 +22,37 @@ export function Footer({
 
   const navigationLinks = [
     { name: "Início", href: "/" },
-    { name: "Sobre nós", href: "/quem-somos" },
-    { name: "Cursos e eventos", href: "/projetos" },
-    { name: "Doação", href: "/equipe" },
+    { name: "Sobre nós", href: "/sobre-nos" },
+    { name: "Cursos", href: "/cursos" },
+    { name: "Calendário de Eventos", href: "/calendario-eventos" },
   ];
 
   const anotherLinks = [
-    { name: "Projetos", href: "/" },
-    { name: "Sala de aula", href: "/quem-somos" },
-    { name: "Politica de privacidade", href: "/politica-de-privacidade" },
-    { name: "Termos e condições", href: "/termos-e-condicoes" },
+    { name: "Projetos", href: "/projetos" },
+    { name: "Sala de aula", href: "/salas-aula" },
+    { name: "Auditório", href: "/auditorio" },
+    { name: "Contato", href: "/contato" },
   ];
 
   const socialLinks = [
-    { name: "Facebook", href: "/" },
-    { name: "Instagram", href: "/quem-somos" },
-  ];
+    { name: "Facebook", href: "" },
+    { name: "Instagram", href: "" },
+  ].filter((link) => link.href);
 
   const contactLinks = [
-    { name: "(44) 3346-2217", href: "/" },
-    { name: "fundacaoluzamor@gmail.com", href: "/quem-somos" },
-    { name: "R. Néo Alves Martins, 1704 ", href: "/projetos" },
-    { name: "Maringá - PR", href: "/equipe" },
+    { name: "(44) 3346-2217", href: "tel:4433462217" },
+    {
+      name: "fundacaoluzamor@gmail.com",
+      href: "mailto:fundacaoluzamor@gmail.com",
+    },
+    {
+      name: "R. Néo Alves Martins, 1704",
+      href: "https://www.google.com/maps/search/?api=1&query=R.+N%C3%A9o+Alves+Martins+1704+Maring%C3%A1+PR",
+    },
+    {
+      name: "Maringá - PR",
+      href: "https://www.google.com/maps/search/?api=1&query=Maring%C3%A1+PR",
+    },
   ];
 
   return (
@@ -54,7 +63,7 @@ export function Footer({
             {logoUrl && (
               <Image
                 src={logoUrl}
-                alt="Logo"
+                alt=""
                 width={50}
                 height={50}
                 className="object-contain rounded-full"
@@ -78,14 +87,11 @@ export function Footer({
           <Text variant="small" className="text-white/70">
             {sejaApoiadorSubtitulo}
           </Text>
-          <Button
-            variant="primary"
-            onClick={() => {
-              window.open(whatsapp, "_blank");
-            }}
-          >
-            {sejaApoiadorTitulo}
-          </Button>
+          {whatsapp ? (
+            <Button href={whatsapp} external variant="primary">
+              {sejaApoiadorTitulo}
+            </Button>
+          ) : null}
         </div>
       </Grid>
       <Grid
@@ -93,7 +99,7 @@ export function Footer({
         gap="lg"
         className="max-w-6xl mx-auto border-b-1 border-white/20 py-8 mb-8"
       >
-        <div className="flex flex-col space-y-4">
+        <nav aria-label="Navegação" className="flex flex-col space-y-4">
           <Text variant="body" className="text-white font-semibold pl-5">
             Navegação
           </Text>
@@ -107,9 +113,9 @@ export function Footer({
               <ArrowRight size={16} className="inline-block ml-1" />
             </Link>
           ))}
-        </div>
+        </nav>
 
-        <div className="flex flex-col space-y-4">
+        <nav aria-label="Outros links" className="flex flex-col space-y-4">
           <Text variant="body" className="text-white font-semibold pl-5">
             Outros Links
           </Text>
@@ -123,9 +129,9 @@ export function Footer({
               <ArrowRight size={16} className="inline-block ml-1" />
             </Link>
           ))}
-        </div>
+        </nav>
 
-        <div className="flex flex-col space-y-4">
+        <nav aria-label="Redes sociais" className="flex flex-col space-y-4">
           <Text variant="body" className="text-white font-semibold pl-5">
             Redes Sociais
           </Text>
@@ -139,7 +145,7 @@ export function Footer({
               <ArrowRight size={16} className="inline-block ml-1" />
             </Link>
           ))}
-        </div>
+        </nav>
 
         <div className="flex flex-col space-y-4">
           <Text variant="body" className="text-white font-semibold pl-5">
@@ -168,7 +174,7 @@ export function Footer({
           {logoUrl && (
             <Image
               src={logoUrl}
-              alt="Logo"
+              alt=""
               width={34}
               height={34}
               className="object-contain rounded-full"

@@ -1,12 +1,21 @@
 import { Section, Heading, Button } from "@/components/ui";
 import { Course } from "@/sanity/lib/types/course";
+import { EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 
 interface CourseEnrollmentProps {
   enrollment: Course["enrollment"];
+  globalWhatsapp?: string;
 }
 
-export function CourseEnrollment({ enrollment }: CourseEnrollmentProps) {
-  const whatsappUrl = `https://wa.me/${enrollment.whatsapp}?text=${encodeURIComponent(enrollment.messageText || "")}`;
+export function CourseEnrollment({
+  enrollment,
+  globalWhatsapp,
+}: CourseEnrollmentProps) {
+  const whatsappNumber =
+    enrollment.whatsapp ||
+    globalWhatsapp ||
+    EVENT_DETAIL_FALLBACKS.globalWhatsapp;
+  const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(enrollment.messageText || "")}`;
   return (
     <Section className="bg-primary text-white text-center">
       <div className="max-w-2xl mx-auto">

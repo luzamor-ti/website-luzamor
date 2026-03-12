@@ -8,7 +8,7 @@ import {
   staggerItemVariants,
 } from "@/lib/animations";
 import { HomeSection } from "@/sanity/lib/types/homeSection";
-import { TEXT_FALLBACKS } from "@/constants/textFallbacks";
+import { TEXT_FALLBACKS, EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 import {
   Section,
   Heading,
@@ -147,7 +147,9 @@ const HowToHelpSection = ({ data }: HowToHelpSectionProps) => {
                 onClick={() => {
                   const url = "url" in card ? card.url : undefined;
                   if (url) {
-                    if (url.startsWith("http")) {
+                    if (url === "__whatsapp__") {
+                      window.open(`https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}`, "_blank");
+                    } else if (url.startsWith("http")) {
                       window.open(url, "_blank");
                     } else {
                       router.push(url);
@@ -162,7 +164,9 @@ const HowToHelpSection = ({ data }: HowToHelpSectionProps) => {
                     e.preventDefault();
                     const url = "url" in card ? card.url : undefined;
                     if (url) {
-                      if (url.startsWith("http")) {
+                      if (url === "__whatsapp__") {
+                        window.open(`https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}`, "_blank");
+                      } else if (url.startsWith("http")) {
                         window.open(url, "_blank");
                       } else {
                         router.push(url);

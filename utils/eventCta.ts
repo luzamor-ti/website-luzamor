@@ -12,10 +12,16 @@ export interface CTAConfig {
 /**
  * Constrói a configuração para um botão CTA de evento
  * @param event - Objeto do evento
+ * @param globalWhatsapp - Número global da fundação vindo do CMS (configuracaoGlobal)
  * @returns Configuração do CTA com href e handler
  */
-export function buildEventCTA(event: Event): CTAConfig {
+export function buildEventCTA(
+  event: Event,
+  globalWhatsapp?: string,
+): CTAConfig {
   const hasCTA = event.cta?.enabled;
+  const fallbackNumber =
+    globalWhatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
 
   if (!hasCTA || !event.cta) {
     // Fallback: WhatsApp global
@@ -24,7 +30,7 @@ export function buildEventCTA(event: Event): CTAConfig {
       event.title,
     );
     return {
-      href: `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`,
+      href: `https://wa.me/${fallbackNumber}?text=${encodeURIComponent(message)}`,
       isExternal: true,
     };
   }
@@ -37,8 +43,7 @@ export function buildEventCTA(event: Event): CTAConfig {
       };
 
     case "whatsapp": {
-      const whatsappNumber =
-        event.cta.whatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
+      const whatsappNumber = event.cta.whatsapp || fallbackNumber;
       const message =
         event.cta.whatsappMessage ??
         EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
@@ -69,8 +74,15 @@ export function buildEventCTA(event: Event): CTAConfig {
  * Handler de clique para CTA de evento
  * Executa ação apropriada baseada no tipo de CTA
  * @param event - Objeto do evento
+ * @param globalWhatsapp - Número global da fundação vindo do CMS (configuracaoGlobal)
  */
-export function handleEventCTAClick(event: Event): void {
+export function handleEventCTAClick(
+  event: Event,
+  globalWhatsapp?: string,
+): void {
+  const fallbackNumber =
+    globalWhatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
+
   if (!event.cta?.enabled) {
     // Fallback para WhatsApp global
     const message = EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(
@@ -78,7 +90,7 @@ export function handleEventCTAClick(event: Event): void {
       event.title,
     );
     window.open(
-      `https://wa.me/${EVENT_DETAIL_FALLBACKS.globalWhatsapp}?text=${encodeURIComponent(message)}`,
+      `https://wa.me/${fallbackNumber}?text=${encodeURIComponent(message)}`,
       "_blank",
     );
     return;
@@ -92,8 +104,7 @@ export function handleEventCTAClick(event: Event): void {
       break;
 
     case "whatsapp": {
-      const whatsappNumber =
-        event.cta.whatsapp || EVENT_DETAIL_FALLBACKS.globalWhatsapp;
+      const whatsappNumber = event.cta.whatsapp || fallbackNumber;
       const message =
         event.cta.whatsappMessage ||
         EVENT_DETAIL_FALLBACKS.whatsappDefaultMessage.replace(

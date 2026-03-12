@@ -1,4 +1,5 @@
 import { defineField, defineType } from "sanity";
+import { paginasInternas } from "./paginasInternas";
 
 export default defineType({
   name: "hero",
@@ -57,8 +58,14 @@ export default defineType({
         },
         {
           name: "url",
-          title: "URL",
+          title: "Página de Destino",
           type: "string",
+          description:
+            "Selecione a página interna para onde este botão deve levar.",
+          options: {
+            list: paginasInternas,
+            layout: "dropdown",
+          },
           validation: (Rule) => Rule.required(),
         },
       ],
@@ -76,8 +83,14 @@ export default defineType({
         },
         {
           name: "url",
-          title: "URL",
+          title: "Página de Destino",
           type: "string",
+          description:
+            "Selecione a página interna para onde este botão deve levar.",
+          options: {
+            list: paginasInternas,
+            layout: "dropdown",
+          },
         },
       ],
     }),

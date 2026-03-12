@@ -8,6 +8,7 @@ import {
 } from "@/components/courses";
 import { RelatedCourses } from "@/components/courses/RelatedCourses";
 import { getRelatedCourses } from "@/sanity/lib/services/courseService";
+import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoService";
 
 interface PageProps {
   params: Promise<{ slug: string }>;
@@ -16,8 +17,11 @@ interface PageProps {
 export default async function CourseDetailPage({ params }: PageProps) {
   const { slug } = await params;
 
-  // 1. Busca o curso atual
-  const curso = await client.fetch(courseBySlugQuery, { slug });
+  // 1. Busca o curso atual e configuração global em paralelo
+  const [curso, globalConfig] = await Promise.all([
+    client.fetch(courseBySlugQuery, { slug }),
+    getGlobalConfiguration(),
+  ]);
 
   if (!curso) {
     notFound();
@@ -62,6 +66,7 @@ export default async function CourseDetailPage({ params }: PageProps) {
               <CourseForm
                 course={curso}
                 whatsappNumber={curso.whatsappNumber}
+                globalWhatsapp={globalConfig?.contact?.whatsapp}
               />
             </div>
           </aside>

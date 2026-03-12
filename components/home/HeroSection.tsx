@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { Hero } from "@/sanity/lib/types/hero";
 import { slideUpVariants, staggerContainerVariants } from "@/lib/animations";
 import { Heading, Text, Button } from "@/components/ui";
@@ -13,21 +14,25 @@ export function HeroSection({ data }: HeroSectionProps) {
   const backgroundImage = data?.image?.asset?.url;
   return (
     <motion.section
-      className="relative min-h-screen flex flex-col items-start justify-center p-10"
+      className="relative min-h-screen flex flex-col items-start justify-center p-10 overflow-hidden"
       initial="hidden"
       animate="visible"
       variants={staggerContainerVariants}
       aria-label="Hero section"
-      style={{
-        backgroundImage: backgroundImage
-          ? `url(${backgroundImage})`
-          : undefined,
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-      }}
     >
       {backgroundImage && (
-        <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+        <>
+          <Image
+            src={backgroundImage}
+            alt={data?.image?.alt || ""}
+            fill
+            priority
+            quality={80}
+            className="object-cover"
+            sizes="100vw"
+          />
+          <div className="absolute inset-0 bg-black/50" aria-hidden="true" />
+        </>
       )}
 
       <div className="relative z-10 max-w-5xl mx-auto text-start">

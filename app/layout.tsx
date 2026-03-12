@@ -28,10 +28,11 @@ export const metadata = {
 };
 
 async function getLayoutData() {
-  const config = await getGlobalConfiguration();
-  const navbar = await getNavbar();
-  const footer = await getFooter();
-
+  const [config, navbar, footer] = await Promise.all([
+    getGlobalConfiguration(),
+    getNavbar(),
+    getFooter(),
+  ]);
   return { config, navbar, footer };
 }
 
@@ -49,7 +50,7 @@ export default async function RootLayout({
         className={inter.variable}
         style={
           {
-            "--color-primary": theme.primaryColor || "#6366f1",
+            "--color-primary": theme.primaryColor || "#00B749",
             "--color-secondary": theme.secondaryColor || "#8b5cf6",
             "--color-accent": theme.accentColor || "#10b981",
             "--color-bg": theme.backgroundColor || "#ffffff",
@@ -88,6 +89,12 @@ export default async function RootLayout({
             }}
           />
         </div>
+        <a
+          href="#main-content"
+          className="sr-only focus:not-sr-only focus:absolute focus:top-4 focus:left-4 focus:z-[100] focus:bg-white focus:text-gray-900 focus:px-4 focus:py-2 focus:rounded-lg focus:shadow-lg focus:font-semibold focus:outline-none"
+        >
+          Pular para o conteúdo principal
+        </a>
         <LayoutWrapper navbar={navbar} footer={footer} logo={config?.logo}>
           {children}
         </LayoutWrapper>

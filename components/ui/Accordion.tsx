@@ -58,13 +58,19 @@ interface AccordionItemProps {
 }
 
 function AccordionItem({ item, isOpen, onToggle }: AccordionItemProps) {
+  const buttonId = `accordion-btn-${item.id}`;
+  const contentId = `accordion-panel-${item.id}`;
+
   return (
     <motion.div
       className="border border-gray-200 rounded-lg overflow-hidden bg-white"
       variants={staggerItemVariants}
     >
       <button
+        id={buttonId}
         onClick={onToggle}
+        aria-expanded={isOpen}
+        aria-controls={contentId}
         className="w-full cursor-pointer p-4 md:p-5 text-left font-semibold hover:bg-gray-50 transition flex justify-between items-center gap-4"
       >
         <span className="flex-1 text-base md:text-lg">{item.title}</span>
@@ -106,6 +112,9 @@ function AccordionItem({ item, isOpen, onToggle }: AccordionItemProps) {
             className="border-t border-gray-200"
           >
             <motion.div
+              id={contentId}
+              role="region"
+              aria-labelledby={buttonId}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1, duration: 0.2 }}

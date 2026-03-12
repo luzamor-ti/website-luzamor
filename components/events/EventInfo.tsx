@@ -11,14 +11,15 @@ import { buildEventCTA, getCTAButtonText } from "@/utils/eventCta";
 
 interface EventInfoProps {
   event: Event;
+  globalWhatsapp?: string;
 }
 
-export function EventInfo({ event }: EventInfoProps) {
+export function EventInfo({ event, globalWhatsapp }: EventInfoProps) {
   const { dateFormatted, timeFormatted, weekday } = formatDate(event.eventDate);
 
   // CTA Logic
   const ctaButtonText = getCTAButtonText(event);
-  const { href: ctaHref } = buildEventCTA(event);
+  const { href: ctaHref } = buildEventCTA(event, globalWhatsapp);
 
   // Location Logic
   const hasSpecificLocation =

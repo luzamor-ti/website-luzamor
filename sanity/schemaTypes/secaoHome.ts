@@ -1,5 +1,6 @@
 import { defineType, defineField } from "sanity";
 import type { LucideIcon } from "lucide-react";
+import { paginasInternas } from "./paginasInternas";
 import {
   Users,
   DollarSign,
@@ -123,6 +124,7 @@ export default defineType({
       validation: (Rule) => Rule.required().max(100),
       group: "conteudo",
       placeholder: "Como você pode nos ajudar",
+      hidden: ({ parent }) => parent?.nome === "supporters",
     }),
 
     defineField({
@@ -133,6 +135,7 @@ export default defineType({
       rows: 3,
       group: "conteudo",
       placeholder: "Descreva o conteúdo desta seção...",
+      hidden: ({ parent }) => parent?.nome === "contact",
     }),
 
     defineField({
@@ -142,6 +145,7 @@ export default defineType({
       description:
         "Imagem principal da seção (usada em algumas seções como Introdução)",
       group: "conteudo",
+      hidden: ({ parent }) => parent?.nome !== "intro",
       options: {
         hotspot: true,
       },
@@ -158,21 +162,28 @@ export default defineType({
     // ========== GRUPO: AÇÕES (BOTÕES E LINKS) ==========
     defineField({
       name: "textoBotao",
-      title: "Texto do Botão Principal",
+      title: "Texto do Botão / Rodapé da Seção",
       type: "string",
-      description: "Texto que aparece no botão de ação principal (se houver)",
+      description:
+        "Texto do botão CTA (seção Introdução) ou do texto de rodapé da seção (Iniciativas, Como Ajudar)",
       group: "acoes",
       placeholder: "Junte-se à nossa missão",
+      hidden: ({ parent }) =>
+        !["intro", "initiatives", "howToHelp"].includes(parent?.nome),
     }),
 
     defineField({
       name: "urlBotao",
-      title: "Link do Botão Principal",
+      title: "Página de Destino do Botão Principal",
       type: "string",
-      description: "Para onde o botão deve levar (ex: /contato ou https://...)",
+      description:
+        "Selecione a página interna para onde o botão principal deve levar.",
       group: "acoes",
-      placeholder: "/contato",
-      hidden: ({ parent }) => !parent?.textoBotao,
+      options: {
+        list: paginasInternas,
+        layout: "dropdown",
+      },
+      hidden: ({ parent }) => parent?.nome !== "intro" || !parent?.textoBotao,
     }),
 
     defineField({
@@ -182,16 +193,27 @@ export default defineType({
       description: "Texto de um link alternativo/secundário (se houver)",
       group: "acoes",
       placeholder: "Saiba mais",
+      hidden: ({ parent }) =>
+        !["projects", "supporters", "initiatives", "howToHelp"].includes(
+          parent?.nome,
+        ),
     }),
 
     defineField({
       name: "urlLink",
-      title: "Link Secundário",
+      title: "Página de Destino do Link Secundário",
       type: "string",
-      description: "Para onde o link secundário deve levar",
+      description:
+        "Selecione a página interna para onde o link secundário deve levar.",
       group: "acoes",
-      placeholder: "/sobre",
-      hidden: ({ parent }) => !parent?.textoLink,
+      options: {
+        list: paginasInternas,
+        layout: "dropdown",
+      },
+      hidden: ({ parent }) =>
+        !["projects", "supporters", "initiatives", "howToHelp"].includes(
+          parent?.nome,
+        ) || !parent?.textoLink,
     }),
 
     // ========== GRUPO: CARDS/ITENS ==========
@@ -201,6 +223,8 @@ export default defineType({
       type: "array",
       description: "Adicione os cards ou itens que aparecerão nesta seção",
       group: "cards",
+      hidden: ({ parent }) =>
+        !["impact", "initiatives", "howToHelp"].includes(parent?.nome),
       of: [
         {
           type: "object",
@@ -224,6 +248,8 @@ export default defineType({
               rows: 3,
               validation: (Rule) => Rule.max(200),
               placeholder: "Sua contribuição financeira ajuda...",
+              hidden: ({ document }) =>
+                !["impact", "howToHelp"].includes(document?.nome as string),
             }),
 
             defineField({
@@ -235,6 +261,7 @@ export default defineType({
                 list: iconOptions,
                 layout: "dropdown",
               },
+              hidden: ({ document }) => document?.nome !== "howToHelp",
             }),
 
             defineField({
@@ -249,11 +276,22 @@ export default defineType({
 
             defineField({
               name: "url",
-              title: "Link do Card",
+              title: "Destino do Card",
               type: "string",
               description:
-                "Para onde ir ao clicar no card (deixe vazio se não for clicável)",
-              placeholder: "/doe-agora ou https://...",
+                "Selecione uma página interna ou escolha WhatsApp para abrir o contato da fundação",
+              options: {
+                list: [
+                  ...paginasInternas,
+                  { title: "――――――――――――――――――", value: "" },
+                  { title: "🌐 WhatsApp", value: "__whatsapp__" },
+                ],
+                layout: "dropdown",
+              },
+              hidden: ({ document }) =>
+                !["initiatives", "howToHelp"].includes(
+                  document?.nome as string,
+                ),
             }),
 
             defineField({
@@ -262,15 +300,17 @@ export default defineType({
               type: "string",
               description: "Texto secundário do card (uso específico)",
               placeholder: "Texto adicional",
+              hidden: ({ document }) => document?.nome !== "initiatives",
             }),
 
             defineField({
               name: "numero",
-              title: "Número/Métrica (opcional)",
+              title: "Número/Métrica",
               type: "string",
               description:
-                "Para seções de impacto/estatísticas (ex: 652+, 100%)",
+                "Número ou estatística exibida no card de impacto (ex: 652+, 100%)",
               placeholder: "652+",
+              hidden: ({ document }) => document?.nome !== "impact",
             }),
           ],
           preview: {
@@ -321,11 +361,12 @@ export default defineType({
     // ========== GRUPO: CONFIGURAÇÕES AVANÇADAS ==========
     defineField({
       name: "labels",
-      title: "Labels Customizados (Avançado)",
+      title: "Labels de Contato",
       type: "object",
       description:
-        "Use apenas para seções específicas que precisam de labels customizados",
+        "Rótulos exibidos na seção de Contato ao lado das informações de e-mail, telefone e endereço",
       group: "configuracoes",
+      hidden: ({ parent }) => parent?.nome !== "contact",
       options: {
         collapsed: true,
       },

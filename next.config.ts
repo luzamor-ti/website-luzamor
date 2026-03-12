@@ -3,6 +3,8 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "standalone",
   images: {
+    formats: ["image/avif", "image/webp"],
+    minimumCacheTTL: 60 * 60 * 24 * 7, // 7 dias
     remotePatterns: [
       {
         protocol: "https",
@@ -12,11 +14,6 @@ const nextConfig: NextConfig = {
     ],
   },
   transpilePackages: ["next-sanity", "@sanity/vision"],
-  logging: {
-    fetches: {
-      fullUrl: true,
-    },
-  },
 };
 
 export default nextConfig;

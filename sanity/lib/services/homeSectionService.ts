@@ -28,12 +28,13 @@ export async function getHomeSectionsByNames(
   names: SectionName[],
 ): Promise<Record<SectionName, HomeSection | null>> {
   try {
-    const promises = names.map((name) => getHomeSection(name));
-    const results = await Promise.all(promises);
+    // Uma única query para buscar todas as seções ativas, ao invés de N queries em paralelo
+    const allSections: HomeSection[] = await client.fetch(todasSecoesHomeQuery);
 
     const sectionsByName = {} as Record<SectionName, HomeSection | null>;
-    names.forEach((name, index) => {
-      sectionsByName[name] = results[index];
+    const byName = new Map(allSections.map((s) => [s.name, s]));
+    names.forEach((name) => {
+      sectionsByName[name] = byName.get(name) ?? null;
     });
 
     return sectionsByName;
