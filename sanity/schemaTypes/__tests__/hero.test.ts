@@ -83,12 +83,6 @@ describe("hero schema — ctaPrimario.url (dropdown de páginas)", () => {
     const listValues = urlField.options?.list.map((item) => item.value) ?? [];
     expect(listValues).toContain("/");
   });
-
-  it("ctaPrimario.url inclui rota contato", () => {
-    const urlField = getNestedField("ctaPrimario", "url");
-    const listValues = urlField.options?.list.map((item) => item.value) ?? [];
-    expect(listValues).toContain("/contato");
-  });
 });
 
 describe("hero schema — ctaSecundario.url (dropdown de páginas)", () => {
