@@ -20,6 +20,9 @@ export const metadata = {
   },
   description: "Site institucional da Fundação Luzamor.",
   metadataBase: new URL("https://luzamor.com"),
+  icons: {
+    icon: "/favicon.ico",
+  },
   openGraph: {
     title: "Fundação Luzamor",
     description: "Site institucional da Fundação Luzamor.",
@@ -95,7 +98,12 @@ export default async function RootLayout({
         >
           Pular para o conteúdo principal
         </a>
-        <LayoutWrapper navbar={navbar} footer={footer} logo={config?.logo}>
+        <LayoutWrapper
+          navbar={navbar}
+          footer={footer}
+          logo={config?.logo}
+          whatsappNumber={config?.contact?.whatsapp}
+        >
           {children}
         </LayoutWrapper>
         <SanityLive />
