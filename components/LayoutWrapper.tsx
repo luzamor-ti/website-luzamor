@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { NavBar } from "@/components/NavBar";
 import { Footer } from "@/components/Footer";
+import { GlobalActionButtons } from "@/components/GlobalActionButtons";
 import type { Image } from "sanity";
 import type { NavBar as NavBarType } from "@/sanity/lib/types/navbar";
 import type { Footer as FooterType } from "@/sanity/lib/types/footer";
@@ -12,6 +13,7 @@ interface LayoutWrapperProps {
   navbar: NavBarType | null;
   footer: FooterType | null;
   logo?: Image | null;
+  whatsappNumber?: string;
 }
 
 export default function LayoutWrapper({
@@ -19,6 +21,7 @@ export default function LayoutWrapper({
   navbar,
   footer,
   logo,
+  whatsappNumber,
 }: LayoutWrapperProps) {
   const pathname = usePathname();
 
@@ -37,6 +40,8 @@ export default function LayoutWrapper({
       </div>
 
       {!hideLayout && footer && <Footer logo={logo ?? undefined} {...footer} />}
+
+      {!hideLayout && <GlobalActionButtons whatsappNumber={whatsappNumber} />}
     </>
   );
 }

@@ -1,8 +1,8 @@
 import { notFound } from "next/navigation";
+import { type Metadata } from "next";
 import {
   ProjetosTemplate,
   SobreNosTemplate,
-  ContatoTemplate,
   SalasAulaTemplate,
   AuditorioTemplate,
   DiretoriaTemplate,
@@ -52,11 +52,7 @@ const pageConfig: Record<
     pageType: "sobre-nos",
     title: "Sobre Nós",
   },
-  contato: {
-    component: ContatoTemplate,
-    pageType: "contato",
-    title: "Contato",
-  },
+
   auditorio: {
     component: AuditorioTemplate,
     pageType: "auditorio",
@@ -89,6 +85,24 @@ const pageConfig: Record<
     title: "Cursos",
   },
 };
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { slug } = await params;
+  const config = pageConfig[slug];
+
+  if (!config) {
+    return {
+      title: "Página não encontrada",
+    };
+  }
+
+  return {
+    title: config.title,
+    description: config.description,
+  };
+}
 
 export default async function Page({ params, searchParams }: PageProps) {
   const { slug } = await params;

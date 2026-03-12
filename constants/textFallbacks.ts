@@ -160,19 +160,6 @@ export const TEXT_FALLBACKS: Record<SectionName, SectionFallback> = {
       "Fique por dentro de todos os nossos eventos e atividades. Participe e faça parte da transformação!",
   },
 
-  contact: {
-    tag: "Contato",
-    title: "Fale Conosco",
-    description:
-      "Entre em contato para saber mais ou para contribuir com nosso trabalho",
-    buttonText: "Enviar Mensagem",
-    labels: {
-      email: "Email",
-      phone: "Telefone",
-      address: "Endereço",
-    },
-  },
-
   impact: {
     tag: "Nosso impacto",
     title: "Nossas iniciativas que transformam",
@@ -436,7 +423,6 @@ export const PRESIDENT_PAGE_FALLBACKS = {
   scrollLabel: "Role para ler",
   unavailableMessage: "Conteúdo indisponível no momento.",
 };
-
 
 /**
  * Get fallback text for a section

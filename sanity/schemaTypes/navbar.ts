@@ -6,7 +6,6 @@ const paginasDisponiveis = [
   { title: "Projetos", value: "projetos" },
   { title: "Sobre Nós", value: "sobre-nos" },
   { title: "Salas de Aula", value: "salas-aula" },
-  { title: "Contato", value: "contato" },
   { title: "Auditório", value: "auditorio" },
   { title: "Diretoria", value: "diretoria" },
   { title: "Palavra do Presidente", value: "palavra-presidente" },

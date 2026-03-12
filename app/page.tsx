@@ -6,7 +6,6 @@ import {
   ProjectsSection,
   SupportersSection,
   FaqSection,
-  ContactSection,
   IntroSection,
   ImpactSection,
   InitiativesSection,
@@ -20,7 +19,6 @@ const SECTION_NAMES = [
   "projects",
   "supporters",
   "faq",
-  "contact",
   "impact",
   "initiatives",
   "howToHelp",
@@ -35,15 +33,8 @@ export default async function Home() {
     getHomeSectionsByNames([...SECTION_NAMES]),
   ]);
 
-  const {
-    projects,
-    supporters,
-    faq,
-    contacts,
-    configuration,
-    courses,
-    events,
-  } = homeData;
+  const { projects, supporters, faq, configuration, courses, events } =
+    homeData;
 
   return (
     <main>
@@ -61,7 +52,6 @@ export default async function Home() {
       <HowToHelpSection data={sections.howToHelp} />
       <EventsSection data={events} section={sections.events} />
       <FaqSection data={faq} section={sections.faq} />
-      <ContactSection data={contacts} section={sections.contact} />
     </main>
   );
 }

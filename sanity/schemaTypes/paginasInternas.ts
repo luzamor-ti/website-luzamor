@@ -13,8 +13,7 @@ export const paginasInternas = [
   { title: "📚 Cursos", value: "/cursos" },
   { title: "🏫 Salas de Aula", value: "/salas-aula" },
   { title: "🎤 Auditório", value: "/auditorio" },
-  { title: "📞 Contato", value: "/contato" },
-  { title: "👥 Diretoria", value: "/diretoria" },
+  { title: " Diretoria", value: "/diretoria" },
   { title: "🗣️ Palavra do Presidente", value: "/palavra-presidente" },
   { title: "🤝 Patrocinador / Apoiadores", value: "/patrocinador" },
 ];

@@ -23,8 +23,8 @@ describe("paginasInternas — estrutura e valores", () => {
     }
   });
 
-  it("contém exatamente 11 páginas internas", () => {
-    expect(paginasInternas).toHaveLength(11);
+  it("contém exatamente 10 páginas internas", () => {
+    expect(paginasInternas).toHaveLength(10);
   });
 
   it("todos os values começam com '/'", () => {
@@ -69,10 +69,6 @@ describe("paginasInternas — consistência com routesPath", () => {
 
   it("contém a rota auditório", () => {
     expect(values).toContain(routesPath.auditorium);
-  });
-
-  it("contém a rota contato", () => {
-    expect(values).toContain(routesPath.contact);
   });
 
   it("contém a rota diretoria", () => {

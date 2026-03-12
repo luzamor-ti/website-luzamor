@@ -7,7 +7,6 @@ export const configuracaoGlobal = defineType({
   type: "document",
   groups: [
     { name: "identidade", title: "Identidade da Fundação", default: true },
-    { name: "contato", title: "Contato e Redes Sociais" },
     { name: "tema", title: "Cores e Aparência" },
   ],
   fields: [
@@ -44,7 +43,7 @@ export const configuracaoGlobal = defineType({
       type: "object",
       description:
         "Informações de contato e perfis em redes sociais usados em todo o site",
-      group: "contato",
+      group: "identidade",
       fields: [
         {
           name: "email",
