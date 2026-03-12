@@ -142,7 +142,6 @@ describe("getCTAButtonText", () => {
 
 describe("handleEventCTAClick", () => {
   let windowOpenSpy: ReturnType<typeof vi.spyOn>;
-  let windowLocationHref: string;
 
   beforeEach(() => {
     windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
@@ -217,5 +216,74 @@ describe("handleEventCTAClick", () => {
     handleEventCTAClick(event);
 
     expect(window.location.href).toContain("mailto:inscricao@fundacao.org");
+  });
+});
+
+describe("buildEventCTA — globalWhatsapp parameter", () => {
+  const customWhatsapp = "5544987654321";
+
+  it("usa o número globalWhatsapp fornecido quando cta não está habilitado", () => {
+    const event = createMockEvent({ cta: { enabled: false } });
+    const result = buildEventCTA(event, customWhatsapp);
+
+    expect(result.href).toContain(`wa.me/${customWhatsapp}`);
+    expect(result.isExternal).toBe(true);
+  });
+
+  it("globalWhatsapp tem precedência sobre EVENT_DETAIL_FALLBACKS.globalWhatsapp quando evento não tem WhatsApp", () => {
+    const event = createMockEvent({
+      cta: { enabled: true, type: "whatsapp", whatsapp: undefined },
+    });
+    const result = buildEventCTA(event, customWhatsapp);
+
+    expect(result.href).toContain(`wa.me/${customWhatsapp}`);
+    expect(result.href).not.toContain(EVENT_DETAIL_FALLBACKS.globalWhatsapp);
+  });
+
+  it("usa número do evento quando fornecido, mesmo com globalWhatsapp definido", () => {
+    const event = createMockEvent({
+      cta: {
+        enabled: true,
+        type: "whatsapp",
+        whatsapp: "5511888888888",
+      },
+    });
+    const result = buildEventCTA(event, customWhatsapp);
+
+    expect(result.href).toContain("wa.me/5511888888888");
+  });
+});
+
+describe("handleEventCTAClick — globalWhatsapp parameter", () => {
+  const customWhatsapp = "5544987654321";
+  let windowOpenSpy: ReturnType<typeof vi.spyOn>;
+
+  beforeEach(() => {
+    windowOpenSpy = vi.spyOn(window, "open").mockImplementation(() => null);
+  });
+
+  afterEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("usa globalWhatsapp fornecido quando cta não está habilitado", () => {
+    const event = createMockEvent({ cta: { enabled: false } });
+    handleEventCTAClick(event, customWhatsapp);
+
+    expect(windowOpenSpy).toHaveBeenCalledOnce();
+    const [url] = windowOpenSpy.mock.calls[0];
+    expect(url).toContain(`wa.me/${customWhatsapp}`);
+    expect(url).not.toContain(EVENT_DETAIL_FALLBACKS.globalWhatsapp);
+  });
+
+  it("globalWhatsapp tem precedência sobre fallback para tipo 'whatsapp' sem número no evento", () => {
+    const event = createMockEvent({
+      cta: { enabled: true, type: "whatsapp", whatsapp: undefined },
+    });
+    handleEventCTAClick(event, customWhatsapp);
+
+    expect(windowOpenSpy).toHaveBeenCalledOnce();
+    const [url] = windowOpenSpy.mock.calls[0];
+    expect(url).toContain(`wa.me/${customWhatsapp}`);
   });
 });

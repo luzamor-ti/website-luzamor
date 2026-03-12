@@ -221,7 +221,7 @@ Adicione quantos cards precisar. Cada card tem:
 
 ---
 
-## �️ Campos por Tipo de Seção
+## 🗂️ Campos por Tipo de Seção
 
 A tabela abaixo mostra quais campos ficam **visíveis** no Studio para cada tipo de seção. Campos marcados com ✅ são exibidos; ❌ estão ocultos automaticamente.
 
@@ -254,7 +254,7 @@ A tabela abaixo mostra quais campos ficam **visíveis** no Studio para cada tipo
 
 ---
 
-## �🆘 Problemas Comuns
+## 🆘 Problemas Comuns
 
 ### Não vejo o campo de URL do Botão
 

@@ -32,9 +32,9 @@ export async function getHomeSectionsByNames(
     const allSections: HomeSection[] = await client.fetch(todasSecoesHomeQuery);
 
     const sectionsByName = {} as Record<SectionName, HomeSection | null>;
+    const byName = new Map(allSections.map((s) => [s.name, s]));
     names.forEach((name) => {
-      sectionsByName[name] =
-        allSections.find((s) => s.name === name) ?? null;
+      sectionsByName[name] = byName.get(name) ?? null;
     });
 
     return sectionsByName;
