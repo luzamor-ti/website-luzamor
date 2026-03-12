@@ -47,7 +47,6 @@ export type SectionName =
   | "members"
   | "supporters"
   | "faq"
-  | "contact"
   | "impact"
   | "initiatives"
   | "howToHelp"

@@ -22,10 +22,6 @@ describe("routesPath — valores das rotas estáticas", () => {
     expect(routesPath.projects).not.toBe("/projeto");
   });
 
-  it("contact é '/contato'", () => {
-    expect(routesPath.contact).toBe("/contato");
-  });
-
   it("courses é '/cursos'", () => {
     expect(routesPath.courses).toBe("/cursos");
   });

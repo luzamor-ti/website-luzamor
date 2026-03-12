@@ -4,7 +4,6 @@ export { HeroSection } from "./HeroSection";
 export { ProjectsSection } from "./ProjectsSection";
 export { SupportersSection } from "./SupportersSection";
 export { FaqSection } from "./FaqSection";
-export { ContactSection } from "./ContactSection";
 export { CoursesSection } from "./CoursesSection";
 export { EventsSection } from "./EventsSection";
 export { default as IntroSection } from "./IntroSection";
