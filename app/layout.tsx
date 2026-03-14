@@ -7,6 +7,7 @@ import { getGlobalConfiguration } from "@/sanity/lib/services/configuracaoServic
 import { getFooter } from "@/sanity/lib/services/footerService";
 import LayoutWrapper from "@/components/LayoutWrapper";
 import { SanityLive } from "@/sanity/lib/live";
+import { FloatingButtons } from "@/components/ui/FloatingButton";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -57,6 +58,7 @@ export default async function RootLayout({
           } as React.CSSProperties
         }
       >
+        {/* Background Decorations */}
         <div className="fixed inset-0 pointer-events-none overflow-hidden -z-10">
           <div
             className="absolute -left-48 top-1/4 w-[500px] h-[500px] rounded-full blur-[120px]"
@@ -72,7 +74,6 @@ export default async function RootLayout({
               opacity: 0.03,
             }}
           />
-
           <div
             className="absolute -right-48 top-1/3 w-[480px] h-[480px] rounded-full blur-[120px]"
             style={{
@@ -88,9 +89,17 @@ export default async function RootLayout({
             }}
           />
         </div>
+
         <LayoutWrapper navbar={navbar} footer={footer} logo={config?.logo}>
           {children}
         </LayoutWrapper>
+
+        {/* 
+          ADICIONADO: Botões Flutuantes 
+          Passamos o número que vem de config.contato.whatsapp do seu Schema
+        */}
+        <FloatingButtons whatsappNumber={config?.contact?.whatsapp} />
+
         <SanityLive />
         <Analytics />
         <SpeedInsights />
