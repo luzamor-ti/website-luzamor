@@ -4,6 +4,8 @@ export const configuracaoGlobalQuery = `
     "heroTitle": tituloHero,
     "heroSubtitle": subtituloHero,
     "logo": logo,
+    "isUnderMaintenance": emManutencao,
+    "maintenanceMessage": mensagemManutencao,
     "theme": tema{
       "primaryColor": primaryColor,
       "secondaryColor": secondaryColor,

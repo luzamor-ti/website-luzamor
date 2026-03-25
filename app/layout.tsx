@@ -21,7 +21,7 @@ export const metadata = {
   description: "Site institucional da Fundação Luzamor.",
   metadataBase: new URL("https://luzamor.com"),
   icons: {
-    icon: "/favicon.ico",
+    icon: "/favicon.png",
   },
   openGraph: {
     title: "Fundação Luzamor",

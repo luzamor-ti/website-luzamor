@@ -27,6 +27,7 @@ export default function LayoutWrapper({
 
   const hideLayout =
     pathname === "/login" ||
+    pathname === "/maintenance" ||
     pathname.startsWith("/admin") ||
     pathname.startsWith("/dashboard") ||
     pathname.startsWith("/fundacao-cms");
