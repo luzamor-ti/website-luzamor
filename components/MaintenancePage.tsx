@@ -1,7 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { MaintenanceIllustration } from "./MaintenanceIllustration";
+import Image from "next/image";
 
 interface MaintenancePageProps {
   message: string;
@@ -37,7 +37,14 @@ export function MaintenancePage({
             }}
             className="mb-8 flex justify-center"
           >
-            <MaintenanceIllustration color={primaryColor} />
+            <Image
+              src="/illustrations/under-construction.svg"
+              alt="Manutenção do site"
+              width={500}
+              height={400}
+              priority
+              className="w-full max-w-sm h-auto drop-shadow-md"
+            />
           </motion.div>
 
           {/* Title */}
