@@ -8,6 +8,7 @@ export const configuracaoGlobal = defineType({
   groups: [
     { name: "identidade", title: "Identidade da Fundação", default: true },
     { name: "tema", title: "Cores e Aparência" },
+    { name: "manutencao", title: "Manutenção" },
   ],
   fields: [
     defineField({
@@ -177,6 +178,26 @@ export const configuracaoGlobal = defineType({
             }),
         },
       ],
+    }),
+
+    defineField({
+      name: "emManutencao",
+      title: "Site em Manutenção",
+      type: "boolean",
+      description:
+        "Ative esta opção para mostrar uma página de manutenção em lugar do site. Todos os visitantes verão apenas a página de manutenção.",
+      group: "manutencao",
+      initialValue: false,
+    }),
+
+    defineField({
+      name: "mensagemManutencao",
+      title: "Mensagem de Manutenção",
+      type: "text",
+      description: "Mensagem customizada que aparecerá na página de manutenção",
+      group: "manutencao",
+      initialValue:
+        "Desculpe! O site está em manutenção. Em breve estaremos de volta.",
     }),
   ],
 });
