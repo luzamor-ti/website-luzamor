@@ -25,6 +25,8 @@ export interface GlobalConfiguration {
   heroSubtitle?: string;
   logo?: SanityImage;
   favicon?: SanityImage;
+  isUnderMaintenance?: boolean;
+  maintenanceMessage?: string;
   theme?: ThemeColors;
   contact?: ContactInfo;
 }
