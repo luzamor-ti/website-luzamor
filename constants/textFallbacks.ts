@@ -425,6 +425,15 @@ export const PRESIDENT_PAGE_FALLBACKS = {
 };
 
 /**
+ * Maintenance Page Fallbacks
+ */
+export const MAINTENANCE_PAGE_FALLBACKS = {
+  message:
+    "Desculpe! O site está em manutenção. Em breve estaremos de volta.",
+  primaryColor: "#00B749",
+};
+
+/**
  * Get fallback text for a section
  */
 export function getFallbackText(section: SectionName): SectionFallback {

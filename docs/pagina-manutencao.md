@@ -32,11 +32,10 @@ Clique em **"Publicar"** para que as mudanças entrem em efeito imediatamente. O
 
 - ✅ Todos os visitantes são redirecionados para `/maintenance`
 - ✅ A página mostra:
-  - Uma ilustração animada na cor primary do seu site
-  - O título "Manutenção"
-  - A mensagem customizada
-  - Um loader animado com 3 pontinhos
-  - Efeitos de background com blur da cor primary
+  - Uma ilustração SVG animada na cor primary do seu site
+  - O título "Manutenção do Site"
+  - A mensagem customizada (ou a padrão do fallback)
+  - Efeito de gradiente no background usando a cor primary
 - ✅ A página usa `robots: noindex, nofollow` para não ser indexada por buscadores
 - ✅ Animações suaves com Framer Motion
 
@@ -49,7 +48,7 @@ Os seguintes acessos continuam funcionando normalmente:
 - 🔌 `/api/*` - Todas as chamadas de API
 - 📄 Recursos estáticos (`/_next`, `/favicon.ico`, etc.)
 
-Isso permite que você continue trabalhandando no CMS enquanto o site está em manutenção.
+Isso permite que você continue trabalhando no CMS enquanto o site está em manutenção.
 
 ## Arquivos Modificados/Criados
 
@@ -140,11 +139,11 @@ MaintenancePage.tsx → MaintenanceIllustration.tsx
 
 ## Notas Importantes
 
-⚠️ **Aviso de Deprecação**: Next.js está migrando middleware para "Proxy". A middleware atual funciona perfeitamente em produção. Quando Next.js descontinuar suporte, a sintaxe será atualizada.
+⚠️ **Aviso**: A API de Middleware do Next.js pode evoluir em futuras versões. Para verificar o status atual e possíveis caminhos de migração, consulte a documentação oficial: https://nextjs.org/docs/app/building-your-application/routing/middleware
 
 🔄 **Cache**: Em caso de cache agressivo, o status de manutenção pode levar alguns segundos para propagar. Isso é normal.
 
-🎨 **Cores**: A ilustração da página de manutenção usa automaticamente a cor primária do seu site (configurada em "Cores e Aparência").
+🎨 **Cores**: A ilustração da página de manutenção usa automaticamente a cor primária do seu site (configurada em "Cores e Aparência"). O fundo da página também recebe um gradiente suave baseado nessa cor.
 
 ## Troubleshooting
 

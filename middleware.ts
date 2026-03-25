@@ -10,10 +10,10 @@ export async function middleware(request: NextRequest) {
     "/api",
     "/_next",
     "/favicon.ico",
+    "/favicon.png",
     "/robots.txt",
     "/sitemap.xml",
     "/illustrations",
-    "/public",
   ];
 
   // Verifica se a rota atual é uma das excluídas
@@ -28,9 +28,6 @@ export async function middleware(request: NextRequest) {
         `${request.nextUrl.origin}/api/maintenance-check`,
         {
           method: "GET",
-          headers: {
-            "X-Skip-Middleware": "true",
-          },
         },
       );
 
@@ -58,7 +55,9 @@ export const config = {
      * - _next/static (static files)
      * - _next/image (image optimization files)
      * - favicon.ico (favicon file)
+     * - favicon.png (favicon file)
+     * - Files with extensions (static assets)
      */
-    "/((?!_next/static|_next/image|favicon.ico).*)",
+    "/((?!_next/static|_next/image|favicon\\.ico|favicon\\.png|.*\\.[a-zA-Z0-9]+$).*)",
   ],
 };
