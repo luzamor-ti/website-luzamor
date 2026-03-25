@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { MaintenanceIllustration } from "./MaintenanceIllustration";
 
 interface MaintenancePageProps {
   message: string;
@@ -15,7 +16,7 @@ export function MaintenancePage({
     <div
       className="h-screen w-full flex flex-col items-center justify-center px-4 overflow-hidden"
       style={{
-        background: `linear-gradient(135deg, #f0fdf4 0%, #ffffff 100%)`,
+        background: `linear-gradient(135deg, ${primaryColor}18 0%, #ffffff 100%)`,
       }}
     >
       {/* Content Card */}
@@ -36,11 +37,7 @@ export function MaintenancePage({
             }}
             className="mb-8 flex justify-center"
           >
-            <img
-              src="/illustrations/under-construction.svg"
-              alt="Manutenção do site"
-              className="w-full max-w-sm h-auto drop-shadow-md"
-            />
+            <MaintenanceIllustration color={primaryColor} />
           </motion.div>
 
           {/* Title */}
