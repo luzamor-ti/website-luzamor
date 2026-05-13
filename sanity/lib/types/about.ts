@@ -47,6 +47,7 @@ export interface OurTeam {
   tag?: string;
   titulo?: string;
   descricao?: PortableTextBlock[];
+  imagemGrupo?: SanityImageSource;
 }
 
 export interface AboutPage {
