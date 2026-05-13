@@ -21,6 +21,7 @@ Este repositório usa Next.js + Sanity + TypeScript. O fluxo base é CMS → ser
 - [docs/testes.md](docs/testes.md)
 
 Run tests before every commit:
+
 ```bash
 npm run verify
 ```
@@ -38,6 +39,7 @@ Push to main → CI (Tests + Lint) → Build → Deploy (Vercel + GitHub Pages)
 #### 1. **CI - Tests and Lint** (`.github/workflows/ci.yml`)
 
 Runs on every push and PR:
+
 - ✅ ESLint code quality check
 - ✅ All 200 unit tests
 - ✅ Coverage reports
@@ -54,6 +56,7 @@ Auto-deploys Storybook to GitHub Pages on main branch updates.
 **Automatic:** Every push to `main` triggers Vercel deployment.
 
 **Build Process:**
+
 1. ✅ Run ESLint
 2. ✅ Run all tests (200 tests must pass)
 3. ✅ Build Next.js application
