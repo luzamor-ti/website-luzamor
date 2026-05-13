@@ -94,10 +94,10 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
           variant="small"
           className="uppercase tracking-[0.3em] text-primary font-semibold"
         >
-          Diretoria
+          {fallback.gridTag}
         </Text>
         <Heading level={3} className="mt-3 text-neutral-dark">
-          Conheça os membros que conduzem a Fundação Luzamor
+          {fallback.gridTitle}
         </Heading>
       </div>
 
@@ -147,8 +147,7 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
                       className={`group relative rounded-2xl overflow-hidden ${colSpan} ${memberHasBio ? "cursor-pointer" : "cursor-default"}`}
                     >
                       {/* Imagem de fundo */}
-                      {/* Show individual photo only for directors; others use the group image shown above */}
-                      {member.diretoria && member.photo ? (
+                      {member.photo ? (
                         <Image
                           src={urlFor(member.photo)
                             .width(800)

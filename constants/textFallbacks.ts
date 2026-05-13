@@ -336,6 +336,8 @@ export const ABOUT_PAGE_FALLBACKS = {
     title: "Nossa Diretoria",
     description:
       "Conheça as pessoas responsáveis por conduzir nossa missão e fortalecer nosso trabalho.",
+    gridTag: "Diretoria",
+    gridTitle: "Conheça os membros que conduzem a Fundação Luzamor",
   },
 };
 
