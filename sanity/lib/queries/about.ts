@@ -62,7 +62,11 @@ export const ABOUT_PAGE_QUERY = groq`
     nossoTime {
       tag,
       titulo,
-      descricao
+      descricao,
+      imagemGrupo {
+        asset->,
+        alt
+      }
     }
   }
 `;

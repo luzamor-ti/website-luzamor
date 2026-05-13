@@ -14,6 +14,9 @@ interface LayoutWrapperProps {
   footer: FooterType | null;
   logo?: Image | null;
   whatsappNumber?: string;
+  facebook?: string | null;
+  instagram?: string | null;
+  youtube?: string | null;
 }
 
 export default function LayoutWrapper({
@@ -22,6 +25,9 @@ export default function LayoutWrapper({
   footer,
   logo,
   whatsappNumber,
+  facebook,
+  instagram,
+  youtube,
 }: LayoutWrapperProps) {
   const pathname = usePathname();
 
@@ -40,7 +46,15 @@ export default function LayoutWrapper({
         {children}
       </div>
 
-      {!hideLayout && footer && <Footer logo={logo ?? undefined} {...footer} />}
+      {!hideLayout && footer && (
+        <Footer
+          logo={logo ?? undefined}
+          {...footer}
+          facebook={facebook ?? undefined}
+          instagram={instagram ?? undefined}
+          youtube={youtube ?? undefined}
+        />
+      )}
 
       {!hideLayout && <GlobalActionButtons whatsappNumber={whatsappNumber} />}
     </>

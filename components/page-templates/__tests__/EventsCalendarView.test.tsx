@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { fireEvent, render, screen } from "@testing-library/react";
 import { EventsCalendarView } from "../calendario-eventos/EventsCalendarView";
 import { Event } from "@/sanity/lib/types/event";
 
@@ -17,6 +16,12 @@ vi.mock("framer-motion", () => ({
 }));
 
 describe("EventsCalendarView", () => {
+  const initialMonth = new Date("2026-03-15T12:00:00");
+
+  afterEach(() => {
+    vi.clearAllMocks();
+  });
+
   const mockUpcomingEvents: Event[] = [
     {
       _id: "1",
@@ -64,6 +69,7 @@ describe("EventsCalendarView", () => {
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
@@ -76,6 +82,7 @@ describe("EventsCalendarView", () => {
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
@@ -93,6 +100,7 @@ describe("EventsCalendarView", () => {
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
@@ -104,52 +112,49 @@ describe("EventsCalendarView", () => {
   });
 
   it("navigates to previous month", async () => {
-    const user = userEvent.setup();
-
     render(
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
     const prevButton = screen.getByLabelText("Mês anterior");
-    await user.click(prevButton);
+    fireEvent.click(prevButton);
 
     // Should show February 2026
     expect(screen.getByText(/fevereiro de 2026/i)).toBeInTheDocument();
   });
 
   it("navigates to next month", async () => {
-    const user = userEvent.setup();
-
     render(
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
     const nextButton = screen.getByLabelText("Próximo mês");
-    await user.click(nextButton);
+    fireEvent.click(nextButton);
 
     // Should show April 2026
     expect(screen.getByText(/abril de 2026/i)).toBeInTheDocument();
   });
 
   it("displays event on correct date", async () => {
-    const user = userEvent.setup();
-
     render(
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
     // Navigate to April to see the event
     const nextButton = screen.getByLabelText("Próximo mês");
-    await user.click(nextButton);
+    fireEvent.click(nextButton);
 
     // Event should appear on April 24
     expect(screen.getByText("Evento Abril")).toBeInTheDocument();
@@ -160,6 +165,7 @@ describe("EventsCalendarView", () => {
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
@@ -168,18 +174,17 @@ describe("EventsCalendarView", () => {
   });
 
   it("shows upcoming events with primary color", async () => {
-    const user = userEvent.setup();
-
     render(
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
     // Navigate to April
     const nextButton = screen.getByLabelText("Próximo mês");
-    await user.click(nextButton);
+    fireEvent.click(nextButton);
 
     const eventLink = screen.getByText("Evento Abril").closest("a");
     expect(eventLink).toHaveClass("bg-primary");
@@ -187,18 +192,17 @@ describe("EventsCalendarView", () => {
   });
 
   it("shows past events with gray color", async () => {
-    const user = userEvent.setup();
-
     render(
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
     // Navigate to February
     const prevButton = screen.getByLabelText("Mês anterior");
-    await user.click(prevButton);
+    fireEvent.click(prevButton);
 
     const eventLink = screen.getByText("Evento Passado").closest("a");
     expect(eventLink).toHaveClass("bg-gray-200");
@@ -206,8 +210,6 @@ describe("EventsCalendarView", () => {
   });
 
   it("shows +N more indicator when more than 3 events on same day", async () => {
-    const user = userEvent.setup();
-
     const manyEventsOnSameDay: Event[] = Array.from({ length: 5 }, (_, i) => ({
       _id: `event-${i}`,
       title: `Evento ${i + 1}`,
@@ -231,30 +233,30 @@ describe("EventsCalendarView", () => {
       <EventsCalendarView
         upcomingEvents={manyEventsOnSameDay}
         pastEvents={[]}
+        initialMonth={initialMonth}
       />,
     );
 
     // Navigate to April
     const nextButton = screen.getByLabelText("Próximo mês");
-    await user.click(nextButton);
+    fireEvent.click(nextButton);
 
     // Should show "+3 mais" (5 events - 2 displayed = 3 more)
     expect(screen.getByText("+3 mais")).toBeInTheDocument();
   });
 
   it("renders event links with correct href", async () => {
-    const user = userEvent.setup();
-
     render(
       <EventsCalendarView
         upcomingEvents={mockUpcomingEvents}
         pastEvents={mockPastEvents}
+        initialMonth={initialMonth}
       />,
     );
 
     // Navigate to April
     const nextButton = screen.getByLabelText("Próximo mês");
-    await user.click(nextButton);
+    fireEvent.click(nextButton);
 
     const eventLink = screen.getByText("Evento Abril").closest("a");
     expect(eventLink).toHaveAttribute("href", "/evento/evento-abril");

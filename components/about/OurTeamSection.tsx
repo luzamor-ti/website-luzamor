@@ -25,6 +25,14 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
     return !!(member.fullBio || member.words);
   };
 
+  const hasAlt = (value: unknown): value is { alt?: string } => {
+    return (
+      typeof value === "object" &&
+      value !== null &&
+      "alt" in (value as Record<string, unknown>)
+    );
+  };
+
   // Garante que description seja string, não PortableText
   const getDescription = () => {
     const desc = data?.descricao;
@@ -59,6 +67,40 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
         variant="light"
       />
 
+      {/* Group image (show once above the grid) */}
+      {data?.imagemGrupo && (
+        <div className="max-w-6xl mx-auto mt-6 rounded-2xl overflow-hidden">
+          <div className="relative aspect-[16/8] w-full">
+            {(() => {
+              const altText = hasAlt(data.imagemGrupo)
+                ? data.imagemGrupo.alt
+                : undefined;
+
+              return (
+                <Image
+                  src={urlFor(data.imagemGrupo).width(1600).height(850).url()}
+                  alt={altText || "Foto em grupo da equipe"}
+                  fill
+                  className="object-cover"
+                />
+              );
+            })()}
+          </div>
+        </div>
+      )}
+
+      <div className="max-w-6xl mx-auto mt-14 px-4 text-center">
+        <Text
+          variant="small"
+          className="uppercase tracking-[0.3em] text-primary font-semibold"
+        >
+          Diretoria
+        </Text>
+        <Heading level={3} className="mt-3 text-neutral-dark">
+          Conheça os membros que conduzem a Fundação Luzamor
+        </Heading>
+      </div>
+
       <AnimatePresence mode="wait">
         {!selectedMember ? (
           // Grid de Membros
@@ -68,9 +110,9 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.3 }}
-            className="mt-12"
+            className="mt-8"
           >
-            {/* Mosaico Horizontal de Membros */}
+            {/* Mosaico Horizontal da Diretoria */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
               {members && members.length > 0 ? (
                 members.map((member, index) => {
@@ -105,7 +147,8 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
                       className={`group relative rounded-2xl overflow-hidden ${colSpan} ${memberHasBio ? "cursor-pointer" : "cursor-default"}`}
                     >
                       {/* Imagem de fundo */}
-                      {member.photo ? (
+                      {/* Show individual photo only for directors; others use the group image shown above */}
+                      {member.diretoria && member.photo ? (
                         <Image
                           src={urlFor(member.photo)
                             .width(800)
@@ -163,7 +206,7 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
               ) : (
                 <div className="col-span-full text-center py-12">
                   <Text className="text-neutral-medium">
-                    Nenhum membro cadastrado ainda.
+                    Nenhum integrante da diretoria cadastrado ainda.
                   </Text>
                 </div>
               )}
@@ -186,7 +229,7 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
               whileHover={{ x: -4 }}
             >
               <ArrowLeft className="w-5 h-5 group-hover:animate-pulse" />
-              <span className="font-medium">Voltar para o time</span>
+              <span className="font-medium">Voltar para a diretoria</span>
             </motion.button>
 
             {/* Conteúdo do Membro */}
@@ -257,23 +300,23 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
                 {/* Link para Palavra do Presidente */}
                 {selectedMember.role &&
                   selectedMember.role.trim().toLowerCase() === "presidente" && (
-                  <motion.div
-                    initial={{ opacity: 0, y: 10 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.5 }}
-                    className="pt-6 border-t border-neutral-light"
-                  >
-                    <Button
-                      href={routesPath.presidentWord}
-                      variant="primary"
-                      size="lg"
-                      showArrow
-                      className="w-full md:w-auto"
+                    <motion.div
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: 0.5 }}
+                      className="pt-6 border-t border-neutral-light"
                     >
-                      Leia a Palavra do Presidente
-                    </Button>
-                  </motion.div>
-                )}
+                      <Button
+                        href={routesPath.presidentWord}
+                        variant="primary"
+                        size="lg"
+                        showArrow
+                        className="w-full md:w-auto"
+                      >
+                        Leia a Palavra do Presidente
+                      </Button>
+                    </motion.div>
+                  )}
               </motion.div>
             </div>
           </motion.div>

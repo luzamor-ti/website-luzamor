@@ -38,7 +38,7 @@ export const wordsOfPresidentPageQuery = `
 `;
 
 export const boardMembersQuery = `
-  *[_type == "membro" && diretoria == true]
+  *[_type == "membro"]
   | order(ordem asc){
     _id,
     "name": nome,

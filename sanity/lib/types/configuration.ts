@@ -15,7 +15,7 @@ export interface ContactInfo {
   address?: string;
   facebook?: string;
   instagram?: string;
-  linkedin?: string;
+  youtube?: string;
 }
 
 export interface GlobalConfiguration {

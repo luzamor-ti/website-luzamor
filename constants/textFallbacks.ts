@@ -332,10 +332,10 @@ export const ABOUT_PAGE_FALLBACKS = {
       "Ser referência em transformação social através da cultura e educação, construindo uma sociedade mais justa, inclusiva e com acesso igualitário a oportunidades de desenvolvimento.",
   },
   team: {
-    tag: "Nosso Time",
-    title: "Pessoas dedicadas à transformação",
+    tag: "Diretoria",
+    title: "Nossa Diretoria",
     description:
-      "Conheça as pessoas que fazem acontecer e tornam nossa missão possível.",
+      "Conheça as pessoas responsáveis por conduzir nossa missão e fortalecer nosso trabalho.",
   },
 };
 
@@ -428,8 +428,7 @@ export const PRESIDENT_PAGE_FALLBACKS = {
  * Maintenance Page Fallbacks
  */
 export const MAINTENANCE_PAGE_FALLBACKS = {
-  message:
-    "Desculpe! O site está em manutenção. Em breve estaremos de volta.",
+  message: "Desculpe! O site está em manutenção. Em breve estaremos de volta.",
   primaryColor: "#00B749",
 };
 

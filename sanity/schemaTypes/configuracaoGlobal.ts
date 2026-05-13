@@ -85,10 +85,10 @@ export const configuracaoGlobal = defineType({
           description: "URL completa do perfil no Instagram",
         },
         {
-          name: "linkedin",
-          title: "LinkedIn",
+          name: "youtube",
+          title: "YouTube",
           type: "url",
-          description: "URL completa da página no LinkedIn",
+          description: "URL completa do canal no YouTube",
         },
       ],
     }),

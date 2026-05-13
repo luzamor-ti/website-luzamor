@@ -145,8 +145,12 @@ export default defineType({
         {
           name: "descricao",
           title: "Descrição",
-          type: "text",
-          rows: 3,
+          type: "array",
+          of: [
+            {
+              type: "block",
+            },
+          ],
         },
         {
           name: "timeline",
@@ -302,6 +306,19 @@ export default defineType({
           title: "Descrição",
           type: "text",
           rows: 3,
+        },
+        {
+          name: "imagemGrupo",
+          title: "Imagem de Grupo",
+          type: "image",
+          options: { hotspot: true },
+          fields: [
+            {
+              name: "alt",
+              type: "string",
+              title: "Texto Alternativo",
+            },
+          ],
         },
       ],
     }),
