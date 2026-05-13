@@ -32,7 +32,7 @@ export interface TimelineItem {
 export interface OurHistory {
   tagline?: string;
   titulo?: string;
-  descricao?: string;
+  descricao?: string | PortableTextBlock[];
   timeline?: TimelineItem[];
 }
 

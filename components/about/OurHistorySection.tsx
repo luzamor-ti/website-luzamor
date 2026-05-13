@@ -11,6 +11,8 @@ import {
 import { useRef } from "react";
 import Image from "next/image";
 import { urlFor } from "@/sanity/lib/image";
+import { PortableText } from "@portabletext/react";
+import { portableTextComponents } from "@/constants/portableTextComponents";
 
 interface OurHistorySectionProps {
   data: OurHistory | null;
@@ -71,11 +73,23 @@ export function OurHistorySection({ data }: OurHistorySectionProps) {
           <Heading level={2} className="text-neutral-dark">
             {data?.titulo || fallback.title}
           </Heading>
-          {(data?.descricao || fallback.description) && (
-            <Text variant="large" className="text-neutral-medium">
-              {data?.descricao || fallback.description}
-            </Text>
-          )}
+          {(() => {
+            const description = data?.descricao ?? fallback.description;
+            if (!description) return null;
+
+            return typeof description === "string" ? (
+              <Text variant="large" className="text-neutral-medium">
+                {description}
+              </Text>
+            ) : (
+              <div className="prose prose-lg max-w-none text-neutral-medium">
+                <PortableText
+                  value={description}
+                  components={portableTextComponents}
+                />
+              </div>
+            );
+          })()}
         </motion.div>
 
         {/* Timeline */}
