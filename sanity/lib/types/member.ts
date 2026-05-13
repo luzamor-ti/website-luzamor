@@ -8,6 +8,7 @@ export interface Member {
   roleType?: string;
   alt?: string;
   photo?: SanityImage;
+  diretoria?: boolean;
   shortBio?: string;
   fullBio?: PortableTextBlock[];
   words?: PortableTextBlock[];

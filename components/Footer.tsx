@@ -5,10 +5,13 @@ import type { Footer } from "@/sanity/lib/types/footer";
 import { Image as SanityImage } from "sanity";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import Image from "next/image";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Facebook, Instagram, Youtube } from "lucide-react";
 
 interface FooterProps extends Partial<Footer> {
   logo?: SanityImage;
+  facebook?: string;
+  instagram?: string;
+  youtube?: string;
 }
 
 export function Footer({
@@ -17,6 +20,9 @@ export function Footer({
   sejaApoiadorTitulo,
   slogan,
   whatsapp,
+  facebook,
+  instagram,
+  youtube,
 }: FooterProps) {
   const logoUrl = buildSanityImageUrl(logo?.asset?._ref);
 
@@ -31,12 +37,12 @@ export function Footer({
     { name: "Projetos", href: "/projetos" },
     { name: "Sala de aula", href: "/salas-aula" },
     { name: "Auditório", href: "/auditorio" },
-    { name: "Contato", href: "/contato" },
   ];
 
   const socialLinks = [
-    { name: "Facebook", href: "" },
-    { name: "Instagram", href: "" },
+    { name: "Facebook", href: facebook, Icon: Facebook },
+    { name: "Instagram", href: instagram, Icon: Instagram },
+    { name: "YouTube", href: youtube, Icon: Youtube },
   ].filter((link) => link.href);
 
   const contactLinks = [
@@ -136,14 +142,20 @@ export function Footer({
             Redes Sociais
           </Text>
           {socialLinks.map((link) => (
-            <Link
+            <a
               key={link.name}
               href={link.href}
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label={link.name}
               className="text-white no-underline hover:text-white/70 hover:bg-white/10 rounded-full transition-all duration-500 px-5 py-1 w-fit translate-x-0 hover:translate-x-1 transition-transform"
             >
-              {link.name}
-              <ArrowRight size={16} className="inline-block ml-1" />
-            </Link>
+              <span className="inline-flex items-center gap-2">
+                <link.Icon size={16} aria-hidden="true" />
+                {link.name}
+                <ArrowRight size={16} className="inline-block ml-1" />
+              </span>
+            </a>
           ))}
         </nav>
 
@@ -189,3 +201,5 @@ export function Footer({
     </footer>
   );
 }
+
+export default Footer;

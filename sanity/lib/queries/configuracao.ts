@@ -20,7 +20,7 @@ export const configuracaoGlobalQuery = `
       "address": endereco,
       "facebook": facebook,
       "instagram": instagram,
-      "linkedin": linkedin
+      "youtube": youtube
     }
   }
 `;

@@ -11,8 +11,6 @@ import { createMockEvent } from "@/components/events/__tests__/eventMocks";
 // Tests for eventCta utilities
 // ─────────────────────────────────────────
 
-const base = createMockEvent();
-
 describe("buildEventCTA — fallback (CTA desabilitado)", () => {
   it("retorna href do WhatsApp global quando cta.enabled é false", () => {
     const event = createMockEvent({ cta: { enabled: false } });

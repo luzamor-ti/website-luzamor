@@ -23,13 +23,17 @@ import { CALENDAR_EVENTS_FALLBACKS } from "@/constants/textFallbacks";
 interface EventsCalendarViewProps {
   upcomingEvents: Event[];
   pastEvents: Event[];
+  initialMonth?: Date;
 }
 
 export function EventsCalendarView({
   upcomingEvents,
   pastEvents,
+  initialMonth,
 }: EventsCalendarViewProps) {
-  const [currentMonth, setCurrentMonth] = useState(new Date());
+  const [currentMonth, setCurrentMonth] = useState(
+    () => initialMonth ?? new Date(),
+  );
 
   const monthStart = startOfMonth(currentMonth);
   const monthEnd = endOfMonth(currentMonth);
