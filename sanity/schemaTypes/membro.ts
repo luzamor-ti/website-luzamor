@@ -2,7 +2,7 @@ import { defineType, defineField } from "sanity";
 
 export const membro = defineType({
   name: "membro",
-  title: "Membro da Equipe",
+  title: "Diretoria",
   type: "document",
   groups: [
     { name: "dadosPessoais", title: "Dados Pessoais", default: true },
@@ -52,15 +52,6 @@ export const membro = defineType({
       group: "diretoria",
     }),
     defineField({
-      name: "diretoria",
-      title: "Faz parte da Diretoria?",
-      type: "boolean",
-      description:
-        "Marque caso este membro deva aparecer na página de Diretoria",
-      initialValue: false,
-      group: "diretoria",
-    }),
-    defineField({
       name: "tipoCargo",
       title: "Tipo de Cargo",
       type: "string",
@@ -77,16 +68,7 @@ export const membro = defineType({
           { title: "Outro", value: "outro" },
         ],
       },
-      hidden: ({ parent }: { parent?: { diretoria?: boolean } }) =>
-        !parent?.diretoria,
-      validation: (Rule) =>
-        Rule.custom((value, context) => {
-          const ctx = context as { parent?: { diretoria?: boolean } };
-          if (ctx?.parent?.diretoria && !value) {
-            return "Selecione o tipo de cargo para membros da Diretoria.";
-          }
-          return true;
-        }),
+      validation: (Rule) => Rule.required(),
       group: "diretoria",
     }),
     defineField({
