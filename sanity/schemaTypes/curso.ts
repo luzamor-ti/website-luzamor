@@ -81,8 +81,170 @@ export const curso = defineType({
     }),
 
     defineField({
+      name: "professores",
+      title: "Professores (Novo)",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "professorMembro",
+          title: "Professor - Membro da Equipe",
+          fields: [
+            {
+              name: "tipo",
+              title: "Tipo",
+              type: "string",
+              options: {
+                list: [{ title: "Membro", value: "membro" }],
+              },
+              initialValue: "membro",
+              hidden: true,
+            },
+            {
+              name: "professorMembro",
+              title: "Selecionar Membro",
+              type: "reference",
+              to: [{ type: "membro" }],
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              title: "professorMembro.nome",
+              subtitle: "professorMembro.cargo",
+            },
+          },
+        },
+        {
+          type: "object",
+          name: "professorExterno",
+          title: "Professor - Externo",
+          fields: [
+            {
+              name: "tipo",
+              title: "Tipo",
+              type: "string",
+              options: {
+                list: [{ title: "Externo", value: "externo" }],
+              },
+              initialValue: "externo",
+              hidden: true,
+            },
+            {
+              name: "nome",
+              title: "Nome",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "foto",
+              title: "Foto",
+              type: "image",
+              options: {
+                hotspot: true,
+              },
+              fields: [
+                {
+                  name: "alt",
+                  title: "Texto Alternativo",
+                  type: "string",
+                },
+              ],
+            },
+          ],
+          preview: {
+            select: {
+              title: "nome",
+              media: "foto",
+            },
+          },
+        },
+      ],
+      validation: (Rule) => Rule.required().min(1).error("Adicione pelo menos um professor"),
+      group: "professor",
+    }),
+
+    defineField({
+      name: "idadeMinima",
+      title: "Idade Mínima",
+      type: "number",
+      description: "Idade mínima recomendada para o curso (0-120)",
+      validation: (Rule) =>
+        Rule.min(0)
+          .max(120)
+          .warning("Idade mínima deve estar entre 0 e 120 anos"),
+      group: "informacoes",
+    }),
+
+    defineField({
+      name: "precos",
+      title: "Preços e Modalidades",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          name: "precoCurso",
+          title: "Preço",
+          fields: [
+            {
+              name: "tier",
+              title: "Modalidade",
+              type: "string",
+              options: {
+                list: [
+                  { title: "Aulas Individuais", value: "individual" },
+                  { title: "Aulas em Grupo", value: "group" },
+                  { title: "Aula Experimental Individual", value: "free_individual" },
+                  { title: "Aula Experimental em Grupo", value: "free_group" },
+                ],
+              },
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "value",
+              title: "Valor (R$)",
+              type: "number",
+              validation: (Rule) => Rule.required().min(0),
+            },
+            {
+              name: "description",
+              title: "Descrição",
+              type: "string",
+              validation: (Rule) => Rule.required(),
+            },
+          ],
+          preview: {
+            select: {
+              tier: "tier",
+              value: "value",
+            },
+            prepare({ tier, value }) {
+              return {
+                title: `${tier} - ${value === 0 ? "Gratuito" : `R$ ${value}/mês`}`,
+              };
+            },
+          },
+        },
+      ],
+      validation: (Rule) =>
+        Rule.required()
+          .min(1)
+          .error("Adicione pelo menos um preço")
+          .custom((precos: unknown) => {
+            if (!Array.isArray(precos)) return true;
+            const tiers = precos.map((p: { tier?: string }) => p.tier);
+            const uniqueTiers = new Set(tiers);
+            if (uniqueTiers.size !== tiers.length) {
+              return "Não pode ter modalidades duplicadas";
+            }
+            return true;
+          }),
+      group: "informacoes",
+    }),
+
+    defineField({
       name: "tipoProfessor",
-      title: "Tipo de Professor",
+      title: "Tipo de Professor (Deprecated)",
       type: "string",
       options: {
         list: [
@@ -92,30 +254,22 @@ export const curso = defineType({
         layout: "radio",
       },
       initialValue: "membro",
-      validation: (Rule) => Rule.required(),
-      group: "professor",
+      hidden: true,
+      description: "Campo descontinuado. Use 'Professores (Novo)' em vez disso.",
     }),
 
     defineField({
       name: "professorMembro",
-      title: "Professor (Membro)",
+      title: "Professor (Membro) (Deprecated)",
       type: "reference",
       to: [{ type: "membro" }],
-      hidden: ({ parent }) => parent?.tipoProfessor !== "membro",
-      validation: (Rule) =>
-        Rule.custom((value, context) => {
-          const parent = context.parent as { tipoProfessor?: string };
-          if (parent?.tipoProfessor === "membro" && !value) {
-            return "Selecione um membro da equipe";
-          }
-          return true;
-        }),
-      group: "professor",
+      hidden: true,
+      description: "Campo descontinuado. Use 'Professores (Novo)' em vez disso.",
     }),
 
     defineField({
       name: "professorExterno",
-      title: "Professor Externo",
+      title: "Professor Externo (Deprecated)",
       type: "object",
       fields: [
         {
@@ -140,16 +294,8 @@ export const curso = defineType({
           ],
         },
       ],
-      hidden: ({ parent }) => parent?.tipoProfessor !== "externo",
-      validation: (Rule) =>
-        Rule.custom((value, context) => {
-          const parent = context.parent as { tipoProfessor?: string };
-          if (parent?.tipoProfessor === "externo" && !value?.nome) {
-            return "Preencha os dados do professor externo";
-          }
-          return true;
-        }),
-      group: "professor",
+      hidden: true,
+      description: "Campo descontinuado. Use 'Professores (Novo)' em vez disso.",
     }),
 
     defineField({

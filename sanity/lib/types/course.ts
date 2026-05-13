@@ -1,5 +1,21 @@
 import { PortableTextBlock } from "next-sanity";
+import { Image as SanityImage } from "sanity";
 import { Member } from "./member";
+
+export interface CourseTeacher {
+  type: "membro" | "externo";
+  memberData?: Member;
+  externalData?: {
+    name: string;
+    photo?: SanityImage;
+  };
+}
+
+export interface CoursePricingTier {
+  tier: "individual" | "group" | "free_individual" | "free_group";
+  value: number;
+  description: string;
+}
 
 export interface Course {
   _id: string;
@@ -14,7 +30,6 @@ export interface Course {
   };
   description: PortableTextBlock[];
   schedule: string;
-  teacherType: "membro" | "externo";
   enrollment: {
     active: boolean;
     messageText?: string;
@@ -22,8 +37,19 @@ export interface Course {
     buttonText?: string;
   };
   active: boolean;
-  teacherMember?: Member;
   shortDescription?: string;
+  teachers: CourseTeacher[];
+  pricing: CoursePricingTier[];
+  minAge?: number;
+  classroom?: {
+    slug: string;
+    name: string;
+  };
+  order?: number;
+
+  // Deprecated fields (kept for backward compatibility during migration)
+  teacherType?: "membro" | "externo";
+  teacherMember?: Member;
   price?: number;
   externalTeacher?: {
     name: string;
@@ -35,9 +61,4 @@ export interface Course {
       alt?: string;
     };
   };
-  classroom?: {
-    slug: string;
-    name: string;
-  };
-  order?: number;
 }

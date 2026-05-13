@@ -19,6 +19,41 @@ export const coursesQuery = groq`
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
+    "teachers": professores[]{
+      "type": tipo,
+      "memberData": tipo == "membro" -> professorMembro->{
+        _id,
+        "name": nome,
+        "role": cargo,
+        "photo": {
+          "asset": foto.asset,
+          "alt": alt
+        },
+        "shortBio": bioCurta
+      },
+      "externalData": tipo == "externo" -> {
+        "name": nome,
+        "photo": {
+          "asset": foto.asset,
+          "alt": foto.alt
+        }
+      }
+    },
+    "minAge": idadeMinima,
+    "pricing": precos[]{
+      "tier": tier,
+      "value": value,
+      "description": description
+    },
+    "enrollment": inscricao {
+      "active": ativa,
+      "messageText": textoMensagem,
+      "whatsapp": whatsapp,
+      "buttonText": textoBotao
+    },
+    "classroom": salaAula->{ "slug": slug.current, "name": nome },
+    "active": ativo,
+    "order": ordem,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
       _id,
@@ -35,16 +70,7 @@ export const coursesQuery = groq`
         "asset": foto.asset,
         "alt": foto.alt
       }
-    },
-    "enrollment": inscricao {
-      "active": ativa,
-      "messageText": textoMensagem,
-      "whatsapp": whatsapp,
-      "buttonText": textoBotao
-    },
-    "classroom": salaAula->{ "slug": slug.current, "name": nome },
-    "active": ativo,
-    "order": ordem
+    }
   }
 `;
 
@@ -61,6 +87,40 @@ export const courseBySlugQuery = groq`
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
+    "teachers": professores[]{
+      "type": tipo,
+      "memberData": tipo == "membro" -> professorMembro->{
+        _id,
+        "name": nome,
+        "role": cargo,
+        "photo": {
+          "asset": foto.asset,
+          "alt": alt
+        },
+        "shortBio": bioCurta
+      },
+      "externalData": tipo == "externo" -> {
+        "name": nome,
+        "photo": {
+          "asset": foto.asset,
+          "alt": foto.alt
+        }
+      }
+    },
+    "minAge": idadeMinima,
+    "pricing": precos[]{
+      "tier": tier,
+      "value": value,
+      "description": description
+    },
+    "enrollment": inscricao {
+      "active": ativa,
+      "messageText": textoMensagem,
+      "whatsapp": whatsapp,
+      "buttonText": textoBotao
+    },
+    "classroom": salaAula->{ "slug": slug.current, "name": nome },
+    "active": ativo,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
       _id,
@@ -78,15 +138,7 @@ export const courseBySlugQuery = groq`
         "asset": foto.asset,
         "alt": foto.alt
       }
-    },
-    "enrollment": inscricao {
-      "active": ativa,
-      "messageText": textoMensagem,
-      "whatsapp": whatsapp,
-      "buttonText": textoBotao
-    },
-    "classroom": salaAula->{ "slug": slug.current, "name": nome },
-    "active": ativo
+    }
   }
 `;
 
@@ -103,6 +155,41 @@ export const relatedcoursesQuery = groq`
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
+    "teachers": professores[]{
+      "type": tipo,
+      "memberData": tipo == "membro" -> professorMembro->{
+        _id,
+        "name": nome,
+        "role": cargo,
+        "photo": {
+          "asset": foto.asset,
+          "alt": alt
+        },
+        "shortBio": bioCurta
+      },
+      "externalData": tipo == "externo" -> {
+        "name": nome,
+        "photo": {
+          "asset": foto.asset,
+          "alt": foto.alt
+        }
+      }
+    },
+    "minAge": idadeMinima,
+    "pricing": precos[]{
+      "tier": tier,
+      "value": value,
+      "description": description
+    },
+    "enrollment": inscricao {
+      "active": ativa,
+      "messageText": textoMensagem,
+      "whatsapp": whatsapp,
+      "buttonText": textoBotao
+    },
+    "classroom": salaAula->{ "slug": slug.current, "name": nome },
+    "active": ativo,
+    "order": ordem,
     "teacherType": tipoProfessor,
     "teacherMember": professorMembro->{
       _id,
@@ -119,15 +206,6 @@ export const relatedcoursesQuery = groq`
         "asset": foto.asset,
         "alt": foto.alt
       }
-    },
-    "enrollment": inscricao {
-      "active": ativa,
-      "messageText": textoMensagem,
-      "whatsapp": whatsapp,
-      "buttonText": textoBotao
-    },
-    "classroom": salaAula->{ "slug": slug.current, "name": nome },
-    "active": ativo,
-    "order": ordem
+    }
   }
 `;
