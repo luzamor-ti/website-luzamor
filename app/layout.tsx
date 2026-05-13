@@ -103,6 +103,9 @@ export default async function RootLayout({
           footer={footer}
           logo={config?.logo}
           whatsappNumber={config?.contact?.whatsapp}
+          facebook={config?.contact?.facebook}
+          instagram={config?.contact?.instagram}
+          youtube={config?.contact?.youtube}
         >
           {children}
         </LayoutWrapper>

@@ -65,9 +65,15 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
           <div className="relative aspect-[4/1] w-full">
             {(() => {
               function hasAlt(x: unknown): x is { alt?: string } {
-                return typeof x === "object" && x !== null && "alt" in (x as Record<string, unknown>);
+                return (
+                  typeof x === "object" &&
+                  x !== null &&
+                  "alt" in (x as Record<string, unknown>)
+                );
               }
-              const altText = hasAlt(data.imagemGrupo) ? data.imagemGrupo.alt : undefined;
+              const altText = hasAlt(data.imagemGrupo)
+                ? data.imagemGrupo.alt
+                : undefined;
               return (
                 <Image
                   src={urlFor(data.imagemGrupo).width(1600).height(400).url()}
