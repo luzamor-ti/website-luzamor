@@ -212,26 +212,28 @@ Descrição: "Evento realizado no verão com 5000 participantes"
 
 **Tipo:** `membro`  
 **Quantidade:** Múltiplos documentos  
-**Descrição:** Membros da equipe ou conselho da fundação.
+**Descrição:** Cadastro de todos os membros da equipe da fundação. Permite diferenciar quem faz parte da diretoria.
 
 #### Campos:
 
-| Campo            | Tipo        | Obrigatório | Descrição                            |
-| ---------------- | ----------- | ----------- | ------------------------------------ |
-| **Nome**         | Texto curto | ✅ Sim      | Nome completo                        |
-| **Cargo**        | Texto curto | Não         | Função na organização                |
-| **Foto**         | Imagem      | Não         | Foto do membro                       |
-| **Bio Curta**    | Texto longo | Não         | Descrição resumida para cards        |
-| **Bio Completa** | Rich Text   | Não         | Biografia detalhada                  |
-| **Ordem**        | Número      | Não         | Ordem de exibição (menor = primeiro) |
+| Campo                  | Tipo        | Obrigatório | Descrição                                             |
+| ---------------------- | ----------- | ----------- | ----------------------------------------------------- |
+| **Nome**               | Texto curto | ✅ Sim      | Nome completo                                         |
+| **Cargo**              | Texto curto | ✅ Sim      | Função na organização (campo aberto)                  |
+| **Membro da Diretoria?** | Booleano    | Não         | Se marcado, o membro aparecerá na página "Sobre Nós" |
+| **Foto**               | Imagem      | Não         | Foto do membro                                        |
+| **Bio Curta**          | Texto longo | Não         | Descrição resumida para cards                         |
+| **Bio Completa**       | Rich Text   | Não         | Biografia detalhada                                   |
+| **Ordem**              | Número      | Não         | Ordem de exibição (menor = primeiro)                  |
 
 #### Exemplo de uso:
 
 ```
 Nome: "Maria Silva"
-Cargo: "Diretora Executiva"
-Bio Curta: "20 anos de experiência em gestão cultural"
-Ordem: 1
+Cargo: "Coordenadora Pedagógica"
+Membro da Diretoria?: Não
+Bio Curta: "Especialista em educação infantil"
+Ordem: 10
 ```
 
 ---
