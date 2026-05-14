@@ -4,18 +4,16 @@ import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Course } from "@/sanity/lib/types/course";
 
 interface CourseTeacherProps {
-  type: Course["teacherType"];
-  member?: Course["teacherMember"];
-  external?: Course["externalTeacher"];
+  teacher: NonNullable<Course["teachers"]>[number];
 }
 
-export function CourseTeacher({ type, member, external }: CourseTeacherProps) {
-  const teacher = type === "membro" ? member : external;
-  if (!teacher) return null;
-  const photoUrl = buildSanityImageUrl(teacher.photo?.asset?._ref);
+export function CourseTeacher({ teacher }: CourseTeacherProps) {
+  const teacherData = teacher.teacherType === "membro" ? teacher.teacherMember : teacher.externalTeacher;
+  if (!teacherData) return null;
+  const photoUrl = buildSanityImageUrl(teacherData.photo?.asset?._ref);
 
   // Type guard to check if teacher is a Member
-  const isMember = type === "membro" && member;
+  const isMember = teacher.teacherType === "membro" && teacher.teacherMember;
 
   return (
     <Section className="bg-gray-50">
@@ -24,7 +22,7 @@ export function CourseTeacher({ type, member, external }: CourseTeacherProps) {
           <div className="relative w-48 h-48 rounded-full overflow-hidden shadow-lg shrink-0">
             <Image
               src={photoUrl}
-              alt={teacher.name}
+              alt={teacherData.name}
               fill
               className="object-cover"
             />
@@ -35,15 +33,15 @@ export function CourseTeacher({ type, member, external }: CourseTeacherProps) {
             Professor
           </Text>
           <Heading level={3} className="mb-2">
-            {teacher.name}
+            {teacherData.name}
           </Heading>
-          {isMember && member.role && (
+          {isMember && teacher.teacherMember?.role && (
             <Text className="font-medium text-gray-700 mb-4">
-              {member.role}
+              {teacher.teacherMember.role}
             </Text>
           )}
-          {isMember && member.shortBio && (
-            <Text className="text-gray-600 italic">{member.shortBio}</Text>
+          {isMember && teacher.teacherMember?.shortBio && (
+            <Text className="text-gray-600 italic">{teacher.teacherMember.shortBio}</Text>
           )}
         </div>
       </div>

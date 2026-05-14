@@ -9,6 +9,7 @@ import {
   EventSupportersSection,
   EventOrganizations,
 } from "@/components/events";
+import { Section } from "@/components/ui";
 import { Metadata } from "next";
 
 interface EventPageProps {
@@ -53,22 +54,28 @@ export default async function EventPage({ params }: EventPageProps) {
     <main className="min-h-screen">
       <EventHero event={event} />
 
-      <div className="container mx-auto px-4 pt-8 pb-16">
-        <div className="grid lg:grid-cols-3 gap-8 items-start">
-          <div className="lg:col-span-2">
-            <EventDetails event={event} />
-            <EventSupportersSection event={event} />
-          </div>
-          <div className="lg:col-span-1">
-            <div className="sticky top-24">
+      <Section className="my-12 p-8 md:p-12">
+        <div className="max-w-7xl mx-auto">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-start">
+            
+            {/* Left Column (Sticky Sidebar) */}
+            <div className="lg:col-span-8 space-y-12">
+              <EventDetails event={event} />
+              <EventSupportersSection event={event} />
+            </div>
+
+            {/* Right Column (Content) */}
+            <div className="lg:col-span-4 lg:sticky lg:top-32 space-y-8">
               <EventInfo
                 event={event}
                 globalWhatsapp={globalConfig?.contact?.whatsapp}
               />
             </div>
+
           </div>
         </div>
-      </div>
+      </Section>
+
       <EventOrganizations event={event} />
 
       <EventGallerySection event={event} />

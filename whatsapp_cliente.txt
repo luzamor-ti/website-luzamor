@@ -1,0 +1,17 @@
+Olá! Tudo bem? Passando para avisar que concluímos as 6 alterações solicitadas para a Fundação Luzamor! 🌟
+
+Aqui está o resumo do que foi entregue:
+
+1️⃣ **Múltiplos Professores:** Agora é possível cadastrar e exibir mais de um professor por curso, dando mais flexibilidade ao conteúdo.
+2️⃣ **Imagem Hero (Logo do Curso):** Redesenhamos o cabeçalho (Hero) para que a imagem do curso funcione como um ícone/logo no lado esquerdo. Além disso, criamos um fundo imersivo e elegante usando a própria imagem de forma suave!
+3️⃣ **Valores de Ingressos:** Adicionamos as opções de meia, inteira e gratuito para os eventos, facilitando a escolha e a comunicação de valores.
+4️⃣ **Mensalidades dos Cursos:** Adaptamos o sistema para exibir as opções de modalidades (Aulas Individuais, Em Grupo) e os cenários de gratuidade. Tudo isso agora aparece de forma muito clara num card de "Investimento".
+5️⃣ **Idade Mínima Opcional:** Corrigimos o campo de idade mínima para ser um dado flexível. Se ele não for preenchido no CMS, ele simplesmente não aparece, deixando a interface limpa (sem travar nos "16 anos").
+6️⃣ **Ajuste de Textos:** Corrigimos o texto "Valor do Ingresso" na página de cursos, que agora exibe corretamente "Valor da Mensalidade" ou "Investimento".
+
+**Bônus de UI/UX:** 
+Além das suas solicitações, também revisamos o layout da página do Curso e do Evento para deixá-las ainda mais atrativas, no padrão de *Landing Pages* premium. O botão de "Inscrever-se" (via WhatsApp) agora te acompanha ao longo da leitura do curso de forma inteligente!
+
+Em breve vamos colocar essa versão no ar. Se quiser dar uma conferida em como ficou o visual, anexei um resumo rápido neste link!
+
+Qualquer dúvida, seguimos à disposição.🚀

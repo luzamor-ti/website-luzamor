@@ -1,21 +1,5 @@
 import { PortableTextBlock } from "next-sanity";
-import { Image as SanityImage } from "sanity";
 import { Member } from "./member";
-
-export interface CourseTeacher {
-  type: "membro" | "externo";
-  memberData?: Member;
-  externalData?: {
-    name: string;
-    photo?: SanityImage;
-  };
-}
-
-export interface CoursePricingTier {
-  tier: "individual" | "group" | "free_individual" | "free_group";
-  value: number;
-  description: string;
-}
 
 export interface Course {
   _id: string;
@@ -38,27 +22,30 @@ export interface Course {
   };
   active: boolean;
   shortDescription?: string;
-  teachers: CourseTeacher[];
-  pricing: CoursePricingTier[];
   minAge?: number;
+  monthlyOptions?: {
+    title: string;
+    free: boolean;
+    price?: number;
+    details?: string;
+  }[];
+  teachers?: {
+    teacherType: "membro" | "externo";
+    teacherMember?: Member;
+    externalTeacher?: {
+      name: string;
+      photo?: {
+        asset: {
+          _ref: string;
+          _type: "reference";
+        };
+        alt?: string;
+      };
+    };
+  }[];
   classroom?: {
     slug: string;
     name: string;
   };
   order?: number;
-
-  // Deprecated fields (kept for backward compatibility during migration)
-  teacherType?: "membro" | "externo";
-  teacherMember?: Member;
-  price?: number;
-  externalTeacher?: {
-    name: string;
-    photo?: {
-      asset: {
-        _ref: string;
-        _type: "reference";
-      };
-      alt?: string;
-    };
-  };
 }

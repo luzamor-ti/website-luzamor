@@ -56,9 +56,63 @@ export const curso = defineType({
     }),
 
     defineField({
-      name: "valor",
-      title: "Valor do Curso (R$)",
+      name: "idadeMinima",
+      title: "Idade Mínima",
       type: "number",
+      description: "Idade mínima em anos para participar do curso",
+      initialValue: 16,
+      group: "informacoes",
+    }),
+
+    defineField({
+      name: "opcoesMensalidade",
+      title: "Opções de Mensalidade",
+      type: "array",
+      of: [
+        {
+          type: "object",
+          fields: [
+            {
+              name: "titulo",
+              title: "Título da Opção",
+              type: "string",
+              description: "Ex: Aula Individual, Aula em Grupo",
+              validation: (Rule) => Rule.required(),
+            },
+            {
+              name: "gratuito",
+              title: "Gratuito",
+              type: "boolean",
+              initialValue: false,
+            },
+            {
+              name: "valor",
+              title: "Valor da Mensalidade (R$)",
+              type: "number",
+              hidden: ({ parent }) => parent?.gratuito === true,
+            },
+            {
+              name: "detalhes",
+              title: "Detalhes Adicionais",
+              type: "string",
+              description: "Ex: 1 hora por semana (Opcional)",
+            }
+          ],
+          preview: {
+            select: {
+              titulo: "titulo",
+              gratuito: "gratuito",
+              valor: "valor"
+            },
+            prepare({ titulo, gratuito, valor }) {
+              return {
+                title: titulo,
+                subtitle: gratuito ? "Gratuito" : `R$ ${valor || 0}`
+              }
+            }
+          }
+        }
+      ],
       group: "informacoes",
     }),
 
@@ -82,220 +136,106 @@ export const curso = defineType({
 
     defineField({
       name: "professores",
-      title: "Professores (Novo)",
+      title: "Professores",
       type: "array",
       of: [
         {
           type: "object",
-          name: "professorMembro",
-          title: "Professor - Membro da Equipe",
+          title: "Professor",
           fields: [
             {
-              name: "tipo",
-              title: "Tipo",
-              type: "string",
-              options: {
-                list: [{ title: "Membro", value: "membro" }],
-              },
-              initialValue: "membro",
-              hidden: true,
-            },
-            {
-              name: "professorMembro",
-              title: "Selecionar Membro",
-              type: "reference",
-              to: [{ type: "membro" }],
-              validation: (Rule) => Rule.required(),
-            },
-          ],
-          preview: {
-            select: {
-              title: "professorMembro.nome",
-              subtitle: "professorMembro.cargo",
-            },
-          },
-        },
-        {
-          type: "object",
-          name: "professorExterno",
-          title: "Professor - Externo",
-          fields: [
-            {
-              name: "tipo",
-              title: "Tipo",
-              type: "string",
-              options: {
-                list: [{ title: "Externo", value: "externo" }],
-              },
-              initialValue: "externo",
-              hidden: true,
-            },
-            {
-              name: "nome",
-              title: "Nome",
-              type: "string",
-              validation: (Rule) => Rule.required(),
-            },
-            {
-              name: "foto",
-              title: "Foto",
-              type: "image",
-              options: {
-                hotspot: true,
-              },
-              fields: [
-                {
-                  name: "alt",
-                  title: "Texto Alternativo",
-                  type: "string",
-                },
-              ],
-            },
-          ],
-          preview: {
-            select: {
-              title: "nome",
-              media: "foto",
-            },
-          },
-        },
-      ],
-      validation: (Rule) => Rule.required().min(1).error("Adicione pelo menos um professor"),
-      group: "professor",
-    }),
-
-    defineField({
-      name: "idadeMinima",
-      title: "Idade Mínima",
-      type: "number",
-      description: "Idade mínima recomendada para o curso (0-120)",
-      validation: (Rule) =>
-        Rule.min(0)
-          .max(120)
-          .warning("Idade mínima deve estar entre 0 e 120 anos"),
-      group: "informacoes",
-    }),
-
-    defineField({
-      name: "precos",
-      title: "Preços e Modalidades",
-      type: "array",
-      of: [
-        {
-          type: "object",
-          name: "precoCurso",
-          title: "Preço",
-          fields: [
-            {
-              name: "tier",
-              title: "Modalidade",
+              name: "tipoProfessor",
+              title: "Tipo de Professor",
               type: "string",
               options: {
                 list: [
-                  { title: "Aulas Individuais", value: "individual" },
-                  { title: "Aulas em Grupo", value: "group" },
-                  { title: "Aula Experimental Individual", value: "free_individual" },
-                  { title: "Aula Experimental em Grupo", value: "free_group" },
+                  { title: "Membro da Equipe", value: "membro" },
+                  { title: "Professor Externo", value: "externo" },
                 ],
+                layout: "radio",
               },
+              initialValue: "membro",
               validation: (Rule) => Rule.required(),
             },
             {
-              name: "value",
-              title: "Valor (R$)",
-              type: "number",
-              validation: (Rule) => Rule.required().min(0),
+              name: "professorMembro",
+              title: "Professor (Membro)",
+              type: "reference",
+              to: [{ type: "membro" }],
+              hidden: ({ parent }) => parent?.tipoProfessor !== "membro",
+              validation: (Rule) =>
+                Rule.custom((value, context) => {
+                  const parent = context.parent as { tipoProfessor?: string };
+                  if (parent?.tipoProfessor === "membro" && !value) {
+                    return "Selecione um membro da equipe";
+                  }
+                  return true;
+                }),
             },
             {
-              name: "description",
-              title: "Descrição",
-              type: "string",
-              validation: (Rule) => Rule.required(),
+              name: "professorExterno",
+              title: "Professor Externo",
+              type: "object",
+              fields: [
+                {
+                  name: "nome",
+                  title: "Nome",
+                  type: "string",
+                  validation: (Rule) =>
+                    Rule.custom(() => {
+                      // Nome is required only when professorExterno is active;
+                      // validated at the parent level
+                      return true;
+                    }),
+                },
+                {
+                  name: "foto",
+                  title: "Foto",
+                  type: "image",
+                  options: {
+                    hotspot: true,
+                  },
+                  fields: [
+                    {
+                      name: "alt",
+                      title: "Texto Alternativo",
+                      type: "string",
+                    },
+                  ],
+                },
+              ],
+              hidden: ({ parent }) => parent?.tipoProfessor !== "externo",
+              validation: (Rule) =>
+                Rule.custom((value, context) => {
+                  const parent = context.parent as { tipoProfessor?: string };
+                  const val = value as { nome?: string } | undefined;
+                  if (parent?.tipoProfessor === "externo" && !val?.nome) {
+                    return "Preencha o nome do professor externo";
+                  }
+                  return true;
+                }),
             },
           ],
           preview: {
             select: {
-              tier: "tier",
-              value: "value",
+              tipo: "tipoProfessor",
+              nomeExterno: "professorExterno.nome",
+              nomeMembro: "professorMembro.nome",
+              fotoExterno: "professorExterno.foto",
+              fotoMembro: "professorMembro.foto",
             },
-            prepare({ tier, value }) {
+            prepare({ tipo, nomeExterno, nomeMembro, fotoExterno, fotoMembro }) {
+              const isMembro = tipo === "membro";
               return {
-                title: `${tier} - ${value === 0 ? "Gratuito" : `R$ ${value}/mês`}`,
+                title: isMembro ? nomeMembro || "Membro não selecionado" : nomeExterno || "Nome não preenchido",
+                subtitle: isMembro ? "Membro da Equipe" : "Professor Externo",
+                media: isMembro ? fotoMembro : fotoExterno,
               };
-            },
-          },
-        },
-      ],
-      validation: (Rule) =>
-        Rule.required()
-          .min(1)
-          .error("Adicione pelo menos um preço")
-          .custom((precos: unknown) => {
-            if (!Array.isArray(precos)) return true;
-            const tiers = precos.map((p: { tier?: string }) => p.tier);
-            const uniqueTiers = new Set(tiers);
-            if (uniqueTiers.size !== tiers.length) {
-              return "Não pode ter modalidades duplicadas";
             }
-            return true;
-          }),
-      group: "informacoes",
-    }),
-
-    defineField({
-      name: "tipoProfessor",
-      title: "Tipo de Professor (Deprecated)",
-      type: "string",
-      options: {
-        list: [
-          { title: "Membro da Equipe", value: "membro" },
-          { title: "Professor Externo", value: "externo" },
-        ],
-        layout: "radio",
-      },
-      initialValue: "membro",
-      hidden: true,
-      description: "Campo descontinuado. Use 'Professores (Novo)' em vez disso.",
-    }),
-
-    defineField({
-      name: "professorMembro",
-      title: "Professor (Membro) (Deprecated)",
-      type: "reference",
-      to: [{ type: "membro" }],
-      hidden: true,
-      description: "Campo descontinuado. Use 'Professores (Novo)' em vez disso.",
-    }),
-
-    defineField({
-      name: "professorExterno",
-      title: "Professor Externo (Deprecated)",
-      type: "object",
-      fields: [
-        {
-          name: "nome",
-          title: "Nome",
-          type: "string",
-          validation: (Rule) => Rule.required(),
-        },
-        {
-          name: "foto",
-          title: "Foto",
-          type: "image",
-          options: {
-            hotspot: true,
-          },
-          fields: [
-            {
-              name: "alt",
-              title: "Texto Alternativo",
-              type: "string",
-            },
-          ],
-        },
+          }
+        }
       ],
-      hidden: true,
-      description: "Campo descontinuado. Use 'Professores (Novo)' em vez disso.",
+      group: "professor",
     }),
 
     defineField({

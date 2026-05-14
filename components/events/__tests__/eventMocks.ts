@@ -88,7 +88,7 @@ export const createMockEvents = (count: number): Event[] =>
     eventDate: new Date(2026, 3, 15 + i, 14 + (i % 6), 0).toISOString(),
     ticketPrice: {
       free: i % 2 === 0,
-      ...(i % 2 !== 0 && { value: 50 + i * 10 }),
+      ...(i % 2 !== 0 && { inteira: 50 + i * 10 }),
     },
     cta: {
       enabled: i % 3 === 0,
@@ -114,7 +114,7 @@ export const mockMusicalEvent: Event = createMockEvent({
   slug: { current: "concerto-primavera" },
   category: "musical",
   eventDate: "2026-04-15T19:00:00.000Z",
-  ticketPrice: { free: false, value: 50.0 },
+  ticketPrice: { free: false, inteira: 50.0 },
   location: { name: "Teatro Municipal" },
 });
 
@@ -151,7 +151,7 @@ export const mockFeaturedEvent: Event = createMockEvent({
   },
   category: "musical",
   eventDate: "2026-04-24T19:30:00.000Z",
-  ticketPrice: { free: false, value: 50.0 },
+  ticketPrice: { free: false, inteira: 50.0 },
   location: { name: "Pátio da Fundação" },
   cta: {
     enabled: true,

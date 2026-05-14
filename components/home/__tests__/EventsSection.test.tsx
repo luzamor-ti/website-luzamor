@@ -82,7 +82,7 @@ describe("EventsSection", () => {
       },
       ticketPrice: {
         free: false,
-        value: 50,
+        inteira: 50,
       },
       cta: {
         enabled: true,
@@ -243,7 +243,7 @@ describe("EventsSection", () => {
           alt: "Evento 4",
         },
         slug: { current: "evento-4" },
-        ticketPrice: { free: false, value: 100 },
+        ticketPrice: { free: false, inteira: 100 },
         cta: { enabled: false },
         featured: false,
         active: true,

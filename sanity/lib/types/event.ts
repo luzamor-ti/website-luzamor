@@ -29,7 +29,9 @@ export interface Event {
   eventDate: string;
   ticketPrice: {
     free: boolean;
-    value?: number;
+    inteira?: number;
+    meia?: number;
+    additionalInfo?: string;
   };
   cta: {
     enabled: boolean;

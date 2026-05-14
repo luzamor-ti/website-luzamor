@@ -71,11 +71,13 @@ describe("EventCard", () => {
       ...mockEvent,
       ticketPrice: {
         free: false,
-        value: 25.0,
+        inteira: 25.0,
+        meia: 12.5,
       },
     };
     render(<EventCard event={paidEvent} />);
-    expect(screen.getByText("R$ 25.00")).toBeInTheDocument();
+    expect(screen.getByText("Inteira: R$ 25.00")).toBeInTheDocument();
+    expect(screen.getByText("Meia: R$ 12.50")).toBeInTheDocument();
   });
 
   it("formats event date correctly", () => {

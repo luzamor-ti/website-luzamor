@@ -16,9 +16,9 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
   return (
     <Section className=" py-24">
       <div className="container mx-auto px-4">
-        {/* Usando o layout 'split' para o título ficar igual à print */}
+        {/* Usando o layout 'split' para alinhar à esquerda, mantendo a consistência com a sidebar de cima */}
         <SectionHeader
-          tag="Outros trabalhos"
+          tag="Outros cursos"
           title="Construindo cultura juntos"
           description="Da educação ao desenvolvimento cultural, cada causa carrega a nossa missão de elevar e capacitar."
           layout="split"
@@ -28,10 +28,12 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
         <Grid cols={3} gap="lg">
           {courses.map((curso) => {
             const imageUrl = buildSanityImageUrl(curso.coverPhoto?.asset?._ref);
-            const teacher =
-              curso.teacherType === "membro"
-                ? curso.teacherMember
-                : curso.externalTeacher;
+            const firstTeacher = curso.teachers?.[0];
+            const teacher = firstTeacher
+              ? firstTeacher.teacherType === "membro"
+                ? firstTeacher.teacherMember
+                : firstTeacher.externalTeacher
+              : null;
             const teacherPhoto = buildSanityImageUrl(
               teacher?.photo?.asset?._ref,
             );

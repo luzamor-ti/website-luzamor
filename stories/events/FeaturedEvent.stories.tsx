@@ -35,7 +35,7 @@ const mockEvent: Event = {
   eventDate: "2026-08-15T20:00:00.000Z",
   ticketPrice: {
     free: false,
-    value: 80.0,
+    inteira: 80.0,
   },
   cta: {
     enabled: true,
@@ -174,7 +174,7 @@ export const CelebracaoSemDescricao: Story = {
       description: [],
       ticketPrice: {
         free: false,
-        value: 30.0,
+        inteira: 30.0,
       },
     },
   },

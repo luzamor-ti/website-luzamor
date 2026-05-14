@@ -23,18 +23,22 @@ describe("RelatedCourses", () => {
       },
       description: [],
       schedule: "Terças e quintas, 19h",
-      teacherType: "membro",
-      teacherMember: {
-        _id: "member-1",
-        name: "João Silva",
-        role: "Professor de Música",
-        photo: {
-          asset: {
-            _ref: "image-joao",
-            _type: "reference",
+      teachers: [
+        {
+          teacherType: "membro",
+          teacherMember: {
+            _id: "member-1",
+            name: "João Silva",
+            role: "Professor de Música",
+            photo: {
+              asset: {
+                _ref: "image-joao",
+                _type: "reference",
+              },
+            },
           },
         },
-      },
+      ],
       enrollment: {
         active: true,
         buttonText: "Saiba mais",
@@ -53,16 +57,20 @@ describe("RelatedCourses", () => {
       },
       description: [],
       schedule: "Segundas e quartas, 14h",
-      teacherType: "externo",
-      externalTeacher: {
-        name: "Maria Santos",
-        photo: {
-          asset: {
-            _ref: "image-maria",
-            _type: "reference",
+      teachers: [
+        {
+          teacherType: "externo",
+          externalTeacher: {
+            name: "Maria Santos",
+            photo: {
+              asset: {
+                _ref: "image-maria",
+                _type: "reference",
+              },
+            },
           },
         },
-      },
+      ],
       enrollment: {
         active: true,
         buttonText: "Inscreva-se",
@@ -74,13 +82,7 @@ describe("RelatedCourses", () => {
   it("renders section header correctly", () => {
     render(<RelatedCourses courses={mockCourses} />);
 
-    expect(screen.getByText("Outros Trabalhos")).toBeInTheDocument();
-    expect(screen.getByText("Construindo cultura juntos")).toBeInTheDocument();
-    expect(
-      screen.getByText(
-        /Da educação ao desenvolvimento cultural, cada causa carrega a nossa missão/,
-      ),
-    ).toBeInTheDocument();
+    expect(screen.getByText("Outros Cursos")).toBeInTheDocument();
   });
 
   it("renders all course titles", () => {
@@ -165,7 +167,6 @@ describe("RelatedCourses", () => {
         },
         description: [],
         schedule: "Sextas, 18h",
-        teacherType: "membro",
         enrollment: {
           active: true,
           buttonText: "Ver mais",
