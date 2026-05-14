@@ -30,7 +30,8 @@ export function EventInfo({ event, globalWhatsapp }: EventInfoProps) {
     : routesPath.auditorium;
 
   const isFree = event.ticketPrice?.free;
-  const ticketValue = event.ticketPrice?.value;
+  const inteira = event.ticketPrice?.inteira;
+  const meia = event.ticketPrice?.meia;
 
   return (
     <motion.div
@@ -57,9 +58,18 @@ export function EventInfo({ event, globalWhatsapp }: EventInfoProps) {
           {isFree ? (
             <p className="text-2xl font-bold text-primary">Gratuito</p>
           ) : (
-            <p className="text-2xl font-bold text-primary">
-              R$ {ticketValue?.toFixed(2).replace(".", ",")}
-            </p>
+            <div className="space-y-1">
+              {inteira !== undefined && (
+                <p className="text-lg font-bold">
+                  Inteira: <span className="text-primary">R$ {inteira.toFixed(2).replace(".", ",")}</span>
+                </p>
+              )}
+              {meia !== undefined && (
+                <p className="text-lg font-bold">
+                  Meia: <span className="text-primary">R$ {meia.toFixed(2).replace(".", ",")}</span>
+                </p>
+              )}
+            </div>
           )}
         </div>
       )}

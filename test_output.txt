@@ -1,0 +1,178 @@
+
+> website-luzamor@0.1.0 test
+> vitest run --project=unit
+
+
+ RUN  v4.0.18 /home/henrique/Documentos/projetos/www/website-luzamor
+
+ ✓ |unit| components/ui/__tests__/Accordion.test.tsx (11 tests) 361ms
+ ✓ |unit| components/home/__tests__/FaqSection.test.tsx (9 tests) 316ms
+ ✓ |unit| components/about/__tests__/OurHistorySection.test.tsx (12 tests) 370ms
+ ✓ |unit| components/board/__tests__/BoardSection.test.tsx (16 tests) 452ms
+ ✓ |unit| components/page-templates/__tests__/PatrocinadorTemplate.test.tsx (40 tests) 1409ms
+ ✓ |unit| components/events/__tests__/EventGallery.test.tsx (12 tests) 344ms
+ ✓ |unit| components/page-templates/__tests__/CursosTemplate.test.tsx (13 tests) 464ms
+ ✓ |unit| components/page-templates/calendario-eventos/__tests__/FeaturedEvent.test.tsx (21 tests) 535ms
+ ✓ |unit| components/home/__tests__/ImpactSection.test.tsx (11 tests) 381ms
+ ✓ |unit| components/events/__tests__/EventListItem.test.tsx (17 tests) 510ms
+ ✓ |unit| components/page-templates/__tests__/CalendarioEventosTemplate.test.tsx (10 tests) 485ms
+ ✓ |unit| components/page-templates/__tests__/EventsCalendarView.test.tsx (11 tests) 931ms
+ ✓ |unit| components/home/__tests__/EventsSection.test.tsx (20 tests) 1016ms
+ ✓ |unit| components/home/__tests__/ProjectsSection.test.tsx (7 tests) 278ms
+ ✓ |unit| components/page-templates/__tests__/EventsListView.test.tsx (11 tests) 1194ms
+ ✓ |unit| components/page-templates/calendario-eventos/__tests__/FeaturedEventsCarousel.test.tsx (10 tests) 239ms
+ ✓ |unit| components/courses/__tests__/RelatedCourses.test.tsx (10 tests) 234ms
+ ✓ |unit| components/page-templates/__tests__/EventsTabNavigation.test.tsx (9 tests) 167ms
+ ✓ |unit| components/president/__tests__/PresidentPageContent.test.tsx (9 tests) 172ms
+ ✓ |unit| components/ui/__tests__/Icon.test.tsx (9 tests) 102ms
+ ✓ |unit| components/events/__tests__/EventCard.test.tsx (13 tests) 235ms
+ ✓ |unit| components/about/__tests__/AboutImpactsSection.test.tsx (6 tests) 178ms
+ ✓ |unit| components/ui/__tests__/Ticker.test.tsx (14 tests) 121ms
+ ✓ |unit| components/ui/__tests__/Button.test.tsx (13 tests) 195ms
+ ✓ |unit| components/events/__tests__/EventInfo.test.tsx (14 tests) 307ms
+ ✓ |unit| components/home/__tests__/HeroSection.test.tsx (8 tests) 184ms
+ ✓ |unit| components/about/__tests__/ContentImageSection.test.tsx (10 tests) 209ms
+ ✓ |unit| components/home/__tests__/IntroSection.test.tsx (7 tests) 167ms
+ ✓ |unit| components/events/__tests__/EventDetails.test.tsx (4 tests) 93ms
+ ✓ |unit| components/courses/__tests__/CourseEnrollment.test.tsx (7 tests) 102ms
+ ✓ |unit| components/__tests__/Footer.test.tsx (1 test) 98ms
+ ✓ |unit| components/ui/__tests__/Typography.test.tsx (15 tests) 144ms
+ ✓ |unit| components/events/__tests__/EventHero.test.tsx (10 tests) 292ms
+ ✓ |unit| components/courses/__tests__/CourseDescription.test.tsx (5 tests) 55ms
+ ✓ |unit| components/courses/__tests__/CourseTeacher.test.tsx (8 tests) 77ms
+ ✓ |unit| components/__tests__/OurTeamSection.test.tsx (1 test) 59ms
+ ✓ |unit| components/animations/__tests__/FadeIn.test.tsx (6 tests) 169ms
+ ✓ |unit| components/courses/__tests__/CourseHero.test.tsx (4 tests) 125ms
+ ✓ |unit| components/ui/__tests__/SectionHeader.test.tsx (7 tests) 104ms
+ ✓ |unit| components/ui/__tests__/Section.test.tsx (5 tests) 109ms
+ ✓ |unit| components/ui/__tests__/Grid.test.tsx (10 tests) 142ms
+ ✓ |unit| components/about/__tests__/AboutHeroSection.test.tsx (7 tests) 168ms
+ ✓ |unit| sanity/schemaTypes/__tests__/secaoHome.test.ts (152 tests) 93ms
+ ✓ |unit| components/ui/__tests__/Card.test.tsx (8 tests) 99ms
+ ✓ |unit| utils/__tests__/eventCta.test.ts (22 tests) 33ms
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getEvents > retorna array vazio em caso de erro
+Error fetching events: Error: Network error
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:53:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getUpcomingEvents > retorna array vazio em caso de erro
+Error fetching upcoming events: Error: Timeout
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:80:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getFeaturedEvents > retorna array vazio em caso de erro
+Error fetching featured events: Error: Server error
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:106:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getEventBySlug > retorna null em caso de erro
+Error fetching event with slug qualquer-slug: Error: Not found
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:132:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getAllUpcomingEvents > retorna array vazio em caso de erro
+Error fetching all upcoming events: Error: Fetch failed
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:158:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getAllPastEvents > retorna array vazio em caso de erro
+Error fetching all past events: Error: Database error
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:184:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+stderr | sanity/lib/services/__tests__/eventService.test.ts > getEventsCalendarData > retorna estrutura com arrays vazios em caso de erro
+Error fetching all upcoming events: Error: Calendar fetch failed
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventService.test.ts:218:37
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+ ✓ |unit| sanity/lib/services/__tests__/eventService.test.ts (21 tests) 44ms
+ ✓ |unit| sanity/schemaTypes/__tests__/hero.test.ts (12 tests) 12ms
+ ✓ |unit| sanity/lib/services/__tests__/partnerService.test.ts (10 tests) 19ms
+ ✓ |unit| sanity/lib/__tests__/eventProjectRelation.test.ts (12 tests) 27ms
+ ✓ |unit| sanity/schemaTypes/__tests__/paginasInternas.test.ts (16 tests) 26ms
+ ✓ |unit| constants/__tests__/routesPath.test.ts (14 tests) 21ms
+ ✓ |unit| sanity/schemaTypes/__tests__/eventoProjetoSchema.test.ts (8 tests) 11ms
+stderr | sanity/lib/services/__tests__/eventProjectService.test.ts > eventService — Event ↔ Project relationship > getEventsByProject > returns empty array on fetch error
+Error fetching events for project project-1: Error: Network error
+    at /home/henrique/Documentos/projetos/www/website-luzamor/sanity/lib/services/__tests__/eventProjectService.test.ts:120:53
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:145:11
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:915:26
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1243:20
+    at new Promise (<anonymous>)
+    at runWithTimeout (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1209:10)
+    at file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:37
+    at Traces.$ (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/traces.CCmnQaNT.js:142:27)
+    at trace (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/vitest/dist/chunks/test.B8ej_ZHS.js:239:21)
+    at runTest (file:///home/henrique/Documentos/projetos/www/website-luzamor/node_modules/@vitest/runner/dist/index.js:1653:12)
+
+ ✓ |unit| sanity/lib/services/__tests__/eventProjectService.test.ts (7 tests) 15ms
+ ✓ |unit| sanity/lib/queries/__tests__/eventProjectQueries.test.ts (10 tests) 6ms
+ ↓ |unit| components/courses/__tests__/CourseHero.redesigned.test.tsx (36 tests | 36 skipped)
+ ↓ |unit| components/courses/__tests__/CourseEnrollment.updated.test.tsx (76 tests | 76 skipped)
+ ↓ |unit| components/courses/__tests__/CourseTeacherList.test.tsx (58 tests | 58 skipped)
+ ↓ |unit| components/courses/__tests__/EnrollmentPricingSelector.test.tsx (67 tests | 67 skipped)
+ ↓ |unit| sanity/lib/__tests__/queries/course.queries.test.ts (34 tests | 34 skipped)
+ ↓ |unit| sanity/lib/__tests__/types/course.types.test.ts (24 tests | 24 skipped)
+ ✓ |unit| utils/__tests__/dateFormatters.test.ts (13 tests) 55ms
+
+ Test Files  55 passed | 6 skipped (61)
+      Tests  748 passed | 295 todo (1043)
+   Start at  20:21:40
+   Duration  14.98s (transform 5.03s, setup 23.57s, import 63.67s, tests 13.76s, environment 34.24s)
+

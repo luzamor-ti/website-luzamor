@@ -57,7 +57,7 @@ const createMockEvent = (
     eventDate: date,
     ticketPrice: {
       free: isFree,
-      value: !isFree && hasValue ? ticketValue : undefined,
+      inteira: !isFree && hasValue ? ticketValue : undefined,
     },
     cta: {
       enabled: ctaEnabled,

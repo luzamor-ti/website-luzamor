@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Atualizações Fundação Luzamor</title>
+    <style>
+        :root {
+            --primary: #00b341;
+            --primary-light: #e6f7ec;
+            --dark: #1a1a1a;
+            --gray: #4b5563;
+            --light-gray: #f3f4f6;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: var(--dark);
+            background-color: #fafafa;
+            margin: 0;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 24px;
+            padding: 40px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            border-bottom: 2px solid var(--light-gray);
+            padding-bottom: 30px;
+        }
+        h1 {
+            color: var(--primary);
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+        .item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 16px;
+            background: var(--light-gray);
+            transition: transform 0.2s ease;
+        }
+        .item:hover {
+            transform: translateY(-2px);
+            background: var(--primary-light);
+        }
+        .icon {
+            font-size: 24px;
+            margin-right: 20px;
+            background: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+        }
+        .content h3 {
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            color: var(--dark);
+        }
+        .content p {
+            margin: 0;
+            color: var(--gray);
+            font-size: 15px;
+        }
+        .footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 14px;
+            color: var(--gray);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>✨ Novidades e Ajustes Concluídos</h1>
+            <p>Confira o resumo das últimas implementações feitas na plataforma da Fundação Luzamor.</p>
+        </div>
+
+        <div class="item">
+            <div class="icon">👥</div>
+            <div class="content">
+                <h3>Múltiplos Professores por Curso</h3>
+                <p>O sistema agora permite cadastrar mais de um professor por curso, apresentando-os de forma elegante na página principal com foto e nome.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="icon">🖼️</div>
+            <div class="content">
+                <h3>Redesign do Cabeçalho (Hero)</h3>
+                <p>A imagem do curso agora atua como uma logo à esquerda. O fundo ganhou um efeito desfocado e imersivo (glassmorphism), criando um aspecto muito mais premium e acolhedor.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="icon">🎟️</div>
+            <div class="content">
+                <h3>Novas Opções de Ingresso</h3>
+                <p>Adicionamos modalidades claras para os eventos: Inteira, Meia-entrada e Gratuito. A interface já se adapta dinamicamente caso o evento seja 100% gratuito.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="icon">💳</div>
+            <div class="content">
+                <h3>Mensalidades Detalhadas</h3>
+                <p>Os cursos agora exibem opções de investimento separadas, como "Aula Individual" e "Aula em Grupo", incluindo detalhamento de valores na barra lateral para maior clareza.</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="icon">🎂</div>
+            <div class="content">
+                <h3>Idade Mínima Dinâmica</h3>
+                <p>O campo de idade mínima passou a ser opcional. Se não for preenchido, ele simplesmente não aparece na tela, mantendo o design limpo e sem a informação padrão de "16 anos".</p>
+            </div>
+        </div>
+
+        <div class="item">
+            <div class="icon">📱</div>
+            <div class="content">
+                <h3>Botões de Inscrição Inteligentes</h3>
+                <p>Padronizamos todos os botões de Call To Action (Inscreva-se). O botão principal agora acompanha a leitura do usuário na tela e pede o nome da pessoa antes de redirecioná-la ao WhatsApp.</p>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Plataforma Desenvolvida com ❤️ para a Fundação Luz & Amor</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -36,42 +36,27 @@ export default async function CourseDetailPage({ params }: PageProps) {
         title={curso.title}
         description={curso.shortDescription || ""}
         coverPhoto={curso.coverPhoto}
-        teacherName={
-          curso.teacherType === "membro"
-            ? curso.teacherMember?.name
-            : curso.externalTeacher?.name
-        }
-        teacherPhoto={
-          curso.teacherType === "membro"
-            ? curso.teacherMember?.photo
-            : curso.externalTeacher?.photo
-        }
-      />
-
-      {/* Container Principal com Grid */}
-      <section className="max-w-7xl mx-auto px-4 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-12 items-start">
-          {/* COLUNA DA ESQUERDA: Descrição (Ocupa 2/3 do espaço) */}
-          <div className="lg:col-span-2">
-            <CourseDescription
-              description={curso.description}
-              schedule={curso.schedule}
-            />
-          </div>
-
-          {/* COLUNA DA DIREITA: Formulário (Ocupa 1/3 do espaço) */}
-          {/* 'sticky' faz o form seguir o scroll se a descrição for longa */}
-          <aside className="lg:col-span-1 lg:sticky lg:top-8">
-            <div className="bg-gray-50 rounded-2xl shadow-xl overflow-hidden">
-              <CourseForm
-                course={curso}
-                whatsappNumber={curso.whatsappNumber}
-                globalWhatsapp={globalConfig?.contact?.whatsapp}
-              />
-            </div>
-          </aside>
+        teachers={curso.teachers}
+      >
+        <div id="course-form" className="bg-gray-50 rounded-2xl shadow-xl overflow-hidden mt-8 lg:mt-0">
+          <CourseForm
+            course={curso}
+            whatsappNumber={curso.whatsappNumber}
+            globalWhatsapp={globalConfig?.contact?.whatsapp}
+          />
         </div>
-      </section>
+      </CourseHero>
+
+      {/* Descrição do Curso */}
+      <CourseDescription
+        description={curso.description}
+        schedule={curso.schedule}
+        monthlyOptions={curso.monthlyOptions}
+        enrollment={curso.enrollment}
+        courseTitle={curso.title}
+        whatsappNumber={curso.whatsappNumber}
+        globalWhatsapp={globalConfig?.contact?.whatsapp}
+      />
 
       {/* Seção de sugestões usando os dados da query reaproveitada */}
       <RelatedCourses courses={outrosCursos} />

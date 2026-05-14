@@ -30,18 +30,22 @@ describe("CursosTemplate", () => {
       },
       description: [],
       schedule: "Terças e quintas, das 19h às 21h",
-      teacherType: "membro",
-      teacherMember: {
-        _id: "member-1",
-        name: "João Silva",
-        role: "Professor de Música",
-        photo: {
-          asset: {
-            _ref: "image-joao",
-            _type: "reference",
+      teachers: [
+        {
+          teacherType: "membro",
+          teacherMember: {
+            _id: "member-1",
+            name: "João Silva",
+            role: "Professor de Música",
+            photo: {
+              asset: {
+                _ref: "image-joao",
+                _type: "reference",
+              },
+            },
           },
         },
-      },
+      ],
       enrollment: {
         active: true,
         whatsapp: "5511999999999",
@@ -61,16 +65,20 @@ describe("CursosTemplate", () => {
       },
       description: [],
       schedule: "Segundas e quartas, das 14h às 16h",
-      teacherType: "externo",
-      externalTeacher: {
-        name: "Maria Santos",
-        photo: {
-          asset: {
-            _ref: "image-maria",
-            _type: "reference",
+      teachers: [
+        {
+          teacherType: "externo",
+          externalTeacher: {
+            name: "Maria Santos",
+            photo: {
+              asset: {
+                _ref: "image-maria",
+                _type: "reference",
+              },
+            },
           },
         },
-      },
+      ],
       enrollment: {
         active: true,
         whatsapp: "5511888888888",
@@ -204,7 +212,6 @@ describe("CursosTemplate", () => {
         },
         description: [],
         schedule: "Sextas, das 18h às 20h",
-        teacherType: "membro",
         enrollment: {
           active: true,
           buttonText: "Ver detalhes",

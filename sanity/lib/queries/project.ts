@@ -92,7 +92,8 @@ export const projetoBySlugQuery = `
       },
       "ticketPrice": valorIngresso{
         "free": gratuito,
-        "value": valor,
+        "inteira": inteira,
+        "meia": meia,
         "additionalInfo": informacoesAdicionais
       },
       "location": local {

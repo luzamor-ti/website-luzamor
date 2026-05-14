@@ -15,7 +15,8 @@ export const eventsQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor,
+      "inteira": inteira,
+      "meia": meia,
       "additionalInfo": informacoesAdicionais
     },
     "cta": cta {
@@ -58,7 +59,8 @@ export const upcomingEventsQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor,
+      "inteira": inteira,
+      "meia": meia,
       "additionalInfo": informacoesAdicionais
     },
     "cta": cta {
@@ -96,7 +98,8 @@ export const featuredEventsQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor,
+      "inteira": inteira,
+      "meia": meia,
       "additionalInfo": informacoesAdicionais
     },
     "cta": cta {
@@ -139,7 +142,8 @@ export const eventBySlugQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor,
+      "inteira": inteira,
+      "meia": meia,
       "additionalInfo": informacoesAdicionais
     },
     "cta": cta {
@@ -207,7 +211,8 @@ export const allUpcomingEventsQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor,
+      "inteira": inteira,
+      "meia": meia,
       "additionalInfo": informacoesAdicionais
     },
     "cta": cta {
@@ -251,7 +256,8 @@ export const allPastEventsQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor,
+      "inteira": inteira,
+      "meia": meia,
       "additionalInfo": informacoesAdicionais
     },
     "location": local {
@@ -290,7 +296,8 @@ export const eventsByProjectQuery = groq`
     "eventDate": dataEvento,
     "ticketPrice": valorIngresso {
       "free": gratuito,
-      "value": valor
+      "inteira": inteira,
+      "meia": meia
     },
     "location": local {
       "name": nome,

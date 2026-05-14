@@ -38,10 +38,14 @@ describe("EventInfo — Ingresso", () => {
 
   it("exibe valor formatado para evento pago", () => {
     const event = createMockEvent({
-      ticketPrice: { free: false, value: 50.0 },
+      ticketPrice: { free: false, inteira: 50.0, meia: 25.0 },
     });
     render(<EventInfo event={event} />);
-    expect(screen.getByText("R$ 50,00")).toBeInTheDocument();
+    // Text is split across elements: <p>Inteira: <span>R$ 50,00</span></p>
+    expect(screen.getByText(/Inteira/)).toBeInTheDocument();
+    expect(screen.getByText(/50,00/)).toBeInTheDocument();
+    expect(screen.getByText(/Meia/)).toBeInTheDocument();
+    expect(screen.getByText(/25,00/)).toBeInTheDocument();
   });
 
   it("exibe 'Valor do Ingresso' como label quando ticketPrice está presente", () => {

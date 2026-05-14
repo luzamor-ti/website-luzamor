@@ -44,10 +44,11 @@ export async function CursosTemplate() {
               const imageUrl = buildSanityImageUrl(
                 curso.coverPhoto?.asset?._ref,
               );
+              const firstTeacher = curso.teachers?.[0];
               const teacher =
-                curso.teacherType === "membro"
-                  ? curso.teacherMember
-                  : curso.externalTeacher;
+                firstTeacher?.teacherType === "membro"
+                  ? firstTeacher.teacherMember
+                  : firstTeacher?.externalTeacher;
               const teacherPhoto = buildSanityImageUrl(
                 teacher?.photo?.asset?._ref,
               );

@@ -14,7 +14,6 @@ export interface Course {
   };
   description: PortableTextBlock[];
   schedule: string;
-  teacherType: "membro" | "externo";
   enrollment: {
     active: boolean;
     messageText?: string;
@@ -22,19 +21,28 @@ export interface Course {
     buttonText?: string;
   };
   active: boolean;
-  teacherMember?: Member;
   shortDescription?: string;
-  price?: number;
-  externalTeacher?: {
-    name: string;
-    photo?: {
-      asset: {
-        _ref: string;
-        _type: "reference";
+  minAge?: number;
+  monthlyOptions?: {
+    title: string;
+    free: boolean;
+    price?: number;
+    details?: string;
+  }[];
+  teachers?: {
+    teacherType: "membro" | "externo";
+    teacherMember?: Member;
+    externalTeacher?: {
+      name: string;
+      photo?: {
+        asset: {
+          _ref: string;
+          _type: "reference";
+        };
+        alt?: string;
       };
-      alt?: string;
     };
-  };
+  }[];
   classroom?: {
     slug: string;
     name: string;

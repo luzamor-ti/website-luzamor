@@ -15,25 +15,33 @@ export const coursesQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
-    "price": valor,
+    "minAge": idadeMinima,
+    "monthlyOptions": opcoesMensalidade[] {
+      "title": titulo,
+      "free": gratuito,
+      "price": valor,
+      "details": detalhes
+    },
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
-    "teacherType": tipoProfessor,
-    "teacherMember": professorMembro->{
-      _id,
-      "name": nome,
-      "role": cargo,
-      "photo": {
-        "asset": foto.asset,
-        "alt": alt
-      }
-    },
-    "externalTeacher": professorExterno {
-      "name": nome,
-      "photo": {
-        "asset": foto.asset,
-        "alt": foto.alt
+    "teachers": professores[] {
+      "teacherType": tipoProfessor,
+      "teacherMember": professorMembro->{
+        _id,
+        "name": nome,
+        "role": cargo,
+        "photo": {
+          "asset": foto.asset,
+          "alt": alt
+        }
+      },
+      "externalTeacher": professorExterno {
+        "name": nome,
+        "photo": {
+          "asset": foto.asset,
+          "alt": foto.alt
+        }
       }
     },
     "enrollment": inscricao {
@@ -57,26 +65,34 @@ export const courseBySlugQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
-    "price": valor,
+    "minAge": idadeMinima,
+    "monthlyOptions": opcoesMensalidade[] {
+      "title": titulo,
+      "free": gratuito,
+      "price": valor,
+      "details": detalhes
+    },
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
-    "teacherType": tipoProfessor,
-    "teacherMember": professorMembro->{
-      _id,
-      "name": nome,
-      "role": cargo,
-      "photo": {
-        "asset": foto.asset,
-        "alt": alt
+    "teachers": professores[] {
+      "teacherType": tipoProfessor,
+      "teacherMember": professorMembro->{
+        _id,
+        "name": nome,
+        "role": cargo,
+        "photo": {
+          "asset": foto.asset,
+          "alt": alt
+        },
+        "shortBio": bioCurta
       },
-      "shortBio": bioCurta
-    },
-    "externalTeacher": professorExterno {
-      "name": nome,
-      "photo": {
-        "asset": foto.asset,
-        "alt": foto.alt
+      "externalTeacher": professorExterno {
+        "name": nome,
+        "photo": {
+          "asset": foto.asset,
+          "alt": foto.alt
+        }
       }
     },
     "enrollment": inscricao {
@@ -99,25 +115,33 @@ export const relatedcoursesQuery = groq`
       "asset": fotoCapa.asset,
       "alt": fotoCapa.alt
     },
-    "price": valor,
+    "minAge": idadeMinima,
+    "monthlyOptions": opcoesMensalidade[] {
+      "title": titulo,
+      "free": gratuito,
+      "price": valor,
+      "details": detalhes
+    },
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
-    "teacherType": tipoProfessor,
-    "teacherMember": professorMembro->{
-      _id,
-      "name": nome,
-      "role": cargo,
-      "photo": {
-        "asset": foto.asset,
-        "alt": alt
-      }
-    },
-    "externalTeacher": professorExterno {
-      "name": nome,
-      "photo": {
-        "asset": foto.asset,
-        "alt": foto.alt
+    "teachers": professores[] {
+      "teacherType": tipoProfessor,
+      "teacherMember": professorMembro->{
+        _id,
+        "name": nome,
+        "role": cargo,
+        "photo": {
+          "asset": foto.asset,
+          "alt": alt
+        }
+      },
+      "externalTeacher": professorExterno {
+        "name": nome,
+        "photo": {
+          "asset": foto.asset,
+          "alt": foto.alt
+        }
       }
     },
     "enrollment": inscricao {

@@ -79,7 +79,7 @@ describe("EventHero — ingresso", () => {
 
   it("exibe valor numérico para evento pago", () => {
     const event = createMockEvent({
-      ticketPrice: { free: false, value: 80.5 },
+      ticketPrice: { free: false, inteira: 80.5 },
     });
     render(<EventHero event={event} />);
     expect(screen.getByText(/80/)).toBeInTheDocument();
