@@ -57,7 +57,7 @@ export function CourseDescription({
               {monthlyOptions && monthlyOptions.length > 0 && (
                 <div className="pt-6 border-t border-gray-200">
                   <Heading level={4} className="mb-3 text-primary font-bold">
-                    Investimento
+                    Valor Mensal
                   </Heading>
                   <div className="space-y-4">
                     {monthlyOptions.map((opt, idx) => (

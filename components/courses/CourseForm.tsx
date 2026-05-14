@@ -33,7 +33,7 @@ export function CourseForm({
               variant="small"
               className="text-gray-600 uppercase font-bold tracking-wide"
             >
-              Valor de investimento
+              Valor Mensal
             </Text>
           </div>
           <div className="space-y-3">

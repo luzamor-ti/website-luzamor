@@ -32,7 +32,7 @@ describe("CourseEnrollment", () => {
 
     render(<CourseEnrollment enrollment={enrollmentWithoutButtonText} />);
 
-    expect(screen.getByText("Quero me inscrever")).toBeInTheDocument();
+    expect(screen.getByText("Saiba mais")).toBeInTheDocument();
   });
 
   it("generates correct WhatsApp URL with message", () => {

@@ -1,5 +1,5 @@
 export const membersHomeQuery = `
-  *[_type == "membro"]
+  *[_type == "membro" && isDiretoria == true]
   | order(ordem asc)[0...4]{
     _id,
     "name": nome,
@@ -11,7 +11,7 @@ export const membersHomeQuery = `
 `;
 
 export const membersPageQuery = `
-  *[_type == "membro"]
+  *[_type == "membro" && isDiretoria == true]
   | order(ordem asc){
     _id,
     "name": nome,
@@ -38,12 +38,13 @@ export const wordsOfPresidentPageQuery = `
 `;
 
 export const boardMembersQuery = `
-  *[_type == "membro"]
+  *[_type == "membro" && isDiretoria == true]
   | order(ordem asc){
     _id,
     "name": nome,
     "role": cargo,
     "roleType": tipoCargo,
+    "isDiretoria": isDiretoria,
     "photo": foto,
     alt,
     "shortBio": bioCurta,

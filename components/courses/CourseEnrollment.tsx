@@ -27,7 +27,7 @@ export function CourseEnrollment({
           size="lg"
           className="bg-white text-primary hover:bg-gray-100"
         >
-          {enrollment.buttonText || "Quero me inscrever"}
+          {enrollment.buttonText || "Saiba mais"}
         </Button>
       </div>
     </Section>
