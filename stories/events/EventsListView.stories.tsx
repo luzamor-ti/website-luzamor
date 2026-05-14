@@ -39,7 +39,7 @@ const createMockEvent = (
   eventDate: new Date(2026, 4 + id, 15 + id, 19, 0, 0).toISOString(),
   ticketPrice: {
     free: isFree,
-    value: isFree ? undefined : 25.0 + id * 5,
+    inteira: isFree ? undefined : 25.0 + id * 5,
   },
   cta: {
     enabled: false,

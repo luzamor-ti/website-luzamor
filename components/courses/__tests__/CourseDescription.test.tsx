@@ -22,13 +22,23 @@ describe("CourseDescription", () => {
   ];
 
   it("renders course description heading", () => {
-    render(<CourseDescription description={mockDescription} />);
+    render(
+      <CourseDescription
+        description={mockDescription}
+        courseTitle="Curso Teste"
+      />,
+    );
 
     expect(screen.getByText("Sobre o Curso")).toBeInTheDocument();
   });
 
   it("renders portable text description", () => {
-    render(<CourseDescription description={mockDescription} />);
+    render(
+      <CourseDescription
+        description={mockDescription}
+        courseTitle="Curso Teste"
+      />,
+    );
 
     expect(
       screen.getByText("Este curso oferece uma introdução completa ao tema."),
@@ -38,7 +48,11 @@ describe("CourseDescription", () => {
   it("renders schedule when provided", () => {
     const schedule = "Terças e quintas, das 19h às 21h";
     render(
-      <CourseDescription description={mockDescription} schedule={schedule} />,
+      <CourseDescription
+        description={mockDescription}
+        schedule={schedule}
+        courseTitle="Curso Teste"
+      />,
     );
 
     expect(screen.getByText("Datas e Horários")).toBeInTheDocument();
@@ -46,20 +60,32 @@ describe("CourseDescription", () => {
   });
 
   it("does not render schedule section when not provided", () => {
-    render(<CourseDescription description={mockDescription} />);
+    render(
+      <CourseDescription
+        description={mockDescription}
+        courseTitle="Curso Teste"
+      />,
+    );
 
     expect(screen.queryByText("Datas e Horários")).not.toBeInTheDocument();
   });
 
-
   it("renders schedule with correct styling", () => {
     const schedule = "Segundas e quartas, das 14h às 16h";
     const { container } = render(
-      <CourseDescription description={mockDescription} schedule={schedule} />,
+      <CourseDescription
+        description={mockDescription}
+        schedule={schedule}
+        courseTitle="Curso Teste"
+      />,
     );
 
-    const scheduleDiv = container.querySelector(".border-primary");
-    expect(scheduleDiv).toBeInTheDocument();
-    expect(scheduleDiv).toHaveClass("bg-gray-50", "rounded-lg");
+    // The schedule text is inside the sidebar card
+    const scheduleText = screen.getByText(schedule);
+    expect(scheduleText).toBeInTheDocument();
+
+    // The sidebar card uses bg-white and rounded-3xl
+    const sidebarCard = container.querySelector(".rounded-3xl");
+    expect(sidebarCard).toBeInTheDocument();
   });
 });

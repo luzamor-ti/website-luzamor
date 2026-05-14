@@ -20,7 +20,7 @@ export function EventHero({ event }: EventHeroProps) {
 
   const isPast = isEventPast(event.eventDate);
   const isFree = event.ticketPrice.free;
-  const ticketValue = event.ticketPrice.value;
+  const ticketValue = event.ticketPrice.inteira;
 
   return (
     <section className="relative overflow-hidden">

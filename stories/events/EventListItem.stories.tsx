@@ -90,7 +90,7 @@ export const MusicalPago: Story = {
       category: "musical",
       ticketPrice: {
         free: false,
-        value: 50.0,
+        inteira: 50.0,
       },
       eventDate: "2026-06-15T20:00:00.000Z",
     },
@@ -150,7 +150,7 @@ export const CelebracaoTituloLongo: Story = {
       eventDate: "2026-06-20T17:00:00.000Z",
       ticketPrice: {
         free: false,
-        value: 25.0,
+        inteira: 25.0,
       },
     },
     showGalleryIcon: false,

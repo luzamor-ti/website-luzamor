@@ -110,18 +110,24 @@ export const evento = defineType({
           initialValue: true,
         },
         {
-          name: "valor",
-          title: "Valor (R$)",
+          name: "inteira",
+          title: "Valor Inteira (R$)",
           type: "number",
           hidden: ({ parent }) => parent?.gratuito === true,
           validation: (Rule) =>
             Rule.custom((value, context) => {
               const parent = context.parent as { gratuito?: boolean };
               if (parent?.gratuito === false && !value) {
-                return "Informe o valor do ingresso";
+                return "Informe o valor da inteira";
               }
               return true;
             }),
+        },
+        {
+          name: "meia",
+          title: "Valor Meia (R$)",
+          type: "number",
+          hidden: ({ parent }) => parent?.gratuito === true,
         },
       ],
       group: "detalhes",

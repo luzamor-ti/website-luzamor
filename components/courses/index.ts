@@ -4,3 +4,4 @@ export { CourseTeacher } from "./CourseTeacher";
 export { CourseEnrollment } from "./CourseEnrollment";
 export { RelatedCourses } from "./RelatedCourses";
 export { CourseForm } from "./CourseForm";
+export { CourseEnrollmentForm } from "./CourseEnrollmentForm";

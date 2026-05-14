@@ -1,7 +1,6 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { CourseTeacher } from "@/components/courses/CourseTeacher";
-import { Member } from "@/sanity/lib/types/member";
 import { Course } from "@/sanity/lib/types/course";
 
 // Mock do buildSanityImageUrl
@@ -10,32 +9,40 @@ vi.mock("@/utils/buildSanityImageUrl", () => ({
     ref ? `https://cdn.sanity.io/images/${ref}` : "",
 }));
 
+type TeacherEntry = NonNullable<Course["teachers"]>[number];
+
 describe("CourseTeacher", () => {
-  const mockMember: Member = {
-    _id: "member-1",
-    name: "João Silva",
-    role: "Professor de Música",
-    photo: {
-      asset: {
-        _ref: "image-abc123",
-        _type: "reference",
+  const mockMemberEntry: TeacherEntry = {
+    teacherType: "membro",
+    teacherMember: {
+      _id: "member-1",
+      name: "João Silva",
+      role: "Professor de Música",
+      photo: {
+        asset: {
+          _ref: "image-abc123",
+          _type: "reference",
+        },
       },
+      shortBio: "Músico com 15 anos de experiência em ensino.",
     },
-    shortBio: "Músico com 15 anos de experiência em ensino.",
   };
 
-  const mockExternalTeacher: Course["externalTeacher"] = {
-    name: "Maria Santos",
-    photo: {
-      asset: {
-        _ref: "image-def456",
-        _type: "reference",
+  const mockExternalEntry: TeacherEntry = {
+    teacherType: "externo",
+    externalTeacher: {
+      name: "Maria Santos",
+      photo: {
+        asset: {
+          _ref: "image-def456",
+          _type: "reference",
+        },
       },
     },
   };
 
   it("renders member teacher correctly", () => {
-    render(<CourseTeacher type="membro" member={mockMember} />);
+    render(<CourseTeacher teacher={mockMemberEntry} />);
 
     expect(screen.getByText("Professor")).toBeInTheDocument();
     expect(screen.getByText("João Silva")).toBeInTheDocument();
@@ -46,14 +53,14 @@ describe("CourseTeacher", () => {
   });
 
   it("renders external teacher correctly", () => {
-    render(<CourseTeacher type="externo" external={mockExternalTeacher} />);
+    render(<CourseTeacher teacher={mockExternalEntry} />);
 
     expect(screen.getByText("Professor")).toBeInTheDocument();
     expect(screen.getByText("Maria Santos")).toBeInTheDocument();
   });
 
   it("does not render role and bio for external teacher", () => {
-    render(<CourseTeacher type="externo" external={mockExternalTeacher} />);
+    render(<CourseTeacher teacher={mockExternalEntry} />);
 
     expect(screen.queryByText("Professor de Música")).not.toBeInTheDocument();
     expect(
@@ -62,7 +69,7 @@ describe("CourseTeacher", () => {
   });
 
   it("renders teacher photo when available", () => {
-    render(<CourseTeacher type="membro" member={mockMember} />);
+    render(<CourseTeacher teacher={mockMemberEntry} />);
 
     const image = screen.getByAltText("João Silva");
     expect(image).toBeInTheDocument();
@@ -72,45 +79,51 @@ describe("CourseTeacher", () => {
     );
   });
 
-  it("returns null when no teacher is provided", () => {
-    const { container } = render(<CourseTeacher type="membro" />);
-
+  it("returns null when teacherMember is missing for membro type", () => {
+    const emptyMember: TeacherEntry = { teacherType: "membro" };
+    const { container } = render(<CourseTeacher teacher={emptyMember} />);
     expect(container).toBeEmptyDOMElement();
   });
 
   it("renders member without role", () => {
-    const memberWithoutRole: Member = {
-      _id: "member-2",
-      name: "Pedro Costa",
-      role: "",
-      photo: {
-        asset: {
-          _ref: "image-ghi789",
-          _type: "reference",
+    const entry: TeacherEntry = {
+      teacherType: "membro",
+      teacherMember: {
+        _id: "member-2",
+        name: "Pedro Costa",
+        role: "",
+        photo: {
+          asset: {
+            _ref: "image-ghi789",
+            _type: "reference",
+          },
         },
       },
     };
 
-    render(<CourseTeacher type="membro" member={memberWithoutRole} />);
+    render(<CourseTeacher teacher={entry} />);
 
     expect(screen.getByText("Pedro Costa")).toBeInTheDocument();
     expect(screen.queryByText("Professor de Música")).not.toBeInTheDocument();
   });
 
   it("renders member without shortBio", () => {
-    const memberWithoutBio: Member = {
-      _id: "member-3",
-      name: "Ana Lima",
-      role: "Professora de Arte",
-      photo: {
-        asset: {
-          _ref: "image-jkl012",
-          _type: "reference",
+    const entry: TeacherEntry = {
+      teacherType: "membro",
+      teacherMember: {
+        _id: "member-3",
+        name: "Ana Lima",
+        role: "Professora de Arte",
+        photo: {
+          asset: {
+            _ref: "image-jkl012",
+            _type: "reference",
+          },
         },
       },
     };
 
-    render(<CourseTeacher type="membro" member={memberWithoutBio} />);
+    render(<CourseTeacher teacher={entry} />);
 
     expect(screen.getByText("Ana Lima")).toBeInTheDocument();
     expect(screen.getByText("Professora de Arte")).toBeInTheDocument();
@@ -118,9 +131,7 @@ describe("CourseTeacher", () => {
   });
 
   it("renders with correct section styling", () => {
-    const { container } = render(
-      <CourseTeacher type="membro" member={mockMember} />,
-    );
+    const { container } = render(<CourseTeacher teacher={mockMemberEntry} />);
 
     const section = container.querySelector("section");
     expect(section).toHaveClass("bg-gray-50");

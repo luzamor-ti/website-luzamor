@@ -124,9 +124,21 @@ export function EventCard({ event, showGalleryIcon = false }: EventCardProps) {
                   Entrada Gratuita
                 </Text>
               ) : (
-                <Text variant="small" className="text-gray-900 font-semibold">
-                  R$ {event.ticketPrice.value?.toFixed(2)}
-                </Text>
+                <div className="flex items-center gap-2">
+                  {event.ticketPrice.inteira !== undefined && (
+                    <Text variant="small" className="text-gray-900 font-semibold">
+                      Inteira: R$ {event.ticketPrice.inteira.toFixed(2)}
+                    </Text>
+                  )}
+                  {event.ticketPrice.meia !== undefined && (
+                    <>
+                      <span className="text-gray-300">|</span>
+                      <Text variant="small" className="text-gray-900 font-semibold">
+                        Meia: R$ {event.ticketPrice.meia.toFixed(2)}
+                      </Text>
+                    </>
+                  )}
+                </div>
               )}
             </div>
           </div>
