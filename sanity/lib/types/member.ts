@@ -6,6 +6,7 @@ export interface Member {
   name: string;
   role: string;
   roleType?: string;
+  isDiretoria?: boolean;
   alt?: string;
   photo?: SanityImage;
   shortBio?: string;

@@ -125,7 +125,8 @@ Grid alternado de membros da equipe com visualização inline de detalhes.
 **Campos CMS (membros):**
 
 - `nome` (string): Nome do membro
-- `cargo` (string): Cargo/função
+- `cargo` (string): Cargo/função (campo aberto)
+- `isDiretoria` (boolean): Se marcado, o membro aparece nesta página
 - `foto` (image): Foto do membro
 - `bioCurta` (text): Bio resumida
 - `bioCompleta` (portable text): Bio detalhada
@@ -185,7 +186,7 @@ Individual Sections (Client Components)
 ### Members Page Query
 
 ```groq
-*[_type == "membro"] | order(ordem asc){
+*[_type == "membro" && isDiretoria == true] | order(ordem asc){
   _id,
   "name": nome,
   "role": cargo,

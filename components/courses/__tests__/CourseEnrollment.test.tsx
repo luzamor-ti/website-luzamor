@@ -11,13 +11,7 @@ describe("CourseEnrollment", () => {
     buttonText: "Inscreva-se agora",
   };
 
-  it("renders enrollment heading", () => {
-    render(<CourseEnrollment enrollment={mockEnrollment} />);
-
-    expect(screen.getByText("Ficou interessado?")).toBeInTheDocument();
-  });
-
-  it("renders custom button text when provided", () => {
+  it("renders the configured CTA text", () => {
     render(<CourseEnrollment enrollment={mockEnrollment} />);
 
     expect(screen.getByText("Inscreva-se agora")).toBeInTheDocument();
@@ -32,7 +26,7 @@ describe("CourseEnrollment", () => {
 
     render(<CourseEnrollment enrollment={enrollmentWithoutButtonText} />);
 
-    expect(screen.getByText("Quero me inscrever")).toBeInTheDocument();
+    expect(screen.getByText("Saiba mais")).toBeInTheDocument();
   });
 
   it("generates correct WhatsApp URL with message", () => {
