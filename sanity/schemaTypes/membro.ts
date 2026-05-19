@@ -2,11 +2,11 @@ import { defineType, defineField } from "sanity";
 
 export const membro = defineType({
   name: "membro",
-  title: "Diretoria",
+  title: "Equipe",
   type: "document",
   groups: [
     { name: "dadosPessoais", title: "Dados Pessoais", default: true },
-    { name: "diretoria", title: "Cargo e Diretoria" },
+    { name: "equipe", title: "Cargo e Equipe" },
     { name: "conteudo", title: "Textos e Publicações" },
   ],
   fields: [
@@ -49,27 +49,24 @@ export const membro = defineType({
       type: "string",
       description:
         "Cargo específico exibido no site (ex: Conselheira de Educação, Diretora Financeira)",
-      group: "diretoria",
+      group: "equipe",
     }),
     defineField({
       name: "tipoCargo",
       title: "Tipo de Cargo",
       type: "string",
       description:
-        "Categoria hierárquica usada para agrupar membros na página de Diretoria",
-      options: {
-        list: [
-          { title: "Presidente", value: "presidente" },
-          { title: "Vice-Presidente", value: "vice-presidente" },
-          { title: "Diretor(a)", value: "diretor" },
-          { title: "Secretário(a)", value: "secretario" },
-          { title: "Tesoureiro(a)", value: "tesoureiro" },
-          { title: "Conselheiro(a)", value: "conselheiro" },
-          { title: "Outro", value: "outro" },
-        ],
-      },
-      validation: (Rule) => Rule.required(),
-      group: "diretoria",
+        "Categoria ou área de atuação (ex: Direção, Comunicação, Projetos). Campo livre.",
+      group: "equipe",
+    }),
+    defineField({
+      name: "isDiretoria",
+      title: "Membro da Diretoria?",
+      type: "boolean",
+      description:
+        "Marque como ativo para que este membro apareça na página de Diretoria e na seção 'Nosso Time' do Sobre Nós.",
+      initialValue: false,
+      group: "equipe",
     }),
     defineField({
       name: "ordem",
@@ -77,7 +74,7 @@ export const membro = defineType({
       type: "number",
       description:
         "Define a posição na listagem — número menor aparece primeiro (ex: 1, 2, 3…)",
-      group: "diretoria",
+      group: "equipe",
     }),
     defineField({
       name: "bioCompleta",
@@ -103,11 +100,14 @@ export const membro = defineType({
       title: "nome",
       subtitle: "cargo",
       media: "foto",
+      isDiretoria: "isDiretoria",
     },
-    prepare({ title, subtitle, media }) {
+    prepare({ title, subtitle, media, isDiretoria }) {
       return {
         title: title || "Membro sem nome",
-        subtitle: subtitle || "Sem cargo informado",
+        subtitle: isDiretoria
+          ? `⭐ Diretoria · ${subtitle || "Sem cargo"}`
+          : subtitle || "Equipe",
         media,
       };
     },

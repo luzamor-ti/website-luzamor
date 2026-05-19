@@ -66,13 +66,12 @@ Escolha uma opção:
 
 #### **Texto da Mensagem WhatsApp**
 
-- Mensagem que será enviada quando alguém se inscrever
+- Mensagem que será enviada quando alguém entrar em contato
 - Use placeholders:
   - `{curso}` - substituído pelo nome do curso
-  - `{nome}` - substituído pelo nome do inscrito
 - Exemplo:
   ```
-  Olá! Gostaria de me inscrever no curso {curso}. Meu nome é {nome}.
+  Olá! Gostaria de saber mais sobre o curso {curso}.
   ```
 
 #### **WhatsApp Específico** (opcional)
@@ -83,9 +82,9 @@ Escolha uma opção:
 
 #### **Texto do Botão**
 
-- Texto que aparece no botão de inscrição
-- Padrão: "Inscreva-se agora"
-- Exemplos alternativos: "Quero participar", "Fazer inscrição"
+- Texto que aparece no botão de contato
+- Padrão: "Saiba mais"
+- Exemplos alternativos: "Falar conosco", "Quero saber mais"
 
 ### Configurações Gerais
 
@@ -100,13 +99,11 @@ Escolha uma opção:
 - Menor número = aparece primeiro
 - Se não preenchido, usa ordem de criação
 
-## 📱 Como Funciona a Inscrição
+## 📱 Como Funciona o Contato
 
-1. Usuário clica em "Inscreva-se agora" no card do curso
-2. Modal aparece pedindo o nome
-3. Usuário digita o nome e clica em "Inscrever-se"
-4. WhatsApp abre com mensagem pré-preenchida
-5. Usuário só precisa enviar a mensagem
+1. Usuário clica em "Saiba mais" no card do curso
+2. WhatsApp abre diretamente com uma mensagem pré-preenchida
+3. O usuário só precisa enviar a mensagem para iniciar a conversa com a fundação
 
 ## ✨ Layout no Site
 
