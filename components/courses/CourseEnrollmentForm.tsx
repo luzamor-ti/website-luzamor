@@ -37,10 +37,6 @@ export function CourseEnrollmentForm({
 
   return (
     <div>
-      <h3 className="border-gray-200 text-2xl font-bold mb-4 text-gray-900 border-t pt-4">
-        Saiba mais
-      </h3>
-
       <Button
         variant="primary"
         size="md"

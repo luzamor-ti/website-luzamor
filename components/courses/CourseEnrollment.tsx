@@ -19,9 +19,6 @@ export function CourseEnrollment({
   return (
     <Section className="bg-primary text-white text-center">
       <div className="max-w-2xl mx-auto">
-        <Heading level={2} className="text-white mb-6">
-          Ficou interessado?
-        </Heading>
         <Button
           href={whatsappUrl}
           size="lg"

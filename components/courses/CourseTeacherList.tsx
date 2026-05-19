@@ -31,7 +31,9 @@ export function CourseTeacherList({ teachers }: CourseTeacherListProps) {
               return null;
             }
 
-            const photoUrl = buildSanityImageUrl(teacherData.photo?.asset?._ref);
+            const photoUrl = buildSanityImageUrl(
+              teacherData.photo?.asset?._ref,
+            );
 
             return (
               <article
@@ -58,16 +60,18 @@ export function CourseTeacherList({ teachers }: CourseTeacherListProps) {
                     <Heading level={3} className="text-xl text-gray-900">
                       {teacherData.name}
                     </Heading>
-                    {teacher.teacherType === "membro" && teacher.teacherMember?.role && (
-                      <Text className="text-sm text-gray-600">
-                        {teacher.teacherMember.role}
-                      </Text>
-                    )}
-                    {teacher.teacherType === "membro" && teacher.teacherMember?.shortBio && (
-                      <Text className="text-sm text-gray-500 mt-1">
-                        {teacher.teacherMember.shortBio}
-                      </Text>
-                    )}
+                    {teacher.teacherType === "membro" &&
+                      teacher.teacherMember?.role && (
+                        <Text className="text-sm text-gray-600">
+                          {teacher.teacherMember.role}
+                        </Text>
+                      )}
+                    {teacher.teacherType === "membro" &&
+                      teacher.teacherMember?.shortBio && (
+                        <Text className="text-sm text-gray-500 mt-1">
+                          {teacher.teacherMember.shortBio}
+                        </Text>
+                      )}
                   </div>
                 </div>
               </article>

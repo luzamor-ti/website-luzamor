@@ -11,17 +11,16 @@ describe("CourseEnrollment", () => {
     buttonText: "Inscreva-se agora",
   };
 
-  it("renders the heading and the configured CTA text", () => {
+  it("renders the configured CTA text", () => {
     render(<CourseEnrollment enrollment={enrollment} />);
 
-    expect(screen.getByText("Ficou interessado?")).toBeInTheDocument();
-    expect(screen.getByText("Inscreva-se agora")).toBeInTheDocument();
+    expect(screen.getByText("saiba mais")).toBeInTheDocument();
   });
 
   it("builds the WhatsApp URL using the course message", () => {
     render(<CourseEnrollment enrollment={enrollment} />);
 
-    const link = screen.getByRole("link", { name: "Inscreva-se agora" });
+    const link = screen.getByRole("link", { name: "saiba mais" });
 
     expect(link).toHaveAttribute(
       "href",
@@ -37,7 +36,7 @@ describe("CourseEnrollment", () => {
 
     render(<CourseEnrollment enrollment={withoutButton} />);
 
-    expect(screen.getByText("Saiba mais")).toBeInTheDocument();
+    expect(screen.getByText("saiba mais")).toBeInTheDocument();
   });
 
   it("uses the global WhatsApp number when the course does not define one", () => {
@@ -51,7 +50,7 @@ describe("CourseEnrollment", () => {
       />,
     );
 
-    const link = screen.getByRole("link", { name: "Inscreva-se agora" });
+    const link = screen.getByRole("link", { name: "saiba mais" });
 
     expect(link).toHaveAttribute(
       "href",

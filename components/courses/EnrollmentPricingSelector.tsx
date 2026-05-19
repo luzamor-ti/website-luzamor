@@ -71,7 +71,9 @@ export function EnrollmentPricingSelector({
                   {option.title}
                 </span>
                 {option.details && (
-                  <span className="block text-sm text-gray-500">{option.details}</span>
+                  <span className="block text-sm text-gray-500">
+                    {option.details}
+                  </span>
                 )}
               </span>
               <span className="text-sm font-semibold text-primary whitespace-nowrap">

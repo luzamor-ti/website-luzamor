@@ -36,7 +36,15 @@ vi.mock("@/sanity/lib/services/configuracaoService", () => ({
 }));
 
 vi.mock("@/components/courses", () => ({
-  CourseHero: ({ title, description, children }: { title: string; description: string; children?: ReactNode }) => (
+  CourseHero: ({
+    title,
+    description,
+    children,
+  }: {
+    title: string;
+    description: string;
+    children?: ReactNode;
+  }) => (
     <section data-testid="course-hero">
       <h1>{title}</h1>
       <p>{description}</p>
@@ -46,7 +54,13 @@ vi.mock("@/components/courses", () => ({
   CourseDescription: ({ courseTitle }: { courseTitle: string }) => (
     <section data-testid="course-description">{courseTitle}</section>
   ),
-  CourseForm: ({ course, globalWhatsapp }: { course: { title: string }; globalWhatsapp?: string }) => (
+  CourseForm: ({
+    course,
+    globalWhatsapp,
+  }: {
+    course: { title: string };
+    globalWhatsapp?: string;
+  }) => (
     <div data-testid="course-form">
       {course.title} - {globalWhatsapp}
     </div>
@@ -88,24 +102,38 @@ describe("CourseDetailPage", () => {
 
   it("fetches the course and renders the main sections", async () => {
     mocks.fetchMock.mockResolvedValue(course);
-    mocks.getGlobalConfigurationMock.mockResolvedValue({ contact: { whatsapp: "5511888888888" } });
-    mocks.getRelatedCoursesMock.mockResolvedValue([{ _id: "curso-2", title: "Outro curso" }]);
+    mocks.getGlobalConfigurationMock.mockResolvedValue({
+      contact: { whatsapp: "5511888888888" },
+    });
+    mocks.getRelatedCoursesMock.mockResolvedValue([
+      { _id: "curso-2", title: "Outro curso" },
+    ]);
 
-    const element = await CourseDetailPage({ params: Promise.resolve({ slug: "curso-de-violao" }) });
+    const element = await CourseDetailPage({
+      params: Promise.resolve({ slug: "curso-de-violao" }),
+    });
     render(element);
 
-    expect(mocks.fetchMock).toHaveBeenCalledWith("courseBySlugQuery", { slug: "curso-de-violao" });
+    expect(mocks.fetchMock).toHaveBeenCalledWith("courseBySlugQuery", {
+      slug: "curso-de-violao",
+    });
     expect(mocks.getGlobalConfigurationMock).toHaveBeenCalled();
     expect(mocks.getRelatedCoursesMock).toHaveBeenCalledWith("curso-1", 3);
     expect(screen.getByTestId("course-hero")).toBeInTheDocument();
-    expect(screen.getByTestId("course-description")).toHaveTextContent("Curso de Violão");
-    expect(screen.getByTestId("course-form")).toHaveTextContent("5511888888888");
+    expect(screen.getByTestId("course-description")).toHaveTextContent(
+      "Curso de Violão",
+    );
+    expect(screen.getByTestId("course-form")).toHaveTextContent(
+      "5511888888888",
+    );
     expect(screen.getByTestId("related-courses")).toHaveTextContent("1");
   });
 
   it("calls notFound when the course is not returned", async () => {
     mocks.fetchMock.mockResolvedValue(null);
-    mocks.getGlobalConfigurationMock.mockResolvedValue({ contact: { whatsapp: "5511888888888" } });
+    mocks.getGlobalConfigurationMock.mockResolvedValue({
+      contact: { whatsapp: "5511888888888" },
+    });
 
     await expect(
       CourseDetailPage({ params: Promise.resolve({ slug: "inexistente" }) }),

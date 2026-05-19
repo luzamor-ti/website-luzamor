@@ -34,7 +34,9 @@ describe("EnrollmentPricingSelector", () => {
 
     expect(screen.getByText(/selecione a modalidade/i)).toBeInTheDocument();
     expect(screen.getAllByRole("radio")).toHaveLength(4);
-    expect(screen.getByRole("radio", { name: /aulas individuais/i })).toBeChecked();
+    expect(
+      screen.getByRole("radio", { name: /aulas individuais/i }),
+    ).toBeChecked();
     expect(screen.getByText("R$ 150,00")).toBeInTheDocument();
     expect(screen.getAllByText("Gratuito")).toHaveLength(2);
   });
@@ -43,13 +45,13 @@ describe("EnrollmentPricingSelector", () => {
     const user = userEvent.setup();
     const onSelect = vi.fn();
 
-    render(
-      <EnrollmentPricingSelector options={options} onSelect={onSelect} />,
-    );
+    render(<EnrollmentPricingSelector options={options} onSelect={onSelect} />);
 
     await user.click(screen.getByRole("radio", { name: /aulas em grupo/i }));
 
-    expect(screen.getByRole("radio", { name: /aulas em grupo/i })).toBeChecked();
+    expect(
+      screen.getByRole("radio", { name: /aulas em grupo/i }),
+    ).toBeChecked();
     expect(onSelect).toHaveBeenCalledWith(options[1]);
   });
 
