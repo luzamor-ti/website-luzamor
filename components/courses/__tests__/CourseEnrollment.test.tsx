@@ -14,7 +14,7 @@ describe("CourseEnrollment", () => {
   it("renders the configured CTA text", () => {
     render(<CourseEnrollment enrollment={mockEnrollment} />);
 
-    expect(screen.getByText("saiba mais")).toBeInTheDocument();
+    expect(screen.getByText("Inscreva-se agora")).toBeInTheDocument();
   });
 
   it("renders default button text when not provided", () => {
@@ -26,7 +26,7 @@ describe("CourseEnrollment", () => {
 
     render(<CourseEnrollment enrollment={enrollmentWithoutButtonText} />);
 
-    expect(screen.getByText("saiba mais")).toBeInTheDocument();
+    expect(screen.getByText("Saiba mais")).toBeInTheDocument();
   });
 
   it("generates correct WhatsApp URL with message", () => {
@@ -67,6 +67,6 @@ describe("CourseEnrollment", () => {
 
     const link = screen.getByRole("link");
     expect(link).toBeInTheDocument();
-    expect(screen.getByText("saiba mais")).toBeInTheDocument();
+    expect(screen.getByText("Inscreva-se agora")).toBeInTheDocument();
   });
 });
