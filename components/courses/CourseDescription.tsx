@@ -1,4 +1,4 @@
-import { Section, Heading, Text, Button } from "@/components/ui";
+import { Section, Heading, Text } from "@/components/ui";
 import { PortableText } from "@portabletext/react";
 import type { PortableTextBlock } from "@portabletext/types";
 import { portableTextComponents } from "@/constants/portableTextComponents";

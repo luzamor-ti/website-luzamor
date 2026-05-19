@@ -1,85 +1,94 @@
-import { describe, it } from "vitest";
+import { describe, it, expect } from "vitest";
+import { Course } from "@/sanity/lib/types/course";
 
-/**
- * Phase 1: Type validation tests for 6-course-alterations
- * These tests verify that the Course type correctly models:
- * 1. Multiple teachers (array with type discriminator)
- * 2. Min-age field
- * 3. Pricing tiers (individual, group, free variants)
- */
+describe("Course type", () => {
+  const course: Course = {
+    _id: "curso-1",
+    title: "Curso de Violão",
+    slug: "curso-de-violao",
+    coverPhoto: {
+      asset: {
+        _ref: "image-cover123",
+        _type: "reference",
+      },
+      alt: "Foto de capa",
+    },
+    description: [],
+    schedule: "Segundas às 19h",
+    enrollment: {
+      active: true,
+      whatsapp: "5511999999999",
+      messageText: "Olá",
+      buttonText: "Saiba mais",
+    },
+    active: true,
+    shortDescription: "Aprenda violão",
+    minAge: 12,
+    monthlyOptions: [
+      {
+        title: "Aulas Individuais",
+        free: false,
+        price: 150,
+        details: "Acompanhamento personalizado",
+      },
+      {
+        title: "Aula Experimental",
+        free: true,
+        details: "Primeira aula gratuita",
+      },
+    ],
+    teachers: [
+      {
+        teacherType: "membro",
+        teacherMember: {
+          _id: "member-1",
+          name: "João Silva",
+          role: "Professor",
+          photo: {
+            asset: {
+              _ref: "image-teacher456",
+              _type: "reference",
+            },
+          },
+        },
+      },
+      {
+        teacherType: "externo",
+        externalTeacher: {
+          name: "Maria Santos",
+          photo: {
+            asset: {
+              _ref: "image-external789",
+              _type: "reference",
+            },
+          },
+        },
+      },
+    ],
+  };
 
-describe("Course Type System", () => {
-  describe("CourseTeacher type discriminator", () => {
-    it.todo(
-      "should have CourseTeacher interface with type discriminator (membro | externo)",
-    );
-
-    it.todo("should have memberData field when type is 'membro'");
-
-    it.todo("should have externalData field when type is 'externo'");
-
-    it.todo("should require name in externalData");
-
-    it.todo("should optionally accept photo in externalData");
-
-    it.todo("should enforce type safety on memberData (Member interface)");
+  it("supports the current course structure", () => {
+    expect(course.title).toBe("Curso de Violão");
+    expect(course.slug).toBe("curso-de-violao");
+    expect(course.active).toBe(true);
+    expect(course.minAge).toBe(12);
   });
 
-  describe("CoursePricingTier type", () => {
-    it.todo(
-      "should have tier field with 4 string literals: individual | group | free_individual | free_group",
-    );
-
-    it.todo("should have value field as number (0-999999)");
-
-    it.todo("should have description field as string");
-
-    it.todo("should allow 0 value for free tiers");
+  it("supports monthly options for paid and free plans", () => {
+    expect(course.monthlyOptions).toHaveLength(2);
+    expect(course.monthlyOptions?.[0].price).toBe(150);
+    expect(course.monthlyOptions?.[1].free).toBe(true);
   });
 
-  describe("Course interface with new fields", () => {
-    it.todo(
-      "should have teachers field as CourseTeacher[] array (required, not optional)",
-    );
-
-    it.todo("should have minAge field as number (optional)");
-
-    it.todo("should have pricing field as CoursePricingTier[] array");
-
-    it.todo(
-      "should maintain existing fields: title, slug, description, coverPhoto, etc.",
-    );
-
-    it.todo(
-      "should NOT have old singular teacher fields (teacherMember, externalTeacher) OR mark as deprecated",
-    );
+  it("supports multiple teachers with member and external entries", () => {
+    expect(course.teachers).toHaveLength(2);
+    expect(course.teachers?.[0].teacherType).toBe("membro");
+    expect(course.teachers?.[1].teacherType).toBe("externo");
   });
 
-  describe("Type composition and validation", () => {
-    it.todo("should compile without TypeScript errors");
-
-    it.todo("should allow Course objects with 1 teacher (array of length 1)");
-
-    it.todo(
-      "should allow Course objects with 3+ teachers (array with mixed types)",
-    );
-
-    it.todo("should reject Course objects missing teachers array");
-
-    it.todo("should reject invalid tier values in pricing array");
-
-    it.todo(
-      "should accept minAge values 0-100 (or allow any number with validation at schema level)",
-    );
-  });
-
-  describe("Type compatibility with existing code", () => {
-    it.todo(
-      "should not break existing Course usage in components (backward compat or migration path)",
-    );
-
-    it.todo("should preserve Member reference type inside CourseTeacher");
-
-    it.todo("should preserve SanityImageSource references for photos");
+  it("keeps enrollment data required by the current UI", () => {
+    expect(course.enrollment.active).toBe(true);
+    expect(course.enrollment.buttonText).toBe("Saiba mais");
+    expect(course.enrollment.messageText).toContain("Olá");
   });
 });
