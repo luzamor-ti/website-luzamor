@@ -38,10 +38,12 @@ export default async function CourseDetailPage({ params }: PageProps) {
         coverPhoto={curso.coverPhoto}
         teachers={curso.teachers}
       >
-        <div id="course-form" className="bg-gray-50 rounded-2xl shadow-xl overflow-hidden mt-8 lg:mt-0">
+        <div
+          id="course-form"
+          className="bg-gray-50 rounded-2xl shadow-xl overflow-hidden mt-8 lg:mt-0"
+        >
           <CourseForm
             course={curso}
-            whatsappNumber={curso.whatsappNumber}
             globalWhatsapp={globalConfig?.contact?.whatsapp}
           />
         </div>
@@ -54,7 +56,6 @@ export default async function CourseDetailPage({ params }: PageProps) {
         monthlyOptions={curso.monthlyOptions}
         enrollment={curso.enrollment}
         courseTitle={curso.title}
-        whatsappNumber={curso.whatsappNumber}
         globalWhatsapp={globalConfig?.contact?.whatsapp}
       />
 

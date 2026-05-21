@@ -10,6 +10,7 @@ export function ctaWhatsappGlobal(
   // 1. WhatsApp do Curso
   // 2. WhatsApp Global do Sanity
   // 3. Número de emergência caso o Sanity esteja totalmente vazio
+  console.log("🚀 ~ ctaWhatsappGlobal ~ number:", number);
   const finalNumber =
     number ||
     fallbackNumber ||

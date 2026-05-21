@@ -7,16 +7,10 @@ import { CourseEnrollmentForm } from "./CourseEnrollmentForm";
 
 interface EnrollmentModalProps {
   course: Course;
-  whatsappNumber?: string; // Do curso
   globalWhatsapp?: string; // Da fundação (Sanity)
 }
 
-export function CourseForm({
-  course,
-  whatsappNumber,
-  globalWhatsapp,
-}: EnrollmentModalProps) {
-
+export function CourseForm({ course, globalWhatsapp }: EnrollmentModalProps) {
   return (
     <motion.div
       id="course-form"
@@ -38,16 +32,30 @@ export function CourseForm({
           </div>
           <div className="space-y-3">
             {course.monthlyOptions.map((opt, idx) => (
-              <div key={idx} className="flex justify-between items-center border-b border-gray-200 pb-2 last:border-0 last:pb-0">
+              <div
+                key={idx}
+                className="flex justify-between items-center border-b border-gray-200 pb-2 last:border-0 last:pb-0"
+              >
                 <div>
-                  <p className="font-semibold text-gray-800 text-sm">{opt.title}</p>
-                  {opt.details && <p className="text-xs text-gray-500 mt-0.5">{opt.details}</p>}
+                  <p className="font-semibold text-gray-800 text-sm">
+                    {opt.title}
+                  </p>
+                  {opt.details && (
+                    <p className="text-xs text-gray-500 mt-0.5">
+                      {opt.details}
+                    </p>
+                  )}
                 </div>
                 <Text
                   variant="small"
                   className="font-bold text-primary tracking-wide ml-4 whitespace-nowrap"
                 >
-                  {opt.free ? "Gratuito" : new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(opt.price || 0)}
+                  {opt.free
+                    ? "Gratuito"
+                    : new Intl.NumberFormat("pt-BR", {
+                        style: "currency",
+                        currency: "BRL",
+                      }).format(opt.price || 0)}
                 </Text>
               </div>
             ))}
@@ -68,9 +76,7 @@ export function CourseForm({
                 Idade mínima
               </Text>
             </div>
-            <Text className="italic text-gray-700">
-              {course.minAge} anos
-            </Text>
+            <Text className="italic text-gray-700">{course.minAge} anos</Text>
           </div>
         )}
         <div>
@@ -93,7 +99,7 @@ export function CourseForm({
         title={course.title}
         buttonText={course.enrollment?.buttonText}
         messageText={course.enrollment?.messageText}
-        whatsappNumber={whatsappNumber}
+        whatsappNumber={course.enrollment?.whatsapp}
         globalWhatsapp={globalWhatsapp}
       />
     </motion.div>
