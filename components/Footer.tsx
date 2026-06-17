@@ -2,7 +2,7 @@
 import { Button, Grid, Heading, Link, Text, Ticker } from "@/components/ui";
 
 import type { Footer } from "@/sanity/lib/types/footer";
-import { Image as SanityImage } from "sanity";
+import type { Image as SanityImage } from "sanity";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import Image from "next/image";
 import { ArrowRight, Facebook, Instagram, Youtube } from "lucide-react";

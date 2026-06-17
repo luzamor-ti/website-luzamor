@@ -21,6 +21,7 @@ import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
 import { useState } from "react";
+import { routesPath } from "@/constants/routesPath";
 
 interface CoursesSectionProps {
   data: Course[];
@@ -157,7 +158,7 @@ export function CoursesSection({ data, section, config }: CoursesSectionProps) {
                   className="group"
                 >
                   <Link
-                    href={`/course/${course.slug}`}
+                    href={routesPath.course(course.slug)}
                     className="block h-full"
                   >
                     <div className="h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:-translate-y-2">

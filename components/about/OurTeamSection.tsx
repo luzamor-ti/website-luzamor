@@ -12,6 +12,56 @@ import { useState } from "react";
 import { PortableText } from "@portabletext/react";
 import { routesPath } from "@/constants/routesPath";
 
+// ──────────────────────────────────────────────
+// Hierarquia de exibição dos tipos de cargo
+// ──────────────────────────────────────────────
+const ROLE_TYPE_ORDER: Record<string, number> = {
+  presidente: 1,
+  "vice-presidente": 2,
+  diretor: 3,
+  secretario: 4,
+  tesoureiro: 5,
+  conselheiro: 6,
+  outro: 7,
+};
+
+const ROLE_TYPE_LABELS: Record<string, string> = {
+  presidente: "Presidência",
+  "vice-presidente": "Vice-Presidência",
+  diretor: "Diretoria Executiva",
+  secretario: "Secretaria",
+  tesoureiro: "Tesouraria",
+  conselheiro: "Conselho",
+  outro: "Outros Membros",
+};
+
+interface GroupedMembers {
+  type: string;
+  label: string;
+  members: Member[];
+}
+
+function groupByRoleType(members: Member[]): GroupedMembers[] {
+  const map = new Map<string, Member[]>();
+
+  for (const m of members) {
+    const key = m.roleType || "outro";
+    if (!map.has(key)) map.set(key, []);
+    map.get(key)!.push(m);
+  }
+
+  return Array.from(map.entries())
+    .map(([type, members]) => ({
+      type,
+      label: ROLE_TYPE_LABELS[type] || type,
+      members,
+    }))
+    .sort(
+      (a, b) =>
+        (ROLE_TYPE_ORDER[a.type] ?? 99) - (ROLE_TYPE_ORDER[b.type] ?? 99),
+    );
+}
+
 interface OurTeamSectionProps {
   data: OurTeam | null;
   members: Member[];
@@ -20,6 +70,7 @@ interface OurTeamSectionProps {
 export function OurTeamSection({ data, members }: OurTeamSectionProps) {
   const fallback = ABOUT_PAGE_FALLBACKS.team;
   const [selectedMember, setSelectedMember] = useState<Member | null>(null);
+  const groups = groupByRoleType(members);
 
   const hasBio = (member: Member) => {
     return !!(member.fullBio || member.words);
@@ -103,7 +154,7 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
 
       <AnimatePresence mode="wait">
         {!selectedMember ? (
-          // Grid de Membros
+          // Grid de Membros agrupado por cargo
           <motion.div
             key="grid"
             initial={{ opacity: 0 }}
@@ -112,104 +163,125 @@ export function OurTeamSection({ data, members }: OurTeamSectionProps) {
             transition={{ duration: 0.3 }}
             className="mt-8"
           >
-            {/* Mosaico Horizontal da Diretoria */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 auto-rows-[300px]">
-              {members && members.length > 0 ? (
-                members.map((member, index) => {
-                  // Padrão de layout alternado por linha
-                  // Cada 2 membros formam uma linha
-                  const rowIndex = Math.floor(index / 2);
-                  const positionInRow = index % 2;
-
-                  // Linha ímpar (0, 2, 4...): primeiro span-2, segundo span-1
-                  // Linha par (1, 3, 5...): primeiro span-1, segundo span-2
-                  let colSpan;
-                  if (rowIndex % 2 === 0) {
-                    // Linha ímpar
-                    colSpan =
-                      positionInRow === 0 ? "md:col-span-2" : "md:col-span-1";
-                  } else {
-                    // Linha par
-                    colSpan =
-                      positionInRow === 0 ? "md:col-span-1" : "md:col-span-2";
-                  }
-
-                  const memberHasBio = hasBio(member);
-
-                  return (
+            {groups.length === 0 ? (
+              <p className="text-center text-gray-400 py-20">
+                Nenhum integrante da diretoria cadastrado ainda.
+              </p>
+            ) : (
+              <div className="space-y-16">
+                {groups.map((group) => (
+                  <div key={group.type} className="flex flex-col">
+                    {/* Cabeçalho do grupo */}
                     <motion.div
-                      key={member._id}
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ y: -8 }}
-                      onClick={() => memberHasBio && setSelectedMember(member)}
-                      className={`group relative rounded-2xl overflow-hidden ${colSpan} ${memberHasBio ? "cursor-pointer" : "cursor-default"}`}
+                      initial={{ opacity: 0, x: -16 }}
+                      whileInView={{ opacity: 1, x: 0 }}
+                      viewport={{ once: true }}
+                      transition={{ duration: 0.5 }}
+                      className="flex items-center gap-4 mb-8"
                     >
-                      {/* Imagem de fundo */}
-                      {member.photo ? (
-                        <Image
-                          src={urlFor(member.photo)
-                            .width(800)
-                            .height(800)
-                            .url()}
-                          alt={member.name}
-                          fill
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
-                        />
-                      ) : (
-                        <div className="absolute inset-0 bg-gradient-to-br from-primary/40 to-primary/60 flex items-center justify-center">
-                          <span className="text-8xl text-white/40 font-bold">
-                            {member.name.charAt(0)}
-                          </span>
-                        </div>
-                      )}
-
-                      {/* Overlay escuro */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-
-                      {/* Nome e Cargo - canto inferior esquerdo */}
-                      <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
-                        <Heading level={4} className="text-white mb-1">
-                          {member.name}
-                        </Heading>
-                        {member.role && (
-                          <Text variant="small" className="text-white/80">
-                            {member.role}
-                          </Text>
-                        )}
-
-                        {/* Indicador de que tem bio */}
-                        {memberHasBio && (
-                          <div className="mt-2 text-xs text-primary font-medium flex items-center gap-1">
-                            <span>Ver mais</span>
-                            <svg
-                              className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              stroke="currentColor"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 5l7 7-7 7"
-                              />
-                            </svg>
-                          </div>
-                        )}
+                      <div
+                        className="w-1 h-8 rounded-full flex-shrink-0"
+                        style={{ background: "var(--color-primary)" }}
+                      />
+                      <div>
+                        <h2 className="text-2xl font-bold text-gray-900">
+                          {group.label}
+                        </h2>
+                        <p className="text-sm text-gray-400">
+                          {group.members.length}{" "}
+                          {group.members.length === 1 ? "membro" : "membros"}
+                        </p>
                       </div>
+                      <div className="flex-1 h-px bg-gray-100 ml-2" />
                     </motion.div>
-                  );
-                })
-              ) : (
-                <div className="col-span-full text-center py-12">
-                  <Text className="text-neutral-medium">
-                    Nenhum integrante da diretoria cadastrado ainda.
-                  </Text>
-                </div>
-              )}
-            </div>
+
+                    {/* Masonry horizontal por grupo - na mesma linha */}
+                    <div className="columns-1 md:columns-2 lg:columns-3 gap-6">
+                      {group.members.map((member, index) => {
+                        const memberHasBio = hasBio(member);
+
+                        return (
+                          <motion.div
+                            key={member._id}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                            whileHover={{ y: -8 }}
+                            onClick={() =>
+                              memberHasBio && setSelectedMember(member)
+                            }
+                            className={`group relative rounded-2xl overflow-hidden break-inside-avoid mb-6 ${memberHasBio ? "cursor-pointer" : "cursor-default"}`}
+                          >
+                            {/* Imagem de fundo */}
+                            {member.photo ? (
+                              <div className="relative w-full">
+                                <Image
+                                  src={urlFor(member.photo).width(500).url()}
+                                  alt={member.name}
+                                  width={500}
+                                  height={600}
+                                  className="w-full h-auto object-cover group-hover:scale-105 transition-transform duration-500"
+                                />
+                              </div>
+                            ) : (
+                              <div className="w-full aspect-[3/4] bg-gradient-to-br from-primary/40 to-primary/60 flex items-center justify-center">
+                                <span className="text-8xl text-white/40 font-bold">
+                                  {member.name.charAt(0)}
+                                </span>
+                              </div>
+                            )}
+
+                            {/* Overlay escuro */}
+                            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+
+                            {/* Nome e Cargo - canto inferior esquerdo */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6 text-white">
+                              <Heading level={4} className="text-white mb-1">
+                                {member.name}
+                              </Heading>
+                              {member.role && (
+                                <Text variant="small" className="text-white/80">
+                                  {member.role}
+                                </Text>
+                              )}
+
+                              {/* Indicador de que tem bio */}
+                              {memberHasBio && (
+                                <div className="mt-2 text-xs font-semibold flex items-center gap-1">
+                                  <span
+                                    style={{
+                                      color: "var(--color-primary)",
+                                    }}
+                                  >
+                                    Ver mais
+                                  </span>
+                                  <svg
+                                    className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    style={{
+                                      color: "var(--color-primary)",
+                                      strokeWidth: 3,
+                                    }}
+                                  >
+                                    <path
+                                      strokeLinecap="round"
+                                      strokeLinejoin="round"
+                                      d="M9 5l7 7-7 7"
+                                    />
+                                  </svg>
+                                </div>
+                              )}
+                            </div>
+                          </motion.div>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            )}
           </motion.div>
         ) : (
           // Detalhes do Membro Selecionado

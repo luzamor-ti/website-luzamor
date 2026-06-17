@@ -1,4 +1,4 @@
-import { Image as SanityImage } from "sanity";
+import type { Image as SanityImage } from "sanity";
 import { PortableTextBlock } from "next-sanity";
 import { Event } from "./event";
 

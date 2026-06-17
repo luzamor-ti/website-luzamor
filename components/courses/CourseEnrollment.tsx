@@ -1,4 +1,4 @@
-import { Section, Heading, Button } from "@/components/ui";
+import { Section, Button } from "@/components/ui";
 import { Course } from "@/sanity/lib/types/course";
 import { EVENT_DETAIL_FALLBACKS } from "@/constants/textFallbacks";
 

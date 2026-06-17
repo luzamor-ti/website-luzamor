@@ -1,5 +1,5 @@
-import { PortableTextBlock } from "sanity";
-import { Image as SanityImage } from "sanity";
+import type { PortableTextBlock } from "sanity";
+import type { Image as SanityImage } from "sanity";
 
 export type PageType =
   | "projetos"

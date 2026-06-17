@@ -5,6 +5,7 @@ import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
 import { Course } from "@/sanity/lib/types/course";
 import { getCourses } from "@/sanity/lib/services/courseService";
+import { routesPath } from "@/constants/routesPath";
 
 export async function CursosTemplate() {
   const cursos = await getCourses();
@@ -47,7 +48,7 @@ export async function CursosTemplate() {
 
               return (
                 <Link
-                  href={`/course/${curso.slug}`}
+                  href={routesPath.course(curso.slug)}
                   key={curso._id}
                   className="group"
                 >

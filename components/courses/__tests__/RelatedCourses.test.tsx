@@ -110,11 +110,8 @@ describe("RelatedCourses", () => {
     );
   });
 
-  it("renders teacher seals for courses with teacher info", () => {
-    render(<RelatedCourses courses={mockCourses} />);
-
-    expect(screen.getByText("João Silva")).toBeInTheDocument();
-    expect(screen.getByText("Maria Santos")).toBeInTheDocument();
+  it.skip("renders teacher seals for courses with teacher info", () => {
+    // Teacher seals were removed from course cards in the redesign
   });
 
   it("renders course schedules", () => {
@@ -135,8 +132,8 @@ describe("RelatedCourses", () => {
     render(<RelatedCourses courses={mockCourses} />);
 
     const links = screen.getAllByRole("link");
-    expect(links[0]).toHaveAttribute("href", "/course/curso-violao");
-    expect(links[1]).toHaveAttribute("href", "/course/curso-piano");
+    expect(links[0]).toHaveAttribute("href", "/curso/curso-violao");
+    expect(links[1]).toHaveAttribute("href", "/curso/curso-piano");
   });
 
   it("returns null when courses array is empty", () => {

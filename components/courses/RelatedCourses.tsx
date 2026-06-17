@@ -5,6 +5,7 @@ import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
 import { Course } from "@/sanity/lib/types/course";
+import { routesPath } from "@/constants/routesPath";
 
 interface RelatedCoursesProps {
   courses: Course[];
@@ -31,7 +32,7 @@ export function RelatedCourses({ courses }: RelatedCoursesProps) {
 
             return (
               <Link
-                href={`/course/${curso.slug}`}
+                href={routesPath.course(curso.slug)}
                 key={curso._id}
                 className="group"
               >

@@ -5,7 +5,7 @@ import Image from "next/image";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { motion, AnimatePresence } from "framer-motion";
 import { X, ChevronLeft, ChevronRight } from "lucide-react";
-import { Image as SanityImage } from "sanity";
+import type { Image as SanityImage } from "sanity";
 
 interface ProjectGalleryProps {
   images: (SanityImage & { alt?: string; caption?: string })[];

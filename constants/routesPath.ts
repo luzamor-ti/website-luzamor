@@ -4,6 +4,7 @@ export const routesPath = {
   projects: "/projetos",
   project: (slug: string) => `/projeto/${slug}`,
   courses: "/cursos",
+  course: (slug: string) => `/curso/${slug}`,
   events: "/calendario-eventos",
   classrooms: "/salas-aula",
   auditorium: "/auditorio",

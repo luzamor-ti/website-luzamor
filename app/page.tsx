@@ -1,3 +1,4 @@
+import dynamic from "next/dynamic";
 import { getHomeData } from "@/sanity/lib/services/homeService";
 import { getHeroData } from "@/sanity/lib/services/heroService";
 import { getHomeSectionsByNames } from "@/sanity/lib/services/homeSectionService";
@@ -5,14 +6,38 @@ import {
   HeroSection,
   ProjectsSection,
   SupportersSection,
-  FaqSection,
   IntroSection,
   ImpactSection,
   InitiativesSection,
-  HowToHelpSection,
-  CoursesSection,
-  EventsSection,
 } from "@/components/home";
+
+const LazyCoursesSection = dynamic(
+  () => import("@/components/home/CoursesSection").then((mod) => mod.CoursesSection),
+  {
+    loading: () => <div className="min-h-[320px]" aria-hidden="true" />,
+  },
+);
+
+const LazyHowToHelpSection = dynamic(
+  () => import("@/components/home/HowToHelpSection"),
+  {
+    loading: () => <div className="min-h-[320px]" aria-hidden="true" />,
+  },
+);
+
+const LazyEventsSection = dynamic(
+  () => import("@/components/home/EventsSection").then((mod) => mod.EventsSection),
+  {
+    loading: () => <div className="min-h-[320px]" aria-hidden="true" />,
+  },
+);
+
+const LazyFaqSection = dynamic(
+  () => import("@/components/home/FaqSection").then((mod) => mod.FaqSection),
+  {
+    loading: () => <div className="min-h-[320px]" aria-hidden="true" />,
+  },
+);
 
 const SECTION_NAMES = [
   "intro",
@@ -44,14 +69,14 @@ export default async function Home() {
       <ImpactSection data={sections.impact} />
       <InitiativesSection data={sections.initiatives} />
       <ProjectsSection data={projects} section={sections.projects} />
-      <CoursesSection
+      <LazyCoursesSection
         data={courses}
         section={sections.courses}
         config={configuration}
       />
-      <HowToHelpSection data={sections.howToHelp} />
-      <EventsSection data={events} section={sections.events} />
-      <FaqSection data={faq} section={sections.faq} />
+      <LazyHowToHelpSection data={sections.howToHelp} />
+      <LazyEventsSection data={events} section={sections.events} />
+      <LazyFaqSection data={faq} section={sections.faq} />
     </main>
   );
 }

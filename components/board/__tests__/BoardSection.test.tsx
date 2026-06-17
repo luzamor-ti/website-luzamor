@@ -1,7 +1,22 @@
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { render, screen, fireEvent } from "@testing-library/react";
 import { BoardSection } from "@/components/board/BoardSection";
 import { Member } from "@/sanity/lib/types/member";
+
+// ─────────────────────────────────────────
+// Mocks
+// ─────────────────────────────────────────
+vi.mock("@/sanity/lib/image", () => {
+  const mockBuilder = {
+    width: vi.fn().mockReturnThis(),
+    height: vi.fn().mockReturnThis(),
+    url: vi.fn().mockReturnValue("https://cdn.sanity.io/images/mock-url"),
+  };
+  return {
+    urlFor: vi.fn().mockReturnValue(mockBuilder),
+    isValidSanityImage: vi.fn().mockReturnValue(true),
+  };
+});
 
 // ─────────────────────────────────────────
 // Fixtures
