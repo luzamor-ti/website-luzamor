@@ -21,6 +21,7 @@ export interface Course {
     buttonText?: string;
   };
   active: boolean;
+  requireScheduling?: boolean;
   shortDescription?: string;
   minAge?: number;
   monthlyOptions?: {
