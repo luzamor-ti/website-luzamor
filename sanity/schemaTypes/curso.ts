@@ -135,6 +135,15 @@ export const curso = defineType({
     }),
 
     defineField({
+      name: "agendamentoNecessario",
+      title: "Aulas Mediante Agendamento",
+      type: "boolean",
+      description: "Ative se as aulas dependem de agendamento e disponibilidade",
+      initialValue: false,
+      group: "informacoes",
+    }),
+
+    defineField({
       name: "professores",
       title: "Professores",
       type: "array",
