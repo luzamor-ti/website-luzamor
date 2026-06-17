@@ -16,5 +16,5 @@ export function buildSanityImageUrl(ref?: string): string {
   const extension = parts[parts.length - 1];
   const dimensions = parts.slice(2, -1).join("-");
 
-  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${hash}-${dimensions}.${extension}`;
+  return `https://cdn.sanity.io/images/${projectId}/${dataset}/${hash}-${dimensions}.${extension}?fm=webp&w=1920&q=80`;
 }
