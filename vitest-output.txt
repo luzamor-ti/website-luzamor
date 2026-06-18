@@ -1,0 +1,320 @@
+
+ RUN  v4.0.18 /home/henrique/Documentos/projetos/www/website-luzamor
+
+ ✓ |unit| components/ui/__tests__/Accordion.test.tsx (11 tests) 309ms
+ ❯ |unit| components/events/__tests__/EventHero.test.tsx (0 test)
+ ❯ |unit| components/events/__tests__/EventInfo.test.tsx (0 test)
+ ❯ |unit| components/about/__tests__/OurHistorySection.test.tsx (12 tests | 11 failed) 70ms
+     × renders with timeline data 24ms
+     × renders timeline items with titles 3ms
+     × renders timeline items with descriptions 4ms
+     × renders timeline item images when provided 3ms
+     × renders with fallback data when data is null 5ms
+     × renders taglines for timeline items 2ms
+     × handles timeline items without tagline 2ms
+     × handles timeline items without image 2ms
+     × renders timeline with correct structure 3ms
+     × alternates timeline item layout on desktop 2ms
+     × displays section header elements 1ms
+     ✓ handles empty timeline gracefully 15ms
+ ✓ |unit| components/home/__tests__/FaqSection.test.tsx (9 tests) 330ms
+ ✓ |unit| components/board/__tests__/BoardSection.test.tsx (16 tests) 333ms
+ ✓ |unit| components/page-templates/__tests__/PatrocinadorTemplate.test.tsx (40 tests) 1167ms
+ ✓ |unit| components/events/__tests__/EventGallery.test.tsx (12 tests) 368ms
+ ✓ |unit| components/page-templates/__tests__/CursosTemplate.test.tsx (13 tests | 1 skipped) 648ms
+ ✓ |storybook (chromium)| stories/ui/Accordion.stories.tsx (5 tests) 2743ms
+   ✓ Default  1632ms
+   ✓ Allow Multiple  364ms
+ ✓ |storybook (chromium)| stories/ui/Section.stories.tsx (5 tests) 3077ms
+   ✓ Default  1966ms
+   ✓ Multiple Content Blocks  395ms
+ ✓ |storybook (chromium)| stories/ui/Card.stories.tsx (6 tests) 2997ms
+   ✓ Default  1799ms
+ ✓ |storybook (chromium)| stories/ui/Grid.stories.tsx (7 tests) 3178ms
+   ✓ Three Columns  1656ms
+   ✓ Two Columns  326ms
+   ✓ Four Columns  395ms
+ ✓ |storybook (chromium)| stories/events/FeaturedEvent.stories.tsx (8 tests) 3245ms
+   ✓ Musical  1228ms
+   ✓ Educacional Com CTA  344ms
+   ✓ Cultural Gratis  377ms
+   ✓ Tablet View  372ms
+ ✓ |storybook (chromium)| stories/ui/SectionHeader.stories.tsx (8 tests) 3732ms
+   ✓ Default  2050ms
+   ✓ Center Aligned  412ms
+ ✓ |storybook (chromium)| stories/events/EventsTabNavigation.stories.tsx (8 tests) 3566ms
+   ✓ Proximos Eventos Lista  1587ms
+   ✓ Tablet View  361ms
+   ✓ Interativo Mobile  339ms
+ ✓ |storybook (chromium)| stories/ui/Ticker.stories.tsx (8 tests) 3899ms
+   ✓ Default  1560ms
+   ✓ Fast  392ms
+   ✓ Right Direction  386ms
+   ✓ No Pause On Hover  330ms
+   ✓ Few Items  334ms
+   ✓ With Badges  421ms
+ ✓ |storybook (chromium)| stories/events/EventListItem.stories.tsx (7 tests) 3415ms
+   ✓ Educacional Gratis  1309ms
+   ✓ Musical Pago  386ms
+   ✓ Cultural Com Galeria  340ms
+   ✓ Social Sem Descricao  337ms
+   ✓ Mobile  374ms
+   ✓ Tablet  364ms
+ ✓ |storybook (chromium)| stories/events/FeaturedEventsCarousel.stories.tsx (7 tests) 3327ms
+   ✓ Tres Eventos  1315ms
+   ✓ Dois Eventos  395ms
+   ✓ Autoplay Rapido  358ms
+   ✓ Mobile View  344ms
+   ✓ Tablet View  381ms
+ ✓ |unit| components/page-templates/__tests__/EventsCalendarView.test.tsx (11 tests) 660ms
+ ✓ |unit| components/home/__tests__/ImpactSection.test.tsx (11 tests) 479ms
+ ✓ |unit| components/page-templates/calendario-eventos/__tests__/FeaturedEvent.test.tsx (21 tests) 512ms
+ ✓ |unit| components/page-templates/__tests__/CalendarioEventosTemplate.test.tsx (10 tests) 587ms
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders section header correctly
+[
+  {
+    _id: 'course-1',
+    title: 'Curso de Violão',
+    slug: 'curso-violao',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Terças e quintas, 19h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Saiba mais' },
+    active: true
+  },
+  {
+    _id: 'course-2',
+    title: 'Curso de Piano',
+    slug: 'curso-piano',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Segundas e quartas, 14h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Inscreva-se' },
+    active: true
+  }
+]
+
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders all course titles
+[
+  {
+    _id: 'course-1',
+    title: 'Curso de Violão',
+    slug: 'curso-violao',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Terças e quintas, 19h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Saiba mais' },
+    active: true
+  },
+  {
+    _id: 'course-2',
+    title: 'Curso de Piano',
+    slug: 'curso-piano',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Segundas e quartas, 14h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Inscreva-se' },
+    active: true
+  }
+]
+
+ ✓ |storybook (chromium)| stories/events/EventsListView.stories.tsx (9 tests) 4877ms
+   ✓ Poucos Eventos  1736ms
+   ✓ Muitos Eventos  1046ms
+   ✓ Eventos Passados Com Galeria  300ms
+   ✓ Variedade Categorias  439ms
+   ✓ Eventos Com Galeria Variada  352ms
+   ✓ Tablet View  419ms
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders course cover images
+[
+  {
+    _id: 'course-1',
+    title: 'Curso de Violão',
+    slug: 'curso-violao',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Terças e quintas, 19h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Saiba mais' },
+    active: true
+  },
+  {
+    _id: 'course-2',
+    title: 'Curso de Piano',
+    slug: 'curso-piano',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Segundas e quartas, 14h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Inscreva-se' },
+    active: true
+  }
+]
+
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders course schedules
+[
+  {
+    _id: 'course-1',
+    title: 'Curso de Violão',
+    slug: 'curso-violao',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Terças e quintas, 19h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Saiba mais' },
+    active: true
+  },
+  {
+    _id: 'course-2',
+    title: 'Curso de Piano',
+    slug: 'curso-piano',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Segundas e quartas, 14h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Inscreva-se' },
+    active: true
+  }
+]
+
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders enrollment button text
+[
+  {
+    _id: 'course-1',
+    title: 'Curso de Violão',
+    slug: 'curso-violao',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Terças e quintas, 19h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Saiba mais' },
+    active: true
+  },
+  {
+    _id: 'course-2',
+    title: 'Curso de Piano',
+    slug: 'curso-piano',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Segundas e quartas, 14h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Inscreva-se' },
+    active: true
+  }
+]
+
+ ✓ |unit| components/home/__tests__/EventsSection.test.tsx (20 tests) 998ms
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders links to course pages
+[
+  {
+    _id: 'course-1',
+    title: 'Curso de Violão',
+    slug: 'curso-violao',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Terças e quintas, 19h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Saiba mais' },
+    active: true
+  },
+  {
+    _id: 'course-2',
+    title: 'Curso de Piano',
+    slug: 'curso-piano',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Segundas e quartas, 14h',
+    teachers: [ [Object] ],
+    enrollment: { active: true, buttonText: 'Inscreva-se' },
+    active: true
+  }
+]
+
+stdout | components/courses/__tests__/RelatedCourses.test.tsx > RelatedCourses > renders course without teacher seal when teacher info is missing
+[
+  {
+    _id: 'course-3',
+    title: 'Curso de Canto',
+    slug: 'curso-canto',
+    coverPhoto: { asset: [Object] },
+    description: [],
+    schedule: 'Sextas, 18h',
+    enrollment: { active: true, buttonText: 'Ver mais' },
+    active: true
+  }
+]
+
+ ✓ |unit| components/courses/__tests__/RelatedCourses.test.tsx (10 tests | 1 skipped) 455ms
+ ✓ |unit| components/home/__tests__/ProjectsSection.test.tsx (7 tests) 480ms
+ ✓ |unit| components/page-templates/__tests__/EventsListView.test.tsx (11 tests) 1041ms
+ ✓ |unit| components/events/__tests__/EventListItem.test.tsx (17 tests) 516ms
+ ✓ |unit| components/events/__tests__/EventCard.test.tsx (13 tests) 728ms
+ ✓ |unit| components/page-templates/__tests__/EventsTabNavigation.test.tsx (9 tests) 416ms
+ ✓ |unit| components/page-templates/calendario-eventos/__tests__/FeaturedEventsCarousel.test.tsx (10 tests) 551ms
+ ✓ |storybook (chromium)| stories/ui/Icon.stories.tsx (7 tests) 1171ms
+   ✓ Default  443ms
+   ✓ Icon Collection  311ms
+ ✓ |storybook (chromium)| stories/ui/Text.stories.tsx (7 tests) 1445ms
+   ✓ Body  397ms
+ ✓ |storybook (chromium)| stories/ui/DynamicIcon.stories.tsx (6 tests) 1269ms
+   ✓ Default  517ms
+ ✓ |storybook (chromium)| stories/ui/Button.stories.tsx (10 tests) 1968ms
+   ✓ Primary  477ms
+ ✓ |storybook (chromium)| stories/ui/Heading.stories.tsx (9 tests) 1648ms
+   ✓ Level 1  384ms
+   ✓ Level 2  310ms
+ ✓ |storybook (chromium)| stories/ui/LinkButton.stories.tsx (7 tests) 1486ms
+   ✓ Default  617ms
+ ✓ |unit| components/ui/__tests__/Button.test.tsx (13 tests) 134ms
+ ✓ |unit| components/ui/__tests__/Typography.test.tsx (15 tests) 160ms
+ ✓ |storybook (chromium)| stories/ui/SectionFooter.stories.tsx (8 tests) 1691ms
+   ✓ Default  640ms
+ ✓ |unit| components/about/__tests__/AboutImpactsSection.test.tsx (6 tests) 172ms
+ ✓ |unit| components/home/__tests__/HeroSection.test.tsx (8 tests) 125ms
+ ✓ |unit| components/president/__tests__/PresidentPageContent.test.tsx (9 tests) 149ms
+ ✓ |unit| components/courses/__tests__/CourseHero.test.tsx (4 tests) 128ms
+ ✓ |unit| components/home/__tests__/IntroSection.test.tsx (7 tests) 105ms
+ ✓ |unit| components/courses/__tests__/EnrollmentPricingSelector.test.tsx (3 tests) 175ms
+ ✓ |unit| components/ui/__tests__/SectionHeader.test.tsx (7 tests) 70ms
+ ✓ |unit| components/courses/__tests__/CourseTeacher.test.tsx (8 tests) 104ms
+ ✓ |unit| components/ui/__tests__/Grid.test.tsx (10 tests) 81ms
+ ✓ |unit| components/courses/__tests__/CourseEnrollment.updated.test.tsx (4 tests) 75ms
+ ✓ |unit| components/about/__tests__/AboutHeroSection.test.tsx (7 tests) 108ms
+ ✓ |unit| components/ui/__tests__/Icon.test.tsx (9 tests) 123ms
+ ✓ |unit| components/events/__tests__/EventDetails.test.tsx (4 tests) 73ms
+ ✓ |unit| app/curso/__tests__/[slug].page.integration.test.tsx (2 tests) 51ms
+ ✓ |unit| components/courses/__tests__/CourseEnrollment.test.tsx (6 tests) 91ms
+ ✓ |unit| components/courses/__tests__/CourseDescription.test.tsx (5 tests) 90ms
+ ✓ |unit| components/about/__tests__/ContentImageSection.test.tsx (10 tests) 107ms
+ ✓ |unit| components/ui/__tests__/Ticker.test.tsx (14 tests) 128ms
+ ✓ |unit| components/ui/__tests__/Card.test.tsx (8 tests) 60ms
+ ✓ |unit| sanity/schemaTypes/__tests__/secaoHome.test.ts (152 tests) 62ms
+ ✓ |unit| components/__tests__/Footer.test.tsx (1 test) 98ms
+ ✓ |unit| components/courses/__tests__/CourseTeacherList.test.tsx (3 tests) 52ms
+ ✓ |unit| components/animations/__tests__/FadeIn.test.tsx (6 tests) 117ms
+ ✓ |unit| components/ui/__tests__/Section.test.tsx (5 tests) 48ms
+ ✓ |unit| utils/__tests__/eventCta.test.ts (22 tests) 21ms
+ ✓ |unit| components/courses/__tests__/CourseHero.redesigned.test.tsx (3 tests) 72ms
+ ✓ |unit| constants/__tests__/routesPath.test.ts (14 tests) 9ms
+ ✓ |unit| components/__tests__/OurTeamSection.test.tsx (1 test) 70ms
+ ✓ |unit| sanity/schemaTypes/__tests__/paginasInternas.test.ts (16 tests) 20ms
+ ✓ |unit| sanity/lib/services/__tests__/eventService.test.ts (21 tests) 26ms
+ ✓ |unit| sanity/lib/__tests__/eventProjectRelation.test.ts (12 tests) 12ms
+ ✓ |unit| sanity/schemaTypes/__tests__/hero.test.ts (12 tests) 12ms
+ ✓ |unit| sanity/lib/services/__tests__/partnerService.test.ts (10 tests) 17ms
+ ✓ |unit| sanity/lib/services/__tests__/eventProjectService.test.ts (7 tests) 15ms
+ ✓ |unit| sanity/lib/__tests__/types/course.types.test.ts (4 tests) 6ms
+ ✓ |unit| sanity/schemaTypes/__tests__/eventoProjetoSchema.test.ts (8 tests) 4ms
+ ✓ |unit| sanity/lib/queries/__tests__/eventProjectQueries.test.ts (10 tests) 5ms
+ ✓ |unit| sanity/lib/__tests__/queries/course.queries.test.ts (3 tests) 3ms
+ ✓ |unit| utils/__tests__/dateFormatters.test.ts (13 tests) 53ms
+
+ Test Files  3 failed | 77 passed (80)
+      Tests  11 failed | 864 passed | 2 skipped (877)
+   Start at  23:47:23
+   Duration  21.89s (transform 55.94s, setup 70.65s, import 131.10s, tests 62.41s, environment 30.69s)
+

@@ -5,6 +5,7 @@ import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
 import { Course } from "@/sanity/lib/types/course";
 import { getCourses } from "@/sanity/lib/services/courseService";
+import { routesPath } from "@/constants/routesPath";
 
 export async function CursosTemplate() {
   const cursos = await getCourses();
@@ -44,23 +45,14 @@ export async function CursosTemplate() {
               const imageUrl = buildSanityImageUrl(
                 curso.coverPhoto?.asset?._ref,
               );
-              const firstTeacher = curso.teachers?.[0];
-              const teacher =
-                firstTeacher?.teacherType === "membro"
-                  ? firstTeacher.teacherMember
-                  : firstTeacher?.externalTeacher;
-              const teacherPhoto = buildSanityImageUrl(
-                teacher?.photo?.asset?._ref,
-              );
 
               return (
                 <Link
-                  href={`/course/${curso.slug}`}
+                  href={routesPath.course(curso.slug)}
                   key={curso._id}
                   className="group"
                 >
                   <div className="bg-transparent rounded-[32px] p-4 h-full shadow-md hover:shadow-xl transition-all duration-500 border border-gray-200 flex flex-col">
-                    {/* PASSO 1: IMAGEM COM SELO FLUTUANTE */}
                     <div className="relative h-64 w-full rounded-[24px] overflow-hidden mb-6">
                       {imageUrl && (
                         <Image
@@ -69,22 +61,6 @@ export async function CursosTemplate() {
                           fill
                           className="object-cover group-hover:scale-110 transition-transform duration-700"
                         />
-                      )}
-
-                      {teacher?.name && teacherPhoto && (
-                        <div className="absolute bottom-4 left-4 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg">
-                          <div className="relative w-7 h-7 rounded-full overflow-hidden border border-gray-100">
-                            <Image
-                              src={teacherPhoto}
-                              alt={teacher.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <span className="text-xs font-bold text-gray-900">
-                            {teacher.name}
-                          </span>
-                        </div>
                       )}
                     </div>
 
@@ -97,12 +73,21 @@ export async function CursosTemplate() {
                         {curso.title}
                       </Heading>
 
-                      {curso.schedule && (
-                        <div className="flex items-center gap-2 text-gray-500 mb-6">
-                          <Clock className="w-5 h-5 text-[#00b341]" />
-                          <span className="text-base font-medium">
-                            {curso.schedule}
-                          </span>
+                      {(curso.schedule || curso.requireScheduling) && (
+                        <div className="flex items-start gap-2 text-gray-500 mb-6">
+                          <Clock className="w-5 h-5 text-[#00b341] shrink-0 mt-[2px]" />
+                          <div className="flex flex-col">
+                            {curso.schedule && (
+                              <span className="text-base font-medium">
+                                {curso.schedule}
+                              </span>
+                            )}
+                            {curso.requireScheduling && (
+                              <span className="text-sm font-medium mt-0.5">
+                                Aulas mediante agendamento e disponibilidade
+                              </span>
+                            )}
+                          </div>
                         </div>
                       )}
 

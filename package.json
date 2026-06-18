@@ -41,6 +41,7 @@
   },
   "devDependencies": {
     "@chromatic-com/storybook": "^5.0.1",
+    "@next/bundle-analyzer": "^16.2.7",
     "@storybook/addon-a11y": "^10.2.13",
     "@storybook/addon-docs": "^10.2.13",
     "@storybook/addon-onboarding": "^10.2.13",
@@ -63,6 +64,7 @@
     "husky": "^9.1.7",
     "jsdom": "^28.1.0",
     "playwright": "^1.58.2",
+    "source-map-explorer": "^2.5.2",
     "storybook": "^10.2.13",
     "tailwindcss": "^4.2.0",
     "typescript": "^5",

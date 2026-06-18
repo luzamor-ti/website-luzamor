@@ -10,7 +10,7 @@ import {
 } from "@/lib/animations";
 import { useRef } from "react";
 import Image from "next/image";
-import { urlFor } from "@/sanity/lib/image";
+import { urlFor, isValidSanityImage } from "@/sanity/lib/image";
 import { PortableText } from "@portabletext/react";
 import { portableTextComponents } from "@/constants/portableTextComponents";
 
@@ -137,10 +137,14 @@ export function OurHistorySection({ data }: OurHistorySectionProps) {
                       </span>
                     </motion.div>
 
-                    {imagem && (
+                    {isValidSanityImage(imagem) && (
                       <div className="mb-4 rounded-lg overflow-hidden">
                         <Image
-                          src={urlFor(imagem).width(600).height(400).url()}
+                          // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                          src={urlFor(imagem as any)
+                            .width(600)
+                            .height(400)
+                            .url()}
                           alt={titulo || ano}
                           width={600}
                           height={400}
@@ -178,10 +182,14 @@ export function OurHistorySection({ data }: OurHistorySectionProps) {
                       viewport={{ once: false, margin: "-100px" }}
                       transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                      {imagem && (
+                      {isValidSanityImage(imagem) && (
                         <div className="mb-4 rounded-lg overflow-hidden ml-auto max-w-lg">
                           <Image
-                            src={urlFor(imagem).width(600).height(400).url()}
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            src={urlFor(imagem as any)
+                              .width(600)
+                              .height(400)
+                              .url()}
                             alt={titulo || ano}
                             width={600}
                             height={400}
@@ -234,10 +242,14 @@ export function OurHistorySection({ data }: OurHistorySectionProps) {
                       viewport={{ once: false, margin: "-100px" }}
                       transition={{ duration: 0.6, delay: 0.2 }}
                     >
-                      {imagem && (
+                      {isValidSanityImage(imagem) && (
                         <div className="mb-4 rounded-lg overflow-hidden max-w-lg">
                           <Image
-                            src={urlFor(imagem).width(600).height(400).url()}
+                            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                            src={urlFor(imagem as any)
+                              .width(600)
+                              .height(400)
+                              .url()}
                             alt={titulo || ano}
                             width={600}
                             height={400}

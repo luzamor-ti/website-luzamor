@@ -1,5 +1,5 @@
-import { PortableTextBlock } from "next-sanity";
-import { Image as SanityImage } from "sanity";
+import type { PortableTextBlock } from "next-sanity";
+import type { Image as SanityImage } from "sanity";
 
 export interface Member {
   _id: string;

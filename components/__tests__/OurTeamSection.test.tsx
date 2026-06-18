@@ -1,8 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
+             /* eslint-disable @typescript-eslint/no-explicit-any */
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { OurTeamSection } from "../about";
+
+vi.mock("@/sanity/lib/image", () => ({
+  urlFor: vi.fn().mockReturnValue({
+    width: vi.fn().mockReturnValue({
+      height: vi.fn().mockReturnValue({
+        url: vi.fn().mockReturnValue("https://cdn.sanity.io/images/mock-url"),
+      }),
+      url: vi.fn().mockReturnValue("https://cdn.sanity.io/images/mock-url"),
+    }),
+    url: vi.fn().mockReturnValue("https://cdn.sanity.io/images/mock-url"),
+  }),
+  isValidSanityImage: vi.fn().mockReturnValue(true),
+}));
 
 describe("OurTeamSection (imagemGrupo + diretoria)", () => {
   it("renders group image when imagemGrupo present and hides individual photos for non-directoria", () => {

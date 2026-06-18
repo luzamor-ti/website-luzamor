@@ -11,12 +11,7 @@ vi.mock("framer-motion", () => ({
   },
 }));
 
-vi.mock("lucide-react", () => ({
-  Calendar: () => <svg data-testid="icon-calendar" />,
-  Clock: () => <svg data-testid="icon-clock" />,
-  MapPin: () => <svg data-testid="icon-mappin" />,
-  Ticket: () => <svg data-testid="icon-ticket" />,
-}));
+
 
 vi.mock("@/components/events/EventCategoryBadge", () => ({
   EventCategoryBadge: ({ category }: { category: string }) => (

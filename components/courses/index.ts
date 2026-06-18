@@ -6,3 +6,5 @@ export { CourseEnrollment } from "./CourseEnrollment";
 export { RelatedCourses } from "./RelatedCourses";
 export { CourseForm } from "./CourseForm";
 export { CourseEnrollmentForm } from "./CourseEnrollmentForm";
+export { ProfessorModal, normalizeProfessor } from "./ProfessorModal";
+export type { NormalizedProfessor } from "./ProfessorModal";

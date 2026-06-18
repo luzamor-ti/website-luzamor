@@ -1,4 +1,4 @@
-import { Image as SanityImage } from "sanity";
+import type { Image as SanityImage } from "sanity";
 import { PartnersPageConfig } from "./partnersPage";
 
 export type SupporterType =

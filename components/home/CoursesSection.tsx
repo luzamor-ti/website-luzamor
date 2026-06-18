@@ -17,9 +17,11 @@ import {
   staggerItemVariants,
 } from "@/lib/animations";
 import Image from "next/image";
+import Link from "next/link";
 import { buildSanityImageUrl } from "@/utils/buildSanityImageUrl";
 import { Clock } from "lucide-react";
 import { useState } from "react";
+import { routesPath } from "@/constants/routesPath";
 
 interface CoursesSectionProps {
   data: Course[];
@@ -149,82 +151,73 @@ export function CoursesSection({ data, section, config }: CoursesSectionProps) {
 
           <Grid cols={3} className="gap-6 md:gap-8">
             {data.slice(0, 3).map((course) => {
-              const firstTeacher = course.teachers?.[0];
-              const teacherPhoto =
-                firstTeacher?.teacherType === "membro"
-                  ? firstTeacher.teacherMember?.photo
-                  : firstTeacher?.externalTeacher?.photo;
-
-              const teacherName =
-                firstTeacher?.teacherType === "membro"
-                  ? firstTeacher.teacherMember?.name
-                  : firstTeacher?.externalTeacher?.name;
-
-              //   const whatsappNumber =
-              //     course.enrollment.whatsapp || globalWhatsapp || "";
-
               return (
                 <motion.div
                   key={course._id}
                   variants={staggerItemVariants}
                   className="group"
                 >
-                  <div className="h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:-translate-y-2">
-                    {/* Cover Photo */}
-                    <div className="relative h-48 md:h-56 overflow-hidden">
-                      <Image
-                        src={buildSanityImageUrl(course.coverPhoto.asset._ref)}
-                        alt={course.coverPhoto.alt || course.title}
-                        fill
-                        className="object-cover group-hover:scale-110 transition-transform duration-700"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-secondary/20 to-transparent" />
-
-                      {/* Teacher Badge */}
-                      {teacherPhoto && teacherName && (
-                        <div className="absolute bottom-3 left-3 flex items-center gap-2 bg-white/95 backdrop-blur-sm rounded-full px-3 py-1.5 shadow-lg">
-                          <div className="relative w-6 h-6 rounded-full overflow-hidden">
-                            <Image
-                              src={buildSanityImageUrl(
-                                teacherPhoto?.asset?._ref || "",
-                              )}
-                              alt={
-                                (teacherPhoto?.alt as string) ||
-                                teacherName ||
-                                ""
-                              }
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <span className="text-xs font-semibold text-gray-900">
-                            {teacherName}
-                          </span>
-                        </div>
-                      )}
-                    </div>
-
-                    <div className="p-5 md:p-6 space-y-4">
-                      <h3 className="text-xl md:text-2xl font-bold text-gray-900 line-clamp-2 group-hover:text-primary transition-colors">
-                        {course.title}
-                      </h3>
-
-                      <div className="flex items-center gap-2 text-gray-600">
-                        <Clock className="w-4 h-4 flex-shrink-0 text-primary" />
-                        <span className="text-sm">{course.schedule}</span>
+                  <Link
+                    href={routesPath.course(course.slug)}
+                    className="block h-full"
+                  >
+                    <div className="h-full bg-white rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl border-2 border-transparent hover:border-accent/30 transition-all duration-500 hover:-translate-y-2">
+                      {/* Cover Photo */}
+                      <div className="relative h-48 md:h-56 overflow-hidden">
+                        <Image
+                          src={buildSanityImageUrl(
+                            course.coverPhoto.asset._ref,
+                          )}
+                          alt={course.coverPhoto.alt || course.title}
+                          fill
+                          className="object-cover group-hover:scale-110 transition-transform duration-700"
+                        />
+                        <div className="absolute inset-0 bg-gradient-to-t from-primary/60 via-secondary/20 to-transparent" />
                       </div>
 
-                      {course.enrollment.active && (
-                        <Button
-                          onClick={() => handleEnroll(course)}
-                          className="w-full"
-                          variant="primary"
-                        >
-                          {course.enrollment.buttonText || "Inscreva-se agora"}
-                        </Button>
-                      )}
+                      <div className="p-5 md:p-6 space-y-4">
+                        <h3 className="text-xl md:text-2xl font-bold text-gray-900 line-clamp-2 group-hover:text-primary transition-colors">
+                          {course.title}
+                        </h3>
+
+                        {(course.schedule || course.requireScheduling) && (
+                          <div className="flex items-start gap-2 text-gray-500 mb-6">
+                            <Clock className="w-5 h-5 text-[#00b341] shrink-0 mt-[2px]" />
+                            <div className="flex flex-col">
+                              {course.schedule && (
+                                <span className="text-base font-medium">
+                                  {course.schedule}
+                                </span>
+                              )}
+                              {course.requireScheduling && (
+                                <span className="text-sm font-medium mt-0.5">
+                                  Aulas mediante agendamento e disponibilidade
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        )}
+
+                        {course.enrollment.active && (
+                          <div
+                            onClick={(e) => {
+                              e.preventDefault();
+                              e.stopPropagation();
+                            }}
+                          >
+                            <Button
+                              onClick={() => handleEnroll(course)}
+                              className="w-full"
+                              variant="primary"
+                            >
+                              {course.enrollment.buttonText ||
+                                "Inscreva-se agora"}
+                            </Button>
+                          </div>
+                        )}
+                      </div>
                     </div>
-                  </div>
+                  </Link>
                 </motion.div>
               );
             })}

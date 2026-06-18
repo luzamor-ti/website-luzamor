@@ -25,6 +25,7 @@ export const coursesQuery = groq`
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
+    "requireScheduling": agendamentoNecessario,
     "teachers": professores[] {
       "teacherType": tipoProfessor,
       "teacherMember": professorMembro->{
@@ -34,7 +35,9 @@ export const coursesQuery = groq`
         "photo": {
           "asset": foto.asset,
           "alt": alt
-        }
+        },
+        "shortBio": bioCurta,
+        "fullBio": bioCompleta
       },
       "externalTeacher": professorExterno {
         "name": nome,
@@ -75,6 +78,7 @@ export const courseBySlugQuery = groq`
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
+    "requireScheduling": agendamentoNecessario,
     "teachers": professores[] {
       "teacherType": tipoProfessor,
       "teacherMember": professorMembro->{
@@ -85,7 +89,8 @@ export const courseBySlugQuery = groq`
           "asset": foto.asset,
           "alt": alt
         },
-        "shortBio": bioCurta
+        "shortBio": bioCurta,
+        "fullBio": bioCompleta
       },
       "externalTeacher": professorExterno {
         "name": nome,
@@ -125,6 +130,7 @@ export const relatedcoursesQuery = groq`
     "description": descricao,
     "shortDescription": descricaoCurta,
     "schedule": datasHorarios,
+    "requireScheduling": agendamentoNecessario,
     "teachers": professores[] {
       "teacherType": tipoProfessor,
       "teacherMember": professorMembro->{
@@ -134,7 +140,9 @@ export const relatedcoursesQuery = groq`
         "photo": {
           "asset": foto.asset,
           "alt": alt
-        }
+        },
+        "shortBio": bioCurta,
+        "fullBio": bioCompleta
       },
       "externalTeacher": professorExterno {
         "name": nome,

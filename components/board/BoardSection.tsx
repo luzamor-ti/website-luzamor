@@ -82,7 +82,6 @@ function MemberCard({
   const photoUrl = member.photo
     ? urlFor(member.photo)
         .width(isHighlight ? 600 : 400)
-        .height(isHighlight ? 800 : 600)
         .url()
     : null;
   const hasBio = !!(member.shortBio || member.fullBio);
@@ -106,76 +105,84 @@ function MemberCard({
       role={hasBio ? "button" : undefined}
       tabIndex={hasBio ? 0 : undefined}
       aria-label={hasBio ? `Ver perfil de ${member.name}` : undefined}
-      className={`group relative rounded-2xl overflow-hidden bg-gray-100 shadow-md
+      className={`group rounded-2xl overflow-hidden bg-gray-100 shadow-md
         ${hasBio ? "cursor-pointer hover:-translate-y-1 hover:shadow-xl" : "cursor-default"}
         transition-all duration-300
-        ${isHighlight ? "aspect-[3/4]" : "aspect-[3/4]"}
       `}
     >
-      {/* Foto */}
-      {photoUrl ? (
-        <Image
-          src={photoUrl}
-          alt={member.alt || member.name}
-          fill
-          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
-        />
-      ) : (
-        <div
-          className="absolute inset-0 flex items-center justify-center"
-          style={{
-            background:
-              "linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)",
-          }}
-        >
-          <span className="text-7xl text-white/30 font-bold">
-            {member.name.charAt(0)}
-          </span>
-        </div>
-      )}
-
-      {/* Overlay gradiente */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
-
-      {/* Badge de tipo de cargo no topo (apenas highlight) */}
-      {isHighlight && member.roleType && (
-        <div className="absolute top-4 left-4">
-          <span
-            className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-white"
-            style={{ background: "var(--color-primary)" }}
-          >
-            {ROLE_TYPE_LABELS[member.roleType] || member.roleType}
-          </span>
-        </div>
-      )}
-
-      {/* Informações na base */}
-      <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
-        <p className="font-bold text-lg leading-tight">{member.name}</p>
-        {member.role && (
-          <p className="text-white/70 text-sm mt-0.5">{member.role}</p>
-        )}
-        {hasBio && (
+      {/* Container de imagem sem posicionamento absoluto */}
+      <div
+        className="relative w-full overflow-hidden rounded-2xl"
+        style={{ aspectRatio: "3/4" }}
+      >
+        {/* Foto */}
+        {photoUrl ? (
+          <Image
+            src={photoUrl}
+            alt={member.alt || member.name}
+            fill
+            className="object-cover object-center block group-hover:scale-105 transition-transform duration-500"
+          />
+        ) : (
           <div
-            className="mt-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide"
-            style={{ color: "var(--color-primary)" }}
+            className="flex items-center justify-center"
+            style={{
+              background:
+                "linear-gradient(135deg, var(--color-primary) 0%, var(--color-secondary) 100%)",
+              aspectRatio: "3/4",
+            }}
           >
-            <span>Ver perfil</span>
-            <svg
-              className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
+            <span className="text-7xl text-white/30 font-bold">
+              {member.name.charAt(0)}
+            </span>
           </div>
         )}
+
+        {/* Overlay gradiente */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-90 group-hover:opacity-100 transition-opacity duration-300" />
+
+        {/* Badge de tipo de cargo no topo (apenas highlight) */}
+        {isHighlight && member.roleType && (
+          <div className="absolute top-4 left-4">
+            <span
+              className="inline-block px-3 py-1 rounded-full text-xs font-bold uppercase tracking-widest text-white"
+              style={{ background: "var(--color-primary)" }}
+            >
+              {ROLE_TYPE_LABELS[member.roleType] || member.roleType}
+            </span>
+          </div>
+        )}
+
+        {/* Informações na base */}
+        <div className="absolute bottom-0 left-0 right-0 p-5 text-white">
+          <p className="font-bold text-lg leading-tight">{member.name}</p>
+          {member.role && (
+            <p className="text-white/70 text-sm mt-0.5">
+              {member.role}
+            </p>
+          )}
+          {hasBio && (
+            <div
+              className="mt-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wide"
+              style={{ color: "var(--color-primary)" }}
+            >
+              <span>Ver perfil</span>
+              <svg
+                className="w-3 h-3 group-hover:translate-x-0.5 transition-transform"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </div>
+          )}
+        </div>
       </div>
     </motion.div>
   );
@@ -398,15 +405,18 @@ export function BoardSection({ members }: BoardSectionProps) {
                           <div className="flex-1 h-px bg-gray-100 ml-2" />
                         </motion.div>
 
-                        {/* Grid do grupo */}
+                        {/* Grid do grupo - Masonry vertical */}
                         {isPresidency ? (
                           // Presidência: cards maiores e centralizados
                           <div
                             className={`grid gap-8 ${
                               group.members.length === 1
                                 ? "grid-cols-1 max-w-xs mx-auto"
-                                : "grid-cols-1 sm:grid-cols-2 max-w-xl mx-auto"
+                                : "grid-cols-1 sm:grid-cols-2 max-w-2xl mx-auto"
                             }`}
+                            style={{
+                              gridAutoRows: "max-content",
+                            }}
                           >
                             {group.members.map((member, i) => (
                               <MemberCard
@@ -419,8 +429,13 @@ export function BoardSection({ members }: BoardSectionProps) {
                             ))}
                           </div>
                         ) : (
-                          // Demais: grid 2-3 colunas
-                          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5">
+                          // Demais: masonry 2-3-4 colunas
+                          <div
+                            className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-5"
+                            style={{
+                              gridAutoRows: "max-content",
+                            }}
+                          >
                             {group.members.map((member, i) => (
                               <MemberCard
                                 key={member._id}

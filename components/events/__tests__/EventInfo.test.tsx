@@ -19,15 +19,7 @@ vi.mock("framer-motion", () => ({
   ),
 }));
 
-// Mock lucide-react icons to avoid render issues
-vi.mock("lucide-react", () => ({
-  Calendar: () => <svg data-testid="icon-calendar" />,
-  MapPin: () => <svg data-testid="icon-mappin" />,
-  Ticket: () => <svg data-testid="icon-ticket" />,
-  FolderOpen: () => <svg data-testid="icon-folder" />,
-  ArrowRight: () => <svg data-testid="icon-arrow-right" />,
-  ArrowUpRight: () => <svg data-testid="icon-arrow-up-right" />,
-}));
+
 
 describe("EventInfo — Ingresso", () => {
   it("exibe 'Gratuito' para evento gratuito", () => {

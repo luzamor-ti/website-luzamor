@@ -136,12 +136,8 @@ describe("CursosTemplate", () => {
     expect(pianoImage).toBeInTheDocument();
   });
 
-  it("renders teacher seals", async () => {
-    const component = await CursosTemplate();
-    render(component);
-
-    expect(screen.getByText("João Silva")).toBeInTheDocument();
-    expect(screen.getByText("Maria Santos")).toBeInTheDocument();
+  it.skip("renders teacher seals", async () => {
+    // Teacher seals were removed from course cards in the redesign
   });
 
   it("renders enrollment button text", async () => {
@@ -158,11 +154,11 @@ describe("CursosTemplate", () => {
 
     const links = screen.getAllByRole("link");
     const courseLinks = links.filter((link) =>
-      link.getAttribute("href")?.startsWith("/course/"),
+      link.getAttribute("href")?.startsWith("/curso/"),
     );
 
-    expect(courseLinks[0]).toHaveAttribute("href", "/course/curso-violao");
-    expect(courseLinks[1]).toHaveAttribute("href", "/course/curso-piano");
+    expect(courseLinks[0]).toHaveAttribute("href", "/curso/curso-violao");
+    expect(courseLinks[1]).toHaveAttribute("href", "/curso/curso-piano");
   });
 
   it("calls getCourses service", async () => {

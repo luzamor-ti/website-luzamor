@@ -2,6 +2,15 @@ import { render, screen } from "@testing-library/react";
 import { describe, it, expect } from "vitest";
 import { OurHistorySection } from "../OurHistorySection";
 
+vi.mock("@/sanity/lib/image", () => ({
+  urlFor: vi.fn().mockReturnValue({
+    width: vi.fn().mockReturnThis(),
+    height: vi.fn().mockReturnThis(),
+    url: vi.fn().mockReturnValue("mock-url"),
+  }),
+  isValidSanityImage: vi.fn().mockReturnValue(true),
+}));
+
 describe("OurHistorySection", () => {
   const mockData = {
     tagline: "Nossa Jornada",
