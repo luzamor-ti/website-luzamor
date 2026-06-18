@@ -17,9 +17,9 @@ interface CourseDescriptionProps {
     active: boolean;
     buttonText?: string;
     messageText?: string;
+    whatsapp?: string;
   };
   courseTitle: string;
-  whatsappNumber?: string;
   globalWhatsapp?: string;
 }
 
@@ -29,9 +29,9 @@ export function CourseDescription({
   monthlyOptions,
   enrollment,
   courseTitle,
-  whatsappNumber,
   globalWhatsapp,
 }: CourseDescriptionProps) {
+  console.log(enrollment);
   return (
     <Section className="my-12 p-8 md:p-12">
       <div className="max-w-7xl mx-auto">
@@ -94,7 +94,7 @@ export function CourseDescription({
                     title={courseTitle}
                     buttonText={enrollment?.buttonText}
                     messageText={enrollment?.messageText}
-                    whatsappNumber={whatsappNumber}
+                    whatsappNumber={enrollment?.whatsapp}
                     globalWhatsapp={globalWhatsapp}
                   />
                 </div>

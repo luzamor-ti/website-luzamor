@@ -24,7 +24,6 @@ export function CourseEnrollmentForm({
       messageText,
       globalWhatsapp,
     );
-
     // Send directly to WhatsApp without name capture
     const finalUrl = decodeURIComponent(whatsappData.href)
       .replace("{nome}", "")
