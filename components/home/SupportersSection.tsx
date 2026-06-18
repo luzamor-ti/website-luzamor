@@ -25,7 +25,7 @@ export function SupportersSection({ data, section }: SupportersSectionProps) {
   const fallback = TEXT_FALLBACKS.supporters;
   const linkText =
     section?.linkText || fallback.linkText || "Ver todos os apoiadores";
-  const linkUrl = section?.linkUrl || "/apoiadores";
+  const linkUrl = section?.linkUrl || "/patrocinador";
 
   return (
     <Section>
